@@ -16,10 +16,10 @@ namespace ConstructionSite.Repository.Abstract
         Task<T> GetByIdAsync(int id);
 
         T Find(Expression<Func<T, bool>> predecat);
-        Task<T> FindAsync(Expression<Func<T, bool>> match);
+        Task<T> FindAsync(Expression<Func<T, bool>> predecat);
 
-        ICollection<T> FindAll(Expression<Func<T, bool>> match);
+        ICollection<T> FindAll(Expression<Func<T, bool>> predecat);
 
-        Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> match);
+        Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat);
     }
 }

@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite", "ConstructionSite\ConstructionSite.csproj", "{CEDDEEFE-381B-456E-9FBD-B4AC28209D14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Entity", "ConstructionSite.Entity\ConstructionSite.Entity.csproj", "{36F4D197-A5FE-4CAD-B87C-ACFCD2F773DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Entity", "ConstructionSite.Entity\ConstructionSite.Entity.csproj", "{36F4D197-A5FE-4CAD-B87C-ACFCD2F773DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Repository", "ConstructionSite.Repository\ConstructionSite.Repository.csproj", "{1DBFFB61-9D5F-42D6-9C84-C0D07066B83A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Repository", "ConstructionSite.Repository\ConstructionSite.Repository.csproj", "{1DBFFB61-9D5F-42D6-9C84-C0D07066B83A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Helpers", "ConstructionSite.Helpers\ConstructionSite.Helpers.csproj", "{E6C45599-9936-4033-AA88-E6FC68E2FB6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1DBFFB61-9D5F-42D6-9C84-C0D07066B83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DBFFB61-9D5F-42D6-9C84-C0D07066B83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DBFFB61-9D5F-42D6-9C84-C0D07066B83A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6C45599-9936-4033-AA88-E6FC68E2FB6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C45599-9936-4033-AA88-E6FC68E2FB6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C45599-9936-4033-AA88-E6FC68E2FB6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6C45599-9936-4033-AA88-E6FC68E2FB6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
