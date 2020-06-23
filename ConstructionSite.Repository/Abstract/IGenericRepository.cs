@@ -9,17 +9,18 @@ namespace ConstructionSite.Repository.Abstract
     public interface IGenericRepository<T> where T : class
     {
         #region ---List---
+
         ICollection<T> GetAll();
 
         Task<ICollection<T>> GetAllAsync();
-        #endregion
 
-        #region --GetByID--
+        #endregion ---List---
+
+        #region --Seach--
+
         T GetById(int id);
 
         Task<T> GetByIdAsync(int id);
-        #endregion
-
 
         T Find(Expression<Func<T, bool>> predecat);
 
@@ -29,30 +30,42 @@ namespace ConstructionSite.Repository.Abstract
 
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat);
 
+        #endregion --Seach--
+
+        #region --Added--
+
         Result<T> Add(T entity);
 
         Task<Result<T>> AddAsync(T entity);
 
-        Task<Result<T>> AddRangeAsync(ICollection<T> entities);
+        Task<Result<T>> AddRangeAsync(ICollection<T> entity);
 
-        Result<T> AddRange(ICollection<T> entities);
+        Result<T> AddRange(ICollection<T> entity);
 
-        Result<T> Update(T updated);
+        #endregion --Added--
 
-        Result<T> UpdateRange(ICollection<T> entities);
+        #region Update
 
-        Task<Result<T>> UpdateAsync(T updated);
+        Result<T> Update(T entity);
 
-        Task<Result<T>> UpdateRangeAsync(ICollection<T> entities);
+        Result<T> UpdateRange(ICollection<T> entity);
 
-        Result<T> Delete(T t);
+        Task<Result<T>> UpdateAsync(T entity);
 
-        Result<T> DeleteUnCommitted(T t);
+        Task<Result<T>> UpdateRangeAsync(ICollection<T> entity);
 
-        Task<Result<T>> DeleteAsync(T t);
+        #endregion Update
 
-        Result<T> DeleteRange(ICollection<T> entities);
+        #region --Delete--
 
-        Task<Result<T>> DeleteRangeAsync(ICollection<T> entities);
+        Result<T> Delete(T entity);
+
+        Task<Result<T>> DeleteAsync(T entity);
+
+        Result<T> DeleteRange(ICollection<T> entity);
+
+        Task<Result<T>> DeleteRangeAsync(ICollection<T> entity);
+
+        #endregion --Delete--
     }
 }
