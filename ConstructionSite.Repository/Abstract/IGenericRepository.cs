@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Repository.Abstract
 {
@@ -8,7 +9,7 @@ namespace ConstructionSite.Repository.Abstract
     {
         ICollection<T> GetAll();
 
-        //Task<ICollection<T>> GetAllAsync();
+        Task<ICollection<T>> GetAllAsync();
 
         //T GetById(int id);
 
