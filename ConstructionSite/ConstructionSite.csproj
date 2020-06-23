@@ -12,4 +12,8 @@
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

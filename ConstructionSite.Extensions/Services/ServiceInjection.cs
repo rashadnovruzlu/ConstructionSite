@@ -8,7 +8,7 @@ namespace ConstructionSite.Extensions.Services
 {
     public static class ServiceInjection
     {
-        public static void Servies(this IServiceCollection services, IConfiguration Configuration)
+        public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<mycontext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
