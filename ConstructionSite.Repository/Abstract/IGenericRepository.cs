@@ -13,6 +13,6 @@ namespace ConstructionSite.Repository.Abstract
 
         T GetById(int id);
 
-        //Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int id);
     }
 }
