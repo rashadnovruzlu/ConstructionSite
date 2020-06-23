@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Helpers", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Extensions", "ConstructionSite.Extensions\ConstructionSite.Extensions.csproj", "{8B4295FB-7FD7-44B7-9657-F586A0F12C12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.DTO", "ConstructionSite.DTO\ConstructionSite.DTO.csproj", "{585141C0-A088-424D-B78A-E1D339957D4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8B4295FB-7FD7-44B7-9657-F586A0F12C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B4295FB-7FD7-44B7-9657-F586A0F12C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B4295FB-7FD7-44B7-9657-F586A0F12C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{585141C0-A088-424D-B78A-E1D339957D4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585141C0-A088-424D-B78A-E1D339957D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585141C0-A088-424D-B78A-E1D339957D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585141C0-A088-424D-B78A-E1D339957D4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
