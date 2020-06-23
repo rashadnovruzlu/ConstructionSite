@@ -21,14 +21,17 @@ namespace ConstructionSite.Repository.Concreate
         #endregion --Fild--
 
         #region --Ctor--
-
         public GenericRepository(DbContext context)
         {
             _context = context;
             _unitOfWork = new UnitOfWork(context);
         }
+        #endregion
 
-        #endregion --Ctor--
+
+
+
+
 
         #region --GetAll--
 
