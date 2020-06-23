@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Helpers.Core;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -9,6 +10,20 @@ namespace ConstructionSite.Repository.Concreate
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
+        #region --Fild--
+        private readonly DbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        private string _errorMessage = string.Empty;
+        #endregion
+        #region --Ctor
+        public GenericRepository(DbContext context)
+        {
+            _context = context;
+            _unitOfWork = new UnitOfWork(context);
+        }
+        #endregion
+
+
         #region --Added--
         public Result<T> Add(T entity)
         {

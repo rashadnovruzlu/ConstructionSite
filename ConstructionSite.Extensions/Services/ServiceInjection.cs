@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Repository.Abstract;
+﻿using ConstructionSite.Entity.Data;
+using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Concreate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +11,7 @@ namespace ConstructionSite.Extensions.Services
     {
         public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<mycontext>(options =>
+            services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
