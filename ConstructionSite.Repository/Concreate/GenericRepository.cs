@@ -2,7 +2,6 @@
 using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -14,30 +13,39 @@ namespace ConstructionSite.Repository.Concreate
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         #region --Fild--
+
         private readonly DbContext _context;
         private readonly IUnitOfWork _unitOfWork;
         private string _errorMessage = string.Empty;
-        #endregion
+
+        #endregion --Fild--
+
         #region --Ctor--
+
         public GenericRepository(DbContext context)
         {
             _context = context;
             _unitOfWork = new UnitOfWork(context);
         }
-        #endregion
+
+        #endregion --Ctor--
 
         #region --GetAll--
+
         public ICollection<T> GetAll()
         {
-            return  _context.Set<T>().ToList();
+            return _context.Set<T>().ToList();
         }
 
         public async Task<ICollection<T>> GetAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
         }
-        #endregion
+
+        #endregion --GetAll--
+
         #region --Added--
+
         public Result<T> Add(T entity)
         {
             Result<T> result = new Result<T> { IsResult = true };
@@ -49,13 +57,11 @@ namespace ConstructionSite.Repository.Concreate
             {
                 _context.Set<T>().Add(entity);
                 _context.SaveChanges();
-                result.Data=entity;
-               
+                result.Data = entity;
             }
-            catch 
+            catch
             {
-               result.IsResult=false;
-                
+                result.IsResult = false;
             }
             return result;
         }
@@ -72,11 +78,9 @@ namespace ConstructionSite.Repository.Concreate
                 await _context.Set<T>().AddAsync(entity);
                 await _unitOfWork.Commit();
                 result.Data = entity;
-
             }
-            catch 
+            catch
             {
-
                 result.IsResult = false;
             }
             return result;
@@ -84,7 +88,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public Result<T> AddRange(ICollection<T> entity)
         {
-            Result<T> result=new Result<T> { IsResult=true};
+            Result<T> result = new Result<T> { IsResult = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -93,12 +97,9 @@ namespace ConstructionSite.Repository.Concreate
             {
                 _context.Set<T>().AddRange(entity);
                 _context.SaveChanges();
-              
-                
             }
-            catch 
+            catch
             {
-
                 result.IsResult = false;
             }
             return result;
@@ -115,36 +116,35 @@ namespace ConstructionSite.Repository.Concreate
             {
                 await _context.Set<T>().AddRangeAsync(entity);
                 await _unitOfWork.Commit();
-
             }
-            catch 
+            catch
             {
-              result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
-        #endregion
+
+        #endregion --Added--
+
         #region --Update--
+
         public Result<T> Update(T entity)
         {
             Result<T> result = new Result<T> { IsResult = true };
-            if (entity==null)
+            if (entity == null)
             {
-                result.IsResult=false;
-                 throw new ArgumentNullException();
-
+                result.IsResult = false;
+                throw new ArgumentNullException();
             }
             try
             {
-                  _context.Set<T>().Attach(entity);
-                  _context.Entry(entity).State = EntityState.Modified;
-                  _context.SaveChanges();
-               
+                _context.Set<T>().Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+                _context.SaveChanges();
             }
-            catch 
+            catch
             {
-
-                result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
@@ -156,21 +156,20 @@ namespace ConstructionSite.Repository.Concreate
             {
                 throw new ArgumentNullException();
             }
-            if (entity==null)
+            if (entity == null)
             {
                 throw new ArgumentNullException();
             }
             try
             {
                 _context.Set<T>().Attach(entity);
-                _context.Entry(entity).State=EntityState.Modified;
+                _context.Entry(entity).State = EntityState.Modified;
                 await _unitOfWork.Commit();
             }
             catch (DbEntityValidationException ex)
             {
-
-                _errorMessage+=Tools.WriteExeptions(ex);
-                result.IsResult=false;
+                _errorMessage += Tools.WriteExeptions(ex);
+                result.IsResult = false;
             }
             return result;
         }
@@ -178,7 +177,7 @@ namespace ConstructionSite.Repository.Concreate
         public Result<T> UpdateRange(ICollection<T> entity)
         {
             Result<T> result = new Result<T> { IsResult = true };
-            if (entity==null)
+            if (entity == null)
             {
                 throw new ArgumentNullException();
             }
@@ -191,10 +190,9 @@ namespace ConstructionSite.Repository.Concreate
                 }
                 _context.SaveChangesAsync();
             }
-            catch 
+            catch
             {
-
-               result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
@@ -213,17 +211,19 @@ namespace ConstructionSite.Repository.Concreate
                     _context.Set<T>().Attach(item);
                     _context.Entry(item).State = EntityState.Modified;
                 }
-               await _unitOfWork.Commit();
+                await _unitOfWork.Commit();
             }
             catch
             {
-
                 result.IsResult = false;
             }
             return result;
         }
-        #endregion
+
+        #endregion --Update--
+
         #region --Delete--
+
         public Result<T> Delete(T entity)
         {
             Result<T> result = new Result<T> { IsResult = true };
@@ -236,10 +236,9 @@ namespace ConstructionSite.Repository.Concreate
                 _context.Set<T>().Remove(entity);
                 _context.SaveChanges();
             }
-            catch 
+            catch
             {
-
-               result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
@@ -258,8 +257,7 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-
-               result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
@@ -275,12 +273,10 @@ namespace ConstructionSite.Repository.Concreate
             {
                 _context.Set<T>().RemoveRange(entity);
                 _context.SaveChanges();
-
             }
-            catch 
+            catch
             {
-
-               result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
@@ -297,17 +293,18 @@ namespace ConstructionSite.Repository.Concreate
                 _context.Set<T>().RemoveRange(entity);
 
                 await _unitOfWork.Commit();
-
             }
-            catch 
+            catch
             {
-
-                result.IsResult=false;
+                result.IsResult = false;
             }
             return result;
         }
-        #endregion
+
+        #endregion --Delete--
+
         #region --Search--
+
         public T Find(Expression<Func<T, bool>> predecat)
         {
             throw new NotImplementedException();
@@ -327,6 +324,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             throw new NotImplementedException();
         }
+
         public T GetById(int id)
         {
             throw new NotImplementedException();
@@ -337,12 +335,6 @@ namespace ConstructionSite.Repository.Concreate
             throw new NotImplementedException();
         }
 
-        #endregion
-       
-       
-
-
-
-
+        #endregion --Search--
     }
 }

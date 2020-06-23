@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Repository.Concreate
@@ -39,27 +38,26 @@ namespace ConstructionSite.Repository.Concreate
             Repositories.Add(typeof(T), repo);
             return repo;
         }
+
         public async Task<Result<int>> Commit()
         {
-           Result<int> result=new Result<int> { IsResult=false};
+            Result<int> result = new Result<int> { IsResult = false };
             try
             {
-             result.Data=await   _dbContext.SaveChangesAsync();
-             result.IsResult=true;
+                result.Data = await _dbContext.SaveChangesAsync();
+                result.IsResult = true;
             }
             catch (DbEntityValidationException ex)
             {
-                _errorMessage+=  Tools.WriteExeptions(ex);
-                throw new DbContextCommitException(_errorMessage,ex);
+                _errorMessage += Tools.WriteExeptions(ex);
+                throw new DbContextCommitException(_errorMessage, ex);
             }
-           return result;
+            return result;
         }
-
-       
 
         public void Rollback()
         {
-            _dbContext.ChangeTracker.Entries().ToList().ForEach(x=>x.Reload());
+            _dbContext.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
         }
     }
 }
