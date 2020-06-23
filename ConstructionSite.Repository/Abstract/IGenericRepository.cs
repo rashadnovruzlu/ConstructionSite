@@ -11,7 +11,7 @@ namespace ConstructionSite.Repository.Abstract
 
         Task<ICollection<T>> GetAllAsync();
 
-        //T GetById(int id);
+        T GetById(int id);
 
         //Task<T> GetByIdAsync(int id);
     }
