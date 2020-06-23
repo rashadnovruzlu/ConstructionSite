@@ -9,6 +9,7 @@ namespace ConstructionSite.Repository.Concreate
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
+        #region --Added--
         public Result<T> Add(T entity)
         {
             throw new NotImplementedException();
@@ -28,7 +29,8 @@ namespace ConstructionSite.Repository.Concreate
         {
             throw new NotImplementedException();
         }
-
+        #endregion
+        #region --Delete--
         public Result<T> Delete(T entity)
         {
             throw new NotImplementedException();
@@ -48,47 +50,8 @@ namespace ConstructionSite.Repository.Concreate
         {
             throw new NotImplementedException();
         }
-
-        public T Find(Expression<Func<T, bool>> predecat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ICollection<T> FindAll(Expression<Func<T, bool>> predecat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> FindAsync(Expression<Func<T, bool>> predecat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ICollection<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ICollection<T>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public T GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        #endregion
+        #region --Update--
         public Result<T> Update(T entity)
         {
             throw new NotImplementedException();
@@ -108,5 +71,53 @@ namespace ConstructionSite.Repository.Concreate
         {
             throw new NotImplementedException();
         }
+        #endregion
+        #region --Search--
+        public T Find(Expression<Func<T, bool>> predecat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<T> FindAll(Expression<Func<T, bool>> predecat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> FindAsync(Expression<Func<T, bool>> predecat)
+        {
+            throw new NotImplementedException();
+        }
+        public T GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+        #region --GetAll--
+        public ICollection<T> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ICollection<T>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+       
+
+
+
+
     }
 }
