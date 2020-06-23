@@ -215,22 +215,85 @@ namespace ConstructionSite.Repository.Concreate
         #region --Delete--
         public Result<T> Delete(T entity)
         {
-            throw new NotImplementedException();
+            Result<T> result = new Result<T> { IsResult = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Remove(entity);
+                _context.SaveChanges();
+            }
+            catch 
+            {
+
+               result.IsResult=false;
+            }
+            return result;
         }
 
-        public Task<Result<T>> DeleteAsync(T entity)
+        public async Task<Result<T>> DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            Result<T> result = new Result<T> { IsResult = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Remove(entity);
+                await _unitOfWork.Commit();
+            }
+            catch
+            {
+
+               result.IsResult=false;
+            }
+            return result;
         }
 
         public Result<T> DeleteRange(ICollection<T> entity)
         {
-            throw new NotImplementedException();
+            Result<T> result = new Result<T> { IsResult = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().RemoveRange(entity);
+                _context.SaveChanges();
+
+            }
+            catch 
+            {
+
+               result.IsResult=false;
+            }
+            return result;
         }
 
-        public Task<Result<T>> DeleteRangeAsync(ICollection<T> entity)
+        public async Task<Result<T>> DeleteRangeAsync(ICollection<T> entity)
         {
-            throw new NotImplementedException();
+            Result<T> result = new Result<T> { IsResult = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().RemoveRange(entity);
+
+                await _unitOfWork.Commit();
+
+            }
+            catch 
+            {
+
+                result.IsResult=false;
+            }
+            return result;
         }
         #endregion
        
