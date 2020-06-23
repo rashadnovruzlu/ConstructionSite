@@ -49,7 +49,7 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch (DbEntityValidationException ex)
             {
-                Tools.WriteExeptions(ex);
+                _errorMessage+=  Tools.WriteExeptions(ex);
                 throw new DbContextCommitException(_errorMessage,ex);
             }
            return result;

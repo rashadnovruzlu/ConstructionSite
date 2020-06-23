@@ -5,6 +5,7 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace ConstructionSite.Repository.Concreate
         private readonly IUnitOfWork _unitOfWork;
         private string _errorMessage = string.Empty;
         #endregion
-        #region --Ctor
+        #region --Ctor--
         public GenericRepository(DbContext context)
         {
             _context = context;
@@ -25,7 +26,17 @@ namespace ConstructionSite.Repository.Concreate
         }
         #endregion
 
+        #region --GetAll--
+        public ICollection<T> GetAll()
+        {
+            return  _context.Set<T>().ToList();
+        }
 
+        public async Task<ICollection<T>> GetAllAsync()
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+        #endregion
         #region --Added--
         public Result<T> Add(T entity)
         {
@@ -296,7 +307,6 @@ namespace ConstructionSite.Repository.Concreate
             return result;
         }
         #endregion
-       
         #region --Search--
         public T Find(Expression<Func<T, bool>> predecat)
         {
@@ -328,17 +338,7 @@ namespace ConstructionSite.Repository.Concreate
         }
 
         #endregion
-        #region --GetAll--
-        public ICollection<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ICollection<T>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
+       
        
 
 
