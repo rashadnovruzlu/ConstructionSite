@@ -1,14 +1,59 @@
-﻿using ConstructionSite.Repository.Abstract;
+﻿using ConstructionSite.Helpers.Core;
+using ConstructionSite.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Repository.Concreate
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
+        public Result<T> Add(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<T>> AddAsync(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<T> AddRange(ICollection<T> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<T>> AddRangeAsync(ICollection<T> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<T> Delete(T t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<T>> DeleteAsync(T t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<T> DeleteRange(ICollection<T> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<T>> DeleteRangeAsync(ICollection<T> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<T> DeleteUnCommitted(T t)
+        {
+            throw new NotImplementedException();
+        }
+
         public T Find(Expression<Func<T, bool>> predecat)
         {
             throw new NotImplementedException();
@@ -45,6 +90,26 @@ namespace ConstructionSite.Repository.Concreate
         }
 
         public Task<T> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<T> Update(T updated)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<T>> UpdateAsync(T updated)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result<T> UpdateRange(ICollection<T> entities)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<T>> UpdateRangeAsync(ICollection<T> entities)
         {
             throw new NotImplementedException();
         }
