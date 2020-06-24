@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ConstructionSite.Resources
+﻿namespace Mursheed.WebCoreMVC_3_1.Resources
 {
     public class SharedResource
     {
