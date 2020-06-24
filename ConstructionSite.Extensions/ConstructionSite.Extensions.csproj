@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Localization\" />
     <Folder Include="Seed\" />
   </ItemGroup>
 
