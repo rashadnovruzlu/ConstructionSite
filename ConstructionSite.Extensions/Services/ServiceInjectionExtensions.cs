@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ConstructionSite.Extensions.Services
 {
-    public static class ServiceInjection
+    public static class ServiceInjectionExtensions
     {
         public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
         {
