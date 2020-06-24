@@ -7,7 +7,7 @@ namespace ConstructionSite.Repository.Abstract
     {
         IGenericRepository<T> Repository<T>() where T : class;
 
-        Task<Result<int>> Commit();
+        Task<RESULT<int>> Commit();
 
         void Rollback();
     }

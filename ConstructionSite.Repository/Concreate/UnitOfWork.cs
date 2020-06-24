@@ -39,9 +39,9 @@ namespace ConstructionSite.Repository.Concreate
             return repo;
         }
 
-        public async Task<Result<int>> Commit()
+        public async Task<RESULT<int>> Commit()
         {
-            Result<int> result = new Result<int> { IsDone = false };
+            RESULT<int> result = new RESULT<int> { IsDone = false };
             try
             {
                 result.Data = await _dbContext.SaveChangesAsync();
