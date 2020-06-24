@@ -14,11 +14,15 @@ namespace ConstructionSite.Extensions.Localization
         public static void LocalizationLoad(IServiceCollection services)
         {
             services.AddLocalization(x => x.ResourcesPath = "Resources");
+            
             services.Configure<RequestLocalizationOptions>(options =>
-            { 
-            options.DefaultRequestCulture=new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
-            options.SupportedCultures=LANGUAGECONSTANT.GetCultureInfo();
-            options.SupportedUICultures=LANGUAGECONSTANT.GetCultureInfo();
+            {
+                //hec bir dil göstərilməzsə default olaraq Azərbaycan dilini götür
+                options.DefaultRequestCulture=new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
+                //vaxt və tarix, pul formatı , rəqəm təsviri üçün
+                options.SupportedCultures=LANGUAGECONSTANT.GetCultureInfo();
+                //səhifədəki sözlərin tərcümə olunması üçün
+                options.SupportedUICultures=LANGUAGECONSTANT.GetCultureInfo();
             
             });
         }
