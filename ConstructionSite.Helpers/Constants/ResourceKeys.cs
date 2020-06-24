@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.Helpers.ControllerResources
+namespace ConstructionSite.Helpers.Constants
 {
     public static class ResourceKeys
     {
