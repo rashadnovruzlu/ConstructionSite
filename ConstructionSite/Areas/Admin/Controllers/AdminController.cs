@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Areas.Admin.Models;
 using ConstructionSite.Entity.Identity;
+using ConstructionSite.Helpers.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -45,6 +46,52 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 }
             }
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+        var user=  await  _UserManager.FindByIdAsync(id);
+            if (user==null)
+            {
+                ModelState.AddModelError("", "User Not Exists");
+                throw new UserNotExistsException("User Not Exists");
+
+            }
+            if (user!=null)
+            {
+              var result=await  _UserManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        ModelState.AddModelError("",item.Description);
+                    }
+                }
+            }
+            return View("Index",_UserManager.Users);
+        }
+        public async Task<IActionResult> Update(string id)
+        {
+            var user=await _UserManager.FindByIdAsync(id);
+            if (user==null)
+            {
+                ModelState.AddModelError("", "User Not Exists");
+                throw new UserNotExistsException("User Not Exists");
+            }
+            if (user!=null)
+            {
+                return View(user);
+            }
+            else
+            {
+
+                return RedirectToAction("Index");
+            }
+           
         }
     }
 }
