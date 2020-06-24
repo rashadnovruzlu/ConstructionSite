@@ -41,11 +41,11 @@ namespace ConstructionSite.Repository.Concreate
 
         public async Task<Result<int>> Commit()
         {
-            Result<int> result = new Result<int> { IsResult = false };
+            Result<int> result = new Result<int> { IsDone = false };
             try
             {
                 result.Data = await _dbContext.SaveChangesAsync();
-                result.IsResult = true;
+                result.IsDone = true;
             }
             catch (DbEntityValidationException ex)
             {

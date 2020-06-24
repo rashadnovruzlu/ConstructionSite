@@ -51,7 +51,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public Result<T> Add(T entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -64,14 +64,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public async Task<Result<T>> AddAsync(T entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -84,14 +84,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public Result<T> AddRange(ICollection<T> entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -103,14 +103,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public async Task<Result<T>> AddRangeAsync(ICollection<T> entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -122,7 +122,7 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
@@ -133,10 +133,10 @@ namespace ConstructionSite.Repository.Concreate
 
         public Result<T> Update(T entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
-                result.IsResult = false;
+                result.IsDone = false;
                 throw new ArgumentNullException();
             }
             try
@@ -147,14 +147,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public async Task<Result<T>> UpdateAsync(T entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -172,14 +172,14 @@ namespace ConstructionSite.Repository.Concreate
             catch (DbEntityValidationException ex)
             {
                 _errorMessage += Tools.WriteExeptions(ex);
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public Result<T> UpdateRange(ICollection<T> entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -195,14 +195,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public async Task<Result<T>> UpdateRangeAsync(ICollection<T> entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -218,7 +218,7 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
@@ -229,7 +229,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public Result<T> Delete(T entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -241,14 +241,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public async Task<Result<T>> DeleteAsync(T entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -260,14 +260,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public Result<T> DeleteRange(ICollection<T> entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -279,14 +279,14 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }
 
         public async Task<Result<T>> DeleteRangeAsync(ICollection<T> entity)
         {
-            Result<T> result = new Result<T> { IsResult = true };
+            Result<T> result = new Result<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -299,7 +299,7 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch
             {
-                result.IsResult = false;
+                result.IsDone = false;
             }
             return result;
         }

@@ -3,6 +3,6 @@
     public class Result<T>
     {
         public T Data { get; set; }
-        public bool IsResult { get; set; }
+        public bool IsDone { get; set; }
     }
 }
