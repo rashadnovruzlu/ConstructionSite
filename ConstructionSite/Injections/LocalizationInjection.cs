@@ -9,7 +9,7 @@ namespace ConstructionSite.Injections
 {
     public static class LocalizationInjection
     {
-        public static void LocalizationLoad(IServiceCollection services)
+        public static void LocalizationLoad(this IServiceCollection services)
         {
             services.AddLocalization(x => x.ResourcesPath = "Resources");
             services.AddSingleton<SharedLocalizationHandle>();

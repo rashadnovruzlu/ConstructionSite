@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace ConstructionSite.Extensions
+
+namespace ConstructionSite.Sessions
 {
     public static class SessionExtensions
     {

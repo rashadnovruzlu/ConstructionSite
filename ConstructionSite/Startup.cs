@@ -1,4 +1,5 @@
 using ConstructionSite.Extensions.Services;
+using ConstructionSite.Injections;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,8 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+        
+            services.LocalizationLoad();
             services.ServiceLoad(Configuration);
             services.AddControllersWithViews();
         }
