@@ -18,6 +18,7 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.ServiceLoad(Configuration);
             services.AddControllersWithViews();
         }

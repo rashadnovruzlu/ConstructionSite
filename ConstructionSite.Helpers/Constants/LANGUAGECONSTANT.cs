@@ -20,6 +20,19 @@ namespace ConstructionSite.Helpers.Constants
             };
             return Language;
         }
+        public static Dictionary<string, string> GetCountryProviders()
+        {
+            Dictionary<string, string> map =
+                new Dictionary<string, string>
+                {
+                    {"az",Az},
+                    {"us",En},
+                    {"ru",Ru},
+                  
+                };
+
+            return map;
+        }
         public static CultureInfo[] GetCultureInfo()
         {
             return GetLanguage().Select(x => new CultureInfo(x)).ToArray();
