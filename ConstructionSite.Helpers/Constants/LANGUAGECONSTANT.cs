@@ -20,7 +20,7 @@ namespace ConstructionSite.Helpers.Constants
             };
             return Language;
         }
-              public static CultureInfo[] GetCultureInfo()
+        public static CultureInfo[] GetCultureInfo()
         {
             return GetLanguage().Select(x => new CultureInfo(x)).ToArray();
         }
