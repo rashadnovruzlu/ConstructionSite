@@ -1,48 +1,271 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ConstructionSite</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>Construction - Ultimate Construction Template</title>
+    <meta name="description" content="Template built for Construction Company, Building Services, Architecture, Engineering, Cleaning Service and other Construction related services">
+    <meta name="keywords" content=" architecture, builder, building, building company, cleaning services, construction, construction business, construction company">
+    <meta name="author" content="blogwp.com">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Favicon and touch icons  -->
+    <link rel="shortcut icon" href="assets/icon/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/icon/apple-touch-icon-158-precomposed.png">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ConstructionSite</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+<!-- <body class="front-page no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5"> -->
+<body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
+
+    <div id="top"></div>
+
+    <div id="wrapper" class="animsition">
+        <div id="page" class="clearfix">
+            <div id="site-header-wrap">
+                <!-- Header -->
+                <header id="site-header" class="header-front-page style-5">
+                    <div id="site-header-inner" class="container">
+                        <div class="wrap-inner">
+                            <div id="site-logo" class="clearfix">
+                                <div id="site-logo-inner">
+                                    <a href="home-hero-slideshow.html" title="Construction" rel="home" class="main-logo">
+                                        <img src="assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light@2x.png" data-width="204" data-height="30">
+                                    </a>
+                                </div>
+                            </div><!-- /#site-logo -->
+
+                            <div class="mobile-button"><span></span></div><!-- //mobile menu button -->
+
+                            <nav id="main-nav" class="main-nav">
+                                <ul class="menu">
+                                    <li class="current-menu-item"><a href="#top">Home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="#team">Services</a>
+                                        <ul class="sub-menu">
+                                            <li class="menu-item"><a href="service-Construction.html">Construction</a></li>
+                                            <li class="menu-item"><a href="service-renovation.html">Renovation</a></li>
+                                            <li class="menu-item"><a href="service-consulting.html">Consulting</a></li>
+                                            <li class="menu-item"><a href="service-architecture.html">Architecture</a></li>
+                                            <li class="menu-item"><a href="service-electrical.html">Electrical</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </nav><!-- /#main-nav -->
+
+                            <div class="nav-top-cart-wrapper">
+                                <a class="nav-cart-trigger" href="#">
+                                    <span class="fa fa-language" aria-hidden="true"></span>
+                                </a>
+
+                                <div class="nav-shop-cart">
+                                    <div class="widget_shopping_cart_content">
+                                        <ul class="cart_list product_list_widget ">
+                                            <li id="en" class="mini_cart_item">
+                                                <a href="#">
+                                                    EN
+                                                </a>
+                                            </li>
+                                            <li id="az" class="mini_cart_item">
+                                                <a href="#">
+                                                    AZ
+                                                </a>
+                                            </li>
+                                            <li id="ru" class="mini_cart_item">
+                                                <a href="#">
+                                                    RU
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.product_list_widget -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /#site-header-inner -->
+                    </div>
+                </header>
+                <!-- /#site-header -->
+            </div>
+            <!-- /#site-header-wrap -->
+
+            @RenderBody()
+
+            <footer id="footer">
+                <div id="footer-widgets" class="container style-1">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="widget widget_about margin-bottom-25">
+                                <div class="margin-bottom-35">
+                                    <img src="assets/img/logo-light@2x.png" width="204" height="30" alt="image" />
+                                </div>
+                                <p>Nullam vel enim risus. Integer rhoncus hendrerit sem egestas porttitor.</p>
+                                <section class="widget widget_information">
+                                    <ul class="info-wrap">
+                                        <li class="address item">1 Beverly Hills, Los Angeles, California, 90210, United States</li>
+                                        <li class="phone item">+1 (390) 379 3368, +1 (390) 379 6868</li>
+                                        <li class="email item">contact@construction.com</li>
+                                    </ul>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="widget widget_tag_cloud">
+                                <h2 class="widget-title">Popular tags</h2>
+                                <div class="tagcloud">
+                                    <a href="#">Architectural</a>
+                                    <a href="#">Builder</a>
+                                    <a href="#">Fire</a>
+                                    <a href="#">Building</a>
+                                    <a href="#">Garden design</a>
+                                    <a href="#">Interior</a>
+                                    <a href="#">Marketing events</a>
+                                    <a href="#">ThemeForest</a>
+                                    <a href="#">Construction</a>
+                                    <a href="#">Exterior</a>
+                                    <a href="#">Highway</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="widget widget_links">
+                                <h2 class="widget-title">Useful links</h2>
+                                <ul class="links col2">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="portfolio.html">Portfolio</a></li>
+                                    <li class="last"><a href="terms.html">Term of Use</a></li>
+                                    <li class="last"><a href="about.html">About Us</a></li>
+                                    <li><a href="blog.html">News</a></li>
+                                    <li class="last"><a href="#">Conditions</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li class="last"><a href="#">Conditions</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="widget widget_instagram">
+                                <h2 class="widget-title">Instagram photos</h2>
+                                <div class="instagram-wrap clearfix g10">
+                                    <div class="instagram_badge_image">
+                                        <a href="#">
+                                            <div class="item">
+                                                <img src="assets/img/instagram/1.jpg" alt="image" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="instagram_badge_image">
+                                        <a href="#">
+                                            <div class="item">
+                                                <img src="assets/img/instagram/2.jpg" alt="image" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="instagram_badge_image">
+                                        <a href="#">
+                                            <div class="item">
+                                                <img src="assets/img/instagram/3.jpg" alt="image" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="instagram_badge_image">
+                                        <a href="#">
+                                            <div class="item">
+                                                <img src="assets/img/instagram/4.jpg" alt="image" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="instagram_badge_image">
+                                        <a href="#">
+                                            <div class="item">
+                                                <img src="assets/img/instagram/5.jpg" alt="image" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="instagram_badge_image">
+                                        <a href="#">
+                                            <div class="item">
+                                                <img src="assets/img/instagram/6.jpg" alt="image" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Bottom -->
+            <div id="bottom" class="clearfix style-1">
+                <div id="bottom-bar-inner" class="wprt-container">
+                    <div class="bottom-bar-inner-wrap">
+                        <div class="bottom-bar-menu">
+                            <ul class="bottom-nav">
+                                <li><a href="index.html">HOME</a></li>
+                                <li><a href="about.html">ABOUT</a></li>
+                                <li><a href="service-construction.html">SERVICES</a></li>
+                                <li><a href="contact.html">CONTACT</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.bottom-bar-menu -->
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - ConstructionSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+        <!-- /#page -->
+    </div>
+    <!-- /#wrapper -->
+
+    <a id="scroll-top">TOP</a>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/animsition.js"></script>
+    <script type="text/javascript" src="assets/js/plugins.js"></script>
+    <script type="text/javascript" src="assets/js/countTo.js"></script>
+    <script type="text/javascript" src="assets/js/fitText.js"></script>
+    <script type="text/javascript" src="assets/js/flexslider.js"></script>
+    <script type="text/javascript" src="assets/js/vegas.js"></script>
+    <script type="text/javascript" src="assets/js/owlCarousel.js"></script>
+    <script type="text/javascript" src="assets/js/cube.portfolio.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+
+    <!-- Revolution Slider -->
+    <script type="text/javascript" src="includes/rev-slider/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="assets/js/rev-slider.js"></script>
+
+    <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.migration.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="includes/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
+
 </body>
 </html>
+
+
