@@ -28,11 +28,6 @@ namespace ConstructionSite.Repository.Concreate
         }
         #endregion
 
-
-
-
-
-
         #region --GetAll--
 
         public ICollection<T> GetAll()
