@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Localization
 {
-    public class SharedLocalizationHandle: ISharedLocalizationHandle
+    public class SharedLocalizationHandle
     {
         private readonly IStringLocalizer localizer;
         public SharedLocalizationHandle(IStringLocalizerFactory stringLocalizer)
