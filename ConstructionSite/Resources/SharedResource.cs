@@ -1,4 +1,4 @@
-﻿namespace Mursheed.WebCoreMVC_3_1.Resources
+﻿namespace ConstructionSite.Resources
 {
     public class SharedResource
     {
