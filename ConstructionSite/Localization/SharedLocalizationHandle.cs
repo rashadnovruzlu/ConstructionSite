@@ -1,11 +1,6 @@
-﻿using ConstructionSite.Helpers.interfaces;
-using ConstructionSite.Resources;
+﻿using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Localization
 {

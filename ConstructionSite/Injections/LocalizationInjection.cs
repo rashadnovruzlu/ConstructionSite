@@ -1,11 +1,9 @@
 ﻿using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Localization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Injections
 {
@@ -14,7 +12,7 @@ namespace ConstructionSite.Injections
         public static void LocalizationLoad(IServiceCollection services)
         {
             services.AddLocalization(x => x.ResourcesPath = "Resources");
-
+            services.AddSingleton<SharedLocalizationHandle>();
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 //hec bir dil göstərilməzsə default olaraq Azərbaycan dilini götür
@@ -32,4 +30,5 @@ namespace ConstructionSite.Injections
 
             });
         }
+    }
 }
