@@ -310,32 +310,32 @@ namespace ConstructionSite.Repository.Concreate
 
         public T Find(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().SingleOrDefault(predecat);
         }
 
         public ICollection<T> FindAll(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Where(predecat).ToList();
         }
 
-        public Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat)
+        public async Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().Where(predecat).ToListAsync();
         }
 
-        public Task<T> FindAsync(Expression<Func<T, bool>> predecat)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().SingleOrDefaultAsync(predecat);
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+           return _context.Set<T>().Find(id);
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
         #endregion --Search--
