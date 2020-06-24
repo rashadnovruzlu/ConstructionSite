@@ -1,3 +1,4 @@
+using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Services;
 using ConstructionSite.Injections;
 using Microsoft.AspNetCore.Builder;
@@ -20,8 +21,9 @@ namespace ConstructionSite
         public void ConfigureServices(IServiceCollection services)
         {
         
-            services.LocalizationLoad();
-            services.ServiceLoad(Configuration);
+            //services.LocalizationLoad();
+            services.IdentityLoad(Configuration);
+            //services.ServiceLoad(Configuration);
             services.AddControllersWithViews();
         }
 
