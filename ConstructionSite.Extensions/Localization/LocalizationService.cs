@@ -17,6 +17,8 @@ namespace ConstructionSite.Extensions.Localization
             services.Configure<RequestLocalizationOptions>(options =>
             { 
             options.DefaultRequestCulture=new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
+            options.SupportedCultures=LANGUAGECONSTANT.GetCultureInfo();
+            options.SupportedUICultures=LANGUAGECONSTANT.GetCultureInfo();
             
             });
         }

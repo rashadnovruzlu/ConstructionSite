@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ConstructionSite.Helpers.Constants
 {
-    public class LANGUAGECONSTANT
+    public sealed class LANGUAGECONSTANT
     {
         public const string Az = "az-Latn";
         public const string En = "en-US";
