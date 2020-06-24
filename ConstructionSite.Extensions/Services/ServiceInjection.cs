@@ -11,7 +11,7 @@ namespace ConstructionSite.Extensions.Services
         public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<mycontext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("ConstructionSite")));
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
