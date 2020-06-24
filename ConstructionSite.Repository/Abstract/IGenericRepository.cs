@@ -15,6 +15,7 @@ namespace ConstructionSite.Repository.Abstract
         Task<ICollection<T>> GetAllAsync();
 
         #endregion ---List---
+
         #region --Added--
 
         RESULT<T> Add(T entity);
@@ -26,6 +27,7 @@ namespace ConstructionSite.Repository.Abstract
         RESULT<T> AddRange(ICollection<T> entity);
 
         #endregion --Added--
+
         #region --Delete--
 
         RESULT<T> Delete(T entity);
@@ -37,6 +39,7 @@ namespace ConstructionSite.Repository.Abstract
         Task<RESULT<T>> DeleteRangeAsync(ICollection<T> entity);
 
         #endregion --Delete--
+
         #region --Update--
 
         RESULT<T> Update(T entity);
@@ -48,6 +51,7 @@ namespace ConstructionSite.Repository.Abstract
         Task<RESULT<T>> UpdateRangeAsync(ICollection<T> entity);
 
         #endregion --Update--
+
         #region --Seach--
 
         T GetById(int id);
@@ -63,10 +67,5 @@ namespace ConstructionSite.Repository.Abstract
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat);
 
         #endregion --Seach--
-
-       
-
-       
-      
     }
 }

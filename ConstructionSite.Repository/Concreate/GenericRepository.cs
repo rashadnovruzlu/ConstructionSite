@@ -21,12 +21,14 @@ namespace ConstructionSite.Repository.Concreate
         #endregion --Fild--
 
         #region --Ctor--
+
         public GenericRepository(DbContext context)
         {
             _context = context;
             _unitOfWork = new UnitOfWork(context);
         }
-        #endregion
+
+        #endregion --Ctor--
 
         #region --GetAll--
 
@@ -325,7 +327,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public T GetById(int id)
         {
-           return _context.Set<T>().Find(id);
+            return _context.Set<T>().Find(id);
         }
 
         public async Task<T> GetByIdAsync(int id)
