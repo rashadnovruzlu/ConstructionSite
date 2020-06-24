@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Helpers.interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace ConstructionSite.Extensions.Localization
 {
+   
    public static class LocalizationService
     {
         public static void LocalizationLoad(IServiceCollection services)
@@ -23,7 +25,13 @@ namespace ConstructionSite.Extensions.Localization
                 options.SupportedCultures=LANGUAGECONSTANT.GetCultureInfo();
                 //səhifədəki sözlərin tərcümə olunması üçün
                 options.SupportedUICultures=LANGUAGECONSTANT.GetCultureInfo();
-            
+                //Naib Residov
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                                                {
+                                                    new QueryStringRequestCultureProvider(),
+                                                    new CookieRequestCultureProvider()
+                                                };
+
             });
         }
     }

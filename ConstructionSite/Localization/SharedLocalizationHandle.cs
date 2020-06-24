@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Resources;
+﻿using ConstructionSite.Helpers.interfaces;
+using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Localization
 {
-    public class SharedLocalizationHandle
+    public class SharedLocalizationHandle: ISharedLocalizationHandle
     {
         private readonly IStringLocalizer localizer;
         public SharedLocalizationHandle(IStringLocalizerFactory stringLocalizer)
