@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace ConstructionSite.Entity.Data
 {
-    class ConstructionDbContext
+    public class ConstructionDbContext : DbContext
     {
     }
 }

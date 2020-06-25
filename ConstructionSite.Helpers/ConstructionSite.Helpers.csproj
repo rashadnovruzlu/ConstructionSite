@@ -8,4 +8,9 @@
     <Folder Include="Configuration\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.5" />
+  </ItemGroup>
+
 </Project>
