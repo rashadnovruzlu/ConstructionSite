@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Repository.Concreate
 {
     public class UnitOfWork : IUnitOfWork
-    {
+    {   
         private readonly DbContext _dbContext;
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
         private string _errorMessage = string.Empty;
