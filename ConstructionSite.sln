@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Entity", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Repository", "ConstructionSite.Repository\ConstructionSite.Repository.csproj", "{1DBFFB61-9D5F-42D6-9C84-C0D07066B83A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Helpers", "ConstructionSite.Helpers\ConstructionSite.Helpers.csproj", "{E6C45599-9936-4033-AA88-E6FC68E2FB6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Helpers", "ConstructionSite.Helpers\ConstructionSite.Helpers.csproj", "{E6C45599-9936-4033-AA88-E6FC68E2FB6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Extensions", "ConstructionSite.Extensions\ConstructionSite.Extensions.csproj", "{8B4295FB-7FD7-44B7-9657-F586A0F12C12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Extensions", "ConstructionSite.Extensions\ConstructionSite.Extensions.csproj", "{8B4295FB-7FD7-44B7-9657-F586A0F12C12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.DTO", "ConstructionSite.DTO\ConstructionSite.DTO.csproj", "{585141C0-A088-424D-B78A-E1D339957D4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.DTO", "ConstructionSite.DTO\ConstructionSite.DTO.csproj", "{585141C0-A088-424D-B78A-E1D339957D4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
