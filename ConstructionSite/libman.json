@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "vegas@2.5.1",
+      "destination": "wwwroot/lib/vegas/",
+      "files": [
+        "vegas.min.js",
+        "vegas.min.js.map",
+        "vegas.js",
+        "vegas.css",
+        "vegas.min.css",
+        "vegas.min.css.map"
+      ]
+    }
+    
+  ]
+}
