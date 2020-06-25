@@ -11,6 +11,8 @@ namespace ConstructionSite
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -20,6 +22,8 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            //services.ServiceLoad(Configuration);
         
             //services.LocalizationLoad();
             services.IdentityLoad(Configuration);
