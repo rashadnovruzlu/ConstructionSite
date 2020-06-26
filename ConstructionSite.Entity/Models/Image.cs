@@ -19,6 +19,6 @@ namespace ConstructionSite.Entity.Models
 
 		//public ICollection<HomePage> HomePages { get; set; }
 
-
+		//public ICollection<NewsImage> N_Images { get; set; }
 	}
 }

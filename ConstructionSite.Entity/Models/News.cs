@@ -25,5 +25,7 @@ namespace ConstructionSite.Entity.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreateDate { get; set; }
 
+        public ICollection<NewsImage> NewsImages { get; set; }
+
     }
 }
