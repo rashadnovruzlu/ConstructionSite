@@ -16,6 +16,42 @@ namespace ConstructionSite.Repository.Abstract
 
         #endregion ---List---
 
+        #region --Added--
+
+        RESULT<T> Add(T entity);
+
+        Task<RESULT<T>> AddAsync(T entity);
+
+        Task<RESULT<T>> AddRangeAsync(ICollection<T> entity);
+
+        RESULT<T> AddRange(ICollection<T> entity);
+
+        #endregion --Added--
+
+        #region --Delete--
+
+        RESULT<T> Delete(T entity);
+
+        Task<RESULT<T>> DeleteAsync(T entity);
+
+        RESULT<T> DeleteRange(ICollection<T> entity);
+
+        Task<RESULT<T>> DeleteRangeAsync(ICollection<T> entity);
+
+        #endregion --Delete--
+
+        #region --Update--
+
+        RESULT<T> Update(T entity);
+
+        RESULT<T> UpdateRange(ICollection<T> entity);
+
+        Task<RESULT<T>> UpdateAsync(T entity);
+
+        Task<RESULT<T>> UpdateRangeAsync(ICollection<T> entity);
+
+        #endregion --Update--
+
         #region --Seach--
 
         T GetById(int id);
@@ -31,41 +67,5 @@ namespace ConstructionSite.Repository.Abstract
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat);
 
         #endregion --Seach--
-
-        #region --Added--
-
-        Result<T> Add(T entity);
-
-        Task<Result<T>> AddAsync(T entity);
-
-        Task<Result<T>> AddRangeAsync(ICollection<T> entity);
-
-        Result<T> AddRange(ICollection<T> entity);
-
-        #endregion --Added--
-
-        #region Update
-
-        Result<T> Update(T entity);
-
-        Result<T> UpdateRange(ICollection<T> entity);
-
-        Task<Result<T>> UpdateAsync(T entity);
-
-        Task<Result<T>> UpdateRangeAsync(ICollection<T> entity);
-
-        #endregion Update
-
-        #region --Delete--
-
-        Result<T> Delete(T entity);
-
-        Task<Result<T>> DeleteAsync(T entity);
-
-        Result<T> DeleteRange(ICollection<T> entity);
-
-        Task<Result<T>> DeleteRangeAsync(ICollection<T> entity);
-
-        #endregion --Delete--
     }
 }
