@@ -20,5 +20,8 @@ namespace ConstructionSite.Entity.Models
 		public string ContentAz { get; set; }
 		public string ContentRu { get; set; }
 		public string ContentEn { get; set; }
+
+		//public ICollection<AboutImage> AboutImages { get; set; }
+
 	}
 }
