@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
     <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
   </ItemGroup>
 

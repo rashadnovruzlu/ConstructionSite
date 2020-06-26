@@ -4,7 +4,6 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,7 +46,7 @@ namespace ConstructionSite.Repository.Concreate
                 result.Data = await _dbContext.SaveChangesAsync();
                 result.IsDone = true;
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
                 _errorMessage += Tools.WriteExeptions(ex);
                 throw new DbContextCommitException(_errorMessage, ex);

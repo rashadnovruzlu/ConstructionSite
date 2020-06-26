@@ -11,7 +11,7 @@ namespace ConstructionSite.Localization
         private readonly IStringLocalizer localizer;
         public SharedLocalizationHandle(IStringLocalizerFactory stringLocalizer)
         {
-           string Name = Tools.GetLocalizerPath<SharedResource>();
+           string Name = "";///Tools.GetLocalizerPath<SharedResource>();
            localizer = stringLocalizer.Create("SharedResource", Name);
         }
         public string GetLocalizationByKey(string key)

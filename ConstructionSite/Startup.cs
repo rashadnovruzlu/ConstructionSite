@@ -1,8 +1,8 @@
-using ConstructionSite.Extensions.Identity;
+using ConstructionSite.Entity.Data;
 using ConstructionSite.Extensions.Services;
-using ConstructionSite.Injections;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,11 +23,12 @@ namespace ConstructionSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //services.ServiceLoad(Configuration);
-        
-            //services.LocalizationLoad();
-            services.IdentityLoad(Configuration);
-            //services.ServiceLoad(Configuration);
+
+
+            //  services.LocalizationLoad();
+            //  services.IdentityLoad(Configuration);
+             services.ServiceLoad(Configuration);
+          
             services.AddControllersWithViews();
         }
 
