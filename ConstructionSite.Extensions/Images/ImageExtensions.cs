@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ConstructionSite.Helpers.Images;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace ConstructionSite.Extensions.Images
 
         public static async Task<string> SaveAsync(this IFormFile file, string root, string subFolder)
         {
-            string fileName = Path.Combine(subFolder, Guid.NewGuid().ToString() + Path.GetFileName(file.FileName));
+            string fileName = Imager.GetImageSubFolder(subFolder,file.Name);
 
             string path = Path.Combine(root, "images", fileName);
 

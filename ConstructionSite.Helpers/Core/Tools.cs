@@ -18,10 +18,7 @@ namespace ConstructionSite.Helpers.Core
             }
             return message;
         }
-        public static string GetLocalizerPath<T>()
-        {
-            return new AssemblyName(typeof(T).GetTypeInfo().Assembly.FullName).Name;
-        }
+      
         
     }
 }
