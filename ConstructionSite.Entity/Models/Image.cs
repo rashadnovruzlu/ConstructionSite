@@ -17,6 +17,8 @@ namespace ConstructionSite.Entity.Models
 		
 		//public ICollection<AboutImage> AboutImages { get; set; }
 
+		//public ICollection<HomePage> HomePages { get; set; }
+
 
 	}
 }
