@@ -7,9 +7,9 @@ namespace ConstructionSite.Helpers.Images
 {
  public   class Imager
     {
-        public static string GetImageSubFolder(string subFolder,string name)
+        public static string GetImageSubFolder(string Folder,string name)
         {
-         return Path.Combine(subFolder, Guid.NewGuid().ToString() + Path.GetFileName(name));
+         return Path.Combine(Folder, Guid.NewGuid().ToString() + Path.GetFileName(name));
         }
         
     }

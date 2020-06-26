@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.Helpers.Core;
+using ConstructionSite.Helpers.Images;
 using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
@@ -11,7 +12,10 @@ namespace ConstructionSite.Localization
         private readonly IStringLocalizer localizer;
         public SharedLocalizationHandle(IStringLocalizerFactory stringLocalizer)
         {
-           string Name = "";///Tools.GetLocalizerPath<SharedResource>();
+            
+
+            var Name = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName).Name;
+            
            localizer = stringLocalizer.Create("SharedResource", Name);
         }
         public string GetLocalizationByKey(string key)
