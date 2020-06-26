@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-    class StaticFields
+    class StaticField
     {
         [Required]
         public int Id { get; set; }
