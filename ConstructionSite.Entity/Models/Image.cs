@@ -1,4 +1,4 @@
-﻿using System;
+﻿  using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -15,10 +15,7 @@ namespace ConstructionSite.Entity.Models
 		[MaxLength(250)]
 		public string Path { get; set; }
 		
-		//public ICollection<AboutImage> AboutImages { get; set; }
-
-		//public ICollection<HomePage> HomePages { get; set; }
-
-		//public ICollection<NewsImage> N_Images { get; set; }
+		public Service Service { get; set; }
+		public int ServiceId { get; set; }
 	}
 }
