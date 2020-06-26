@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Resources;
+﻿using ConstructionSite.Helpers.Core;
+using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -11,9 +12,8 @@ namespace ConstructionSite.Localization
         {
             
 
-            var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
-
-            localizer = stringLocalizer.Create("SharedResource", assemblyName.Name);
+           string Name = Tools.GetLocalizerPath<SharedResource>();
+           localizer = stringLocalizer.Create("SharedResource", Name);
         }
         public string GetLocalizationByKey(string key)
         {
