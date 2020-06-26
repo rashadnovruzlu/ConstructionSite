@@ -22,6 +22,5 @@ namespace ConstructionSite.Entity.Models
         [Required]
         [MaxLength(50)]
         public string Position { get; set; }
-
     }
 }

@@ -26,6 +26,5 @@ namespace ConstructionSite.Entity.Models
         public DateTime CreateDate { get; set; }
 
         public ICollection<NewsImage> NewsImages { get; set; }
-
     }
 }
