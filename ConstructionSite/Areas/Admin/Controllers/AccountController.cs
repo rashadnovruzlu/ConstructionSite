@@ -15,6 +15,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
     {
         private UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> SignInManager;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> SignInManager)
+        {
+            this.userManager=userManager;
+            this.SignInManager=SignInManager;
+        }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Logion(string returnUrl)
@@ -50,6 +55,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             return View();
         }
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await SignInManager.SignOutAsync();
