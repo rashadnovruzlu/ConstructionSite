@@ -17,5 +17,7 @@ namespace ConstructionSite.Entity.Models
 		
 		public Service Service { get; set; }
 		public int ServiceId { get; set; }
+
+		public ICollection<AboutImage> AboutImages { get; set; }
 	}
 }
