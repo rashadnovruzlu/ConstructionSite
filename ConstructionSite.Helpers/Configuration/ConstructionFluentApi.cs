@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConstructionSite.Helpers.Configuration
 {
-    class FluentApi
+    class ConstructionFluentApi
     {
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-    class Portfolio
+    public class Portfolio
     {
         [Required]
         public int Id { get; set; }

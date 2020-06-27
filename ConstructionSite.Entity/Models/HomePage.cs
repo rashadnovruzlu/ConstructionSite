@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-    class HomePage
+    public class HomePage
     {
         [Required]
         public int Id { get; set; }

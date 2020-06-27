@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-    class SubService
+    public class SubService
     {
         [Required]
         public int Id { get; set; }

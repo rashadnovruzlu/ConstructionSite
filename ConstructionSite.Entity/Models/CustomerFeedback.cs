@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-    class CustomerFeedback
+    public class CustomerFeedback
     {
         [Required]
         public int Id { get; set; }

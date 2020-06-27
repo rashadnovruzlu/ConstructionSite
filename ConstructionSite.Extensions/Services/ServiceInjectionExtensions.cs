@@ -12,11 +12,11 @@ namespace ConstructionSite.Extensions.Services
         public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ConstructionDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+              options.UseSqlServer(Configuration.GetConnectionString("Naib"), b => b.MigrationsAssembly("ConstructionSite")));
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

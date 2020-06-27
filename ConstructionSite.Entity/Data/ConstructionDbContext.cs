@@ -1,15 +1,13 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Data
 {
-    class ConstructionDbContext : DbContext
+    public class ConstructionDbContext : DbContext
     {
         public ConstructionDbContext(DbContextOptions<ConstructionDbContext> options) : base(options)
-        { }
+        { 
+        }
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<AboutImage> AboutImages { get; set; }

@@ -3,7 +3,6 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -166,7 +165,7 @@ namespace ConstructionSite.Repository.Concreate
                 _context.Entry(entity).State = EntityState.Modified;
                 await _unitOfWork.Commit();
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
                 _errorMessage += Tools.WriteExeptions(ex);
                 result.IsDone = false;
