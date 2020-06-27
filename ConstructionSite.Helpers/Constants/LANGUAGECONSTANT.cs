@@ -10,7 +10,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string En = "en-US";
         public const string Ru = "ru-RU";
 
-        public static List<string> GetLanguage()
+        public static List<string> GetLanguages()
         {
             List<string> Language = new List<string>
             {
@@ -35,7 +35,7 @@ namespace ConstructionSite.Helpers.Constants
         }
         public static CultureInfo[] GetCultureInfo()
         {
-            return GetLanguage().Select(x => new CultureInfo(x)).ToArray();
+            return GetLanguages().Select(x => new CultureInfo(x)).ToArray();
         }
     }
 }
