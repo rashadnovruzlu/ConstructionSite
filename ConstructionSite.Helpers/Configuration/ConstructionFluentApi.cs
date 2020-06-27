@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ConstructionSite.Entity;
-using ConstructionSite.Entity.Models;
-using DocumentFormat.OpenXml.Math;
-using Microsoft.EntityFrameworkCore;
-using ConstructionSite.Entity.Data;
-
-namespace ConstructionSite.Helpers.Configuration
+﻿namespace ConstructionSite.Helpers.Configuration
 {
     class ConstructionFluentApi 
     {
