@@ -16,5 +16,7 @@ namespace ConstructionSite.Entity.Models
         public string NameEn { get; set; }
         [MaxLength(75)]
         public string NameRu { get; set; }
+
+        public ICollection<Project> Projects { get; set; }
     }
 }

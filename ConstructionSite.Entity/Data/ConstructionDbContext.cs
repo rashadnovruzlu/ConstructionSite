@@ -54,7 +54,9 @@ namespace ConstructionSite.Entity.Data
                             .HasOne(ni => ni.News)
                                 .WithMany(n => n.NewsImages);
 
-
+            modelBuilder.Entity<Project>()
+                            .HasOne(p => p.Portfolio)
+                                .WithMany(p => p.Projects);
 
             base.OnModelCreating(modelBuilder);
         }
