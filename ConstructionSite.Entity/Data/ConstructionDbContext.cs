@@ -42,6 +42,9 @@ namespace ConstructionSite.Entity.Data
                             .HasOne(ai => ai.Image)
                                 .WithMany(i => i.AboutImages);
 
+            modelBuilder.Entity<HomePage>()
+                            .HasOne(hp => hp.Image)
+                                .WithMany(i => i.HomePages);
 
 
             base.OnModelCreating(modelBuilder);

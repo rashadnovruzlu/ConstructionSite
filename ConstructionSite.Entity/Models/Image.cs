@@ -19,5 +19,7 @@ namespace ConstructionSite.Entity.Models
 		public int ServiceId { get; set; }
 
 		public ICollection<AboutImage> AboutImages { get; set; }
+
+		public ICollection<HomePage> HomePages { get; set; }
 	}
 }
