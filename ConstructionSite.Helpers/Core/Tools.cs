@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Data.Entity.Validation;
+using System.Reflection;
 
 namespace ConstructionSite.Helpers.Core
 {
     public class Tools
     {
+      
         public static string WriteExeptions(DbEntityValidationException ex)
         {
             string message = string.Empty;
@@ -17,5 +19,7 @@ namespace ConstructionSite.Helpers.Core
             }
             return message;
         }
+
+
     }
 }

@@ -7,8 +7,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.5" />
@@ -18,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
     <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
   </ItemGroup>
 
