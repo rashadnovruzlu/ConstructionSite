@@ -70,6 +70,14 @@ namespace ConstructionSite.Entity.Data
                             .HasOne(ss => ss.Service)
                                 .WithMany(s => s.SubServices);
 
+            modelBuilder.Entity<SubServiceImage>()
+                            .HasOne(ssi => ssi.Image)
+                                .WithMany(i => i.SubServiceImages);
+
+            modelBuilder.Entity<SubServiceImage>()
+                            .HasOne(ssi => ssi.SubService)
+                                .WithMany(ss => ss.SubServiceImages);
+
             base.OnModelCreating(modelBuilder);
         }
     }

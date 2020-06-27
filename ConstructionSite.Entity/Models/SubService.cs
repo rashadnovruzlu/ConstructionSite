@@ -24,5 +24,7 @@ namespace ConstructionSite.Entity.Models
         public Service Service { get; set; }
         [Required]
         public int ServiceId { get; set; }
+
+        public ICollection<SubServiceImage> SubServiceImages { get; set; }
     }
 }
