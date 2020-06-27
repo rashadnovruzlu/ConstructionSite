@@ -1,25 +1,31 @@
-﻿using System;
+﻿  using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
 	public class Image
 	{
+		[Required]
 		public int Id { get; set; }
-		public string Name { get; set; }
+		[MaxLength(150)]
 		public string Title { get; set; }
-		public string BigPath { get; set; }
-		public string SmallPath { get; set; }
-		public DateTime AddedDate { get; set; }
+		[Required]
+		[MaxLength(250)]
+		public string Path { get; set; }
+		
+		public Service Service { get; set; }
+		public int ServiceId { get; set; }
 
-		public About About { get; set; }
-		public int AboutId { get; set; }
+		public ICollection<AboutImage> AboutImages { get; set; }
 
-		public TeamMember TeamMember { get; set; }
-		public int TeamMemberId { get; set; }
+		public ICollection<HomePage> HomePages { get; set; }
 
+		public ICollection<NewsImage> NewsImages { get; set; }
 
+		public ICollection<ProjectImage> ProjectImages { get; set; }
 
+		public ICollection<SubServiceImage> SubServiceImages { get; set; }
 	}
 }

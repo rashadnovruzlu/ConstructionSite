@@ -1,4 +1,5 @@
 using ConstructionSite.Entity.Data;
+using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,15 +14,18 @@ namespace ConstructionSite
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration Configuration)
         {
-            Configuration = configuration;
+            this.Configuration = Configuration;
         }
 
-       
+        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //  services.ServiceLoad(Configuration);
+            services.AddDbContext<ConstructionDbContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("Naib")));
             services.AddMvc();
 
 

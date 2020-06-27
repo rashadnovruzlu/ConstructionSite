@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -36,6 +36,12 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
   </ItemGroup>
 
 </Project>
