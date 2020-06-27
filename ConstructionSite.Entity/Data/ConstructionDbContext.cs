@@ -31,7 +31,7 @@ namespace ConstructionSite.Entity.Data
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
             modelBuilder.Entity<Service>()
                             .HasOne<Image>(i => i.Image)
-                                .WithOne(x => x.Service);
+                                .WithOne(x => x.Service).HasForeignKey<Image>(i => i.ServiceId);
             #endregion
 
             modelBuilder.Entity<AboutImage>()
