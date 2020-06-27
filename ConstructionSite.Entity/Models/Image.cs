@@ -23,5 +23,7 @@ namespace ConstructionSite.Entity.Models
 		public ICollection<HomePage> HomePages { get; set; }
 
 		public ICollection<NewsImage> NewsImages { get; set; }
+
+		public ICollection<ProjectImage> ProjectImages { get; set; }
 	}
 }

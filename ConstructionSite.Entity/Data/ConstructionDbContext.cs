@@ -58,6 +58,14 @@ namespace ConstructionSite.Entity.Data
                             .HasOne(p => p.Portfolio)
                                 .WithMany(p => p.Projects);
 
+            modelBuilder.Entity<ProjectImage>()
+                            .HasOne(pi => pi.Image)
+                                .WithMany(i => i.ProjectImages);
+
+            modelBuilder.Entity<ProjectImage>()
+                            .HasOne(pi => pi.Project)
+                                .WithMany(p => p.ProjectImages);
+
             base.OnModelCreating(modelBuilder);
         }
     }

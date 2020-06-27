@@ -24,5 +24,7 @@ namespace ConstructionSite.Entity.Models
         public Portfolio Portfolio { get; set; }
         [Required]
         public int PortfolioId { get; set; }
+
+        public ICollection<ProjectImage> ProjectImages { get; set; }
     }
 }
