@@ -66,6 +66,10 @@ namespace ConstructionSite.Entity.Data
                             .HasOne(pi => pi.Project)
                                 .WithMany(p => p.ProjectImages);
 
+            modelBuilder.Entity<SubService>()
+                            .HasOne(ss => ss.Service)
+                                .WithMany(s => s.SubServices);
+
             base.OnModelCreating(modelBuilder);
         }
     }

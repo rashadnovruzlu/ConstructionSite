@@ -23,5 +23,7 @@ namespace ConstructionSite.Entity.Models
 		
 		public Image Image { get; set; }
 		public int ImageId { get; set; }
+
+		public ICollection<SubService> SubServices { get; set; }
 	}
 }
