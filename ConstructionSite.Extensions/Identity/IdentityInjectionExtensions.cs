@@ -11,7 +11,7 @@ namespace ConstructionSite.Extensions.Identity
         public static void IdentityLoad(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ApplicationIdentityDbContext>(options =>
-             options.UseSqlServer(Configuration.GetConnectionString("Naib"), b => b.MigrationsAssembly("ConstructionSite")));
+             options.UseSqlServer(Configuration.GetConnectionString("Nurana"), b => b.MigrationsAssembly("ConstructionSite")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options=>
                 { 
