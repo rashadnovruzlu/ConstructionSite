@@ -22,10 +22,7 @@ namespace ConstructionSite.Helpers.Core
 
             return message;
         }
-        public static string CommitExeptions()
-        {
-            return null;
-        }
+       
 
 
     }
