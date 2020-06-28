@@ -27,7 +27,7 @@ namespace ConstructionSite
 
 
             //  services.LocalizationLoad();
-            //  services.IdentityLoad(Configuration);
+            services.IdentityLoad(Configuration);
              //services.ServiceLoad(Configuration);
           
             services.AddControllersWithViews();
