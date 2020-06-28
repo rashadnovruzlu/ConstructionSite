@@ -12,7 +12,7 @@ namespace ConstructionSite.Extensions.Services
         public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ConstructionDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("Naib"),b=>b.MigrationsAssembly("ConstructionSite")));
+              options.UseSqlServer(Configuration.GetConnectionString("Nurana"),b=>b.MigrationsAssembly("ConstructionSite")));
 
             //services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

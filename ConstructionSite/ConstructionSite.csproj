@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\ConstructionAdmin\Data\" />
     <Folder Include="ViewComponents\" />
+    <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
   </ItemGroup>
 
   <ItemGroup>

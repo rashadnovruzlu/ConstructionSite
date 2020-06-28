@@ -17,7 +17,7 @@ namespace ConstructionSite
         public Startup(IConfiguration Configuration)
         {
             this.Configuration = Configuration;
-        }
+        } 
 
        
 
@@ -28,7 +28,9 @@ namespace ConstructionSite
             services.AddMvc();
 
 
-          
+            //  services.LocalizationLoad();
+            //  services.IdentityLoad(Configuration);
+             services.ServiceLoad(Configuration);
           
             services.AddControllersWithViews();
         }
@@ -62,7 +64,7 @@ namespace ConstructionSite
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
             });
         }
     }
