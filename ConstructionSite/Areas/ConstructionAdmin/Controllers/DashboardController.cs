@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("ConstructionAdmin")]
     public class DashboardController : Controller
     {
         public IActionResult Index()
