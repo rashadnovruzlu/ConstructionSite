@@ -13,7 +13,7 @@ namespace ConstructionSite.Repository.Concreate
      
        
     }
-  public class AboutRepository : GenericRepository<About>, IAboutRepository
+    public class AboutRepository : GenericRepository<About>, IAboutRepository
     {
         public AboutRepository(ConstructionDbContext context) : base(context)
         {
@@ -22,7 +22,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class ContactRepository : GenericRepository<Contact>, IContactRepository
+    public class ContactRepository : GenericRepository<Contact>, IContactRepository
     {
         public ContactRepository(ConstructionDbContext context) : base(context)
         {
@@ -31,7 +31,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class HomePageRepository : GenericRepository<HomePage>, IHomePageRepository
+    public class HomePageRepository : GenericRepository<HomePage>, IHomePageRepository
     {
         public HomePageRepository(ConstructionDbContext context) : base(context)
         {
@@ -40,7 +40,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class CustomerFeedbackRepository : GenericRepository<CustomerFeedback>, ICustomerFeedbackRepository
+    public class CustomerFeedbackRepository : GenericRepository<CustomerFeedback>, ICustomerFeedbackRepository
     {
         public CustomerFeedbackRepository(ConstructionDbContext context) : base(context)
         {
@@ -49,7 +49,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class ImageRepository : GenericRepository<Image>, IImageRepository
+    public class ImageRepository : GenericRepository<Image>, IImageRepository
     {
         public ImageRepository(ConstructionDbContext context) : base(context)
         {
@@ -58,7 +58,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class MessageRepository : GenericRepository<Message>, IMessageRepository
+    public class MessageRepository : GenericRepository<Message>, IMessageRepository
     {
         public MessageRepository(ConstructionDbContext context) : base(context)
         {
@@ -67,7 +67,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class NewsImageRepository : GenericRepository<NewsImage>, INewsImageRepository
+    public class NewsImageRepository : GenericRepository<NewsImage>, INewsImageRepository
     {
         public NewsImageRepository(ConstructionDbContext context) : base(context)
         {
@@ -76,7 +76,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class NewsRepository : GenericRepository<News>, INewsRepository
+    public class NewsRepository : GenericRepository<News>, INewsRepository
     {
         public NewsRepository(ConstructionDbContext context) : base(context)
         {
@@ -85,7 +85,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class PortfolioRepository : GenericRepository<Portfolio>, IPortfolioRepository
+    public class PortfolioRepository : GenericRepository<Portfolio>, IPortfolioRepository
     {
         public PortfolioRepository(ConstructionDbContext context) : base(context)
         {
@@ -94,7 +94,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class ProjectImageRepository : GenericRepository<ProjectImage>, IProjectImageRepository
+    public class ProjectImageRepository : GenericRepository<ProjectImage>, IProjectImageRepository
     {
         public ProjectImageRepository(ConstructionDbContext context) : base(context)
         {
@@ -103,7 +103,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class ProjectRepository : GenericRepository<Project>, IProjectRepository
+    public class ProjectRepository : GenericRepository<Project>, IProjectRepository
     {
         public ProjectRepository(ConstructionDbContext context) : base(context)
         {
@@ -112,7 +112,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class ServiceRepository : GenericRepository<Service>, IServiceRepository
+    public class ServiceRepository : GenericRepository<Service>, IServiceRepository
     {
         public ServiceRepository(ConstructionDbContext context) : base(context)
         {
@@ -121,7 +121,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class StaticFieldRepository : GenericRepository<StaticField>, IStaticFieldRepository
+    public class StaticFieldRepository : GenericRepository<StaticField>, IStaticFieldRepository
     {
         public StaticFieldRepository(ConstructionDbContext context) : base(context)
         {
@@ -130,7 +130,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class SubServiceImageRepository : GenericRepository<SubServiceImage>, ISubServiceImageRepository
+    public class SubServiceImageRepository : GenericRepository<SubServiceImage>, ISubServiceImageRepository
     {
         public SubServiceImageRepository(ConstructionDbContext context) : base(context)
         {
@@ -139,7 +139,7 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  public class SubServiceRepository : GenericRepository<SubService>, ISubServiceRepository
+    public class SubServiceRepository : GenericRepository<SubService>, ISubServiceRepository
     {
         public SubServiceRepository(ConstructionDbContext context) : base(context)
         {
@@ -148,6 +148,6 @@ namespace ConstructionSite.Repository.Concreate
 
 
     }
-  
+
 
 }
