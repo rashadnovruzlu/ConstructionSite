@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-	public class News
+	public class Image
 	{
 		[Required]
 		public int Id { get; set; }

@@ -14,9 +14,9 @@ namespace ConstructionSite.Extensions.Services
             services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("Nurana"),b=>b.MigrationsAssembly("ConstructionSite")));
 
-            //services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

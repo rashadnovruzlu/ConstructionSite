@@ -2,7 +2,7 @@
 
 namespace ConstructionSite.Repository.Abstract
 {
-    public interface IImageRepository : IGenericRepository<News>
+    public interface IImageRepository : IGenericRepository<Image>
     {
 
     }
