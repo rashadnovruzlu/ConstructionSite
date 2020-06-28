@@ -15,7 +15,7 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
         public virtual DbSet<HomePage> HomePages { get; set; }
-        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<News> Images { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<NewsImage> NewsImages { get; set; }
@@ -31,8 +31,8 @@ namespace ConstructionSite.Entity.Data
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
             modelBuilder.Entity<Service>()
-                            .HasOne<Image>(i => i.Image)
-                                .WithOne(x => x.Service).HasForeignKey<Image>(i => i.ServiceId);
+                            .HasOne<News>(i => i.Image)
+                                .WithOne(x => x.Service).HasForeignKey<News>(i => i.ServiceId);
             #endregion
 
             
@@ -50,11 +50,11 @@ namespace ConstructionSite.Entity.Data
 
             modelBuilder.Entity<NewsImage>()
                             .HasOne(ni => ni.Image)
-                                .WithMany(i => i.NewsImages);
+                                .WithMany((System.Linq.Expressions.Expression<System.Func<News, System.Collections.Generic.IEnumerable<NewsImage>>>)(i => (System.Collections.Generic.IEnumerable<NewsImage>)i.NewsImages));
 
             modelBuilder.Entity<NewsImage>()
                             .HasOne(ni => ni.News)
-                                .WithMany(n => n.NewsImages);
+                                .WithMany((System.Linq.Expressions.Expression<System.Func<News, System.Collections.Generic.IEnumerable<NewsImage>>>)(n => (System.Collections.Generic.IEnumerable<NewsImage>)n.NewsImages));
 
             modelBuilder.Entity<Project>()
                             .HasOne(p => p.Portfolio)

@@ -10,7 +10,7 @@ namespace ConstructionSite.Entity.Models
         [Required]
         public int Id { get; set; }
 
-        public Image Image { get; set; }
+        public News Image { get; set; }
         public int ImageId { get; set; }
     }
 }
