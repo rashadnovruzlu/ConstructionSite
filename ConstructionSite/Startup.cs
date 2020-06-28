@@ -17,21 +17,18 @@ namespace ConstructionSite
         public Startup(IConfiguration Configuration)
         {
             this.Configuration = Configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+        } 
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //  services.ServiceLoad(Configuration);
-            services.AddDbContext<ConstructionDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("Naib")));
+              services.ServiceLoad(Configuration);
+            
             services.AddMvc();
 
 
             //  services.LocalizationLoad();
             //  services.IdentityLoad(Configuration);
-             services.ServiceLoad(Configuration);
+             //services.ServiceLoad(Configuration);
           
             services.AddControllersWithViews();
         }
