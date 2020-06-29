@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConstructionSite.Helpers.Constants
 {
-    public static class ResourceKeys
+    public static class RESOURCEKEYS
     {
         #region UserErrors
         public const string ThisUserDeactivated = "ThisUserDeactivated";
@@ -37,29 +37,6 @@ namespace ConstructionSite.Helpers.Constants
         public const string AnErrorOccurredWhileResettingYourPassword = "AnErrorOccurredWhileResettingYourPassword";
         public const string YourPasswordHasBeenSuccessfullyReset = "YourPasswordHasBeenSuccessfullyReset";
         public const string PasswordAndConfirmPasswordNotMatched = "PasswordAndConfirmPasswordNotMatched";
-        #endregion
-        #region DriveErros
-        public const string DriverNotFound = "Driver not found";
-        public const string ThisDriverIsExistInTheSystem = "ThisDriverIsExistInTheSystem";
-        #endregion
-        #region CarsErros
-        public const string CarPhotoShouldBeSelected = "CarPhotoShouldBeSelected";
-        public const string ThisCarNotExistSystem = "ThisCarNotExistSystem";
-        #endregion
-        #region GuideErros
-        public const string ThisGuideIsExistInTheSystem = "ThisGuideIsExistInTheSystem";
-        public const string GuideModelNull = "GuideModelNull";
-        public const string GuideNotFound = "GuideNotFound";
-        #endregion
-        #region RoutersErros
-        public const string ThisRouteExist = "ThisRouteExist";
-        public const string ThisRouteNotExist = "ThisRouteNotExist";
-        public const string RoutesShouldBeSelected = "RoutesShouldBeSelected";
-        public const string RoutesNotExist = "RoutesNotExist";
-
-        #endregion
-        #region LanguageErros
-        public const string LanguageShouldBeSelected = "LanguageShouldBeSelected";
         #endregion
         #region GenrialErros
         public const string IsLockedOut5Minutes = "IsLockedOut5Minutes";

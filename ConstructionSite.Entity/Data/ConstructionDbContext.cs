@@ -1,6 +1,9 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ConstructionSite.Entity.Data
 {
@@ -50,11 +53,12 @@ namespace ConstructionSite.Entity.Data
 
             modelBuilder.Entity<NewsImage>()
                             .HasOne(ni => ni.Image)
-                                .WithMany((System.Linq.Expressions.Expression<System.Func<News, System.Collections.Generic.IEnumerable<NewsImage>>>)(i => (System.Collections.Generic.IEnumerable<NewsImage>)i.NewsImages));
+                                .WithMany((Expression<Func<News, 
+IEnumerable<NewsImage>>>)(i => (IEnumerable<NewsImage>)i.NewsImages));
 
             modelBuilder.Entity<NewsImage>()
                             .HasOne(ni => ni.News)
-                                .WithMany((System.Linq.Expressions.Expression<System.Func<News, System.Collections.Generic.IEnumerable<NewsImage>>>)(n => (System.Collections.Generic.IEnumerable<NewsImage>)n.NewsImages));
+                                .WithMany((Expression<Func<News, IEnumerable<NewsImage>>>)(n => (IEnumerable<NewsImage>)n.NewsImages));
 
             modelBuilder.Entity<Project>()
                             .HasOne(p => p.Portfolio)
