@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ConstructionSite.Entity.Data
 {
@@ -33,34 +34,37 @@ namespace ConstructionSite.Entity.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
-            modelBuilder.Entity<Service>()
-                            .HasOne<Image>(i => i.Image)
-                                .WithOne(x => x.Service).HasForeignKey<Image>(i => i.ServiceId);
+
+
+            //modelBuilder.Entity<Service>()
+            //                .HasOne<Image>(i => i.Image)
+            //                    .WithOne(x => x.Service).HasForeignKey<Image>(i => i.ServiceId);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             #endregion
+           
+            //modelBuilder.Entity<AboutImage>()
+            //                .HasOne(ai => ai.About)
+            //                    .WithMany(a => a.AboutImages);
 
-            modelBuilder.Entity<AboutImage>()
-                            .HasOne(ai => ai.About)
-                                .WithMany(a => a.AboutImages);
+            //modelBuilder.Entity<AboutImage>()
+            //                .HasOne(ai => ai.Image)
+            //                    .WithMany(i => i.AboutImages);
 
-            modelBuilder.Entity<AboutImage>()
-                            .HasOne(ai => ai.Image)
-                                .WithMany(i => i.AboutImages);
+            //modelBuilder.Entity<HomePage>()
+            //                .HasOne(hp => hp.Image)
+            //                    .WithMany(i => i.HomePages);
 
-            modelBuilder.Entity<HomePage>()
-                            .HasOne(hp => hp.Image)
-                                .WithMany(i => i.HomePages);
+            //modelBuilder.Entity<NewsImage>()
+            //                .HasOne(ni => ni.Image)
+            //                    .WithMany(i => i.NewsImages);
 
-            modelBuilder.Entity<NewsImage>()
-                            .HasOne(ni => ni.Image)
-                                .WithMany(i => i.NewsImages);
+            //modelBuilder.Entity<NewsImage>()
+            //                .HasOne(ni => ni.News)
+            //                    .WithMany(n => n.NewsImages);
 
-            modelBuilder.Entity<NewsImage>()
-                            .HasOne(ni => ni.News)
-                                .WithMany(n => n.NewsImages);
-
-            modelBuilder.Entity<Project>()
-                            .HasOne(p => p.Portfolio)
-                                .WithMany(p => p.Projects);
+            //modelBuilder.Entity<Project>()
+            //                .HasOne(p => p.Portfolio)
+            //                    .WithMany(p => p.Projects);
 
             modelBuilder.Entity<ProjectImage>()
                             .HasOne(pi => pi.Image)

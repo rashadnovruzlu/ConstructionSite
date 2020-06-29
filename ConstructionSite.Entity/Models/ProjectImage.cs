@@ -7,17 +7,17 @@ namespace ConstructionSite.Entity.Models
 {
     public class ProjectImage
     {
-        [Required]
+        //[Required]
         public int Id { get; set; }
-        [Required]
+        //[Required]
         public bool IsMain { get; set; }
 
         public Image Image { get; set; }
-        [Required]
+        //[Required]
         public int ImageId { get; set; }
 
         public Project Project { get; set; }
-        [Required]
+        //[Required]
         public int ProjectId { get; set; }
     }
 }
