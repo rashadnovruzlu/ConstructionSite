@@ -10,6 +10,7 @@ namespace ConstructionSite.Controllers
     {
         public IActionResult Index()
         {
+            
             return View();
         }
     }

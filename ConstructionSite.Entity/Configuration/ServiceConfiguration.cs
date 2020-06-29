@@ -1,9 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Configuration
 {
@@ -11,7 +8,7 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<About> builder)
         {
-
+            builder.HasKey(x=>x.Id);
             builder
               .Property(x => x.TittleAz)
               .IsRequired()
@@ -225,6 +222,7 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<Service> builder)
         {    
+           
             builder.HasKey(x=>x.Id);
             builder.Property(x=>x.NameAz)
                 .IsRequired()
