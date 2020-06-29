@@ -9,7 +9,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+  
     public class AboutController : Controller
     {
         private readonly IUnitOfWork unitOfWork;

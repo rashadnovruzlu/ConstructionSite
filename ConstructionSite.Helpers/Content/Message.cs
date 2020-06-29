@@ -14,7 +14,7 @@ namespace ConstructionSite.Helpers.Content
 
 
 
-        #region ctor
+       
 
         public Message(IEnumerable<string> to,
             string subject,
