@@ -9,11 +9,17 @@ namespace ConstructionSite.Extensions.Services
 {
     public static class ServiceInjectionExtensions
     {
-        public static void ServiceLoad(this IServiceCollection services, IConfiguration Configuration)
+        public static void ServiceLoadDB(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("Nurana"),b=>b.MigrationsAssembly("ConstructionSite")));
 
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+        public static void SerivceLoadRepstory(this IServiceCollection services)
+        {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();

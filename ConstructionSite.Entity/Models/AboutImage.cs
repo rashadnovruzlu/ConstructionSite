@@ -14,7 +14,7 @@ namespace ConstructionSite.Entity.Models
         [Required]
         public int AboutId { get; set; }
         
-        public News Image { get; set; }
+        public Image Image { get; set; }
         [Required]
         public int ImageId { get; set; }
     }
