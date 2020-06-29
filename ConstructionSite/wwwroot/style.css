@@ -10,21 +10,22 @@
 
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i|Montserrat:300,400,500,600,700&subset=latin");
 
-@import "assets/css/bootstrap.min.css";
-@import "assets/css/animsition.css";
-@import "assets/css/animate.css";
-@import "assets/css/fontello.css";
+@import "~/assets/css/bootstrap.min.css";
+@import "~/assets/css/animsition.css";
+@import "~/assets/css/animate.css";
+@import "~/assets/css/fontello.css";
 @import "assets/css/font-awesome.min.css";
 @import "assets/css/cubeportfolio.min.css";
 @import "assets/css/magnific-popup.css";
 @import "assets/css/flexslider.css";
-@import "assets/css/vegas.css";
+@import "~/lib/vegas/vegas.css";
 @import "assets/css/owl.carousel.css";
 @import "includes/rev-slider/css/settings.css";
 @import "includes/rev-slider/css/layers.css";
 @import "includes/rev-slider/css/navigation.css";
 @import "assets/css/woocommerce.css";
 @import "assets/css/shortcodes.css";
+@import "~/assets/css/bootstrap.min.css";
 
 /**
  * Reset Browsers

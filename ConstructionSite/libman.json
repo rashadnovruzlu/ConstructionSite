@@ -7,13 +7,12 @@
       "destination": "wwwroot/lib/vegas/",
       "files": [
         "vegas.min.js",
-        "vegas.min.js.map",
-        "vegas.js",
-        "vegas.css",
         "vegas.min.css",
-        "vegas.min.css.map"
+        "vegas.min.css.map",
+        "vegas.min.js.map",
+        "vegas.css",
+        "vegas.js"
       ]
     }
-    
   ]
 }
