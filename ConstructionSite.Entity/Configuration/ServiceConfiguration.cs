@@ -164,16 +164,16 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<Portfolio> builder)
         {
-           builder.HasKey(x=>x.Id);
+            builder.HasKey(x=>x.Id);
             builder.Property(x=>x.NameAz)
                 .IsRequired()
-                .HasMaxLength(150);
+                .HasMaxLength(75);
 
             builder.Property(x => x.NameAz)
-              .HasMaxLength(150);
+              .HasMaxLength(75);
 
             builder.Property(x => x.NameAz)
-              .HasMaxLength(150);
+              .HasMaxLength(75);
         }
     }
     public class ProjectConfiguration : IEntityTypeConfiguration<Project>
@@ -278,13 +278,7 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(ss => ss.SubServiceImages);
         }
     }
-    public class StaticField : IEntityTypeConfiguration<StaticField>
-    {
-        public void Configure(EntityTypeBuilder<StaticField> builder)
-        {
-        
-        }
-    }
+   
 
 
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    [Migration("20200629105000_sala")]
-    partial class sala
+    [Migration("20200629113907_sss")]
+    partial class sss
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -191,13 +191,14 @@ namespace ConstructionSite.Migrations
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
@@ -225,7 +226,6 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(75)")
                         .HasMaxLength(75);
 
@@ -323,12 +323,10 @@ namespace ConstructionSite.Migrations
                         .HasMaxLength(75);
 
                     b.Property<string>("NameEn")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameRu")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

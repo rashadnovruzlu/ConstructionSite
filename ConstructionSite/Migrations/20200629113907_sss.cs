@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConstructionSite.Migrations
 {
-    public partial class sala : Migration
+    public partial class sss : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,7 @@ namespace ConstructionSite.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 75, nullable: false),
+                    Name = table.Column<string>(maxLength: 75, nullable: true),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
                     Subject = table.Column<string>(maxLength: 150, nullable: false),
                     UserMessage = table.Column<string>(maxLength: 2000, nullable: false),
@@ -107,8 +107,8 @@ namespace ConstructionSite.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NameAz = table.Column<string>(maxLength: 75, nullable: false),
-                    NameEn = table.Column<string>(maxLength: 75, nullable: true),
-                    NameRu = table.Column<string>(maxLength: 75, nullable: true)
+                    NameEn = table.Column<string>(nullable: true),
+                    NameRu = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -179,8 +179,8 @@ namespace ConstructionSite.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(maxLength: 150, nullable: true),
-                    Path = table.Column<string>(maxLength: 250, nullable: false),
+                    Title = table.Column<string>(maxLength: 150, nullable: false),
+                    Path = table.Column<string>(maxLength: 255, nullable: false),
                     ServiceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
