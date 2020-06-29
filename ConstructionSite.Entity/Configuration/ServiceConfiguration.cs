@@ -7,6 +7,36 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Configuration
 {
+    public class AboutConfiguration : IEntityTypeConfiguration<About>
+    {
+        public void Configure(EntityTypeBuilder<About> builder)
+        {
+
+            builder
+              .Property(x => x.TittleAz)
+              .IsRequired()
+              .HasMaxLength(250);
+
+            builder
+            .Property(x => x.TittleRu)
+             .HasMaxLength(250)
+            .IsRequired();
+
+            builder
+            .Property(x => x.TittleEn)
+             .HasMaxLength(250)
+            .IsRequired();
+
+            builder
+                .Property(x => x.ContentAz)
+                .IsRequired();
+            builder.Property(x=>x.ContentRu);
+            builder.Property(x=>x.ContentEn);
+                
+
+
+        }
+    }
     public class AboutImageConfiguration : IEntityTypeConfiguration<AboutImage>
     {
         public void Configure(EntityTypeBuilder<AboutImage> builder)
@@ -20,6 +50,50 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(a => a.AboutImages);
             builder.HasOne(ai => ai.Image)
                                .WithMany(i => i.AboutImages);
+
+        }
+    }
+    public class ContactConfiguration : IEntityTypeConfiguration<Contact>
+    {
+        public void Configure(EntityTypeBuilder<Contact> builder)
+        {
+            builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.TittleAz)
+                .IsRequired()
+                .HasMaxLength(150);
+            builder.Property(x=>x.TittleRu)
+                .HasMaxLength(150);
+            builder.Property(x=>x.TittleEn)
+                .HasMaxLength(150);
+            builder.Property(x=>x.ContentAz)
+                .IsRequired();
+            builder.Property(x=>x.Address)
+                .IsRequired()
+                .HasMaxLength(150);
+            builder.Property(x=>x.Email)
+                .IsRequired()
+                .HasMaxLength(150);
+            builder.Property(x=>x.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(150);
+        }
+    }
+    public class CustomerFeedbackConfiguration : IEntityTypeConfiguration<CustomerFeedback>
+    {
+        public void Configure(EntityTypeBuilder<CustomerFeedback> builder)
+        {
+           builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.ContentAz)
+                .IsRequired()
+                .HasMaxLength(500);
+            builder.Property(x => x.ContentEn)
+               .HasMaxLength(500);
+            builder.Property(x => x.ContentRu)
+               .HasMaxLength(500);
+            builder.Property(x=>x.FullName)
+                .HasMaxLength(35);
+            builder.Property(x=>x.Position)
+                .HasMaxLength(50);
 
         }
     }
@@ -47,33 +121,7 @@ namespace ConstructionSite.Entity.Configuration
                                   .HasForeignKey<Image>(i => i.ServiceId);
         }
     }
-    public class AboutConfiguration : IEntityTypeConfiguration<About>
-    {
-        public void Configure(EntityTypeBuilder<About> builder)
-        {
-            
-            builder
-              .Property(x=>x.TittleAz)
-              .IsRequired()
-              .HasMaxLength(250);
-
-            builder
-            .Property(x => x.TittleRu)
-             .HasMaxLength(250)
-            .IsRequired();
-
-            builder
-            .Property(x => x.TittleEn)
-             .HasMaxLength(250)
-            .IsRequired();
-
-            builder
-                .Property(x=>x.ContentAz)
-                .IsRequired();
-          
-          
-        }
-    }
+   
     public class HomePageConfiguration : IEntityTypeConfiguration<HomePage>
     {
         public void Configure(EntityTypeBuilder<HomePage> builder)
