@@ -21,7 +21,6 @@ namespace ConstructionSite.Extensions.Services
         public static void SerivceLoadRepstory(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
