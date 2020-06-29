@@ -97,6 +97,130 @@ namespace ConstructionSite.Entity.Configuration
 
         }
     }
+    public class HomePageConfiguration : IEntityTypeConfiguration<HomePage>
+    {
+        public void Configure(EntityTypeBuilder<HomePage> builder)
+        {
+            builder.HasOne(hp => hp.Image)
+                                .WithMany(i => i.HomePages);
+        }
+    }
+    public class ImageConfiguration : IEntityTypeConfiguration<Image>
+    {
+        public void Configure(EntityTypeBuilder<Image> builder)
+        {
+            builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.Title)
+                .IsRequired()
+                .HasMaxLength(150);
+            builder.Property(x=>x.Path)
+                .IsRequired()
+                .HasMaxLength(255);
+        }
+    }
+    public class MessageConfiguration : IEntityTypeConfiguration<Message>
+    {
+        public void Configure(EntityTypeBuilder<Message> builder)
+        {
+           builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.Name)
+                .HasMaxLength(75);
+            builder.Property(x=>x.Email)
+                .IsRequired()
+                .HasMaxLength(100);
+            builder.Property(x => x.Subject)
+              .IsRequired()
+              .HasMaxLength(150);
+            builder.Property(x => x.UserMessage)
+            .IsRequired()
+            .HasMaxLength(2000);
+        }
+    }
+    public class NewsConfiguration : IEntityTypeConfiguration<News>
+    {
+        public void Configure(EntityTypeBuilder<News> builder)
+        {
+           builder.HasKey(x=>x.Id);
+
+            builder.Property(x=>x.TittleAz)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            builder.Property(x => x.TittleEn)
+             .HasMaxLength(150);
+
+            builder.Property(x => x.TittleRu)
+             .HasMaxLength(150);
+
+            builder.Property(x=>x.ContentAz)
+                .IsRequired();
+
+            builder.Property(x=>x.ContentEn);
+            builder.Property(x=>x.ContentRu);
+               
+        }
+    }
+    public class PortfolioConfiguration : IEntityTypeConfiguration<Portfolio>
+    {
+        public void Configure(EntityTypeBuilder<Portfolio> builder)
+        {
+           builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.NameAz)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            builder.Property(x => x.NameAz)
+              .HasMaxLength(150);
+
+            builder.Property(x => x.NameAz)
+              .HasMaxLength(150);
+        }
+    }
+    public class ProjectConfiguration : IEntityTypeConfiguration<Project>
+    {
+        public void Configure(EntityTypeBuilder<Project> builder)
+        {
+            builder.Property(x => x.NameAz)
+               .IsRequired()
+               .HasMaxLength(75);
+
+            builder.Property(x => x.NameRu)
+           .HasMaxLength(75);
+
+            builder.Property(x => x.NameEn)
+              .HasMaxLength(75);
+
+            builder.Property(x => x.ContentAz)
+                .IsRequired();
+
+            builder.HasOne(p => p.Portfolio)
+                                .WithMany(p => p.Projects);
+        }
+    }
+    public class ProjectImageConfiguration : IEntityTypeConfiguration<ProjectImage>
+    {
+        public void Configure(EntityTypeBuilder<ProjectImage> builder)
+        {
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.IsMain).IsRequired();
+            builder.Property(x => x.ImageId).IsRequired();
+            builder.Property(x => x.ProjectId).IsRequired();
+            builder.HasOne(pi => pi.Image)
+                                .WithMany(i => i.ProjectImages);
+            builder.HasOne(pi => pi.Project)
+                                .WithMany(p => p.ProjectImages);
+        }
+    }
+    public class NewsImageConfiguration : IEntityTypeConfiguration<NewsImage>
+    {
+        public void Configure(EntityTypeBuilder<NewsImage> builder)
+        {
+            builder.HasOne(ni => ni.Image)
+                                 .WithMany(i => i.NewsImages);
+            builder.HasOne(ni => ni.News)
+                                .WithMany(n => n.NewsImages);
+        }
+    }
     public class ServiceConfiguration : IEntityTypeConfiguration<Service>
     {
         public void Configure(EntityTypeBuilder<Service> builder)
@@ -121,59 +245,51 @@ namespace ConstructionSite.Entity.Configuration
                                   .HasForeignKey<Image>(i => i.ServiceId);
         }
     }
-   
-    public class HomePageConfiguration : IEntityTypeConfiguration<HomePage>
+    public class SubServiceConfiguration : IEntityTypeConfiguration<SubService>
     {
-        public void Configure(EntityTypeBuilder<HomePage> builder)
+        public void Configure(EntityTypeBuilder<SubService> builder)
         {
-            builder.HasOne(hp => hp.Image)
-                                .WithMany(i => i.HomePages);
-        }
-    }
-    public class NewsImageConfiguration : IEntityTypeConfiguration<NewsImage>
-    {
-        public void Configure(EntityTypeBuilder<NewsImage> builder)
-        {
-           builder.HasOne(ni => ni.Image)
-                                .WithMany(i => i.NewsImages);
-            builder.HasOne(ni => ni.News)
-                                .WithMany(n => n.NewsImages);
-        }
-    }
-    public class ProjectConfiguration : IEntityTypeConfiguration<Project>
-    {
-        public void Configure(EntityTypeBuilder<Project> builder)
-        {
-            builder.Property(x => x.NameAz)
-               .IsRequired()
-               .HasMaxLength(75);
+            builder.HasKey(x=>x.Id);
+            builder.Property(x=>x.NameAz)
+                .IsRequired()
+                .HasMaxLength(75);
 
             builder.Property(x => x.NameRu)
-           .HasMaxLength(75);
+               
+               .HasMaxLength(75);
 
             builder.Property(x => x.NameEn)
-              .HasMaxLength(75);
-
+               
+               .HasMaxLength(75);
             builder.Property(x=>x.ContentAz)
                 .IsRequired();
 
-            builder.HasOne(p => p.Portfolio)
-                                .WithMany(p => p.Projects);
+            builder.HasOne(ss => ss.Service)
+                                .WithMany(s => s.SubServices);
         }
     }
-    public class ProjectImageConfiguration : IEntityTypeConfiguration<ProjectImage>
+    public class SubServiceImageConfiguration : IEntityTypeConfiguration<SubServiceImage>
     {
-        public void Configure(EntityTypeBuilder<ProjectImage> builder)
+        public void Configure(EntityTypeBuilder<SubServiceImage> builder)
         {
-            builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.IsMain).IsRequired();
-            builder.Property(x=>x.ImageId).IsRequired();
-            builder.Property(x=>x.ProjectId).IsRequired();
-            builder.HasOne(pi => pi.Image)
-                                .WithMany(i => i.ProjectImages);
-            builder.HasOne(pi => pi.Project)
-                                .WithMany(p => p.ProjectImages);
+           builder.HasOne(ssi => ssi.Image)
+                                .WithMany(i => i.SubServiceImages);
+            builder.HasOne(ssi => ssi.SubService)
+                                .WithMany(ss => ss.SubServiceImages);
         }
     }
+    public class StaticField : IEntityTypeConfiguration<StaticField>
+    {
+        public void Configure(EntityTypeBuilder<StaticField> builder)
+        {
+        
+        }
+    }
+
+
+
+
+
+
 
 }

@@ -66,25 +66,25 @@ namespace ConstructionSite.Entity.Data
             //                .HasOne(p => p.Portfolio)
             //                    .WithMany(p => p.Projects);
 
-            modelBuilder.Entity<ProjectImage>()
-                            .HasOne(pi => pi.Image)
-                                .WithMany(i => i.ProjectImages);
+            //modelBuilder.Entity<ProjectImage>()
+            //                .HasOne(pi => pi.Image)
+            //                    .WithMany(i => i.ProjectImages);
 
-            modelBuilder.Entity<ProjectImage>()
-                            .HasOne(pi => pi.Project)
-                                .WithMany(p => p.ProjectImages);
+            //modelBuilder.Entity<ProjectImage>()
+            //                .HasOne(pi => pi.Project)
+            //                    .WithMany(p => p.ProjectImages);
 
-            modelBuilder.Entity<SubService>()
-                            .HasOne(ss => ss.Service)
-                                .WithMany(s => s.SubServices);
+            //modelBuilder.Entity<SubService>()
+            //                .HasOne(ss => ss.Service)
+            //                    .WithMany(s => s.SubServices);
 
-            modelBuilder.Entity<SubServiceImage>()
-                            .HasOne(ssi => ssi.Image)
-                                .WithMany(i => i.SubServiceImages);
+            //modelBuilder.Entity<SubServiceImage>()
+            //                .HasOne(ssi => ssi.Image)
+            //                    .WithMany(i => i.SubServiceImages);
 
-            modelBuilder.Entity<SubServiceImage>()
-                            .HasOne(ssi => ssi.SubService)
-                                .WithMany(ss => ss.SubServiceImages);
+            //modelBuilder.Entity<SubServiceImage>()
+            //                .HasOne(ssi => ssi.SubService)
+            //                    .WithMany(ss => ss.SubServiceImages);
 
             base.OnModelCreating(modelBuilder);
         }
