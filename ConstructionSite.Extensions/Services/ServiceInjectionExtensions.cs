@@ -23,5 +23,9 @@ namespace ConstructionSite.Extensions.Services
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
+        public static void ServicesInjection()
+        {
+
+        }
     }
 }
