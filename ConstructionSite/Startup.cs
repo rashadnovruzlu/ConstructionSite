@@ -19,16 +19,18 @@ namespace ConstructionSite
             this.Configuration = Configuration;
         } 
 
+       
+
         public void ConfigureServices(IServiceCollection services)
         {
-              services.ServiceLoad(Configuration);
-            
+            services.IdentityLoad(Configuration);
+            services.ServiceLoad(Configuration);
             services.AddMvc();
 
 
             //  services.LocalizationLoad();
-            services.IdentityLoad(Configuration);
-             //services.ServiceLoad(Configuration);
+            //  services.IdentityLoad(Configuration);
+             services.ServiceLoad(Configuration);
           
             services.AddControllersWithViews();
         }

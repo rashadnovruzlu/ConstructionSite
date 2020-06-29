@@ -168,7 +168,7 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch (DbEntityValidationException ex)
             {
-                _errorMessage += Tools.WriteExeptions(ex);
+                _errorMessage += Tools.WriteEntityValidationException(ex);
                 result.IsDone = false;
             }
             return result;

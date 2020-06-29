@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace ConstructionSite.Entity.Data
 {
@@ -34,6 +35,7 @@ namespace ConstructionSite.Entity.Data
                                 .WithOne(x => x.Service).HasForeignKey<Image>(i => i.ServiceId);
             #endregion
 
+            
             modelBuilder.Entity<AboutImage>()
                             .HasOne(ai => ai.About)
                                 .WithMany(a => a.AboutImages);

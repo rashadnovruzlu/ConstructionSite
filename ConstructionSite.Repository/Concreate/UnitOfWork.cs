@@ -4,6 +4,7 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,18 +41,18 @@ namespace ConstructionSite.Repository.Concreate
 
         public async Task<RESULT<int>> Commit()
         {
-            RESULT<int> result = new RESULT<int> { IsDone = false };
+            RESULT<int> CimmitDone = new RESULT<int> { IsDone = false };
             try
             {
-                result.Data = await _dbContext.SaveChangesAsync();
-                result.IsDone = true;
+                CimmitDone.Data = await _dbContext.SaveChangesAsync();
+                CimmitDone.IsDone = true;
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
-               // _errorMessage += Tools.WriteExeptions(ex);
-                throw new DbContextCommitException(_errorMessage, ex);
+                 _errorMessage = Tools.WriteEntityValidationException(ex);
+                 throw new DbContextCommitException(_errorMessage, ex);
             }
-            return result;
+            return CimmitDone;
         }
 
         public void Rollback()
