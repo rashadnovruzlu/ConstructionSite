@@ -58,7 +58,7 @@
                                         <a href="#team">Services</a>
                                         <ul class="sub-menu">
                                             <li class="menu-item">
-                                                <a href="#">Construction</a>
+                                                <a asp-controller="Services" asp-action="Construction">Construction</a>
                                                 <ul class="sub-menu2">
                                                     <li class="menu-item"><a asp-controller="Services" asp-action="Renovation">Service1</a></li>
                                                     <li class="menu-item"><a asp-controller="Services" asp-action="Construction">Service2</a></li>
@@ -170,12 +170,12 @@
                                 <ul class="links col2">
                                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                                     <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
-                                    <li class="last"><a href="terms.html">Term of Use</a></li>
-                                    <li class="last"><a href="about.html">About Us</a></li>
-                                    <li><a href="blog.html">News</a></li>
-                                    <li class="last"><a href="#">Conditions</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                    <li class="last"><a href="#">Conditions</a></li>
+                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Term of Use</a></li>
+                                    <li class="last"><a asp-controller="About" asp-action="Index">About Us</a></li>
+                                    <li><a asp-controller="Blog" asp-action="Index">News</a></li>
+                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Conditions</a></li>
+                                    <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Conditions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -189,10 +189,10 @@
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
                             <ul class="bottom-nav">
-                                <li><a href="index.html">HOME</a></li>
-                                <li><a href="about.html">ABOUT</a></li>
-                                <li><a href="service-construction.html">SERVICES</a></li>
-                                <li><a href="contact.html">CONTACT</a></li>
+                                <li><a asp-controller="Home" asp-action="Index">HOME</a></li>
+                                <li><a asp-controller="About" asp-action="Index">ABOUT</a></li>
+                                <li><a asp-controller="Services" asp-action="Construction">SERVICES</a></li>
+                                <li><a asp-controller="Contact" asp-action="Index">CONTACT</a></li>
                             </ul>
                         </div>
                         <!-- /.bottom-bar-menu -->
