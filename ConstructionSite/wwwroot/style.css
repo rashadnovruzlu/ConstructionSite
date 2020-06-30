@@ -10,7 +10,7 @@
 
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i|Montserrat:300,400,500,600,700&subset=latin");
 
-@import "assets/css/bootstrap.min.css";
+@import "lib/bootstrap-v4-rtl/css/bootstrap.css";
 @import "assets/css/animsition.css";
 @import "assets/css/animate.css";
 @import "assets/css/fontello.css";
@@ -25,7 +25,6 @@
 @import "includes/rev-slider/css/navigation.css";
 @import "assets/css/woocommerce.css";
 @import "assets/css/shortcodes.css";
-@import "assets/css/bootstrap.min.css";
 
 /**
  * Reset Browsers
