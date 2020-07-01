@@ -23,7 +23,7 @@ namespace ConstructionSite.Extensions.DataBase
             services.AddScoped<DbContext>(sp => sp.GetRequiredService<ConstructionDbContext>());
             
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork,UnitOfWork>();
             return services;
 
         }

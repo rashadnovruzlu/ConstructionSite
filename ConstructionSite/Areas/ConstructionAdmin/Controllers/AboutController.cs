@@ -13,16 +13,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class AboutController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IAboutRepository _aboutRepository;
-        public AboutController(IUnitOfWork unitOfWork, 
-                               IMapper mapper,
-                               IAboutRepository aboutRepository)
+        
+       
+        public AboutController(IUnitOfWork unitOfWork)
         {
 
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _aboutRepository=aboutRepository;
+          
+           
             
 
 
