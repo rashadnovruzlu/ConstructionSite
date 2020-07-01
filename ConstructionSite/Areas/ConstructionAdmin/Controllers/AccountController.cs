@@ -22,7 +22,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Logion(string returnUrl)
+        public IActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl= returnUrl;
             return View();
@@ -30,7 +30,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logion(LoginModel loginModel, string returnUrl)
+        public async Task<IActionResult> Login(LoginModel loginModel, string returnUrl)
         {
             if (ModelState.IsValid)
             {
