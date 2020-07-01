@@ -20,10 +20,9 @@ namespace ConstructionSite.Extensions.DataBase
         {
             services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
-
+          
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
         }
     }
 }

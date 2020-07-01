@@ -2,6 +2,8 @@ using ConstructionSite.Entity.Data;
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Services;
+using ConstructionSite.Repository.Abstract;
+using ConstructionSite.Repository.Concreate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,9 +26,11 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.IdentityLoad(Configuration);
             services.InjectionDataBase(Configuration);
-            services.AddMvc();
+           
 
           
           
