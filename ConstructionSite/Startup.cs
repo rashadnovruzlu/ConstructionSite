@@ -1,4 +1,5 @@
 using ConstructionSite.Entity.Data;
+using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Services;
 using Microsoft.AspNetCore.Builder;
@@ -24,13 +25,10 @@ namespace ConstructionSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.IdentityLoad(Configuration);
-            services.ServiceLoad(Configuration);
+            services.InjectionDataBase(Configuration);
             services.AddMvc();
 
-
-            //  services.LocalizationLoad();
-            //  services.IdentityLoad(Configuration);
-             services.ServiceLoad(Configuration);
+          
           
             services.AddControllersWithViews();
         }

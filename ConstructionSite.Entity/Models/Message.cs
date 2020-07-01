@@ -7,20 +7,20 @@ namespace ConstructionSite.Entity.Models
 {
     public class Message
     {
-        [Required]
+       // [Required]
         public int Id { get; set; }
-        [Required]
-        [MaxLength(75)]
+        //[Required]
+        //[MaxLength(75)]
         public string Name { get; set; }
-        [Required]
-        [MaxLength(100)]
+        //[Required]
+        //[MaxLength(100)]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string Email { get; set; }
-        [Required]
-        [MaxLength(150)]
+        //[Required]
+        //[MaxLength(150)]
         public string Subject { get; set; }
-        [Required]
-        [MaxLength(2000)]
+        //[Required]
+        //[MaxLength(2000)]
         public string UserMessage { get; set; }
         [Required]
         [DataType(DataType.DateTime)]

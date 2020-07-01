@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.5" />
@@ -43,6 +44,7 @@
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
   </ItemGroup>
 
 </Project>
