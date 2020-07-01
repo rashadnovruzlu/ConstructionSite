@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
+namespace ConstructionSite.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
-    public class ContactController : Controller
+    public class BlogController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Inner()
         {
             return View();
         }

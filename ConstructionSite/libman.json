@@ -7,13 +7,25 @@
       "destination": "wwwroot/lib/vegas/",
       "files": [
         "vegas.min.js",
-        "vegas.min.js.map",
-        "vegas.js",
-        "vegas.css",
         "vegas.min.css",
-        "vegas.min.css.map"
+        "vegas.min.css.map",
+        "vegas.min.js.map",
+        "vegas.css",
+        "vegas.js"
       ]
     }
-    
+  ,
+{
+  "library": "bootstrap-v4-rtl@4.4.1-2",
+  "destination": "wwwroot/lib/bootstrap-v4-rtl/",
+  "files": [
+    "css/bootstrap.min.css",
+    "css/bootstrap.min.css.map",
+    "js/bootstrap.min.js",
+    "js/bootstrap.min.js.map",
+    "js/bootstrap.js",
+    "css/bootstrap.css"
   ]
+}
+]
 }
