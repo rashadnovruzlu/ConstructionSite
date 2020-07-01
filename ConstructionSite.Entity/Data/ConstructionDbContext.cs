@@ -36,9 +36,6 @@ namespace ConstructionSite.Entity.Data
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
 
 
-            //modelBuilder.Entity<Service>()
-            //                .HasOne<Image>(i => i.Image)
-            //                    .WithOne(x => x.Service).HasForeignKey<Image>(i => i.ServiceId);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             #endregion
            
@@ -86,7 +83,7 @@ namespace ConstructionSite.Entity.Data
             //                .HasOne(ssi => ssi.SubService)
             //                    .WithMany(ss => ss.SubServiceImages);
 
-            base.OnModelCreating(modelBuilder);
+           // base.OnModelCreating(modelBuilder);
         }
     }
 }

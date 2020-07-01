@@ -7,19 +7,35 @@ using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ConstructionSite.DTO;
+using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
+    [Area(nameof(ConstructionAdmin))]
     [Authorize]
     public class AccountController : Controller
     {
-        private UserManager<ApplicationUser> userManager;
-        private SignInManager<ApplicationUser> SignInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> SignInManager;
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> SignInManager)
         {
             this.userManager=userManager;
             this.SignInManager=SignInManager;
         }
+
+        public IActionResult Index()
+        {
+            IEnumerable<UserDTO> users = userManager.Users.Select(m => new UserDTO
+            {
+                Id = m.Id,
+                Name = m.Name,
+                Email=m.Email
+            });
+
+            return View(users);
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)

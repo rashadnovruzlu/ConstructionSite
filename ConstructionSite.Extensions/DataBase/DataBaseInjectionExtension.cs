@@ -9,13 +9,13 @@ namespace ConstructionSite.Extensions.DataBase
 {
     public static class DataBaseInjectionExtension
     {
-        public static void InjectionDataBase(this IServiceCollection services, IConfiguration Configuration)
-        {
-            services.AddDbContext<ConstructionDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
+        //public static void InjectionDataBase(this IServiceCollection services, IConfiguration Configuration)
+        //{
+        //    services.AddDbContext<ConstructionDbContext>(options =>
+        //      options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
 
           
-        }
+        //}
         public static void ServiceDataBaseWithInjection(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ConstructionDbContext>(options =>

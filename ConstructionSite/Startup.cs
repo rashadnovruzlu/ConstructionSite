@@ -25,9 +25,9 @@ namespace ConstructionSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.IdentityLoad(Configuration);
-            services.InjectionDataBase(Configuration);
+            //services.InjectionDataBase(Configuration);
             services.AddMvc();
-
+            services.ServiceDataBaseWithInjection(Configuration);
           
           
             services.AddControllersWithViews();

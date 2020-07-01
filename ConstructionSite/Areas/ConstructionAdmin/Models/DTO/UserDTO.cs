@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ConstructionSite.DTO.ModelsDTO
+namespace ConstructionSite.Areas.ConstructionAdmin.Models.DTO
 {
-    class UserDTO
+    public class UserDTO
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
         public string Role { get; set; }
     }
 }
