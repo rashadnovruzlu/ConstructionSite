@@ -1,10 +1,14 @@
-﻿<div class="rev_slider_wrapper fullwidthbanner-container">
+﻿<!-- Slider -->
+<div class="rev_slider_wrapper fullwidthbanner-container">
     <div id="rev-slider1" class="rev_slider fullwidthabanner">
         <ul>
+
             <!-- Slide -->
             <li data-transition="fade" data-slotamount="default" data-easein="Power3.easeInOut" data-easeout="Power3.easeInOut" data-masterspeed="1500" data-thumb="assets/img/slider/1.jpg" data-rotate="0" data-saveperformance="off" data-title="CONSTRUCTION">
+
                 <!-- Main Image -->
                 <img src="~/assets/img/slider/1.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-no-retina>
+                
                 <!-- Layers -->
                 <div class="tp-caption tp-resizeme text-white font-family-heading text-shadow font-weight-500"
                      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
@@ -66,10 +70,13 @@
                 </div>
             </li>
             <!-- End Slide -->
+
             <!-- Slide -->
             <li data-transition="boxfade" data-slotamount="7" data-easein="Expo.easeOut" data-easeout="Expo.easeOut" data-masterspeed="2000" data-thumb="assets/img/slider/2.jpg" data-rotate="0" data-saveperformance="off" data-title="BEST COMPANY">
+                
                 <!-- Main Image -->
                 <img src="~/assets/img/slider/2.jpg" alt="" data-bgposition="center center" data-no-retina>
+                
                 <!-- Layers -->
                 <div class="tp-caption tp-resizeme text-white font-family-heading text-shadow font-weight-500"
                      data-x="['left','left','left','left']" data-hoffset="['50','30','30','30']"
@@ -131,11 +138,11 @@
                 </div>
             </li>
             <!-- End Slide -->
+
         </ul>
         <div class="tp-bannertimer tp-bottom"></div>
     </div>
 </div>
-
 <div id="main-content" class="site-main clearfix">
     <div id="content-wrap">
         <div id="site-content" class="site-content clearfix">
@@ -150,25 +157,24 @@
                                     <div class="wprt-lines style-2 custom-1">
                                         <div class="line-1"></div>
                                     </div>
-
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-
                                     <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
-                                    <div class="link">  <a href="about.html" class="wprt-button small rounded-3px">READ MORE</a></div>
-
+                                    <div class="link"><a asp-controller="About" asp-action="Index" class="wprt-button small rounded-3px">READ MORE</a></div>
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
-
                                     <div class="text-center">
                                         <img src="~/assets/img/ab.jpg" alt="image" />
-
                                     </div>
+                                </div>
+                                <!-- /.col-md-12 -->
 
-                                </div><!-- /.col-md-12 -->
+                            </div>
+                            <!-- /.row -->
 
-                            </div><!-- /.row -->
-                        </div><!-- /.container -->
+                        </div>
+                        <!-- /.container -->
+
                     </section>
-                    <section id="team" class="wprt-section">
+                    <section id="team" class="wprt-section clearfix text-center">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
@@ -177,22 +183,27 @@
                                     <div class="wprt-lines style-2 custom-1">
                                         <div class="line-1"></div>
                                     </div>
-
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-
-                                    <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
-
+                                    <p class="wprt-subtitle">
+                                        Lorem ipsum dolor
+                                        sit amet, consectetur adipiscing elit.
+                                        Phasellus sit amet iaculis elit. Nam
+                                        semper ut arcu non placerat. Praesent nibh
+                                        massa varius.
+                                    </p> <div class="link">
+                                        <a asp-controller="Services" asp-action="Index" class="wprt-button small rounded-3px">
+                                            SEE
+                                            ALL
+                                        </a>
+                                    </div>
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
-
                                     <div class="wprt-team has-bullets bullet-style-1" data-layout="slider" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
                                         <div id="team-wrap" class="cbp">
                                             <div class="cbp-item">
                                                 <div class="member">
                                                     <div class="inner">
                                                         <div class="image">
-
                                                             <div class="thumb"><img src="~/assets/img/services/3.jpg" alt="image" /></div>
-
                                                             <ul class="socials clearfix">
                                                                 <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                                 <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -200,7 +211,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="service-item-wrap">
-                                                            <h3 class="title font-size-18"><a href="service-Construction.html">Construction </a></h3>
+                                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Construction">Construction </a></h3>
                                                             <p class="desc">Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam, tincidunt vel blandit eu, molestie eget.</p>
                                                         </div>
                                                     </div>
@@ -210,9 +221,7 @@
                                                 <div class="member">
                                                     <div class="inner">
                                                         <div class="image">
-
                                                             <div class="thumb"><img src="~/assets/img/services/2.jpg" alt="image" /></div>
-
                                                             <ul class="socials clearfix">
                                                                 <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                                 <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -220,7 +229,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="service-item-wrap">
-                                                            <h3 class="title font-size-18"><a href="service-renovation.html">Renovation</a></h3>
+                                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Renovation">Renovation</a></h3>
                                                             <p class="desc">Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam, tincidunt vel blandit eu, molestie eget.</p>
                                                         </div>
                                                     </div>
@@ -230,9 +239,7 @@
                                                 <div class="member">
                                                     <div class="inner">
                                                         <div class="image">
-
                                                             <div class="thumb"><img src="~/assets/img/services/2.jpg" alt="image" /></div>
-
                                                             <ul class="socials clearfix">
                                                                 <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                                 <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -240,7 +247,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="service-item-wrap">
-                                                            <h3 class="title font-size-18"><a href="service-consulting.html">Consulting</a></h3>
+                                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Consulting">Consulting</a></h3>
                                                             <p class="desc">Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam, tincidunt vel blandit eu, molestie eget.</p>
                                                         </div>
                                                     </div>
@@ -250,9 +257,7 @@
                                                 <div class="member">
                                                     <div class="inner">
                                                         <div class="image">
-
                                                             <div class="thumb"><img src="~/assets/img/services/3.jpg" alt="image" /></div>
-
                                                             <ul class="socials clearfix">
                                                                 <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                                 <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -260,7 +265,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="service-item-wrap">
-                                                            <h3 class="title font-size-18"><a href="service-architecture.html">Architecture</a></h3>
+                                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Architecture">Architecture</a></h3>
                                                             <p class="desc">Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam, tincidunt vel blandit eu, molestie eget.</p>
                                                         </div>
                                                     </div>
@@ -270,9 +275,7 @@
                                                 <div class="member">
                                                     <div class="inner">
                                                         <div class="image">
-
                                                             <div class="thumb"><img src="~/assets/img/services/3.jpg" alt="image" /></div>
-
                                                             <ul class="socials clearfix">
                                                                 <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                                 <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -280,36 +283,45 @@
                                                             </ul>
                                                         </div>
                                                         <div class="service-item-wrap">
-                                                            <h3 class="title font-size-18"><a href="service-electrical.html">Electrical</a></h3>
+                                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Electrical">Electrical</a></h3>
                                                             <p class="desc">Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam, tincidunt vel blandit eu, molestie eget.</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div><!-- /#team-wrap -->
-                                    </div><!-- /.wprt-team -->
+                                        </div>
+                                        <!-- /#team-wrap -->
+
+                                    </div>
+                                    <!-- /.wprt-team -->
 
                                     <div class="wprt-spacer" data-desktop="70" data-mobi="50" data-smobi="40"></div>
-                                </div><!-- /.col-md-12 -->
-                            </div><!-- /.row -->
-                        </div><!-- /.container -->
-                    </section>
+                                </div>
+                                <!-- /.col-md-12 -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.container -->
 
+                    </section>
                     <section id="works" class="wprt-section">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-
                                     <h2 class="text-center margin-bottom-20">PORTFOLIO</h2>
                                     <div class="wprt-lines style-2 custom-1">
                                         <div class="line-1"></div>
                                     </div>
-
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-                                </div><!-- /.col-md-12 -->
-                            </div><!-- /.row -->
-                        </div><!-- /.container -->
+                                </div>
+                                <!-- /.col-md-12 -->
+
+                            </div>
+                            <!-- /.row -->
+
+                        </div>
+                        <!-- /.container -->
 
                         <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
                             <div id="project-filter">
@@ -334,7 +346,8 @@
                                  <div data-filter=".workspace" class="cbp-filter-item">
                                      <span>Workspace</span>
                                  </div> -->
-                            </div><!-- /#project-filter -->
+                            </div>
+                            <!-- /#project-filter -->
 
                             <div id="projects" class="cbp">
                                 <div class="cbp-item architecture interior workspace">
@@ -345,19 +358,19 @@
                                                     <img src="~/assets/img/projects/1.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="portfolio.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/1-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item building office workspace">
                                     <div class="project-item">
@@ -367,19 +380,19 @@
                                                     <img src="~/assets/img/projects/2.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="portfolio.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/2-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item architecture garden interior">
                                     <div class="project-item">
@@ -389,19 +402,19 @@
                                                     <img src="~/assets/img/projects/2.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="portfolio.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/3-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item building interior workspace">
                                     <div class="project-item">
@@ -411,19 +424,19 @@
                                                     <img src="~/assets/img/projects/1.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="portfolio.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/4-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item garden office workspace">
                                     <div class="project-item">
@@ -433,19 +446,19 @@
                                                     <img src="~/assets/img/projects/1.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="portfolio.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/5-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item architecture garden office">
                                     <div class="project-item">
@@ -455,19 +468,19 @@
                                                     <img src="~/assets/img/projects/2.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="page-project-detail.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/6-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item architecture garden office">
                                     <div class="project-item">
@@ -477,19 +490,19 @@
                                                     <img src="~/assets/img/projects/1.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="page-project-detail.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/7-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
+                                </div>
+                                <!--/.cbp-item -->
 
                                 <div class="cbp-item architecture garden office">
                                     <div class="project-item">
@@ -499,23 +512,27 @@
                                                     <img src="~/assets/img/projects/1.jpg" alt="image" />
                                                     <figcaption>
                                                         <div>
-                                                            <h2><a target="_blank" href="page-project-detail.html">LUXURY BUILDINGS</a></h2>
+                                                            <h2><a target="_blank" asp-controller="Portfolio" asp-action="Index">LUXURY BUILDINGS</a></h2>
                                                             <p>Construction</p>
                                                         </div>
                                                     </figcaption>
                                                 </figure>
                                             </div>
-
                                             <a class="project-zoom cbp-lightbox" href="assets/img/projects/8-full.jpg" data-title="LUXURY BUILDINGS">
                                                 <i class="fa fa-arrows-alt"></i>
                                             </a>
                                         </div>
                                     </div>
-                                </div><!--/.cbp-item -->
-                            </div><!-- /#projects -->
-                        </div><!--/.wprt-project -->
-                    </section>
+                                </div>
+                                <!--/.cbp-item -->
 
+                            </div>
+                            <!-- /#projects -->
+                                
+                        </div>
+                        <!--/.wprt-project -->
+
+                    </section>
                     <section id="testimonials" class="wprt-section">
                         <div class="container">
                             <div class="row">
@@ -525,12 +542,11 @@
                                     <div class="wprt-lines style-2 custom-1">
                                         <div class="line-1"></div>
                                     </div>
-
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-
                                     <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
-                                </div><!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.col-md-12 -->
 
                                 <div class="col-md-12">
                                     <div class="wprt-testimonials style-1 has-bullets bullet-style-1 bullet50" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
@@ -538,229 +554,239 @@
                                             <div class="cbp-item">
                                                 <div class="customer clearfix">
                                                     <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/1.jpg" alt="image" /></div>
                                                         <h4 class="name">GEORGE SLOWS</h4>
                                                         <div class="position">Builder manager</div>
                                                         <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
                                                     </div>
                                                 </div>
-                                            </div><!-- /.cbp-item -->
+                                            </div>
+                                            <!-- /.cbp-item -->
 
                                             <div class="cbp-item">
                                                 <div class="customer clearfix">
                                                     <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/2.jpg" alt="image" /></div>
                                                         <h4 class="name">BARBARA DOUGLAS</h4>
                                                         <div class="position">Builder manager</div>
                                                         <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
                                                     </div>
                                                 </div>
-                                            </div><!-- /.cbp-item -->
+                                            </div>
+                                            <!-- /.cbp-item -->
 
                                             <div class="cbp-item">
                                                 <div class="customer clearfix">
                                                     <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/3.jpg" alt="image" /></div>
                                                         <h4 class="name">GEORGE SLOWS</h4>
                                                         <div class="position">Builder manager</div>
                                                         <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
                                                     </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="customer clearfix">
-                                                    <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/1.jpg" alt="image" /></div>
-                                                        <h4 class="name">GEORGE SLOWS</h4>
-                                                        <div class="position">Builder manager</div>
-                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="customer clearfix">
-                                                    <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/2.jpg" alt="image" /></div>
-                                                        <h4 class="name">GEORGE SLOWS</h4>
-                                                        <div class="position">Builder manager</div>
-                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="customer clearfix">
-                                                    <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/3.jpg" alt="image" /></div>
-                                                        <h4 class="name">GEORGE SLOWS</h4>
-                                                        <div class="position">Builder manager</div>
-                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="customer clearfix">
-                                                    <div class="inner">
-                                                        <div class="image"><img src="~/assets/img/testimonials/1.jpg" alt="image" /></div>
-                                                        <h4 class="name">GEORGE SLOWS</h4>
-                                                        <div class="position">Builder manager</div>
-                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-                                        </div><!-- /#service-wrap -->
-                                    </div><!-- /.wprt-testimonials -->
-
-                                    <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
-                                </div><!-- /.col-md-12 -->
-                            </div><!-- /.row -->
-                        </div><!-- /.container -->
-                    </section>
-                    <section id="blog" class="wprt-section offer">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60"></div>
-
-                                    <h2>BLOG</h2>
-                                    <div class="wprt-lines style-1 custom-2">
-                                        <div class="line-1"></div>
-                                    </div>
-
-                                    <div class="wprt-spacer" data-desktop="50" data-mobi="30" data-smobi="30"></div>
-                                </div><!-- /.col-md-12 -->
-
-                                <div class="col-md-12">
-                                    <div class="wprt-service arrow-style-2 has-arrows arrow60 arrow-light" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
-                                        <div id="service-wrap" class="cbp">
-                                            <div class="cbp-item">
-                                                <div class="service-item clearfix">
-                                                    <div class="thumb"><img src="~/assets/img/services/12.jpg" alt="image" /></div>
-                                                    <div class="service-item-wrap">
-                                                        <h3 class="title font-size-18"><a href="#">Construction Consultant</a></h3>
-                                                        <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                                                        <a href="inner-blog.html" class="wprt-button small rounded-3px">READ MORE</a>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="service-item clearfix">
-                                                    <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
-                                                    <div class="service-item-wrap">
-                                                        <h3 class="title font-size-18"><a href="#">Green Building</a></h3>
-                                                        <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                                                        <a href="inner-blog.html" class="wprt-button small rounded-3px">READ MORE</a>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="service-item clearfix">
-                                                    <div class="thumb"><img src="~/assets/img/services/12.jpg" alt="image" /></div>
-                                                    <div class="service-item-wrap">
-                                                        <h3 class="title font-size-18"><a href="#">Resconstruction Services</a></h3>
-                                                        <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                                                        <a href="inner-blog.html" class="wprt-button small rounded-3px">READ MORE</a>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                            <div class="cbp-item">
-                                                <div class="service-item clearfix">
-                                                    <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
-                                                    <div class="service-item-wrap">
-                                                        <h3 class="title font-size-18"><a href="#">Roofing & Flooring Services</a></h3>
-                                                        <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                                                        <a href="inner-blog.html" class="wprt-button small rounded-3px">READ MORE</a>
-                                                    </div>
-                                                </div>
-                                            </div><!-- /.cbp-item -->
-
-                                        </div><!-- /#service-wrap -->
-                                    </div><!-- /.wprt-service -->
-                                </div><!-- /.col-md-12 -->
-
-                                <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                                </div><!-- /.col-md-12 -->
-                            </div><!-- /.row -->
-                        </div><!-- /.container -->
-                    </section>
-
-
-                    <section id="contact" class="wprt-section">
-
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                                    <h2 class="text-center margin-bottom-20">CONTACT US</h2>
-                                    <div class="wprt-lines style-2 custom-1">
-                                        <div class="line-1"></div>
-                                    </div>
-
-                                    <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-
-                                    <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
-                                    <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
-                                </div><!-- /.col-md-12 -->
-
-                                <div class="col-md-4">
-                                    <h5>Address</h5>
-                                    <p>68 Havemeyer St, Brooklyn, NY 11211<br> United States</p>
-
-                                    <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
-
-                                    <h5>Phone number</h5>
-                                    <p>+1 718-955-2838 or +1 718-955-3290</p>
-
-                                    <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
-
-                                    <h5>E-mail address</h5>
-                                    <p>contact@construction.com</p>
-
-                                    <div class="wprt-spacer" data-desktop="0" data-mobi="10" data-smobi="10"></div>
-                                </div><!-- /.col-md-4 -->
-
-                                <div class="col-md-8">
-                                    <form class="wprt-contact-form" method="post" action="./includes/contact/contact-process.php">
-                                        <div class="inner">
-                                            <div class="left-side">
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="1" placeholder="Name *" name="name" id="name" required>
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="email" value="" tabindex="2" placeholder="Email *" name="email" id="email" required>
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="4" placeholder="Subject *" name="subject" id="subject" required>
-                                                </div>
-                                                <div class="message-wrap">
-                                                    <textarea class="" tabindex="5" placeholder="Message *" name="message" id="message" required></textarea>
-                                                </div>
-                                                <div class="send-wrap">
-                                                    <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                    <!-- /.wprt-contact-form -->
+                                            <!-- /.cbp-item -->
 
-                                    <div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
+                                            <div class="cbp-item">
+                                                <div class="customer clearfix">
+                                                    <div class="inner">
+                                                        <h4 class="name">GEORGE SLOWS</h4>
+                                                        <div class="position">Builder manager</div>
+                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.cbp-item -->
+
+                                            <div class="cbp-item">
+                                                <div class="customer clearfix">
+                                                    <div class="inner">
+                                                        <h4 class="name">GEORGE SLOWS</h4>
+                                                        <div class="position">Builder manager</div>
+                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.cbp-item -->
+
+                                            <div class="cbp-item">
+                                                <div class="customer clearfix">
+                                                    <div class="inner">
+                                                        <h4 class="name">GEORGE SLOWS</h4>
+                                                        <div class="position">Builder manager</div>
+                                                        <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.cbp-item -->
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /.col-md-8 -->
+                                <!-- /.cbp-item -->
+
                             </div>
-                            <!-- /.row -->
+                            <!-- /#service-wrap -->
+
                         </div>
-                        <!-- /.container -->
+                        <!-- /.wprt-testimonials -->
+
+                        <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
                     </section>
                 </div>
-                <!-- /.page-content -->
+                <!-- /.col-md-12 -->
+
             </div>
+            <!-- /.row -->
+
         </div>
+        <!-- /.container -->
+
+        <section id="blog" class="wprt-section offer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60"></div>
+                        <h2>BLOG</h2>
+                        <div class="wprt-lines style-1 custom-2">
+                            <div class="line-1"></div>
+                        </div>
+                        <div class="wprt-spacer" data-desktop="50" data-mobi="30" data-smobi="30"></div>
+                    </div>
+                    <!-- /.col-md-12 -->
+
+                    <div class="col-md-12">
+                        <div class="wprt-service arrow-style-2 has-arrows arrow60 arrow-light" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
+                            <div id="service-wrap" class="cbp">
+                                <div class="cbp-item">
+                                    <div class="service-item clearfix">
+                                        <div class="thumb"><img src="~/assets/img/services/12.jpg" alt="image" /></div>
+                                        <div class="service-item-wrap">
+                                            <h3 class="title font-size-18"><a href="#">Construction Consultant</a></h3>
+                                            <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                                            <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.cbp-item -->
+
+                                <div class="cbp-item">
+                                    <div class="service-item clearfix">
+                                        <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
+                                        <div class="service-item-wrap">
+                                            <h3 class="title font-size-18"><a href="#">Green Building</a></h3>
+                                            <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                                            <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.cbp-item -->
+
+                                <div class="cbp-item">
+                                    <div class="service-item clearfix">
+                                        <div class="thumb"><img src="~/assets/img/services/12.jpg" alt="image" /></div>
+                                        <div class="service-item-wrap">
+                                            <h3 class="title font-size-18"><a href="#">Resconstruction Services</a></h3>
+                                            <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                                            <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.cbp-item -->
+
+                                <div class="cbp-item">
+                                    <div class="service-item clearfix">
+                                        <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
+                                        <div class="service-item-wrap">
+                                            <h3 class="title font-size-18"><a href="#">Roofing & Flooring Services</a></h3>
+                                            <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                                            <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.cbp-item -->
+
+                            </div>
+                            <!-- /#service-wrap -->
+
+                        </div>
+                        <!-- /.wprt-service -->
+
+                    </div>
+                    <!-- /.col-md-12 -->
+
+                    <div class="col-md-12">
+                        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                    </div>
+                    <!-- /.col-md-12 -->
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+
+        </section>
+        <section id="contact" class="wprt-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                        <h2 class="text-center margin-bottom-20">CONTACT US</h2>
+                        <div class="wprt-lines style-2 custom-1">
+                            <div class="line-1"></div>
+                        </div>
+                        <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
+                        <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
+                        <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
+                    </div>
+                    <!-- /.col-md-12 -->
+
+                    <div class="col-md-4">
+                        <h5>Address</h5>
+                        <p>68 Havemeyer St, Brooklyn, NY 11211<br> United States</p>
+                        <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
+                        <h5>Phone number</h5>
+                        <p>+1 718-955-2838 or +1 718-955-3290</p>
+                        <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
+                        <h5>E-mail address</h5>
+                        <p>contact@construction.com</p>
+                        <div class="wprt-spacer" data-desktop="0" data-mobi="10" data-smobi="10"></div>
+                    </div>
+                    <!-- /.col-md-4 -->
+
+                    <div class="col-md-8">
+                        <form class="wprt-contact-form" method="post" action="./includes/contact/contact-process.php">
+                            <div class="inner">
+                                <div class="left-side">
+                                    <div class="input-wrap">
+                                        <input type="text" value="" tabindex="1" placeholder="Name *" name="name" id="name" required>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <input type="email" value="" tabindex="2" placeholder="Email *" name="email" id="email" required>
+                                    </div>
+                                    <div class="input-wrap">
+                                        <input type="text" value="" tabindex="4" placeholder="Subject *" name="subject" id="subject" required>
+                                    </div>
+                                    <div class="message-wrap">
+                                        <textarea class="" tabindex="5" placeholder="Message *" name="message" id="message" required></textarea>
+                                    </div>
+                                    <div class="send-wrap">
+                                        <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- /.wprt-contact-form -->
+
+                        <div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
+                    </div>
+                    <!-- /.col-md-8 -->
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+
+        </section>
     </div>
+    <!-- /.page-content -->
 </div>
