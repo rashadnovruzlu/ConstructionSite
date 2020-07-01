@@ -1,6 +1,7 @@
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
+using ConstructionSite.Extensions.Seed;
 using ConstructionSite.Extensions.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,9 +28,10 @@ namespace ConstructionSite
             services.IdentityLoad(Configuration);
             //services.InjectionDataBase(Configuration);
             services.AddMvc();
-            services.ServiceDataBaseWithInjection(Configuration);
-          
-          
+            // services.ServiceDataBaseWithInjection(Configuration);
+            services.InjectionDataBase(Configuration);
+
+
             services.AddControllersWithViews();
         }
 
@@ -45,6 +47,7 @@ namespace ConstructionSite
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.SeedRole();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
