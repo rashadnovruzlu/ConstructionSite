@@ -32,7 +32,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 Name = m.Name,
                 Email=m.Email
             });
-
             return View(users);
         }
 
