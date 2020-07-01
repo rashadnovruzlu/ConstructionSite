@@ -16,13 +16,16 @@ namespace ConstructionSite.Extensions.DataBase
 
           
         }
-        public static void ServiceDataBaseWithInjection(this IServiceCollection services, IConfiguration Configuration)
+        public static IServiceCollection ServiceDataBaseWithInjection(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
-          
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<DbContext>(sp => sp.GetRequiredService<ConstructionDbContext>());
             
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            return services;
+
         }
     }
 }

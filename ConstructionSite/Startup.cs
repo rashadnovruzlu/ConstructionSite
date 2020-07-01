@@ -27,7 +27,7 @@ namespace ConstructionSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+          
             services.IdentityLoad(Configuration);
             services.InjectionDataBase(Configuration);
            
