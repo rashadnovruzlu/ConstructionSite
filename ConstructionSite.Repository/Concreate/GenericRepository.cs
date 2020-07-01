@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Helpers.Core;
+﻿using ConstructionSite.Entity.Data;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +15,7 @@ namespace ConstructionSite.Repository.Concreate
     {
         #region --Fild--
 
-        private readonly DbContext _context;
+        private readonly ConstructionDbContext _context;
         private readonly IUnitOfWork _unitOfWork;
         private string _errorMessage = string.Empty;
 
@@ -22,7 +23,7 @@ namespace ConstructionSite.Repository.Concreate
 
         #region --Ctor--
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(ConstructionDbContext context)
         {
             _context = context;
             _unitOfWork = new UnitOfWork(context);
@@ -76,7 +77,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 await _context.Set<T>().AddAsync(entity);
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
                 result.Data = entity;
             }
             catch
@@ -115,7 +116,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 await _context.Set<T>().AddRangeAsync(entity);
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
             }
             catch
             {
@@ -164,7 +165,7 @@ namespace ConstructionSite.Repository.Concreate
             {
                 _context.Set<T>().Attach(entity);
                 _context.Entry(entity).State = EntityState.Modified;
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
             }
             catch (DbEntityValidationException ex)
             {
@@ -211,7 +212,7 @@ namespace ConstructionSite.Repository.Concreate
                     _context.Set<T>().Attach(item);
                     _context.Entry(item).State = EntityState.Modified;
                 }
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
             }
             catch
             {
@@ -253,7 +254,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 _context.Set<T>().Remove(entity);
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
             }
             catch
             {
@@ -292,7 +293,7 @@ namespace ConstructionSite.Repository.Concreate
             {
                 _context.Set<T>().RemoveRange(entity);
 
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
             }
             catch
             {

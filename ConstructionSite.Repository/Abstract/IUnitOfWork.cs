@@ -23,9 +23,8 @@ namespace ConstructionSite.Repository.Abstract
         IStaticFieldRepository staticFieldRepository { get;}
         ISubServiceImageRepository SubServiceImageRepository { get;}
         ISubServiceRepository SubServiceRepository { get;}
-
          Task<int> CommitAsync();
-          int Commit();
+         int Commit();
 
 
 

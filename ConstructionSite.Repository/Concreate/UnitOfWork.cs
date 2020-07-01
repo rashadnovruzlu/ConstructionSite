@@ -22,6 +22,15 @@ namespace ConstructionSite.Repository.Concreate
         private IHomePageRepository _HomePageRepository;
         private IImageRepository _imageRepository;
         private IMessageRepository _messageRepository;
+        private INewsImageRepository _newsImageRepository;
+        private INewsRepository _newsRepository;
+        private IPortfolioRepository _portfolioRepository;
+        private IProjectImageRepository _projectImageRepository;
+        private IProjectRepository _projectRepository;
+        private IServiceRepository _serviceRepository;
+        private IStaticFieldRepository _staticFieldRepository;
+        private ISubServiceImageRepository _subServiceImageRepository;
+        private ISubServiceRepository _SubServiceRepository;
         private readonly ConstructionDbContext _context;
         public UnitOfWork(ConstructionDbContext context)
         {
@@ -83,23 +92,77 @@ namespace ConstructionSite.Repository.Concreate
             }
         }
 
-        public INewsImageRepository newsImageRepository => throw new NotImplementedException();
+        public INewsImageRepository newsImageRepository
+        {
+            get
+            {
+                return _newsImageRepository??(_newsImageRepository=new NewsImageRepository(_context));
+            }
+        }
 
-        public INewsRepository newsRepository => throw new NotImplementedException();
+        public INewsRepository newsRepository
+        {
+            get
+            {
+                return _newsRepository??(_newsRepository=new NewsRepository(_context));
+            }
+        }
 
-        public IPortfolioRepository portfolioRepository => throw new NotImplementedException();
+        public IPortfolioRepository portfolioRepository
+        {
+            get
+            {
+                return _portfolioRepository??(_portfolioRepository=new PortfolioRepository(_context));
+            }
+        }
 
-        public IProjectImageRepository projectImageRepository => throw new NotImplementedException();
+        public IProjectImageRepository projectImageRepository
+        {
+            get
+            {
+                return _projectImageRepository??(_projectImageRepository=new ProjectImageRepository(_context));
+            }
+        }
 
-        public IProjectRepository projectRepository => throw new NotImplementedException();
+        public IProjectRepository projectRepository
+        {
+            get
+            {
+                return _projectRepository??(_projectRepository=new ProjectRepository(_context));
+            }
+        }
 
-        public IServiceRepository ServiceRepository => throw new NotImplementedException();
+        public IServiceRepository ServiceRepository
+        {
+            get
+            {
+                return _serviceRepository??(_serviceRepository=new ServiceRepository(_context));
+            }
+        }
 
-        public IStaticFieldRepository staticFieldRepository => throw new NotImplementedException();
+        public IStaticFieldRepository staticFieldRepository
+        {
+            get
+            {
+                return _staticFieldRepository??(_staticFieldRepository=new StaticFieldRepository(_context));
+            }
+        }
 
-        public ISubServiceImageRepository SubServiceImageRepository => throw new NotImplementedException();
+        public ISubServiceImageRepository SubServiceImageRepository
+        {
+            get
+            {
+              return  _subServiceImageRepository??(_subServiceImageRepository=new SubServiceImageRepository(_context));
+            }
+        }
 
-        public ISubServiceRepository SubServiceRepository => throw new NotImplementedException();
+        public ISubServiceRepository SubServiceRepository
+        {
+            get
+            {
+                return _SubServiceRepository??(_SubServiceRepository=new SubServiceRepository(_context));
+            }
+        }
 
         public  int Commit()
         {
