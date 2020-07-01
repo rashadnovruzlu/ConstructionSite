@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    //[Route("[ConstructionAdmin]/[controller]")]
+    //[Authorize(Roles = "Admin")]
     public class AboutController : Controller
     {
         public IActionResult Index()
