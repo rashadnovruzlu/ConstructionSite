@@ -10,8 +10,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class ImageController : Controller
     {
-        private readonly IUnitOfWork unitOfWork;
-        private readonly IMapper mapper;
+       
        
         public IActionResult Index()
         {
