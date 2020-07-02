@@ -1,5 +1,14 @@
+using ConstructionSite.Entity.Identity;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Resources;
+using System.Threading.Tasks;
 
 namespace ConstructionSite
 {
