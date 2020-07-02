@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.Helpers.Images;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
@@ -17,11 +18,12 @@ namespace ConstructionSite.Extensions.Images
                    file.ContentType == "image/gif";
         }
 
-        public static async Task<string> SaveAsync(this IFormFile file, string root, string subFolder)
+        public static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
+          
             string fileName = Imager.GetImageSubFolder(subFolder,file.Name);
 
-            string path = Path.Combine(root, "images", fileName);
+            string path = Path.Combine(_env.WebRootPath, "images", fileName);
 
             await using (var stream = new FileStream(path, FileMode.Create))
             {

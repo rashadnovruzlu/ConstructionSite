@@ -9,7 +9,7 @@ namespace ConstructionSite.Helpers.Images
     {
         public static string GetImageSubFolder(string Folder,string name)
         {
-         return Path.Combine(Folder, Guid.NewGuid().ToString() + Path.GetFileName(name));
+         return Path.Combine(Folder, Guid.NewGuid().ToString() + Path.GetExtension(name));
         }
         
     }

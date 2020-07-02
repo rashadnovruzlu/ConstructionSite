@@ -31,10 +31,6 @@ namespace ConstructionSite
           
             services.IdentityLoad(Configuration);
             services.ServiceDataBaseWithInjection(Configuration);
-           
-
-          
-          
             services.AddControllersWithViews();
         }
 

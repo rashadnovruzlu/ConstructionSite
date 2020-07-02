@@ -42,7 +42,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Image image = new Image();
                 string paths = _env.WebRootPath;
-                image.Title = await FileData.SaveAsync(paths, "about");
+                image.Title = await FileData.SaveAsync(_env, "about");
                 image.Path = paths + "/" + "about";
             }
           _unitOfWork.AboutRepository.Add(about);
