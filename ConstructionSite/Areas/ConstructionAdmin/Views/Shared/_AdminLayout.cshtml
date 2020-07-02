@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<UserDTO>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -50,11 +52,11 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <img alt="" src="~/ConstructionAdmin/img/avatar1_small.jpg">
-                            <span class="username">Jhon Doue</span>
+                            <span class="username">@Html.DisplayNameFor(model=>model.Name)</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
-                            @* <div class="log-arrow-up"></div>*@
+                            <div class="log-arrow-up"></div>
                             <li><a asp-controller="Account" asp-action="Index"><i class=" icon-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
                             <li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>
