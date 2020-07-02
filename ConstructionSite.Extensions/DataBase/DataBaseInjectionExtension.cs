@@ -13,8 +13,6 @@ namespace ConstructionSite.Extensions.DataBase
         {
             services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
-
-          
         }
         public static IServiceCollection ServiceDataBaseWithInjection(this IServiceCollection services, IConfiguration Configuration)
         {

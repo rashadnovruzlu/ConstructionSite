@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ConstructionSite.Extensions.Seed
 {
-   public static class SeedDataExtension
+    public static class SeedDataExtension
     {
         public static void Seeding(IApplicationBuilder app)
         {
