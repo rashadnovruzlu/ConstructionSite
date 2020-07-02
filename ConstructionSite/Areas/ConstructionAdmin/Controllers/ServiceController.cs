@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
+    [Area(nameof(ConstructionAdmin))]
     public class ServiceController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -40,7 +40,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 if (FileData.IsImage())
                 {
                     Image image = new Image();
-                    string name = await FileData.SaveAsync(_env, "about");
+                    string name = await FileData.SaveAsync(_env, "service");
                     image.Title = name;
                     image.Path = Path.Combine(_env.WebRootPath, "images", name);
                     service.ImageId = await _unitOfWork.imageRepository.AddAsync(image);
