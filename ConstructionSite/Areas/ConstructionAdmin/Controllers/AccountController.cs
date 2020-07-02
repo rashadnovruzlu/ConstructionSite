@@ -16,7 +16,7 @@ using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;

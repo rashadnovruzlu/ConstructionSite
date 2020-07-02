@@ -1,4 +1,78 @@
 ﻿@model LoginViewModel
-@{ 
+
+@{
     Layout = null;
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="~/ConstructionAdminimg/favicon.png">
+
+    <title>Construction - Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/ConstructionAdmin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/ConstructionAdmin/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/ConstructionAdmin/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/ConstructionAdmin/css/style.css" rel="stylesheet">
+    <link href="~/ConstructionAdmin/css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="login-body">
+    <div class="container">
+        <form asp-controller="Home" asp-action="Index" class="form-signin">
+            <div asp-validation-summary="ModelOnly" class="form-group mb-3"></div>
+            @Html.AntiForgeryToken()
+            <h2 class="form-signin-heading">Sign In Now</h2>
+            <div class="login-wrap">
+                <label>Email</label>
+                <div class="input-group input-group-icon">
+                    <input type="text" asp-for="Email" class="form-control" placeholder="Your Email" autofocus>
+                    <span class="input-group-addon">
+                        <span class="icon icon-lg">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </span>
+                </div>
+                <div>
+                    <p>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </p>
+                </div>
+                <label class="float-left">Password</label>
+                <div class="input-group input-group-icon">
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Password">
+                    <span class="input-group-addon">
+                        <span class="icon icon-lg">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </span>
+                </div>
+                <div>
+                    <p>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </p>
+                </div>
+                <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="~/ConstructionAdmin/js/jquery.js"></script>
+    <script src="~/ConstructionAdmin/js/bootstrap.min.js"></script>
+</body>
+</html>
