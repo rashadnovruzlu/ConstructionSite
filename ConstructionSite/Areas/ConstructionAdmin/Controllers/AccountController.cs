@@ -11,6 +11,7 @@ using ConstructionSite.DTO;
 using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
+using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
@@ -19,7 +20,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> SignInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         private void AddErrors(IdentityResult result)
@@ -30,10 +31,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> SignInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager=userManager;
-            this.SignInManager=SignInManager;
+            this._signInManager=signInManager;
             this._roleManager = roleManager;
         }
 
@@ -117,44 +118,53 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login()
         {
-            ViewBag.returnUrl= returnUrl;
-            return View();
+            return View(new LoginViewModel());
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel loginModel, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                var user=await userManager.FindByEmailAsync(loginModel.Email);
-                if (user==null)
+                try
                 {
-                    var result=await SignInManager.PasswordSignInAsync(user,loginModel.Password,true,true);
-                    if (result.Succeeded)
+                    ApplicationUser appUser = await userManager.FindByEmailAsync(loginModel.Email);
+
+                    if (appUser != null)
                     {
-                        return Redirect(returnUrl??"/");
+                        bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
+
+                        if (checkPassword)
+                        {
+                            await _signInManager.SignInAsync(appUser, false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("password", "Password is not correct.");
+                        }
                     }
                     else
                     {
-                      ModelState.AddModelError("Description","Invalid Email or Password ");
+                        ModelState.AddModelError("email", "This email does not exist.");
                     }
-
                 }
-                if (user!=null)
+                catch
                 {
-
+                    ModelState.AddModelError("", "Some error occured. Please try again.");
                 }
             }
-            return View();
+            return View(loginModel);
         }
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await SignInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index","Home");
         }
     }
