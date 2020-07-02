@@ -12,6 +12,10 @@ using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
+using System.ComponentModel.DataAnnotations;
+using ConstructionSite.Entity.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
@@ -22,6 +26,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ConstructionDbContext _dbContext;
+        private readonly IdentityDbContext _identityDb;
 
         private void AddErrors(IdentityResult result)
         {
@@ -31,11 +37,13 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(IdentityDbContext identityDb, ConstructionDbContext dbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
+            this._dbContext = dbContext;
             this.userManager=userManager;
             this._signInManager=signInManager;
             this._roleManager = roleManager;
+            this._identityDb = identityDb;
         }
 
         [HttpGet]
@@ -160,6 +168,76 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             return View(loginModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit([Required][FromRoute] string id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ApplicationUser appUser = await userManager.FindByIdAsync(id);
+
+                    if (appUser == null)
+                    {
+                        throw new NullReferenceException();
+                    }
+                    var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+                    var roles = await _roleManager.Roles.ToListAsync();
+                    return View(new UserEditModel
+                    {
+                        Id = appUser.Id,
+                        Username = appUser.UserName,
+                        Name = appUser.Name,
+                        Email = appUser.Email,                       
+                    });
+                }
+                catch
+                { }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Required][FromForm] string id, UserEditModel userEditModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ApplicationUser appUser = await userManager.FindByIdAsync(id);
+
+                    if (appUser == null)
+                        throw new NullReferenceException();
+                    appUser.Email = userEditModel.Email;
+                    appUser.Name = userEditModel.Name;
+                    appUser.UserName = userEditModel.Username;
+                    appUser.PasswordHash = (!String.IsNullOrWhiteSpace(userEditModel.Password)) ? userManager.PasswordHasher.HashPassword(appUser, userEditModel.Password) : appUser.PasswordHash;
+                    IdentityResult result = await userManager.UpdateAsync(appUser);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                        if (ModelState.ErrorCount != 0)
+                        {
+                            return View(userEditModel);
+                        }
+                    }
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Some error occured. Please try again");
+                }
+            }
+            return View(userEditModel);
+        }
+        
+        
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
