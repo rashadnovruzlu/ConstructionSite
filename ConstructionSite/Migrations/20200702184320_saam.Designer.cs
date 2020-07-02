@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    [Migration("20200702164853_hhh")]
-    partial class hhh
+    [Migration("20200702184320_saam")]
+    partial class saam
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

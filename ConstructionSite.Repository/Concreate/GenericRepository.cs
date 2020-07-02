@@ -60,8 +60,9 @@ namespace ConstructionSite.Repository.Concreate
               return  _context.SaveChanges();
                // result.Data = entity;
             }
-            catch
+            catch (Exception ex)
             {
+                string erro=ex.Message;
                return 0;
             }
            

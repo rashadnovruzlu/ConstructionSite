@@ -38,23 +38,24 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(About about,IFormFile FileData)
         {
-            int imageID=0;
+            
 
             if (ModelState.IsValid)
             {
                 AboutImage aboutImage = new AboutImage();
+               
                 Image image = new Image();
                 if (FileData.IsImage())
                 {
                     string name = await FileData.SaveAsync(_env, "about");
                     image.Title = name;
                     image.Path = Path.Combine(_env.WebRootPath, "images", name);
-                    imageID = await _unitOfWork.imageRepository.AddAsync(image);
+                    aboutImage.ImageId = await _unitOfWork.imageRepository.AddAsync(image);
+                    
                 }
-
-                aboutImage.AboutId = _unitOfWork.AboutRepository.Add(about);
-                aboutImage.ImageId = imageID;
-                await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
+                aboutImage.AboutId =await _unitOfWork.AboutRepository.AddAsync(about);
+                if(await _unitOfWork.AboutImageRepository.AddAsync(aboutImage)>0)
+                    return RedirectToAction("Index");
             }
            
            
