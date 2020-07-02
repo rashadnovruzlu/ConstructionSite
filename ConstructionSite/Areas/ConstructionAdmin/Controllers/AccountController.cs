@@ -16,6 +16,8 @@ using System.ComponentModel.DataAnnotations;
 using ConstructionSite.Entity.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Net;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
@@ -237,13 +239,63 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View(userEditModel);
         }
         
-        
+        [HttpGet]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction(nameof(Login));
+            }
+            catch { }
+
+            return RedirectToAction("index", "home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([Required][FromForm] string id)
+        {
+            if (ModelState.IsValid)
+            {
+                IDbContextTransaction transaction = null;
+                try
+                {
+                    var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+                    if (currentUser.Id == id)
+                        throw new Exception("You can not delete own");
+                    transaction = await _identityDb.Database.BeginTransactionAsync();
+                    ApplicationUser user = await userManager.FindByIdAsync(id);
+
+                    if (user == null)
+                        throw new NullReferenceException();
+
+                    IdentityResult result = await userManager.DeleteAsync(user);
+
+                    if (!result.Succeeded)
+                        throw new Exception();
+                    transaction.Commit();
+                    return Json(new
+                    {
+                        status = HttpStatusCode.OK
+                    });
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+                finally
+                {
+                    if (transaction != null)
+                        transaction.Dispose();
+                }
+            }
+
+            return Json(new
+            {
+                status = HttpStatusCode.NotFound
+            });
         }
     }
 }
