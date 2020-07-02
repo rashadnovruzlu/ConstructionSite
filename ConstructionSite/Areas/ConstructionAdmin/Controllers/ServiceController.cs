@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
