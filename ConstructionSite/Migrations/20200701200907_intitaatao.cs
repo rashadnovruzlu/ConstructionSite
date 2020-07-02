@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConstructionSite.Migrations
 {
-    public partial class sss : Migration
+    public partial class intitaatao : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -336,7 +336,7 @@ namespace ConstructionSite.Migrations
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_SubServiceImages_SubServices_SubServiceId",
                         column: x => x.SubServiceId,
