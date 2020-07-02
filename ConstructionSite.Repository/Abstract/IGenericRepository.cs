@@ -18,9 +18,9 @@ namespace ConstructionSite.Repository.Abstract
 
         #region --Added--
 
-        RESULT<T> Add(T entity);
+        int Add(T entity);
 
-        Task<RESULT<T>> AddAsync(T entity);
+        Task<int> AddAsync(T entity);
 
         Task<RESULT<T>> AddRangeAsync(ICollection<T> entity);
 

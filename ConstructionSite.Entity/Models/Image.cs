@@ -16,7 +16,7 @@ namespace ConstructionSite.Entity.Models
 		public string Path { get; set; }
 		
 		public Service Service { get; set; }
-		public int ServiceId { get; set; }
+		
 
 		public ICollection<AboutImage> AboutImages { get; set; }
 

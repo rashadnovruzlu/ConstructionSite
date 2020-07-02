@@ -20,17 +20,20 @@ namespace ConstructionSite.Extensions.Images
 
         public static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
+
+
           
-            string fileName = Imager.GetImageSubFolder(subFolder,file.Name);
+                string fileName = Imager.GetImageSubFolder(subFolder, file.FileName);
 
-            string path = Path.Combine(_env.WebRootPath, "images", fileName);
+                string path = Path.Combine(_env.WebRootPath, "images", fileName);
 
-            await using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+                await using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
 
-            return fileName;
+                return fileName;
+           
         }
     }
 }

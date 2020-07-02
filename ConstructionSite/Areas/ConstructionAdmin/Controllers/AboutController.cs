@@ -6,6 +6,7 @@ using ConstructionSite.Repository.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -13,7 +14,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
     [Area(nameof(ConstructionAdmin))]
-  
     public class AboutController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -38,14 +38,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(About about,IFormFile FileData)
         {
-            if (FileData!=null)
+            int imageID=0;
+
+            if (ModelState.IsValid)
             {
+                AboutImage aboutImage = new AboutImage();
                 Image image = new Image();
-                string paths = _env.WebRootPath;
-                image.Title = await FileData.SaveAsync(_env, "about");
-                image.Path = paths + "/" + "about";
+                if (FileData.IsImage())
+                {
+                    string name = await FileData.SaveAsync(_env, "about");
+                    image.Title = name;
+                    image.Path = Path.Combine(_env.WebRootPath, "images", name);
+                    imageID = await _unitOfWork.imageRepository.AddAsync(image);
+                }
+
+                aboutImage.AboutId = _unitOfWork.AboutRepository.Add(about);
+                aboutImage.ImageId = imageID;
+                await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
             }
-          _unitOfWork.AboutRepository.Add(about);
+           
+           
+           
             return View();
         }
     }
