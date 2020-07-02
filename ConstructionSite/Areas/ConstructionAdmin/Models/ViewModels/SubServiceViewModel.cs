@@ -1,29 +1,23 @@
-﻿using System;
+﻿using ConstructionSite.Entity.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ConstructionSite.Entity.Models
+namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels
 {
-    public class SubService
+    public class SubServiceViewModel
     {
-       
-        public int Id { get; set; }
-       
+
         public string NameAz { get; set; }
-       
+
         public string NameEn { get; set; }
-       
+
         public string NameRu { get; set; }
-       
+
         public string ContentAz { get; set; }
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
-
-        public Service Service { get; set; }
-       
         public int ServiceId { get; set; }
-
-        public ICollection<SubServiceImage> SubServiceImages { get; set; }
     }
 }
