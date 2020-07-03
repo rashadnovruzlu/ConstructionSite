@@ -15,7 +15,7 @@ namespace ConstructionSite.Extensions.Images
             {
                 string name = await file.SaveAsync(_env, subFolder);
                 image.Title = name;
-                image.Path = Path.Combine(_env.WebRootPath, "images", name);
+                image.Path = name;
                 return await _unitOfWork.imageRepository.AddAsync(image);
 
             }
