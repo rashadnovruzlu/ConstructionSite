@@ -14,5 +14,10 @@ namespace ConstructionSite.ViewComponents
         {
             _unitOfWork = unitOfWork;
         }
+        public IViewComponentResult Invoke()
+        {
+            return View();
+
+        }
     }
 }
