@@ -1,8 +1,10 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,8 +20,6 @@ namespace ConstructionSite
             this.Configuration = Configuration;
         } 
 
-       
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -27,6 +27,14 @@ namespace ConstructionSite
             services.IdentityLoad(Configuration);
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
+                options.AccessDeniedPath = new PathString("/ConstructionAdmin/Dashboard/Index");
+            });
+            services.AddAuthentication(CookieAuthenticationDefaults
+                        .AuthenticationScheme)
+                            .AddCookie();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,7 +54,7 @@ namespace ConstructionSite
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
           
             app.UseEndpoints(endpoints =>
