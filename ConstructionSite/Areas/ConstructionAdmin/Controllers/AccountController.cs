@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.Areas.Admin.Models;
+﻿using ConstructionSite.Areas.Admin.Models;
+using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
+using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ConstructionSite.DTO;
-using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 using Microsoft.EntityFrameworkCore;
-using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
