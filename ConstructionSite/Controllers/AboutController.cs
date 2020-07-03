@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ConstructionSite.Controllers
 {
@@ -16,7 +17,10 @@ namespace ConstructionSite.Controllers
         public async Task<IActionResult> Index()
 
         { 
-         var data=  await _unitOfWork.AboutRepository.GetAllAsync();
+         var data= await  _unitOfWork.AboutRepository.GetAllAsync();
+        
+                
+         
        
                 
                 

@@ -19,15 +19,23 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles ="Admin")]
+   // [Authorize(Roles ="Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ConstructionDbContext _dbContext;
-        private readonly IdentityDbContext _identityDb;
-
+        private readonly ApplicationIdentityDbContext _identityDb;
+        //private readonly ConstructionDbContext _dbContext;
+        //private readonly IdentityDbContext _identityDb;
+        public AccountController( UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationIdentityDbContext _identityDb)
+        {
+           // this._dbContext = dbContext;
+            this.userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
+            this._identityDb = _identityDb;
+        }
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -36,14 +44,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(IdentityDbContext identityDb, ConstructionDbContext dbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
-        {
-            this._dbContext = dbContext;
-            this.userManager=userManager;
-            this._signInManager=signInManager;
-            this._roleManager = roleManager;
-            this._identityDb = identityDb;
-        }
+      
 
         [HttpGet]
         public IActionResult Index()
@@ -147,8 +148,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                         if (checkPassword)
                         {
-                            await _signInManager.SignInAsync(appUser, false);
-                            return RedirectToAction("Index", "Home");
+                          
+                            await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,false,false);
+                            return RedirectToAction("Index", "Dashboard", new { Areas= "ConstructionAdmin" });
                         }
                         else
                         {
@@ -181,7 +183,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     {
                         throw new NullReferenceException();
                     }
-                    var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+                   
+                    //var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
                     var roles = await _roleManager.Roles.ToListAsync();
                     return View(new UserEditModel
                     {
@@ -262,7 +265,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (currentUser.Id == id)
                         throw new Exception("You can not delete own");
-                    transaction = await _identityDb.Database.BeginTransactionAsync();
+                    //transaction = await _identityDb.Database.BeginTransactionAsync();
                     ApplicationUser user = await userManager.FindByIdAsync(id);
 
                     if (user == null)

@@ -1,6 +1,7 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,8 @@ namespace ConstructionSite
             services.AddMvc();
           
             services.IdentityLoad(Configuration);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
         }
@@ -42,7 +45,10 @@ namespace ConstructionSite
                 app.UseHsts();
             }
             app.SeedRole();
-            app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseStaticFiles();
 
             app.UseRouting();

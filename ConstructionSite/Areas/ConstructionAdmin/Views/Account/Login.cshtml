@@ -33,8 +33,8 @@
 </head>
 <body class="login-body">
     <div class="container">
-        <form asp-controller="Home" asp-action="Index" class="form-signin">
-            <div asp-validation-summary="ModelOnly" class="form-group mb-3"></div>
+        <form asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Login" class="form-signin" method="post">
+            <div asp-validation-summary="ModelOnly"  class="form-group mb-3"></div>
             @Html.AntiForgeryToken()
             <h2 class="form-signin-heading">Sign In Now</h2>
             <div class="login-wrap">
