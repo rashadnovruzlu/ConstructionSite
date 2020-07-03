@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ConstructionSite.Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ConstructionSite.DTO.ModelsDTO
 {
-    class AboutDTO
+   public class AboutDTO
     {
         public int Id { get; set; }
         public string TitleAz { get; set; }
@@ -13,5 +14,6 @@ namespace ConstructionSite.DTO.ModelsDTO
         public string ContentAz { get; set; }
         public string ContentEn { get; set; }
         public string ContentRu { get; set; }
+        public string image { get; set; }
     }
 }

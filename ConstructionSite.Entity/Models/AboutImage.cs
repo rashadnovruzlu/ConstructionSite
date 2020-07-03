@@ -7,7 +7,7 @@ namespace ConstructionSite.Entity.Models
 {
     public class AboutImage
     {
-        //[Required]
+       
         public int Id { get; set; }
 
         public virtual About About { get; set; }
