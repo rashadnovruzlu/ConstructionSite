@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.Helpers.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace ConstructionSite.Repository.Abstract
 
         ICollection<T> GetAll();
 
-        Task<ICollection<T>> GetAllAsync();
+        Task<IQueryable<T>> GetAllAsync();
 
         #endregion ---List---
 
