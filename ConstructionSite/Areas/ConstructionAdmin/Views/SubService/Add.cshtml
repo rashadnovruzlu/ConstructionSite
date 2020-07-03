@@ -58,7 +58,7 @@
                                         <select class="form-control m-bot15" asp-for="ServiceId">
                                             @foreach (Service item in ViewBag.data)
                                             {
-                                                <option id="@item.Id">@item.NameAz</option>
+                                                <option value="@item.Id">@item.NameAz</option>
                                             }
 
                                         </select>

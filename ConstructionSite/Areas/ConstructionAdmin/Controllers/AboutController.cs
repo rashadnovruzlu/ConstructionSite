@@ -45,14 +45,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 AboutImage aboutImage = new AboutImage();
                
                 Image image = new Image();
-                if (FileData.IsImage())
-                {
-                    string name = await FileData.SaveAsync(_env, "about");
-                    image.Title = name;
-                    image.Path = Path.Combine(_env.WebRootPath, "images", name);
-                    aboutImage.ImageId = await _unitOfWork.imageRepository.AddAsync(image);
+                aboutImage.ImageId = await FileData.SaveImage(_env,"about",image,_unitOfWork);
                     
-                }
+              
                 aboutImage.AboutId =await _unitOfWork.AboutRepository.AddAsync(about);
                 if(await _unitOfWork.AboutImageRepository.AddAsync(aboutImage)>0)
                     return RedirectToAction("Index");
