@@ -29,21 +29,24 @@ namespace ConstructionSite.Extensions.Images
                 return fileName;
            
         }
-        //public static async Task<string> SaveAsyncWith(this List<IFormFile> files)
-        //{
-        //    //string fileName = Imager.GetImageSubFolder(subFolder, file.FileName);
-         
-        //    string path = Path.Combine(_env.WebRootPath, "images", fileName);
-        //    foreach (var formFile in files)
-        //    {
-        //        if (formFile.Length > 0)
-        //        {
-        //            using (var stream = new FileStream(path, FileMode.Create))
-        //            {
-        //                await formFile.CopyToAsync(stream);
-        //            }
-        //        }
-        //    }
-        //}
+        public static async Task<string> SaveAsyncArray(this List<IFormFile> files, IWebHostEnvironment _env, string subFolder)
+        {
+           
+            foreach (var formFile in files)
+            {
+                string fileName = Imager.GetImageSubFolder(subFolder, formFile.FileName);
+
+                string path = Path.Combine(_env.WebRootPath, "images", fileName);
+                if (formFile.Length > 0)
+                {
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+                return fileName;
+            }
+            return null;
+        }
     }
 }

@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Concreate;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -13,9 +16,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class SubServiceController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SubServiceController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _env;
+        public SubServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork=unitOfWork;
+            _env=env;
+
         }
         public IActionResult Index()
         {
@@ -27,9 +33,28 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(SubService subService)
+        public async Task<IActionResult> Add(SubService subService,IFormFile file)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (file!=null)
+                {
+                    Image image=new Image();
+                    SubServiceImage sub=new SubServiceImage();
+                    sub.ImageId=await file.SaveImage(_env,"subserver",image,_unitOfWork);
+                    sub.SubServiceId= await _unitOfWork.SubServiceRepository.AddAsync(subService);
+                    
+                    if( await _unitOfWork.SubServiceImageRepository.AddAsync(sub) > 0)
+                        return RedirectToAction("Index");
+                    
+                }
+                else
+                {
+                   
+                    ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
+                }
+            }
+            return View(subService);
         }
     }
 }
