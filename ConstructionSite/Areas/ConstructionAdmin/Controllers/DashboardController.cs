@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
-    [Area("ConstructionAdmin")]
-    [Authorize(Roles ="Admin")]
+    [Area(nameof(ConstructionAdmin))]
+
     public class DashboardController : Controller
     {
         public IActionResult Index()

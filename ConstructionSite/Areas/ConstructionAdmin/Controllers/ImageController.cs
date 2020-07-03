@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
+    [Area(nameof(ConstructionAdmin))]
     public class ImageController : Controller
     {
        

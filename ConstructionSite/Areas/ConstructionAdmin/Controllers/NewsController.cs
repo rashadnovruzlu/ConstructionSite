@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
+    [Area(nameof(ConstructionAdmin))]
     public class NewsController : Controller
     {
         public IActionResult Index()
