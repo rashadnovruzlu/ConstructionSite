@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.Entity.Data;
-using ConstructionSite.Repository.Abstract;
+﻿using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConstructionSite.Controllers
 {
@@ -16,15 +13,14 @@ namespace ConstructionSite.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public async IActionResult Index()
+        public async Task<IActionResult> Index()
 
         { 
-          
-           
-           
-               
-               
-          
+         var data=  await _unitOfWork.AboutRepository.GetAllAsync();
+       
+                
+                
+                
             return View();
         }
     }

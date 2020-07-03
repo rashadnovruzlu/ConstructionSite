@@ -13,7 +13,7 @@ namespace ConstructionSite.Repository.Abstract
 
         ICollection<T> GetAll();
 
-        Task<IQueryable<T>> GetAllAsync();
+        Task<ICollection<T>> GetAllAsync();
 
         #endregion ---List---
 

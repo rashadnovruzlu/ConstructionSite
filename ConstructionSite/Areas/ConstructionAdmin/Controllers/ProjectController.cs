@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConstructionSite.Entity.Models;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(Project project)
         {
             return View();
         }
