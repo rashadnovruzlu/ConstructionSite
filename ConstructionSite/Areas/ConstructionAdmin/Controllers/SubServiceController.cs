@@ -29,6 +29,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public IActionResult Add()
         {
+            string str1=_env.WebRootPath;
+            string str2=_env.ContentRootPath;
             ViewBag.data=_unitOfWork.ServiceRepository.GetAll().ToList();
             return View();
         }

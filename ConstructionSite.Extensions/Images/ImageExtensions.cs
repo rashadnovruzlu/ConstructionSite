@@ -17,7 +17,7 @@ namespace ConstructionSite.Extensions.Images
 
            
 
-            string fileName = Imager.GetImageSubFolder(subFolder, file.FileName);
+                string fileName = Imager.GetImageSubFolder(subFolder, file.FileName);
 
                 string path = Path.Combine(_env.WebRootPath, "images", fileName);
 
