@@ -1,4 +1,4 @@
-﻿using ConstructionSite.Entity.Models;
+﻿ using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

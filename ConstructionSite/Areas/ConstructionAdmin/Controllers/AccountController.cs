@@ -11,16 +11,25 @@ using ConstructionSite.DTO;
 using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
+using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
+using System.ComponentModel.DataAnnotations;
+using ConstructionSite.Entity.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Net;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> SignInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ConstructionDbContext _dbContext;
+        private readonly IdentityDbContext _identityDb;
 
         private void AddErrors(IdentityResult result)
         {
@@ -30,11 +39,13 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> SignInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(IdentityDbContext identityDb, ConstructionDbContext dbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
+            this._dbContext = dbContext;
             this.userManager=userManager;
-            this.SignInManager=SignInManager;
+            this._signInManager=signInManager;
             this._roleManager = roleManager;
+            this._identityDb = identityDb;
         }
 
         [HttpGet]
@@ -117,45 +128,174 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login()
         {
-            ViewBag.returnUrl= returnUrl;
-            return View();
+            return View(new LoginViewModel());
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel loginModel, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                var user=await userManager.FindByEmailAsync(loginModel.Email);
-                if (user==null)
+                try
                 {
-                    var result=await SignInManager.PasswordSignInAsync(user,loginModel.Password,true,true);
-                    if (result.Succeeded)
+                    ApplicationUser appUser = await userManager.FindByEmailAsync(loginModel.Email);
+
+                    if (appUser != null)
                     {
-                        return Redirect(returnUrl??"/");
+                        bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
+
+                        if (checkPassword)
+                        {
+                            await _signInManager.SignInAsync(appUser, false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("password", "Password is not correct.");
+                        }
                     }
                     else
                     {
-                      ModelState.AddModelError("Description","Invalid Email or Password ");
+                        ModelState.AddModelError("email", "This email does not exist.");
                     }
-
                 }
-                if (user!=null)
+                catch
                 {
-
+                    ModelState.AddModelError("", "Some error occured. Please try again.");
                 }
             }
-            return View();
+            return View(loginModel);
         }
-        [AllowAnonymous]
+
+        [HttpGet]
+        public async Task<IActionResult> Edit([Required][FromRoute] string id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ApplicationUser appUser = await userManager.FindByIdAsync(id);
+
+                    if (appUser == null)
+                    {
+                        throw new NullReferenceException();
+                    }
+                    var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+                    var roles = await _roleManager.Roles.ToListAsync();
+                    return View(new UserEditModel
+                    {
+                        Id = appUser.Id,
+                        Username = appUser.UserName,
+                        Name = appUser.Name,
+                        Email = appUser.Email,                       
+                    });
+                }
+                catch
+                { }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Required][FromForm] string id, UserEditModel userEditModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ApplicationUser appUser = await userManager.FindByIdAsync(id);
+
+                    if (appUser == null)
+                        throw new NullReferenceException();
+                    appUser.Email = userEditModel.Email;
+                    appUser.Name = userEditModel.Name;
+                    appUser.UserName = userEditModel.Username;
+                    appUser.PasswordHash = (!String.IsNullOrWhiteSpace(userEditModel.Password)) ? userManager.PasswordHasher.HashPassword(appUser, userEditModel.Password) : appUser.PasswordHash;
+                    IdentityResult result = await userManager.UpdateAsync(appUser);
+
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                        if (ModelState.ErrorCount != 0)
+                        {
+                            return View(userEditModel);
+                        }
+                    }
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Some error occured. Please try again");
+                }
+            }
+            return View(userEditModel);
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
-            await SignInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            try
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction(nameof(Login));
+            }
+            catch { }
+
+            return RedirectToAction("index", "home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([Required][FromForm] string id)
+        {
+            if (ModelState.IsValid)
+            {
+                IDbContextTransaction transaction = null;
+                try
+                {
+                    var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+                    if (currentUser.Id == id)
+                        throw new Exception("You can not delete own");
+                    transaction = await _identityDb.Database.BeginTransactionAsync();
+                    ApplicationUser user = await userManager.FindByIdAsync(id);
+
+                    if (user == null)
+                        throw new NullReferenceException();
+
+                    IdentityResult result = await userManager.DeleteAsync(user);
+
+                    if (!result.Succeeded)
+                        throw new Exception();
+                    transaction.Commit();
+                    return Json(new
+                    {
+                        status = HttpStatusCode.OK
+                    });
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+                finally
+                {
+                    if (transaction != null)
+                        transaction.Dispose();
+                }
+            }
+
+            return Json(new
+            {
+                status = HttpStatusCode.NotFound
+            });
         }
     }
 }
