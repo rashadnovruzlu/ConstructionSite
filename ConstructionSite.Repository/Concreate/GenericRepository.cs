@@ -33,14 +33,15 @@ namespace ConstructionSite.Repository.Concreate
 
         #region --GetAll--
 
-        public ICollection<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>().AsQueryable();
         }
 
         public async Task<ICollection<T>> GetAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+          return await _context.Set<T>().ToListAsync();
+            
         }
 
         #endregion --GetAll--

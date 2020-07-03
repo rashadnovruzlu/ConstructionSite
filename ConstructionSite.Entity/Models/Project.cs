@@ -20,10 +20,10 @@ namespace ConstructionSite.Entity.Models
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
 
-        public Portfolio Portfolio { get; set; }
+        public virtual Portfolio Portfolio { get; set; }
        
         public int PortfolioId { get; set; }
 
-        public ICollection<ProjectImage> ProjectImages { get; set; }
+        public virtual ICollection<ProjectImage> ProjectImages { get; set; }
     }
 }

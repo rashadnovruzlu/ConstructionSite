@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace ConstructionSite
 {
@@ -23,7 +24,8 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+            ;
           
             services.IdentityLoad(Configuration);
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -11,7 +11,7 @@ namespace ConstructionSite.Repository.Abstract
     {
         #region ---List---
 
-        ICollection<T> GetAll();
+        IQueryable<T> GetAll();
 
         Task<ICollection<T>> GetAllAsync();
 
