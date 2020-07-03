@@ -1,29 +1,29 @@
 ﻿using AutoMapper;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Interfaces;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
 
 
     [Area(nameof(ConstructionAdmin))]
-  
     public class AboutController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        
-       
-        public AboutController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _env;
+
+        public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
 
             _unitOfWork = unitOfWork;
-          
-           
-            
-
-
+            _env=env;
         }
         public IActionResult Index()
         {
@@ -36,8 +36,25 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(About about)
+        public async Task<IActionResult> Add(About about,IFormFile FileData)
         {
+            
+
+            if (ModelState.IsValid)
+            {
+                AboutImage aboutImage = new AboutImage();
+               
+                Image image = new Image();
+                aboutImage.ImageId = await FileData.SaveImage(_env,"about",image,_unitOfWork);
+                    
+              
+                aboutImage.AboutId =await _unitOfWork.AboutRepository.AddAsync(about);
+                if(await _unitOfWork.AboutImageRepository.AddAsync(aboutImage)>0)
+                    return RedirectToAction("Index");
+            }
+           
+           
+           
             return View();
         }
     }

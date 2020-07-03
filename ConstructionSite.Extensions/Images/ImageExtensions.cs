@@ -1,6 +1,8 @@
 ﻿using ConstructionSite.Helpers.Images;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -8,27 +10,43 @@ namespace ConstructionSite.Extensions.Images
 {
     public static class ImageExtensions
     {
-        public static bool IsImage(this IFormFile file)
+       
+
+        public static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
-            return file.ContentType == "image/jpeg" ||
-                   file.ContentType == "image/jpg" ||
-                   file.ContentType == "image/png" ||
-                   file.ContentType == "image/x-png" ||
-                   file.ContentType == "image/gif";
+
+           
+
+                string fileName = Imager.GetImageSubFolder(subFolder, file.FileName);
+
+                string path = Path.Combine(_env.WebRootPath, "images", fileName);
+
+                await using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return fileName;
+           
         }
-
-        public static async Task<string> SaveAsync(this IFormFile file, string root, string subFolder)
+        public static async Task<string> SaveAsyncArray(this List<IFormFile> files, IWebHostEnvironment _env, string subFolder)
         {
-            string fileName = Imager.GetImageSubFolder(subFolder,file.Name);
-
-            string path = Path.Combine(root, "images", fileName);
-
-            await using (var stream = new FileStream(path, FileMode.Create))
+           
+            foreach (var formFile in files)
             {
-                await file.CopyToAsync(stream);
-            }
+                string fileName = Imager.GetImageSubFolder(subFolder, formFile.FileName);
 
-            return fileName;
+                string path = Path.Combine(_env.WebRootPath, "images", fileName);
+                if (formFile.Length > 0)
+                {
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+                return fileName;
+            }
+            return null;
         }
     }
 }

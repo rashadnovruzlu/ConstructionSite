@@ -192,18 +192,12 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ServiceId")
-                        .IsUnique();
 
                     b.ToTable("Images");
                 });
@@ -431,6 +425,9 @@ namespace ConstructionSite.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageId")
+                        .IsUnique();
+
                     b.ToTable("Services");
                 });
 
@@ -545,15 +542,6 @@ namespace ConstructionSite.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Image", b =>
-                {
-                    b.HasOne("ConstructionSite.Entity.Models.Service", "Service")
-                        .WithOne("Image")
-                        .HasForeignKey("ConstructionSite.Entity.Models.Image", "ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ConstructionSite.Entity.Models.NewsImage", b =>
                 {
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
@@ -589,6 +577,15 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.Project", "Project")
                         .WithMany("ProjectImages")
                         .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Service", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
+                        .WithOne("Service")
+                        .HasForeignKey("ConstructionSite.Entity.Models.Service", "ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

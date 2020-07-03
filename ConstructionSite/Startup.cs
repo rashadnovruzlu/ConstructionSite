@@ -1,13 +1,8 @@
-using ConstructionSite.Entity.Data;
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
-using ConstructionSite.Extensions.Services;
-using ConstructionSite.Repository.Abstract;
-using ConstructionSite.Repository.Concreate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,10 +26,6 @@ namespace ConstructionSite
           
             services.IdentityLoad(Configuration);
             services.ServiceDataBaseWithInjection(Configuration);
-           
-
-          
-          
             services.AddControllersWithViews();
         }
 
@@ -47,7 +38,7 @@ namespace ConstructionSite
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+               
                 app.UseHsts();
             }
             app.SeedRole();

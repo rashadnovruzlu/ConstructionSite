@@ -7,17 +7,17 @@ namespace ConstructionSite.Entity.Models
 {
     public class SubServiceImage
     {
-        [Required]
+        
         public int Id { get; set; }
-        [Required]
+      
         public bool IsMain { get; set; }
 
         public Image Image { get; set; }
-        [Required]
+       
         public int ImageId { get; set; }
 
         public SubService SubService { get; set; }
-        [Required]
+        
         public int SubServiceId { get; set; }
     }
 }

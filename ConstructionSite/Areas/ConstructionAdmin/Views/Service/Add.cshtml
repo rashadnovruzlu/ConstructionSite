@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+    <section id="main-content">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Service Add
+                        </header>
+                        <div class="panel-body">
+                            <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Add" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+
+                                    <div class="col-lg-10">
+                                        <input type="text" name="NameAz" placeholder="NameAz" id="f-name" class="form-control">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-lg-10">
+                                        <input type="text" name="NameRu" placeholder="NameRu" id="f-name" class="form-control">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-lg-10">
+                                        <input type="text" name="NameEn" placeholder="NameEn" id="f-name" class="form-control">
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+
+                                    <div class="col-lg-10">
+                                        <textarea placeholder="TittleAz" class="form-control " id="ccomment" name="TittleAz" required=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+
+                                    <div class="col-lg-10">
+                                        <textarea placeholder="TittleEn" class="form-control " id="ccomment" name="TittleEn" required=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+
+                                    <div class="col-lg-10">
+                                        <textarea placeholder="TittleRu" class="form-control " id="ccomment" name="TittleRu" required=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-lg-10">
+                                        <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control">
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button class="btn btn-success" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+

@@ -237,10 +237,9 @@ namespace ConstructionSite.Entity.Configuration
             builder.Property(x=>x.TittleAz)
                 .IsRequired();
 
-            builder
-                .HasOne<Image>(i => i.Image)
-                                  .WithOne(x => x.Service)
-                                  .HasForeignKey<Image>(i => i.ServiceId);
+          
+               
+                                  
         }
     }
     public class SubServiceConfiguration : IEntityTypeConfiguration<SubService>
