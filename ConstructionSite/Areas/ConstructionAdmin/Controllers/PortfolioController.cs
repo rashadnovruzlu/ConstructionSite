@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+  
     public class PortfolioController : Controller
     {
         public IActionResult Index()
