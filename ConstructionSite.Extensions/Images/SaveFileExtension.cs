@@ -9,17 +9,19 @@ namespace ConstructionSite.Extensions.Images
 {
     public static   class SaveFileExtension
     {
-        public async static Task<int> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder,Image image, IUnitOfWork _unitOfWork)
+        public  async static Task<int> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder,Image image, IUnitOfWork _unitOfWork)
         {
+            
             if (file.IsImage())
             {
                 string name = await file.SaveAsync(_env, subFolder);
                 image.Title = name;
                 image.Path = name;
-                return await _unitOfWork.imageRepository.AddAsync(image);
+                _unitOfWork.imageRepository.Add(image);
 
             }
-            return 0;
+            return image.Id;
+           
 
         }
     }

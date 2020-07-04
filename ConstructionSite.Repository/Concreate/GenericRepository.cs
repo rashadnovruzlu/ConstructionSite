@@ -71,7 +71,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public async Task<int> AddAsync(T entity)
         {
-           // RESULT<T> result = new RESULT<T> { IsDone = true };
+          
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -79,7 +79,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 await _context.Set<T>().AddAsync(entity);
-              return  await _context.SaveChangesAsync();
+                return  await _context.SaveChangesAsync();
                 
             }
             catch (Exception ex)
