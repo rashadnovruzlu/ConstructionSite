@@ -27,8 +27,8 @@ namespace ConstructionSite
             ;
           
             services.IdentityLoad(Configuration);
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie();
+    //        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    //.AddCookie();
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
             services.ConfigureApplicationCookie(options =>
@@ -53,10 +53,10 @@ namespace ConstructionSite
                
                 app.UseHsts();
             }
-            app.SeedRole();
+          //  app.SeedRole();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseStaticFiles();
 

@@ -3,6 +3,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
     [Area(nameof(ConstructionAdmin))]
+    [Authorize(Roles = "Admin")]
     public class AboutController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

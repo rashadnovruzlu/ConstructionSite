@@ -19,15 +19,14 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-   // [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ConstructionDbContext _dbContext;
-        private readonly IdentityDbContext _identityDb;
-
+        private readonly ApplicationIdentityDbContext _identityDb;
+       
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -36,9 +35,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(IdentityDbContext identityDb, ConstructionDbContext dbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationIdentityDbContext  identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            this._dbContext = dbContext;
+           
             this.userManager=userManager;
             this._signInManager=signInManager;
             this._roleManager = roleManager;
@@ -128,7 +127,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("Login")]
+       // [Route("Login")]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
@@ -137,7 +136,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Route("Login")]
+       // [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
@@ -174,7 +173,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("Edit")]
+       // [Route("Edit")]
         public async Task<IActionResult> Edit([Required][FromRoute] string id)
         {
             if (ModelState.IsValid)
