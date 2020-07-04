@@ -41,7 +41,10 @@ namespace ConstructionSite.Controllers
                 .ToList();
             return View(result);
         }
-
+        public IActionResult Single()
+        {
+            return View();
+        }
         public IActionResult Construction()
         {
             return View();
