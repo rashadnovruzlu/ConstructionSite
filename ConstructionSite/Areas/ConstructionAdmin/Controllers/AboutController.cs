@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Repository.Abstract;
-using ConstructionSite.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -27,10 +27,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork = unitOfWork;
             _env=env;
         }
+        [HttpGet]
         public IActionResult Index()
         {
+            var result = _unitOfWork.AboutImageRepository.GetAll()
+            .Include(x => x.About)
+            .Include(x => x.Image)
+            .Select(y => new AboutViewModel
+            {
+                Id=y.About.Id,
+                TittleAz = y.About.TittleAz,
+                TittleEn = y.About.TittleEn,
+                TittleRu = y.About.TittleRu,
+                ContentAz = y.About.ContentAz,
+                ContentEn = y.About.ContentEn,
+                ContentRu = y.About.ContentRu,
+                Image = y.Image.Path
+            }).ToList();
            
-            return View();
+           return View(result);
+
+          
         }
         [HttpGet]
         public IActionResult Add()

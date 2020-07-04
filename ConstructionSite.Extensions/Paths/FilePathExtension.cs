@@ -11,7 +11,7 @@ namespace ConstructionSite.Extensions.Paths
             string extension = Path.GetExtension(file.FileName);
             string fileName = Path.Combine(SubFolder, Guid.NewGuid().ToString() + extension);
 
-            string path = Path.Combine("images", fileName);
+            string path = Path.Combine("/images", fileName);
             return path;
         }
     }

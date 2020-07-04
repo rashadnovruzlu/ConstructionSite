@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UserDTO>
+﻿
 
 <!DOCTYPE html>
 <html lang="en">
@@ -98,8 +98,13 @@
             </div>
         </aside>
         <!--sidebar end-->
-
-        @RenderBody()
+        <section id="main-content">
+            <section class="wrapper">
+                @RenderBody()
+            </section>
+           
+        </section>
+      
 
     </section>
 
