@@ -25,6 +25,7 @@ namespace ConstructionSite.Entity.Configuration
 
             builder.HasOne(ss => ss.Service)
                                 .WithMany(s => s.SubServices);
+        
         }
     }
    
