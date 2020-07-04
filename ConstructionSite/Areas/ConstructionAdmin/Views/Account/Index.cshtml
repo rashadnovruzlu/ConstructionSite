@@ -8,26 +8,35 @@
         <div class="row">
             <aside class="profile-nav col-lg-3">
                 <section class="panel">
+
                     <vc:user-profile-name></vc:user-profile-name>
-
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index"> <i class="icon-user"></i> Profile</a></li>
-                        <li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
-                        <li><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit"> <i class="icon-edit"></i> Edit profile</a></li>
-                    </ul>
-
                 </section>
             </aside>
             <aside class="profile-info col-lg-9">
                 <section class="panel">
-                    <div class="panel-body bio-graph-info">
+                    <div class="bio-graph-heading">
                         <h1>Bio Graph</h1>
+                    </div>
+                    <div class="panel-body bio-graph-info">
+                        
                         <div class="row">
                             <div class="bio-row">
-                                <p><span>Full Name </span>: @Html.DisplayNameFor(model=>model.Name)</p>
+                                <p><span>Full Name </span>: @Html.DisplayNameFor(model => model.Name)</p>
                             </div>
                             <div class="bio-row">
                                 <p><span>Email </span>: @Html.DisplayNameFor(model => model.Email)</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Country </span>: Azerbaijan</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Address </span>: Adress yazilmali</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Mobile </span>: (12) 03 4567890</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Phone </span>: 88 (02) 123456</p>
                             </div>
                         </div>
                     </div>

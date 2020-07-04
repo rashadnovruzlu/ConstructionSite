@@ -61,7 +61,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        //[Route("Create")]
+        [Route("Create")]
         public async Task<IActionResult> Create()
         {
             var roles = await _roleManager.Roles.ToListAsync();
@@ -73,7 +73,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-       // [Route("Create")]
+        [Route("Create")]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
             if (ModelState.IsValid)
