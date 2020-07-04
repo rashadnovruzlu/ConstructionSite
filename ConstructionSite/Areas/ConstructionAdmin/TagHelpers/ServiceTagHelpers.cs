@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
+﻿using ConstructionSite.DTO.AdminViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.TagHelpers
 {
+    [HtmlTargetElement(Attributes = "langs")]
     public class ServiceTagHelpers:TagHelper
     {
-        public string BsButton { get; set; }
+        public ServiceViewModel langs { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-           output.Attributes.SetAttribute("class",)
+            
         }
     }
 }
