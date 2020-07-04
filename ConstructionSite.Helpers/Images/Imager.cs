@@ -9,6 +9,7 @@ namespace ConstructionSite.Helpers.Images
         {
             string extension = Path.GetExtension(name);
          return Path.Combine(Folder, Guid.NewGuid().ToString() +extension);
+       
         }
         
     }

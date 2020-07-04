@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Extensions.Images
 {
-    public static   class ControllerImageExtension
+    public static   class SaveFileExtension
     {
         public async static Task<int> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder,Image image, IUnitOfWork _unitOfWork)
         {
