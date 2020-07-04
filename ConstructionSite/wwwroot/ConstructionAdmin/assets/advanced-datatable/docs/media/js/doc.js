@@ -1,6 +1,4 @@
-
 (function() {
-
 var showingNav = true;
 
 $(document).ready( function () {
@@ -75,17 +73,15 @@ $(document).ready( function () {
 	}
 } );
 
-
 function fnWriteCookie()
 {
-	var sVal = 
+	var sVal =
 		$('input[name=show_private]').val()+'-'+
 		$('input[name=show_extended]').val()+'-'+
 		showingNav;
-	
+
 	fnCreateCookie( 'SpryMedia_JSDoc', sVal );
 }
-
 
 function fnCreateCookie( sName, sValue )
 {
@@ -93,29 +89,27 @@ function fnCreateCookie( sName, sValue )
 	var date = new Date();
 	date.setTime( date.getTime()+(iDays*24*60*60*1000) );
 	var sExpires = "; expires="+date.toGMTString();
-	
+
 	document.cookie = sName+"="+sValue+sExpires+"; path=/";
 }
-
 
 function fnReadCookie( sName )
 {
 	var sNameEQ = sName + "=";
 	var sCookieContents = document.cookie.split(';');
-	
+
 	for( var i=0 ; i<sCookieContents.length ; i++ ) {
 		var c = sCookieContents[i];
-		
+
 		while (c.charAt(0)==' ') {
 			c = c.substring(1,c.length);
 		}
-		
+
 		if (c.indexOf(sNameEQ) == 0) {
 			return c.substring(sNameEQ.length,c.length);
 		}
 	}
-	
+
 	return null;
 }
-
 })();

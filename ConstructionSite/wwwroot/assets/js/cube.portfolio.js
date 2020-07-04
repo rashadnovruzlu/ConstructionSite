@@ -1,4 +1,3 @@
-
 /*!
  * Cube Portfolio - Responsive jQuery Grid Plugin
  *

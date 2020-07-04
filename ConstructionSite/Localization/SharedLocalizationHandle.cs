@@ -1,6 +1,4 @@
-﻿using ConstructionSite.Helpers.Core;
-using ConstructionSite.Helpers.Images;
-using ConstructionSite.Helpers.Interfaces;
+﻿using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
 using System.Reflection;

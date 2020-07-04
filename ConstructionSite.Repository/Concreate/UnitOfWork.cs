@@ -1,14 +1,7 @@
 ﻿using ConstructionSite.Entity.Data;
-using ConstructionSite.Helpers.Core;
-using ConstructionSite.Helpers.Exceptions;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Implementations;
 using ConstructionSite.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Repository.Concreate

@@ -16,6 +16,6 @@ namespace ConstructionSite.Entity.Models
 		public string ContentRu { get; set; }
 		public string ContentEn { get; set; }	
 
-		public ICollection<AboutImage> AboutImages { get; set; }
+		public virtual ICollection<AboutImage> AboutImages { get; set; }
 	}
 }

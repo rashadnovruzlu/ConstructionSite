@@ -10,8 +10,10 @@ namespace ConstructionSite.Entity.Data
 {
     public class ConstructionDbContext : DbContext
     {
+        
         public ConstructionDbContext(DbContextOptions<ConstructionDbContext> options) : base(options)
-        { 
+        {
+           
         }
 
         public virtual DbSet<About> Abouts { get; set; }
@@ -35,7 +37,7 @@ namespace ConstructionSite.Entity.Data
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
 
-
+           
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             #endregion
            
@@ -83,7 +85,7 @@ namespace ConstructionSite.Entity.Data
             //                .HasOne(ssi => ssi.SubService)
             //                    .WithMany(ss => ss.SubServiceImages);
 
-           // base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

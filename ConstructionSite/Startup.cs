@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace ConstructionSite
 {
@@ -22,9 +23,12 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+            ;
           
             services.IdentityLoad(Configuration);
+    //        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    //.AddCookie();
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
             services.ConfigureApplicationCookie(options =>
@@ -49,8 +53,11 @@ namespace ConstructionSite
                
                 app.UseHsts();
             }
-            app.SeedRole();
-            app.UseHttpsRedirection();
+          //  app.SeedRole();
+
+            //app.UseAuthentication();
+            //app.UseAuthorization();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -67,12 +74,7 @@ namespace ConstructionSite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "areas",
-            //        pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
-            //});
+          
         }
     }
 }
