@@ -29,8 +29,7 @@ namespace ConstructionSite.Extensions.Seed
                 ApplicationUser app = new ApplicationUser
                 {
                     Name = "Construction Site",
-                    Email = "nurane@pragmatech.az",
-                    UserName = "Const_site"
+                    Email = "nurane@pragmatech.az"
                 };
                 IdentityResult identityResult = db.CreateAsync(app, "Nurane_29").GetAwaiter().GetResult();
                 if (identityResult.Succeeded)

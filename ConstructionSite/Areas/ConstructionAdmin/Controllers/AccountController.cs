@@ -227,7 +227,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Index", "Account", new { Areas = "Constructionadmin" });
                     }
                     else
                     {
