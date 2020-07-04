@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ConstructionSite.Entity.Models
+namespace ConstructionSite.DTO.AdminViewModels
 {
-	public class Service
-	{
-	
+   public class ServiceViewModel
+    {
 		public int Id { get; set; }
-		
+
 		public string NameAz { get; set; }
-	
+
 		public string NameEn { get; set; }
-	
+
 		public string NameRu { get; set; }
-		
+
 		public string TittleAz { get; set; }
 		public string TittleEn { get; set; }
 		public string TittleRu { get; set; }
-		
-		public virtual Image Image { get; set; }
-		public int ImageId { get; set; }
 
-		public virtual ICollection<SubService> SubServices { get; set; }
+		public string Image { get; set; }
 	}
 }

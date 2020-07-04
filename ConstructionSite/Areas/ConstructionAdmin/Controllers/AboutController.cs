@@ -49,37 +49,63 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
           
         }
+        #region --Add--
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(About about,IFormFile FileData)
+        public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
-            
+
 
             if (ModelState.IsValid)
             {
                 AboutImage aboutImage = new AboutImage();
-               
+
                 Image image = new Image();
-                aboutImage.ImageId = await FileData.SaveImage(_env,"about",image,_unitOfWork);
-                    
-              
-                aboutImage.AboutId =await _unitOfWork.AboutRepository.AddAsync(about);
-                if(await _unitOfWork.AboutImageRepository.AddAsync(aboutImage)>0)
+                aboutImage.ImageId = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+
+
+                aboutImage.AboutId = await _unitOfWork.AboutRepository.AddAsync(about);
+                if (await _unitOfWork.AboutImageRepository.AddAsync(aboutImage) > 0)
                     return RedirectToAction("Index");
             }
-           
-           
-           
+
+
+
             return View();
         }
+        #endregion
+        #region --Update--
+        public IActionResult Update()
+        {
+            return View();
+        }
+        public IActionResult Update(AboutImage about)
+        {
+            return View();
+        }
+        #endregion
         public async Task<IActionResult> Delete(int id)
         {
-            var data=await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
-            var result=await _unitOfWork.AboutImageRepository.DeleteAsync(data);
+
+            var data=       await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
+            var about=      await _unitOfWork.AboutRepository.GetByIdAsync(data.AboutId);
+            var image=      await _unitOfWork.imageRepository.GetByIdAsync(data.ImageId);
+            var aboutResult=await _unitOfWork.AboutRepository.DeleteAsync(about);
+            var imageResult=await _unitOfWork.imageRepository.DeleteAsync(image);
+            var result=     await _unitOfWork.AboutImageRepository.DeleteAsync(data);
+            if (aboutResult.IsDone==true&&imageResult.IsDone==true&&result.IsDone==true)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("","an error whene delete data");
+            }
+            _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
     }
