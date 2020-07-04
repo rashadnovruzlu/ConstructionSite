@@ -25,17 +25,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationIdentityDbContext _identityDb;
-        //private readonly ConstructionDbContext _dbContext;
-        //private readonly IdentityDbContext _identityDb;
-        public AccountController( UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, ApplicationIdentityDbContext _identityDb)
-        {
-           // this._dbContext = dbContext;
-            this.userManager = userManager;
-            this._signInManager = signInManager;
-            this._roleManager = roleManager;
-            this._identityDb = _identityDb;
-        }
+        private readonly ConstructionDbContext _dbContext;
+        private readonly IdentityDbContext _identityDb;
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -44,21 +36,30 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-      
+        public AccountController(IdentityDbContext identityDb, ConstructionDbContext dbContext, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        {
+            this._dbContext = dbContext;
+            this.userManager=userManager;
+            this._signInManager=signInManager;
+            this._roleManager = roleManager;
+            this._identityDb = identityDb;
+        }
 
         [HttpGet]
+        [Route("Index")]
         public IActionResult Index()
         {
             IEnumerable<UserDTO> users = userManager.Users.Select(m => new UserDTO
             {
                 Id = m.Id,
                 Name = m.Name,
-                Email=m.Email
+                //Email = m.Email
             });
             return View(users);
         }
 
         [HttpGet]
+        //[Route("Create")]
         public async Task<IActionResult> Create()
         {
             var roles = await _roleManager.Roles.ToListAsync();
@@ -70,6 +71,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+       // [Route("Create")]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -85,7 +87,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     IdentityResult result = await userManager.CreateAsync(user, viewModel.Password);
 
-                    if(result.Succeeded)
+                    if (result.Succeeded)
                     {
                         ApplicationUser appUser = await userManager.FindByNameAsync(user.UserName);
                         IdentityRole role = await _roleManager.FindByIdAsync(viewModel.RoleId);
@@ -126,6 +128,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [Route("Login")]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
@@ -134,6 +137,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
@@ -148,9 +152,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                         if (checkPassword)
                         {
-                          
-                            await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,false,false);
-                            return RedirectToAction("Index", "Dashboard", new { Areas= "ConstructionAdmin" });
+                            await _signInManager.SignInAsync(appUser, false);
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {
@@ -171,6 +174,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Route("Edit")]
         public async Task<IActionResult> Edit([Required][FromRoute] string id)
         {
             if (ModelState.IsValid)
@@ -183,15 +187,14 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     {
                         throw new NullReferenceException();
                     }
-                   
-                    //var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+                    var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
                     var roles = await _roleManager.Roles.ToListAsync();
                     return View(new UserEditModel
                     {
                         Id = appUser.Id,
                         Username = appUser.UserName,
                         Name = appUser.Name,
-                        Email = appUser.Email,                       
+                        Email = appUser.Email,
                     });
                 }
                 catch
@@ -201,6 +204,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Required][FromForm] string id, UserEditModel userEditModel)
         {
@@ -238,7 +242,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             return View(userEditModel);
         }
-        
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
@@ -250,7 +254,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             catch { }
 
-            return RedirectToAction("index", "home");
+            return RedirectToAction("index", "Dashboard");
         }
 
         [HttpPost]
