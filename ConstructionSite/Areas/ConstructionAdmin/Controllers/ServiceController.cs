@@ -55,7 +55,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Image image = new Image();
                
 
-                service.ImageId = await FileData.SaveImage(_env,"service",image,_unitOfWork);
+                service.ImageId = await FileData.SaveImage(_env, "service", image,_unitOfWork);
               
                 if (await _unitOfWork.ServiceRepository.AddAsync(service) > 0)
                     return RedirectToAction("Index");

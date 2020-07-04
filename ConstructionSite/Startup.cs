@@ -27,8 +27,10 @@ namespace ConstructionSite
             ;
           
             services.IdentityLoad(Configuration);
-    //        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    //.AddCookie();
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
             services.ConfigureApplicationCookie(options =>
