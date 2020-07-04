@@ -41,9 +41,24 @@ namespace ConstructionSite.Controllers
                 .ToList();
             return View(result);
         }
-        public IActionResult Single()
+        public IActionResult Single(int id)
         {
-            return View();
+          var result=  _unitOfWork.ServiceRepository.GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.SubServices)
+                .Select(x=>new SingleServiceViewModel
+                {
+                    Id=x.Id,
+                    NameAz=x.NameAz,
+                    NameEn=x.NameEn,
+                    NameRu=x.NameRu,
+                    TittleAz=x.TittleAz,
+                    TittleEn=x.TittleEn,
+                    image=x.Image.Path
+
+
+                }).FirstOrDefault(x=>x.Id==id);
+            return View(result);
         }
         public IActionResult Construction()
         {
