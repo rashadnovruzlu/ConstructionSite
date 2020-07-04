@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<UserDTO>
-    
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
@@ -8,23 +7,36 @@
         <div class="row">
             <aside class="profile-nav col-lg-3">
                 <section class="panel">
-                    <div class="user-heading round">
-                        <vc:user-profile-name></vc:user-profile-name>
-                        @*<p>@Html.DisplayNameFor(model=>model.Email)</p>*@
-                    </div>
+
+                    <vc:user-profile-name></vc:user-profile-name>
                 </section>
             </aside>
             <aside class="profile-info col-lg-9">
                 <section class="panel">
-                    <div class="panel-body bio-graph-info">
+                    <div class="bio-graph-heading">
                         <h1>Bio Graph</h1>
+                    </div>
+                    <div class="panel-body bio-graph-info">
+
                         <div class="row">
                             <div class="bio-row">
-                                <p><span>Full Name </span>: @Html.DisplayNameFor(model=>model.Name)</p>
+                                <p><span>Full Name </span>: @Html.DisplayNameFor(model => model.Name)</p>
                             </div>
-                            @*<div class="bio-row">
+                            <div class="bio-row">
                                 <p><span>Email </span>: @Html.DisplayNameFor(model => model.Email)</p>
-                            </div>*@
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Country </span>: Azerbaijan</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Address </span>: Adress yazilmali</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Mobile </span>: (12) 03 4567890</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Phone </span>: 88 (02) 123456</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -35,4 +47,3 @@
     </section>
 </section>
 <!--main content end-->
-
