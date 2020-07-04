@@ -48,14 +48,14 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        //[Route("Index")]
+        [Route("Index")]
         public IActionResult Index()
         {
             IEnumerable<UserDTO> users = userManager.Users.Select(m => new UserDTO
             {
                 Id = m.Id,
                 Name = m.Name,
-                Email = m.Email
+                //Email = m.Email
             });
             return View(users);
         }
@@ -177,7 +177,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        
+        [Route("Edit")]
         public async Task<IActionResult> Edit([Required][FromRoute] string id)
         {
             if (ModelState.IsValid)
@@ -207,6 +207,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Route("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Required][FromForm] string id, UserEditModel userEditModel)
         {
