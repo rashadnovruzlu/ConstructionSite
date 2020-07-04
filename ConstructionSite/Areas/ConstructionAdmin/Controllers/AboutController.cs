@@ -76,5 +76,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
            
             return View();
         }
+        public async Task<IActionResult> Delete(int id)
+        {
+            var data=await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
+            var result=await _unitOfWork.AboutImageRepository.DeleteAsync(data);
+            return RedirectToAction("Index");
+        }
     }
 }
