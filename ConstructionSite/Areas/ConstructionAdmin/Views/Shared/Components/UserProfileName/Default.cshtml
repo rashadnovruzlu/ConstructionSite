@@ -1,3 +1,13 @@
 ﻿@model UserDTO
-
-<h1>@Model.Name</h1>
+<div class="user-heading round">
+    <a href="#">
+        <img src="~/ConstructionAdmin/img/profile-avatar.jpg" alt="">
+    </a>
+    <h1>@Model.Name</h1>
+    <p>@Model.Email</p>
+</div>
+<ul class="nav nav-pills nav-stacked">
+    <li class="active"><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index"> <i class="icon-user"></i> Profile</a></li>
+    <li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
+    <li><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit"> <i class="icon-edit"></i> Edit profile</a></li>
+</ul>
