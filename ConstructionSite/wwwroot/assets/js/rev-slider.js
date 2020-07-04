@@ -4,7 +4,7 @@ var RevSlider = function() {
 
     // Revolution Slider 1
     var handleRevSliderLayout1 = function() {
-        var tpj=jQuery,         
+        var tpj=jQuery,
         revapi9;
         tpj(document).ready(function() {
             if(tpj("#rev-slider1").revolution == undefined){
@@ -83,7 +83,7 @@ var RevSlider = function() {
 
     // Revolution Slider 2
     var handleRevSliderLayout2 = function() {
-        var tpj=jQuery,         
+        var tpj=jQuery,
         revapi9;
         tpj(document).ready(function() {
             if(tpj("#rev-slider2").revolution == undefined){

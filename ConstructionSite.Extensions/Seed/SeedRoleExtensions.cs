@@ -1,7 +1,6 @@
 ﻿using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +14,15 @@ namespace ConstructionSite.Extensions.Seed
         {
             RoleManager<IdentityRole> role = builder.ApplicationServices.GetRequiredService<RoleManager<IdentityRole>>();
             UserManager<ApplicationUser> db = builder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>();
-                 if (role.Roles.Count() == 0)
+            if (role.Roles.Count() == 0)
+            {
+                var result = await role.CreateAsync(new IdentityRole
                 {
-                    var  result = await role.CreateAsync(new IdentityRole
-                    {
-                        Name = "Admin"
-                    });
-                    
-                }
+                    Name = "Admin"
+                });
+            }
 
-                if (!db.Users.Any())
+            if (!db.Users.Any())
             {
                 ApplicationUser app = new ApplicationUser
                 {
