@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
   </ItemGroup>
 

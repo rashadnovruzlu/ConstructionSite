@@ -12,12 +12,24 @@ namespace ConstructionSite.Entity.Configuration
         public void Configure(EntityTypeBuilder<Description> builder)
         {
            builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.Title)
+            builder.Property(x=>x.TittleAz)
                 .IsRequired()
                 .HasMaxLength(150);
-            builder.Property(x=>x.Content)
+            builder.Property(x => x.TittleEn)
+                
+                .HasMaxLength(150);
+            builder.Property(x => x.TittleRu)
+
+             .HasMaxLength(150);
+            builder.Property(x=>x.ContentAz)
                 .IsRequired()
                 .HasMaxLength(500);
+            builder.Property(x => x.ContentRu)
+             
+              .HasMaxLength(500);
+            builder.Property(x => x.ContentEn)
+             
+              .HasMaxLength(500);
 
             builder.HasOne(x => x.SubService)
                       .WithMany(s => s.Descriptions);
