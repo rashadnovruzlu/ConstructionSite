@@ -52,7 +52,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             {
                 Id = m.Id,
                 Name = m.Name,
-                //Email = m.Email
+                Email = m.Email
             });
             return View(users);
         }
