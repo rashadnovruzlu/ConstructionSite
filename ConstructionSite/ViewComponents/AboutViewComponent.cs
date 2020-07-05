@@ -24,8 +24,8 @@ namespace ConstructionSite.ViewComponents
                .Select(y=> new AboutDTO
                {
                    TitleAz=y.About.ContentAz,
-                   TittleEn=y.About.TittleEn,
-                   TittleRu=y.About.TittleRu,
+                   TitleEn=y.About.TittleEn,
+                   TitleRu=y.About.TittleRu,
                    ContentAz=y.About.ContentAz,
                    ContentEn=y.About.ContentEn,
                    ContentRu=y.About.ContentRu,

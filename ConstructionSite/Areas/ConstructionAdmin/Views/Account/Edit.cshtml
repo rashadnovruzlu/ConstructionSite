@@ -22,7 +22,7 @@
                 <section class="panel">
                     <div class="panel-body bio-graph-info">
                         <h1> Profile Edit</h1>
-                        <form asp-area="ConstructionAdmin" asp-controller="account" asp-action="edit" class="form-horizontal" role="form">
+                        <form asp-area="ConstructionAdmin" asp-controller="Account" asp-action="edit" class="form-horizontal" role="form">
                             <div asp-validation-summary="ModelOnly" class="text-danger">Please fix the error.</div>
                             @Html.HiddenFor(m => m.Id)
                             @Html.AntiForgeryToken()
