@@ -10,5 +10,7 @@ namespace ConstructionSite.Entity.Models
         public string  Title { get; set; }
         public string Content { get; set; }
         
+        public virtual SubService SubService { get; set; }
+        public virtual int SubServiceId { get; set; }
     }
 }
