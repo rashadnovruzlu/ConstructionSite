@@ -16,8 +16,7 @@ namespace ConstructionSite.Entity.Models
         public string Email { get; set; }
       
         public string Subject { get; set; }
-        //[Required]
-        //[MaxLength(2000)]
+      
         public string UserMessage { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
