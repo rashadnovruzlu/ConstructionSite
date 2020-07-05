@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Extensions.Images
 {
-  public static  class IsImageContentType
+    public static class IsImageContentType
     {
         public static bool IsImage(this IFormFile file)
         {

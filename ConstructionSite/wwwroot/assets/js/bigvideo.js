@@ -19,9 +19,7 @@
 		factory(jQuery, videojs);
 	}
 })(function($, videojs) {
-
 	$.BigVideo = function(options) {
-
 		var defaults = {
 			// If you want to use a single mp4 source, set as true
 			useFlashForFirefox:true,
@@ -170,7 +168,6 @@
 				player.pause();
 				$('#big-video-control-play').css('background-position','-16px');
 				isPlaying = false;
-
 			} else if (action === 'play') {
 				player.play();
 				$('#big-video-control-play').css('background-position','0');
@@ -190,7 +187,6 @@
 		}
 
 		function playVideo(source) {
-
 			// clear image
 			$(vidEl).css('display','block');
 			currMediaType = 'video';
@@ -249,10 +245,10 @@
 				if (settings.useFlashForFirefox && (isFirefox)) {
 					videoTechOrder = ['flash', 'html5'];
 				}
-				player = videojs(vidEl.substr(1), { 
-					controls:false, 
-					autoplay:true, 
-					preload:'auto', 
+				player = videojs(vidEl.substr(1), {
+					controls:false,
+					autoplay:true,
+					preload:'auto',
 					techOrder:videoTechOrder
 				});
 
@@ -339,5 +335,4 @@
 			playControl(action);
 		};
 	};
-
 });

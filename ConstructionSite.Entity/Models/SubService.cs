@@ -20,10 +20,10 @@ namespace ConstructionSite.Entity.Models
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
 
-        public Service Service { get; set; }
+        public virtual Service Service { get; set; }
        
         public int ServiceId { get; set; }
 
-        public ICollection<SubServiceImage> SubServiceImages { get; set; }
+        public virtual ICollection<SubServiceImage> SubServiceImages { get; set; }
     }
 }

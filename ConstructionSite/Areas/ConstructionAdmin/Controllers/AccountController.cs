@@ -1,36 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.Areas.Admin.Models;
+﻿using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
+using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
+using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
+using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using ConstructionSite.DTO;
-using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
-using Microsoft.EntityFrameworkCore;
-using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
-using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
-using System.ComponentModel.DataAnnotations;
-using ConstructionSite.Entity.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
-    [Area("ConstructionAdmin")]
+    [Area(nameof(ConstructionAdmin))]
     [Authorize(Roles ="Admin")]
-    [Route("ConstructionAdmin/[controller]")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationIdentityDbContext _identityDb;
-
+       
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -39,10 +35,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationIdentityDbContext  identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            this.userManager = userManager;
-            this._signInManager = signInManager;
+           
+            this.userManager=userManager;
+            this._signInManager=signInManager;
             this._roleManager = roleManager;
             this._identityDb = identityDb;
         }
@@ -130,7 +127,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("Login")]
+       // [Route("Login")]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
@@ -139,7 +136,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Route("Login")]
+       // [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
@@ -154,9 +151,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                         if (checkPassword)
                         {
-                            await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, false, false);
-                          //  await _signInManager.SignInAsync(appUser, true);
-                            return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
+                            await _signInManager.SignInAsync(appUser, false);
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {
@@ -177,7 +173,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("Edit")]
+       // [Route("Edit")]
         public async Task<IActionResult> Edit([Required][FromRoute] string id)
         {
             if (ModelState.IsValid)
@@ -190,7 +186,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     {
                         throw new NullReferenceException();
                     }
-                    var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+                    var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
                     var roles = await _roleManager.Roles.ToListAsync();
                     return View(new UserEditModel
                     {
@@ -227,7 +223,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Index", "Account", new { Areas = "Constructionadmin" });
                     }
                     else
                     {
@@ -272,7 +268,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (currentUser.Id == id)
                         throw new Exception("You can not delete own");
-                    transaction = await _identityDb.Database.BeginTransactionAsync();
+                    //transaction = await _identityDb.Database.BeginTransactionAsync();
                     ApplicationUser user = await userManager.FindByIdAsync(id);
 
                     if (user == null)

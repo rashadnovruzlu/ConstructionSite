@@ -14,16 +14,17 @@ namespace ConstructionSite.Extensions.DataBase
             services.AddDbContext<ConstructionDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
         }
+
         public static IServiceCollection ServiceDataBaseWithInjection(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<ConstructionDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
+            options.UseLazyLoadingProxies().
+              UseSqlServer(Configuration.GetConnectionString("ConstructionSite"), b => b.MigrationsAssembly("ConstructionSite")));
             services.AddScoped<DbContext>(sp => sp.GetRequiredService<ConstructionDbContext>());
-            
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<IUnitOfWork,UnitOfWork>();
-            return services;
 
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            return services;
         }
     }
 }

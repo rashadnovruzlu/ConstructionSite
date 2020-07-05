@@ -34,14 +34,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (FileData.IsImage())
-                {
-                    Image image = new Image();
-                    string name = await FileData.SaveAsync(_env, "service");
-                    image.Title = name;
-                    image.Path = Path.Combine(_env.WebRootPath, "images", name);
-                    service.ImageId = await _unitOfWork.imageRepository.AddAsync(image);
-                }
+                Image image = new Image();
+               
+
+                service.ImageId = await FileData.SaveImage(_env,"service",image,_unitOfWork);
+              
                 if (await _unitOfWork.ServiceRepository.AddAsync(service) > 0)
                     return RedirectToAction("Index");
             }

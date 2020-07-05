@@ -2,7 +2,6 @@
     'use strict'
 
     var wprtTheme = {
-
         // Main init function
         init : function() {
             this.config();
@@ -23,7 +22,6 @@
 
             // Run on document ready
             self.config.$document.on( 'ready', function() {
-
                 // Hero SlideShow
                 self.heroSection();
 
@@ -35,7 +33,7 @@
 
                 // Tabs
                 self.tabs();
-                
+
                 // Cart Icon
                 self.cartIcon();
 
@@ -162,7 +160,7 @@
 
                 hero.css({ height: sliderHeight + "px" });
 
-                heroContent.css({ 
+                heroContent.css({
                    "margin-top" : contentMargin + "px",
                    "margin-bottom": contentMargin + "px"
                 });
@@ -206,7 +204,7 @@
 
             setInterval(function() {
                 var number = current * -height;
-                
+
                 first.css('margin-top', number + 'px');
                 if ( current === numberDivs ) {
                     first.css('margin-top', '0px');
@@ -278,7 +276,7 @@
                         }
                     })
                 }
-            }     
+            }
         },
 
         cartIcon: function() {
@@ -374,7 +372,7 @@
                             .find('.sub-menu')
                                 .removeAttr('style')
                                 .prev().remove();
-                                
+
                         $('.mobile-button').removeClass('active');
                     }
                 }
@@ -396,7 +394,7 @@
                     $(this).find('.number').each(function() {
                         var to = parseInt( $(this).data('to'), 10 ),
                             speed = parseInt( $(this).data('speed'), 10 );
-                            
+
                         $(this).countTo({
                             to: to,
                             speen: speed
@@ -526,7 +524,6 @@
             });
         },
 
-
         searchIcon: function() {
             $('.header-search-icon').on('click', function() {
                 var searchForm = $(this).parent().find('.header-search-form'),
@@ -568,7 +565,7 @@
 
         scrollToTop: function() {
             var scrollBtn = $('#scroll-top');
-            
+
             $(window).on('scroll', function() {
                 if ( $(this).scrollTop() > 800 ) {
                     scrollBtn.addClass('show');
@@ -743,7 +740,7 @@
                     } else if ( $(window).width() > 767 ) {
                         $(this).attr('style', 'height:' + $(this).data('mobi') + 'px')
                     } else {
-                        $(this).attr('style', 'height:' + $(this).data('smobi') + 'px') 
+                        $(this).attr('style', 'height:' + $(this).data('smobi') + 'px')
                     }
                 })
             });
@@ -843,7 +840,7 @@
         },
 
         ajaxContactForm: function() {
-            if ( $().validate ) {        
+            if ( $().validate ) {
                 $('.wprt-contact-form').each(function() {
                     $(this).validate({
                         submitHandler: function( form ) {
@@ -896,7 +893,7 @@
             var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
             /*
              * Please note that background attachment fixed doesn't work on iOS
-             */ 
+             */
             if (!iOS) {
                 $('.parallax').css({backgroundAttachment:'fixed'});
             } else {
@@ -943,10 +940,8 @@
                 });
             }
         },
-
     }; // end wprtTheme
 
     // Start things up
     wprtTheme.init();
-
 })(jQuery);

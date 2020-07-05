@@ -1,4 +1,5 @@
-﻿<!-- Featured Title -->
+﻿@model ConstructionSite.Entity.Models.About
+<!-- Featured Title -->
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
@@ -30,7 +31,7 @@
 
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
 
-                                    <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit.<br> Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
+                                    <p class="wprt-subtitle">@Model.TittleAz</p>
 
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
                                 </div>
@@ -42,8 +43,7 @@
                                         <div class="line-1"></div>
                                     </div>
                                     <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
-                                    <p class=" margin-bottom-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui. Cras id justo eget sapien scelerisque lacinia non a eros. In a volutpat magna. Vivamus pretium urna at condimentum porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat.</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Cras id justo eget sapien scelerisque lacinia non a eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat.</p>
+                                    <p class=" margin-bottom-25">@Model.ContentAz</p>
                                     <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
                                 </div>
                                 <!-- /.col-md-6 -->

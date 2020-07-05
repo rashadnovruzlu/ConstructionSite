@@ -12,11 +12,11 @@ namespace ConstructionSite.Entity.Models
       
         public bool IsMain { get; set; }
 
-        public Image Image { get; set; }
+        public virtual Image Image { get; set; }
        
         public int ImageId { get; set; }
 
-        public SubService SubService { get; set; }
+        public virtual SubService SubService { get; set; }
         
         public int SubServiceId { get; set; }
     }

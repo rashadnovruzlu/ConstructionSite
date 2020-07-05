@@ -21,9 +21,9 @@ namespace ConstructionSite.Entity.Models
 		public string TittleEn { get; set; }
 		public string TittleRu { get; set; }
 		
-		public Image Image { get; set; }
+		public virtual Image Image { get; set; }
 		public int ImageId { get; set; }
 
-		public ICollection<SubService> SubServices { get; set; }
+		public virtual ICollection<SubService> SubServices { get; set; }
 	}
 }

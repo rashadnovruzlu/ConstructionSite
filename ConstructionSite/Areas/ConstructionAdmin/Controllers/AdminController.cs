@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
+    [Area(nameof(ConstructionAdmin))]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUser> _UserManager;
