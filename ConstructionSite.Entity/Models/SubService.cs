@@ -25,6 +25,6 @@ namespace ConstructionSite.Entity.Models
         public int ServiceId { get; set; }
 
         public virtual ICollection<SubServiceImage> SubServiceImages { get; set; }
-        public virtual ICollection<Description> Descriptions { get; set; }
+        
     }
 }
