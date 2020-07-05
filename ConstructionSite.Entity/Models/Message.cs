@@ -11,12 +11,13 @@ namespace ConstructionSite.Entity.Models
         public int Id { get; set; }
       
         public string Name { get; set; }
-        
+       
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string Email { get; set; }
-       
+      
         public string Subject { get; set; }
-        
+        //[Required]
+        //[MaxLength(2000)]
         public string UserMessage { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
