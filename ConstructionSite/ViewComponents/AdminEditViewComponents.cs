@@ -1,4 +1,6 @@
 ﻿using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    [ViewComponent(Name ="AdminComponents")]
-    public class AdminComponentsViewComponent : ViewComponent
+    [ViewComponent(Name="AdminEdit")]
+    public class AdminEditViewComponents : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
