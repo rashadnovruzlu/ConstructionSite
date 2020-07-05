@@ -19,14 +19,14 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationIdentityDbContext _identityDb;
-       
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -35,11 +35,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
         }
 
-        public AccountController(ApplicationIdentityDbContext  identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-           
-            this.userManager=userManager;
-            this._signInManager=signInManager;
+
+            this.userManager = userManager;
+            this._signInManager = signInManager;
             this._roleManager = roleManager;
             this._identityDb = identityDb;
         }
@@ -52,7 +52,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             {
                 Id = m.Id,
                 Name = m.Name,
-                //Email = m.Email
+                Email = m.Email
             });
             return View(users);
         }
@@ -127,7 +127,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-       // [Route("Login")]
+        //[Route("Login")]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
@@ -136,7 +136,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-       // [Route("Login")]
+        //[Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
@@ -152,7 +152,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                         if (checkPassword)
                         {
                             await _signInManager.SignInAsync(appUser, false);
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                         }
                         else
                         {
@@ -173,40 +173,33 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-      //  [Route("Edit")]
-       
-        public async Task<IActionResult> Edit([Required][FromRoute] string id)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    ApplicationUser appUser = await userManager.FindByIdAsync(id);
+        [Route("Edit")]
 
-                    if (appUser == null)
-                    {
-                        throw new NullReferenceException();
-                    }
-                    var userRole=await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
-                    var roles = await _roleManager.Roles.ToListAsync();
-                    return View(new UserEditModel
-                    {
-                        Id = appUser.Id,
-                        Username = appUser.UserName,
-                        Name = appUser.Name,
-                        Email = appUser.Email,
-                    });
-                }
-                catch
-                { }
+        public async Task<IActionResult> Edit()
+        {
+
+            ApplicationUser appUser = await userManager.GetUserAsync(User);
+
+            if (appUser == null)
+            {
+                throw new NullReferenceException();
             }
-            return RedirectToAction(nameof(Index));
+
+            var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+            var roles = await _roleManager.Roles.ToListAsync();
+            return View(new UserEditModel
+            {
+                Id = appUser.Id,
+                Username = appUser.UserName,
+                Name = appUser.Name,
+                Email = appUser.Email,
+            });
         }
 
         [HttpPost]
         [Route("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Required][FromForm] string id, UserEditModel userEditModel)
+        public async Task<IActionResult> Edit(string id, UserEditModel userEditModel)
         {
             if (ModelState.IsValid)
             {
