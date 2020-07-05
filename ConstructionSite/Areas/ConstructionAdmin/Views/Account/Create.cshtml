@@ -28,7 +28,7 @@
                                 <div class="form-group ">
                                     <label for="username" class="control-label col-lg-2">@Html.DisplayNameFor(m => m.Username)</label>
                                     <div class="col-lg-10">
-                                        <input type="text" asp-for="Name" class="form-control" placeholder="Enter a username" />
+                                        <input type="text" asp-for="Username" class="form-control" placeholder="Enter a username" />
                                         <span asp-validation-for="Username" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button class="btn btn-danger" type="submit">Save</button>
-                                        <button asp-action="index" asp-controller="account" class="btn btn-default" type="button">Cancel</button>
+                                        <button href="/ConstructionAdmin/Account/Index" class="btn btn-default" type="button">Cancel</button>
                                     </div>
                                 </div>
                             </form>
