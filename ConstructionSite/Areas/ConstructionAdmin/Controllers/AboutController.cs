@@ -5,6 +5,7 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
@@ -20,12 +21,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-
+        private string _lang;
         public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
 
             _unitOfWork = unitOfWork;
             _env=env;
+            var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+            var culture = rqf.RequestCulture.Culture;
+            _lang = culture.Name;
         }
         [HttpGet]
         public IActionResult Index()
@@ -38,12 +42,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             .Select(y => new AboutViewModel
             {
                 Id=y.About.Id,
-                TittleAz = y.About.TittleAz,
-                TittleEn = y.About.TittleEn,
-                TittleRu = y.About.TittleRu,
-                ContentAz = y.About.ContentAz,
-                ContentEn = y.About.ContentEn,
-                ContentRu = y.About.ContentRu,
+                Tittle=y.About.FindTitle(_lang),
+                Content=y.About.FindContent(_lang),
+               
                 Image = y.Image.Path
             }).ToList();
            

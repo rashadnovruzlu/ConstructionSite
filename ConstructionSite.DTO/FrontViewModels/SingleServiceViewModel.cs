@@ -10,10 +10,9 @@ namespace ConstructionSite.DTO.FrontViewModels
 
 		public string Name { get; set; }
 
-		
-
 		public string Tittle { get; set; }
 		
         public string image { get; set; }
+
     }
 }

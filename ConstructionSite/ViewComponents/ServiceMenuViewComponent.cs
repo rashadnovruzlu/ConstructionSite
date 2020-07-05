@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,13 @@ namespace ConstructionSite.ViewComponents
     public class ServiceMenuViewComponent:ViewComponent
     {
         private readonly IUnitOfWork _unitOfWork;
+        private  string _lang;
         public ServiceMenuViewComponent(IUnitOfWork unitOfWork)
         {
             _unitOfWork=unitOfWork;
+            var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+            var culture = rqf.RequestCulture.Culture;
+            _lang = culture.Name;
         }
         public IViewComponentResult Invoke()
         {
@@ -23,10 +28,14 @@ namespace ConstructionSite.ViewComponents
                 .Select(x=>new ServiceMenuViewModel
                 {
                     Id=x.Id,
-                    NameAz=x.NameAz,
-                    NameEn=x.NameEn,
-                    NameRu=x.NameRu,
-                    SubServices=x.SubServices
+                    Name=x.FindName(_lang),
+                   SubServices=x.SubServices.Select(z=>new SingleSubServiceViewModel
+                   {
+                       id=x.Id,
+                       Name=x.FindName(_lang)
+                   })
+                   .ToList()
+                    
                 }).ToList();
             return View(result);
         }
