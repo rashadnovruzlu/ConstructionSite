@@ -18,7 +18,9 @@ namespace ConstructionSite.Entity.Configuration
             builder.Property(x=>x.Content)
                 .IsRequired()
                 .HasMaxLength(500);
-           
+
+            builder.HasOne(x => x.SubService)
+                      .WithMany(s => s.Descriptions);
         }
     }
 }

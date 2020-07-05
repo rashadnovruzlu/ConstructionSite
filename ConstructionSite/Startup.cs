@@ -55,10 +55,7 @@ namespace ConstructionSite
                
                 app.UseHsts();
             }
-          //  app.SeedRole();
-
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.SeedRole();
 
             app.UseStaticFiles();
 
