@@ -30,6 +30,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+           
+                
             var result = _unitOfWork.AboutImageRepository.GetAll()
             .Include(x => x.About)
             .Include(x => x.Image)

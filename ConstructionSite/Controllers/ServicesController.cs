@@ -21,23 +21,22 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Index()
         {
+            //_unitOfWork.ServiceRepository.GetAll()
+            //    .Include(x=>x)
           var result=  _unitOfWork.ServiceRepository.GetAll()
                 .Include(x=>x.Image)
                 .Include(x=>x.SubServices)
                 .Select(x=>new ServiceViewModel
                 {
                     Id=x.Id,
-                    NameAz=x.NameAz,
-                    NameRu=x.NameRu,
-                    NameEn=x.NameEn,
-                    TittleAz=x.TittleAz,
-                    TittleEn=x.TittleEn,
-                    TittleRu=x.TittleRu,
+                    Name=x.NameAz,
+                    Tittle=x.fi,
                     image=x.Image.Path,
                     SubServices=x.SubServices
 
                     
                 })
+                
                 .ToList();
             return View(result);
         }

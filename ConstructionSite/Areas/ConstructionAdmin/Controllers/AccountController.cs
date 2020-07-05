@@ -173,7 +173,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("Edit")]
+      //  [Route("Edit")]
        
         public async Task<IActionResult> Edit([Required][FromRoute] string id)
         {
