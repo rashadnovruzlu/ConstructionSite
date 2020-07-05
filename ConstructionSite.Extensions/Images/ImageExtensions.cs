@@ -11,14 +11,15 @@ namespace ConstructionSite.Extensions.Images
     {
         public static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
+            var filePath = Path.GetTempFileName();
             string fileName = file.GetPath(subFolder);
-            string path = Path.Combine(_env.WebRootPath, fileName);
+            string path = Path.Combine(_env.WebRootPath,fileName);
             await using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return fileName;
+            return "/"+fileName;
         }
 
         public static async Task<string> SaveAsyncArray(this List<IFormFile> files, IWebHostEnvironment _env, string subFolder)

@@ -12,7 +12,7 @@ namespace ConstructionSite.Extensions.Images
         {
             if (file.IsImage())
             {
-                string name = await file.SaveAsync(_env, subFolder);
+                string name = await file.SaveAsync(_env,subFolder);
                 image.Title = name;
                 image.Path = name;
                 await _unitOfWork.imageRepository.AddAsync(image);

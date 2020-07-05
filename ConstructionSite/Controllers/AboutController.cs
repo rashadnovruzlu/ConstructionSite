@@ -21,15 +21,7 @@ namespace ConstructionSite.Controllers
          var data= await  _unitOfWork.AboutRepository.GetAllAsync();
           var about=  data.AsQueryable().Include(x=>x.AboutImages)
                 .ThenInclude(x=>x.Image);
-               
-        
-                
-         
-       
-                
-                
-                
-            return View(about);
+                return View(about);
         }
     }
 }
