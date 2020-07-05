@@ -13,8 +13,8 @@
                         <p>@Html.DisplayNameFor(model=>model.Email)</p>
                     </div>
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a asp-controller="Account" asp-action="Index"> <i class="icon-user"></i> Profile</a></li>
-                        <li class="active"><a asp-controller="Account" asp-action="Edit"> <i class="icon-edit"></i> Edit profile</a></li>
+                        <li><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index"> <i class="icon-user"></i> Profile</a></li>
+                        <li class="active"><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id"> <i class="icon-edit"></i> Edit profile</a></li>
                     </ul>
                 </section>
             </aside>
@@ -22,7 +22,7 @@
                 <section class="panel">
                     <div class="panel-body bio-graph-info">
                         <h1> Profile Edit</h1>
-                        <form asp-area="ConstructionAdmin" asp-controller="Account" asp-action="edit" class="form-horizontal" role="form">
+                        <form asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" class="form-horizontal" role="form" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger">Please fix the error.</div>
                             @Html.HiddenFor(m => m.Id)
                             @Html.AntiForgeryToken()

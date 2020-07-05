@@ -127,7 +127,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-       // [Route("Login")]
+        //[Route("Login")]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
@@ -136,7 +136,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-       // [Route("Login")]
+        //[Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
@@ -152,7 +152,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                         if (checkPassword)
                         {
                             await _signInManager.SignInAsync(appUser, false);
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                         }
                         else
                         {
@@ -173,7 +173,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpGet]
-       // [Route("Edit")]
+        [Route("Edit")]
         public async Task<IActionResult> Edit([Required][FromRoute] string id)
         {
             if (ModelState.IsValid)
