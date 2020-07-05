@@ -93,7 +93,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                         IdentityResult identityResult = await userManager.AddToRoleAsync(appUser, role.Name);
 
                         if (identityResult.Succeeded)
-                            return RedirectToAction(nameof(Index));
+                            return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
                         else
                         {
                             AddErrors(result);
