@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConstructionSite.Migrations
 {
-    public partial class saam : Migration
+    public partial class intitials : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,11 +14,11 @@ namespace ConstructionSite.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TittleAz = table.Column<string>(maxLength: 250, nullable: false),
-                    TittleRu = table.Column<string>(maxLength: 250, nullable: false),
                     TittleEn = table.Column<string>(maxLength: 250, nullable: false),
+                    TittleRu = table.Column<string>(maxLength: 250, nullable: false),
                     ContentAz = table.Column<string>(nullable: false),
-                    ContentRu = table.Column<string>(nullable: true),
-                    ContentEn = table.Column<string>(nullable: true)
+                    ContentEn = table.Column<string>(nullable: true),
+                    ContentRu = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,8 +55,8 @@ namespace ConstructionSite.Migrations
                     ContentAz = table.Column<string>(maxLength: 500, nullable: false),
                     ContentEn = table.Column<string>(maxLength: 500, nullable: true),
                     ContentRu = table.Column<string>(maxLength: 500, nullable: true),
-                    FullName = table.Column<string>(maxLength: 35, nullable: false),
-                    Position = table.Column<string>(maxLength: 50, nullable: false)
+                    FullName = table.Column<string>(maxLength: 35, nullable: true),
+                    Position = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -318,6 +318,31 @@ namespace ConstructionSite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Descriptions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TittleAz = table.Column<string>(maxLength: 150, nullable: false),
+                    TittleEn = table.Column<string>(maxLength: 150, nullable: true),
+                    TittleRu = table.Column<string>(maxLength: 150, nullable: true),
+                    ContentAz = table.Column<string>(maxLength: 500, nullable: false),
+                    ContentEn = table.Column<string>(maxLength: 500, nullable: true),
+                    ContentRu = table.Column<string>(maxLength: 500, nullable: true),
+                    SubServiceId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Descriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Descriptions_SubServices_SubServiceId",
+                        column: x => x.SubServiceId,
+                        principalTable: "SubServices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubServiceImages",
                 columns: table => new
                 {
@@ -335,13 +360,13 @@ namespace ConstructionSite.Migrations
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_SubServiceImages_SubServices_SubServiceId",
                         column: x => x.SubServiceId,
                         principalTable: "SubServices",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -353,6 +378,11 @@ namespace ConstructionSite.Migrations
                 name: "IX_AboutImages_ImageId",
                 table: "AboutImages",
                 column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Descriptions_SubServiceId",
+                table: "Descriptions",
+                column: "SubServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HomePages_ImageId",
@@ -416,6 +446,9 @@ namespace ConstructionSite.Migrations
 
             migrationBuilder.DropTable(
                 name: "CustomerFeedbacks");
+
+            migrationBuilder.DropTable(
+                name: "Descriptions");
 
             migrationBuilder.DropTable(
                 name: "HomePages");

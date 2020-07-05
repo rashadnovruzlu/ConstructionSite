@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionSite.Migrations.ApplicationIdentityDb
 {
     [DbContext(typeof(ApplicationIdentityDbContext))]
-    [Migration("20200705160406_IdentityDbadded")]
-    partial class IdentityDbadded
+    [Migration("20200705215707_initalIdntty")]
+    partial class initalIdntty
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

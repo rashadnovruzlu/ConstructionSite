@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    [Migration("20200702112306_TestDB")]
-    partial class TestDB
+    [Migration("20200705215536_intitials")]
+    partial class intitials
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,18 +151,59 @@ namespace ConstructionSite.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(35)")
                         .HasMaxLength(35);
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.ToTable("CustomerFeedbacks");
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Description", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentAz")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("ContentEn")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("ContentRu")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("SubServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TittleAz")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("TittleEn")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("TittleRu")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubServiceId");
+
+                    b.ToTable("Descriptions");
                 });
 
             modelBuilder.Entity("ConstructionSite.Entity.Models.HomePage", b =>
@@ -194,18 +235,12 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ServiceId")
-                        .IsUnique();
 
                     b.ToTable("Images");
                 });
@@ -433,6 +468,9 @@ namespace ConstructionSite.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageId")
+                        .IsUnique();
+
                     b.ToTable("Services");
                 });
 
@@ -538,20 +576,20 @@ namespace ConstructionSite.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Description", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.SubService", "SubService")
+                        .WithMany("Descriptions")
+                        .HasForeignKey("SubServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ConstructionSite.Entity.Models.HomePage", b =>
                 {
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
                         .WithMany("HomePages")
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Image", b =>
-                {
-                    b.HasOne("ConstructionSite.Entity.Models.Service", "Service")
-                        .WithOne("Image")
-                        .HasForeignKey("ConstructionSite.Entity.Models.Image", "ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -591,6 +629,15 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.Project", "Project")
                         .WithMany("ProjectImages")
                         .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Service", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
+                        .WithOne("Service")
+                        .HasForeignKey("ConstructionSite.Entity.Models.Service", "ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
