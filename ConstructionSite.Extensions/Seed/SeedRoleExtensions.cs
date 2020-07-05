@@ -28,7 +28,9 @@ namespace ConstructionSite.Extensions.Seed
                 {
                     Name = "Construction Site",
                     Email = "nurane@pragmatech.az",
-                    UserName="Const_Site"
+                    UserName="Const_Site",
+                    PhoneNumber= "88(02) 123456",
+                    Address= "1 Beverly Hills, Los Angeles, California, 90210, United States"
                 };
                 IdentityResult identityResult = db.CreateAsync(app, "Nurane_29").GetAwaiter().GetResult();
                 if (identityResult.Succeeded)
