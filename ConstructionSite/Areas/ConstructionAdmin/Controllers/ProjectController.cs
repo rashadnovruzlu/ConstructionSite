@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,29 +17,89 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class ProjectController : Controller
     {
-        private readonly IUnitOfWork         _unitOfWork;
-        private readonly IWebHostEnvironment _env;
+        private string                        _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
 
-        public ProjectController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        public ProjectController(IUnitOfWork unitOfWork,
+                                 IWebHostEnvironment env,
+                                 IHttpContextAccessor httpContextAccessor)
         {
 
             _unitOfWork = unitOfWork;
+            _httpContextAccessor=httpContextAccessor;
             _env = env;
+            _lang=_httpContextAccessor.getLang();
         }
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+
+            }
+                var result= _unitOfWork.projectRepository
+                .GetAll()
+                .Include(x=>x.Portfolio)
+                .Include(x=>x.ProjectImages)
+                .Select(x=>new ProjectViewModel
+                {
+                    Name=x.FindName(_lang),
+                    Content=x.FindContent(_lang),
+                    Portfolio=new PortfolioViewModel
+                    {
+                        Id=x.Portfolio.Id,
+                        Name=x.Portfolio.FindName(_lang)
+                    }
+                    
+
+                }).ToList();
+            if (result.Count>0)
+            {
+                return View(result);
+            }
+            else
+            {
+                ModelState.AddModelError("", "this list emity");
+            }
             return View();
         }
         public IActionResult Add()
         {
-         ViewBag.items=  _unitOfWork.portfolioRepository.GetAll().ToList();
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            var portfolioResult=  _unitOfWork.portfolioRepository.GetAll().ToList();
+            if (portfolioResult.Count>0)
+            {
+                ViewBag.items = portfolioResult;
+               
+            }
+            else
+            {
+                ModelState.AddModelError("", "this list emity");
+            }
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Add(ProjectAddModel project,IFormFile file)
         {
             Image img = new Image();
-            int IMAGEID=0;
+            int imageID=0;
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -55,8 +117,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not exists"
                 });
             }
-            IMAGEID = await file.SaveImage(_env, "project", img, _unitOfWork);
-            if (IMAGEID<0)
+            imageID = await file.SaveImage(_env, "project", img, _unitOfWork);
+            if (imageID<0)
             {
                 return Json(new
                 {
@@ -79,7 +141,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ProjectImage image = new ProjectImage
                 {
-                    ImageId = IMAGEID,
+                    ImageId = imageID,
                     ProjectId = result.Id
                 };
                 var imageResult= await _unitOfWork.projectImageRepository.AddAsync(image);

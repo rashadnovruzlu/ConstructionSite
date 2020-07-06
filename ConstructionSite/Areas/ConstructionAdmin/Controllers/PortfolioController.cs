@@ -20,8 +20,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
   
     public class PortfolioController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
         private string _lang;
+        private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public PortfolioController(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
