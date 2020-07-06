@@ -32,6 +32,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang=_httpContextAccessor.getLang();
         }
+        [HttpGet]
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -71,6 +72,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
+        [HttpGet]
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -96,6 +98,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(ProjectAddModel project,IFormFile file)
         {
             Image img = new Image();
