@@ -17,20 +17,21 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
 
     [Area(nameof(ConstructionAdmin))]
-    public class ServiceController : Controller { 
+    public class ServiceController : Controller
+    {
 
 
 
-         private string _lang;
-        private readonly IUnitOfWork           _unitOfWork;
+        private string _lang;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly  IWebHostEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         public ServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _env = env;
-           _httpContextAccessor=httpContextAccessor;
-           _lang=_httpContextAccessor.getLang();
+            _httpContextAccessor = httpContextAccessor;
+            _lang = _httpContextAccessor.getLang();
 
         }
         public IActionResult Index()
@@ -45,15 +46,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
 
             }
-            var result=_unitOfWork.ServiceRepository.GetAll()
-                .Include(x=>x.Image)
-                .Include(x=>x.SubServices)
-                .Select(x=>new ServiceViewModel
+            var result = _unitOfWork.ServiceRepository.GetAll()
+                .Include(x => x.Image)
+                .Include(x => x.SubServices)
+                .Select(x => new ServiceViewModel
                 {
-                    Id=x.Id,
-                    Name=x.FindName(_lang),
-                    Tittle=x.FindTitle(_lang),
-                    Image=x.Image.Path
+                    Id = x.Id,
+                    Name = x.FindName(_lang),
+                    Tittle = x.FindTitle(_lang),
+                    Image = x.Image.Path
                 })
                 .ToList();
             return View(result);
@@ -61,6 +62,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             return View();
         }
         [HttpPost]
@@ -86,22 +97,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
             service.ImageId = await FileData.SaveImage(_env, "service", image, _unitOfWork);
-            if (service.ImageId<0)
+            if (service.ImageId < 0)
             {
-                Response.StatusCode=(int)HttpStatusCode.SeeOther;
+                Response.StatusCode = (int)HttpStatusCode.SeeOther;
 
                 return Json(new
                 {
                     message = "file not save"
                 });
             }
-            var serviceResult=await _unitOfWork.ServiceRepository.AddAsync(service);
+            var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
             if (serviceResult.IsDone)
             {
                 return RedirectToAction("Index");
             }
-            
             return View();
         }
     }
+}
 

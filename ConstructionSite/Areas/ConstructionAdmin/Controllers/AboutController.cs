@@ -62,6 +62,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                
                 Image = y.Image.Path
             }).ToList();
+            if (result.Count<0)
+            {
+                return Json(new
+                {
+                    message = "data is null"
+                });
+            }
              return View(result);
 
           
