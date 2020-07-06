@@ -11,23 +11,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels
     {
         [Required]
         [StringLength(maximumLength: 50)]
+        [UIHint("username")]
         public string Username { get; set; }
         [Required]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Please enter a valid email.")]
         [StringLength(maximumLength: 50)]
+        [UIHint("email")]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [StringLength(maximumLength: 50)]
+        [UIHint("password")]
         public string Password { get; set; }
-        [Required]
-        [StringLength(maximumLength: 50)]
-        public string Name { get; set; } 
+        //[Required]
+        //[StringLength(maximumLength: 50)]
+        //public string Name { get; set; } 
 
-        [Required]
-        [Display(Name = "Role")]
-        public string RoleId { get; set; }
+        //[Required]
+        //[Display(Name = "Role")]
+        //public string RoleId { get; set; }
 
-        public List<IdentityRole> Roles { get; set; }
+        //public List<IdentityRole> Roles { get; set; }
     }
 }

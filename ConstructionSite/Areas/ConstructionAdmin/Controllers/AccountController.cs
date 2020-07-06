@@ -56,7 +56,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         //}
 
         [HttpGet]
-        [Route("Index")]
+        //[Route("Index")]
         public IActionResult Index()
         {
             IEnumerable<UserDTO> users = userManager.Users.Select(m => new UserDTO
@@ -70,13 +70,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("Create")]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
-            return View(new UserViewModel
-            {
-                Roles = roles
-            });
+            return View();
         }
 
         [HttpPost]
@@ -91,7 +87,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     ApplicationUser user = new ApplicationUser
                     {
                         UserName = viewModel.Username,
-                        Name = viewModel.Name,
                         Email = viewModel.Email
                     };
 
@@ -99,22 +94,22 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (result.Succeeded)
                     {
-                        ApplicationUser appUser = await userManager.FindByNameAsync(user.UserName);
-                        IdentityRole role = await _roleManager.FindByIdAsync(viewModel.RoleId);
-                        IdentityResult identityResult = await userManager.AddToRoleAsync(appUser, role.Name);
+                        ApplicationUser appUser = await userManager.FindByEmailAsync(user.Email);
+                        //IdentityRole role = await _roleManager.FindByIdAsync(viewModel.RoleId);
+                        //IdentityResult identityResult = await userManager.AddToRoleAsync(appUser, role.Name);
 
-                        if (identityResult.Succeeded)
+                        //if (identityResult.Succeeded)
                             return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
-                        else
-                        {
-                            AddErrors(result);
+                        //else
+                        //{
+                        //    AddErrors(result);
 
-                            if (ModelState.ErrorCount != 0)
-                            {
-                                viewModel.Roles = await _roleManager.Roles.ToListAsync();
-                                return View(viewModel);
-                            }
-                        }
+                        //    if (ModelState.ErrorCount != 0)
+                        //    {
+                        //        //viewModel.Roles = await _roleManager.Roles.ToListAsync();
+                        //        return View(viewModel);
+                        //    }
+                        //}
                     }
                     else
                     {
@@ -122,7 +117,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                         if (ModelState.ErrorCount != 0)
                         {
-                            viewModel.Roles = await _roleManager.Roles.ToListAsync();
+                            //viewModel.Roles = await _roleManager.Roles.ToListAsync();
                             return View(viewModel);
                         }
                     }
@@ -132,7 +127,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Some error occured. Please try again.");
                 }
             }
-            viewModel.Roles = await _roleManager.Roles.ToListAsync();
+            //viewModel.Roles = await _roleManager.Roles.ToListAsync();
             return View(viewModel);
         }
 
