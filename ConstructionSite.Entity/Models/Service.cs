@@ -18,7 +18,7 @@ namespace ConstructionSite.Entity.Models
 		public int ImageId { get; set; }
 
 		public virtual ICollection<SubService> SubServices { get; set; }
-		public virtual string FindTitle(string lang)
+		public  string FindTitle(string lang)
         {
             if (lang== LANGUAGECONSTANT.Az)
             {

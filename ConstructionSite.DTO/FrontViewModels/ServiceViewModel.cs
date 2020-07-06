@@ -11,8 +11,6 @@ namespace ConstructionSite.DTO.FrontViewModels
 
 		public string Name { get; set; }
 
-		
-
 		public string Tittle { get; set; }
 		
 		public virtual ICollection<SubService> SubServices { get; set; }
