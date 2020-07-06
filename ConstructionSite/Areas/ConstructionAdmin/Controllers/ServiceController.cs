@@ -14,12 +14,11 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    public class ServiceController : Controller
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
-        private string _lang;
+     
+    
+    
+    
+    private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public ServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
