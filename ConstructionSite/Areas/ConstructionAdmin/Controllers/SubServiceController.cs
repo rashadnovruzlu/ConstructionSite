@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
@@ -17,46 +19,95 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        public SubServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        public SubServiceController(IUnitOfWork unitOfWork,
+                                    IWebHostEnvironment env)
         {
-            _unitOfWork=unitOfWork;
-            _env=env;
+            _unitOfWork = unitOfWork;
+            _env = env;
 
         }
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             return View();
         }
         public IActionResult Add()
         {
-            string str1=_env.WebRootPath;
-            string str2=_env.ContentRootPath;
-            ViewBag.data=_unitOfWork.ServiceRepository.GetAll().ToList();
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(SubService subService,IFormFile file)
+        public async Task<IActionResult> Add(SubService subService, IFormFile file)
         {
-            if (ModelState.IsValid)
+            SubServiceImage sub = new SubServiceImage();
+            if (!ModelState.IsValid)
             {
-                if (file!=null)
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
                 {
-                    Image image=new Image();
-                    SubServiceImage sub=new SubServiceImage();
-                    sub.ImageId=await file.SaveImage(_env,"subserver",image,_unitOfWork);
-                    sub.SubServiceId= await _unitOfWork.SubServiceRepository.AddAsync(subService);
-                    
-                    if( await _unitOfWork.SubServiceImageRepository.AddAsync(sub) > 0)
-                        return RedirectToAction("Index");
-                    
-                }
-                else
-                {
-                   
-                    ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
-                }
+                    message = "BadRequest"
+                });
+
             }
-            return View(subService);
+                if (file is null)
+            {
+                Response.StatusCode=(int)HttpStatusCode.NotFound;
+                return Json(new
+                {
+                    message = "file not found BadRequest"
+                });
+            }
+            Image image = new Image();
+            sub.ImageId = await file.SaveImage(_env, "subserver", image, _unitOfWork);
+            if (sub.ImageId<0)
+            {
+                return Json(new
+                {
+                    message = "file not save"
+                });
+            }
+             var SubServiceResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
+            if (SubServiceResult.IsDone)
+            {
+                sub.SubServiceId=subService.Id;
+            }
+            var SubServiceImageResult=  await _unitOfWork.SubServiceImageRepository.AddAsync(sub);
+            if (!SubServiceImageResult.IsDone)
+            {
+
+
+                return RedirectToAction("Index");
+
+
+            }
+           ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
+           return View();
+
         }
+
+
+
+    }
     }
 }
+
