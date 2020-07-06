@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -20,10 +21,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = "Admin")]
     public class AboutController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
+        
         public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
 
@@ -36,8 +38,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-           
-                
+
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+
             var result = _unitOfWork.AboutImageRepository.GetAll()
             .Include(x => x.About)
             .Include(x => x.Image)
@@ -63,23 +75,54 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
-
-
-            if (ModelState.IsValid)
+            AboutImage aboutImage = new AboutImage();
+            Image image = new Image();
+            if (!ModelState.IsValid)
             {
-                AboutImage aboutImage = new AboutImage();
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                Image image = new Image();
-                aboutImage.ImageId = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
 
-
-                aboutImage.AboutId = await _unitOfWork.AboutRepository.AddAsync(about);
-                if (await _unitOfWork.AboutImageRepository.AddAsync(aboutImage) > 0)
-                    return RedirectToAction("Index");
             }
-
-
-
+            if (FileData is null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotExtended;
+                return Json(new
+                {
+                    message = "file not found BadRequest"
+                });
+              
+            }
+            aboutImage.ImageId = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+            if (aboutImage.ImageId<0)
+            {
+                return Json(new
+                {
+                    message = "file not save"
+                });
+            }
+            var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
+            if (aboutResult.IsDone)
+            {
+                aboutImage.AboutId=about.Id;
+                var aboutImageResult=  await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
+                if (aboutImageResult.IsDone)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        message = "aboutImage not save"
+                    });
+                }
+                
+                    
+            }
             return View();
         }
         #endregion

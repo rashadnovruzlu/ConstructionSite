@@ -10,16 +10,21 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-     
-    
-    
-    
-    private string _lang;
+
+    [Area(nameof(ConstructionAdmin))]
+    public class ServiceController : Controller { 
+
+
+
+         private string _lang;
+        private readonly IUnitOfWork           _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly  IWebHostEnvironment _env;
         public ServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
@@ -30,6 +35,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             var result=_unitOfWork.ServiceRepository.GetAll()
                 .Include(x=>x.Image)
                 .Include(x=>x.SubServices)
@@ -51,17 +66,42 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
-            if (ModelState.IsValid)
+            Image image = new Image();
+            if (!ModelState.IsValid)
             {
-                Image image = new Image();
-               
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                service.ImageId = await FileData.SaveImage(_env, "service", image,_unitOfWork);
-              
-                if (await _unitOfWork.ServiceRepository.AddAsync(service) > 0)
-                    return RedirectToAction("Index");
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
             }
+            if (FileData is null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return Json(new
+                {
+                    message = "file not found BadRequest"
+                });
+            }
+            service.ImageId = await FileData.SaveImage(_env, "service", image, _unitOfWork);
+            if (service.ImageId<0)
+            {
+                Response.StatusCode=(int)HttpStatusCode.SeeOther;
+
+                return Json(new
+                {
+                    message = "file not save"
+                });
+            }
+            var serviceResult=await _unitOfWork.ServiceRepository.AddAsync(service);
+            if (serviceResult.IsDone)
+            {
+                return RedirectToAction("Index");
+            }
+            
             return View();
         }
     }
-}
+

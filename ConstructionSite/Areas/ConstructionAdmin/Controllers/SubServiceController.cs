@@ -17,7 +17,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Area(nameof(ConstructionAdmin))]
     public class SubServiceController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork          _unitOfWork;
         private readonly IWebHostEnvironment _env;
         public SubServiceController(IUnitOfWork unitOfWork,
                                     IWebHostEnvironment env)
@@ -110,5 +110,5 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
     }
     }
-}
+
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.DTO.AdminViewModels;
@@ -30,8 +31,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public  IActionResult Index()
         {
-       
-          var result=  _unitOfWork.portfolioRepository.GetAll()
+
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+                var result=  _unitOfWork.portfolioRepository.GetAll()
                 .Include(x=>x.Projects)
                 .Select(x=>new PortfolioViewModel
                 {
@@ -48,17 +59,31 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Portfolio portfolio)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                int result=  await _unitOfWork.portfolioRepository.AddAsync(portfolio);
-                if (result>0)
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
                 {
-                    return RedirectToAction("Index");
-                }
-                else
+                    message = "BadRequest"
+                });
+
+            }
+            if (portfolio is null)
+            {
+                return Json(new
                 {
-                    return View();
-                }
+                    message = "data is null"
+                });
+            }
+            var portfolioResult= await _unitOfWork.portfolioRepository.AddAsync(portfolio);
+            if (portfolioResult.IsDone)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("","Data Not Save");
             }
             return View();
         }
