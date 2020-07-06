@@ -26,11 +26,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public IActionResult Add()
         {
+
             return View();
         }
         [HttpPost]
         public IActionResult Add(Project project)
-        {
+        { 
+          
+          //  _unitOfWork.portfolioRepository.Add()
             return View();
         }
     }
