@@ -17,6 +17,7 @@ namespace ConstructionSite.ViewComponents
         public ServiceMenuViewComponent(IUnitOfWork unitOfWork)
         {
             _unitOfWork=unitOfWork;
+
             var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
             var culture = rqf.RequestCulture.Culture;
             _lang = culture.Name;

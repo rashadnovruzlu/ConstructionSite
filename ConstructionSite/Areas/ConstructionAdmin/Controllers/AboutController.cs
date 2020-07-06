@@ -27,7 +27,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             _unitOfWork = unitOfWork;
             _env=env;
-            var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+           var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+         
             var culture = rqf.RequestCulture.Culture;
             _lang = culture.Name;
         }
