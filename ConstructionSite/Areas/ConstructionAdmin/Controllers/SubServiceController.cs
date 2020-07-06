@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.DTO.AdminViewModels;
+using ConstructionSite.DTO.AdminViewModels.AddModel;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
@@ -80,7 +81,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
+            ViewBag.data = _unitOfWork.ServiceRepository.GetAll()
+                .Select(x=>new ServiceSubServiceAddView
+                {
+                    Id=x.Id,
+                    Name=x.FindName(_lang)
+                }).ToList();
             return View();
         }
 

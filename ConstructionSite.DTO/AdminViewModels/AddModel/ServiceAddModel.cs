@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConstructionSite.DTO.AdminViewModels.AddModel
 {
-    class ServiceAddModel
+   public class ServiceAddModel
     {
 		public string NameAz { get; set; }
 
