@@ -51,7 +51,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
             {
                 Id = m.Id,
                 Name = m.Name,
-                Email = m.Email
+                Email = m.Email,
+                UserName=m.UserName
             });
             return View(users);
         }

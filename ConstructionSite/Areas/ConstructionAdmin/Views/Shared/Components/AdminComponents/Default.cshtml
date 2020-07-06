@@ -12,20 +12,9 @@
                 <div class="bio-row">
                     <p><span>Email </span>: @admin.Email</p>
                 </div>
-                @*<div class="bio-row">
-                    <p><span>Country </span>: Azerbaijan</p>
-                </div>
                 <div class="bio-row">
-                    <p><span>Address </span>: Adress yazilmali</p>
+                    <a class="btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id">Edit Admin Profile</a>
                 </div>
-                <div class="bio-row">
-                    <p><span>Mobile </span>: (12) 03 4567890</p>
-                </div>
-                <div class="bio-row">
-                    <p><span>Phone </span>: 88 (02) 123456</p>
-                </div>*@
-
-                <a class="btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id">Edit Admin Profile</a>
                 <hr />
             </div>
         }
