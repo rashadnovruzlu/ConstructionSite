@@ -1,11 +1,9 @@
 ﻿using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
-using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

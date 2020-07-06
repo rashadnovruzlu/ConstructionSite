@@ -22,11 +22,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
 
-        private string _lang;
-        private readonly IUnitOfWork _unitOfWork;
+        private string                        _lang;
+        private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IWebHostEnvironment _env;
-        public ServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
+        private readonly IWebHostEnvironment  _env;
+        public ServiceController(IUnitOfWork unitOfWork,
+                                 IWebHostEnvironment env, 
+                                 IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _env = env;
@@ -34,6 +36,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _lang = _httpContextAccessor.getLang();
 
         }
+        [HttpGet]
         public IActionResult Index()
         {
             if (!ModelState.IsValid)

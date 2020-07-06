@@ -24,7 +24,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PortfolioController(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+        public PortfolioController(IUnitOfWork unitOfWork,
+                                   IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
            _lang= _httpContextAccessor.getLang();
@@ -54,6 +55,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public IActionResult Add()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             return View();
         }
         [HttpPost]
