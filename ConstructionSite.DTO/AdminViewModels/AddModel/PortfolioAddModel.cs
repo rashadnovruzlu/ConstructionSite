@@ -10,7 +10,7 @@ namespace ConstructionSite.DTO.AdminViewModels.AddModel
         public string NameAz { get; set; }
 
         public string NameEn { get; set; }
-        [UIHint]
+       // [UIHint]
         public string NameRu { get; set; }
     }
 }

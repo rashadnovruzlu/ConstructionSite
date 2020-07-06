@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +21,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private string _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PortfolioController(IUnitOfWork unitOfWork)
+        public PortfolioController(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
-            var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-            var culture = rqf.RequestCulture.Culture;
-            _lang = culture.Name;
+           _lang= _httpContextAccessor.getLang();
         }
         public  IActionResult Index()
         {
@@ -49,7 +50,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-             int result=  await _unitOfWork.portfolioRepository.AddAsync(portfolio);
+                int result=  await _unitOfWork.portfolioRepository.AddAsync(portfolio);
                 if (result>0)
                 {
                     return RedirectToAction("Index");

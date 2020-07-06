@@ -35,7 +35,7 @@
   <ItemGroup>
     <Folder Include="Areas\ConstructionAdmin\Data\" />
     <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\about\" />
   </ItemGroup>
 
   <ItemGroup>

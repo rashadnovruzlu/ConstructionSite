@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,13 +20,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private string _lang;
-        public ServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ServiceController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _env = env;
-            var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-            var culture = rqf.RequestCulture.Culture;
-            _lang = culture.Name;
+           _httpContextAccessor=httpContextAccessor;
+           _lang=_httpContextAccessor.getLang();
 
         }
         public IActionResult Index()
@@ -36,8 +37,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .Select(x=>new ServiceViewModel
                 {
                     Id=x.Id,
-                   Name=x.FindName(_lang),
-                   Tittle=x.FindTitle(_lang),
+                    Name=x.FindName(_lang),
+                    Tittle=x.FindTitle(_lang),
                     Image=x.Image.Path
                 })
                 .ToList();
