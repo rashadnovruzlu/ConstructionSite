@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.DTO.FrontViewModels;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -21,11 +22,7 @@ namespace ConstructionSite.ViewComponents
             _unitOfWork=unitOfWork;
              
             _httpContextAccessor=httpContextAccessor;
-           var data=  _httpContextAccessor.HttpContext.Request;
-           
-            var rqf = data.HttpContext.Features.Get<IRequestCultureFeature>();
-            var culture = rqf.RequestCulture.Culture;
-            _lang = culture.Name;
+           _lang= _httpContextAccessor.getLang();
         }
         public IViewComponentResult Invoke()
         {

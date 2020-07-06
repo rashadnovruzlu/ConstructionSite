@@ -1,5 +1,7 @@
 ﻿using ConstructionSite.DTO.ModelsDTO;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,9 +14,14 @@ namespace ConstructionSite.ViewComponents
     public class AboutViewComponent:ViewComponent
     {
         private readonly IUnitOfWork _unitOfWork;
-        public AboutViewComponent(IUnitOfWork unitOfWork)
+        private readonly   IHttpContextAccessor _httpContextAccessor;
+        string _lang;
+        public AboutViewComponent(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork=unitOfWork;
+            _httpContextAccessor=httpContextAccessor;
+            _lang=httpContextAccessor.getLang();
+            
         }
         public IViewComponentResult Invoke()
         {

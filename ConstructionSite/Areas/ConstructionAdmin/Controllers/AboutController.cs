@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -22,15 +23,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private string _lang;
-        public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
 
             _unitOfWork = unitOfWork;
             _env=env;
-           var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-         
-            var culture = rqf.RequestCulture.Culture;
-            _lang = culture.Name;
+            _httpContextAccessor=httpContextAccessor;
+          
+            _lang = _httpContextAccessor.getLang();
         }
         [HttpGet]
         public IActionResult Index()
