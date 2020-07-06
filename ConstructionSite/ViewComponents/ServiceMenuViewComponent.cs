@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,11 +15,15 @@ namespace ConstructionSite.ViewComponents
     {
         private readonly IUnitOfWork _unitOfWork;
         private  string _lang;
-        public ServiceMenuViewComponent(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ServiceMenuViewComponent(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork=unitOfWork;
-
-            var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+             
+            _httpContextAccessor=httpContextAccessor;
+           var data=  _httpContextAccessor.HttpContext.Request;
+           
+            var rqf = data.HttpContext.Features.Get<IRequestCultureFeature>();
             var culture = rqf.RequestCulture.Culture;
             _lang = culture.Name;
         }
