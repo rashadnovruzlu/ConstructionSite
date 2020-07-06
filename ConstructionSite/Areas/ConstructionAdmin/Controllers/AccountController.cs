@@ -44,19 +44,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this._identityDb = identityDb;
         }
 
-        //private async Task<UserEditModel> LoadUserEditModel(UserEditModel model, string id)
-        //{
-        //    var userRoles = await _identityDb.UserRoles
-        //                                        .Where(m => m.UserId == id)
-        //                                            .FirstOrDefaultAsync();
-        //    var roles = await _roleManager.Roles.ToListAsync();
-        //    model.Roles = roles;
-        //    model.RoleId = userRoles.RoleId;
-        //    return model;
-        //}
-
         [HttpGet]
-        //[Route("Index")]
         public IActionResult Index()
         {
             IEnumerable<UserDTO> users = userManager.Users.Select(m => new UserDTO
@@ -95,21 +83,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     if (result.Succeeded)
                     {
                         ApplicationUser appUser = await userManager.FindByEmailAsync(user.Email);
-                        //IdentityRole role = await _roleManager.FindByIdAsync(viewModel.RoleId);
-                        //IdentityResult identityResult = await userManager.AddToRoleAsync(appUser, role.Name);
 
-                        //if (identityResult.Succeeded)
-                            return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
-                        //else
-                        //{
-                        //    AddErrors(result);
-
-                        //    if (ModelState.ErrorCount != 0)
-                        //    {
-                        //        //viewModel.Roles = await _roleManager.Roles.ToListAsync();
-                        //        return View(viewModel);
-                        //    }
-                        //}
+                        return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
                     }
                     else
                     {
@@ -117,7 +92,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                         if (ModelState.ErrorCount != 0)
                         {
-                            //viewModel.Roles = await _roleManager.Roles.ToListAsync();
                             return View(viewModel);
                         }
                     }
@@ -127,13 +101,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Some error occured. Please try again.");
                 }
             }
-            //viewModel.Roles = await _roleManager.Roles.ToListAsync();
             return View(viewModel);
         }
 
         [HttpGet]
         [AllowAnonymous]
-        //[Route("Login")]
         public IActionResult Login()
         {
             return View(new LoginViewModel());
@@ -142,7 +114,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        //[Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
@@ -189,8 +160,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 throw new NullReferenceException();
             }
 
-            //var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
-            //var roles = await _roleManager.Roles.ToListAsync();
             return View(new UserEditModel
             {
                 Id = appUser.Id,
@@ -266,7 +235,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (currentUser.Id == id)
                         throw new Exception("You can not delete own");
-                    //transaction = await _identityDb.Database.BeginTransactionAsync();
+
                     ApplicationUser user = await userManager.FindByIdAsync(id);
 
                     if (user == null)

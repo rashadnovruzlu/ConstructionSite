@@ -21,7 +21,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             _unitOfWork = unitOfWork;
             _env = env;
-
         }
         public IActionResult Index()
         {
@@ -53,8 +52,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (ModelState.IsValid)
             {
                 Image image = new Image();
-               
-
+              
                 service.ImageId = await FileData.SaveImage(_env, "service", image,_unitOfWork);
               
                 if (await _unitOfWork.ServiceRepository.AddAsync(service) > 0)

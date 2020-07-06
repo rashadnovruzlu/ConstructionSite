@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
-
     [Area(nameof(ConstructionAdmin))]
     [Authorize(Roles = "Admin")]
     public class AboutController : Controller
@@ -46,8 +44,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }).ToList();
            
            return View(result);
-
-          
         }
         #region --Add--
         [HttpGet]
@@ -90,7 +86,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
         public async Task<IActionResult> Delete(int id)
         {
-
             var data=       await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
             var about=      await _unitOfWork.AboutRepository.GetByIdAsync(data.AboutId);
             var image=      await _unitOfWork.imageRepository.GetByIdAsync(data.ImageId);

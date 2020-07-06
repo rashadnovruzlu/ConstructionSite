@@ -21,7 +21,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             _unitOfWork=unitOfWork;
             _env=env;
-
         }
         public IActionResult Index()
         {
@@ -48,11 +47,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     
                     if( await _unitOfWork.SubServiceImageRepository.AddAsync(sub) > 0)
                         return RedirectToAction("Index");
-                    
                 }
                 else
                 {
-                   
                     ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
                 }
             }

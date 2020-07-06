@@ -10,9 +10,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
     public class ImageController : Controller
-    {
-       
-       
+    {       
         public IActionResult Index()
         {
             return View();

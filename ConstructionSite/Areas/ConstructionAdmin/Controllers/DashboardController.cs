@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Authorize(Roles ="Admin")]
-    //  [Route("ConstructionAdmin/[controller]")]
     [Area(nameof(ConstructionAdmin))]
     public class DashboardController : Controller
     {
