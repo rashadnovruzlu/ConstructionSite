@@ -76,7 +76,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     ApplicationUser user = new ApplicationUser
                     {
                         UserName = viewModel.Username,
-                        Email = viewModel.Email
+                        Email = viewModel.Email,
+                        Name=viewModel.Name
                     };
 
                     IdentityResult result = await userManager.CreateAsync(user, viewModel.Password);
