@@ -49,9 +49,24 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .Select(x=>new PortfolioViewModel
                 {
                     Id=x.Id,
-                    Name=x.FindName(_lang)
+                    Name=x.FindName(_lang),
+                    ProjectViewModel = x.Projects.Select(y=>new ProjectViewModel
+                    {
+                        Id=y.Id,
+                        Content=y.FindContent(_lang),
+                        Name=y.FindName(_lang)
+                        
+
+                        
+                    }).ToList()
                 }).ToList();
-               
+            if (result.Count<0)
+            {
+                return Json(new
+                {
+                    message = "this is empty"
+                });
+            }
             return View(result);
         }
         public IActionResult Add()

@@ -7,9 +7,6 @@ namespace ConstructionSite.Entity.Models
     {
       
         public int Id { get; set; }
-       
-      
-
         public virtual ICollection<Project> Projects { get; set; }
     }
 }
