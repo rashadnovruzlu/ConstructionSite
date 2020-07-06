@@ -180,19 +180,17 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("Edit")]
-
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(string id)
         {
-
-            ApplicationUser appUser = await userManager.GetUserAsync(User);
+            ApplicationUser appUser = await userManager.FindByIdAsync(id);
 
             if (appUser == null)
             {
                 throw new NullReferenceException();
             }
 
-            var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
-            var roles = await _roleManager.Roles.ToListAsync();
+            //var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+            //var roles = await _roleManager.Roles.ToListAsync();
             return View(new UserEditModel
             {
                 Id = appUser.Id,
