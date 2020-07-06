@@ -59,6 +59,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         public async Task<IActionResult> Add(SubService subService, IFormFile file)
         {
             SubServiceImage sub = new SubServiceImage();
+            Image image = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -77,7 +78,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not found BadRequest"
                 });
             }
-            Image image = new Image();
+           
             sub.ImageId = await file.SaveImage(_env, "subserver", image, _unitOfWork);
             if (sub.ImageId<0)
             {
