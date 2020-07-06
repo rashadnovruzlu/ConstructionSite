@@ -1,4 +1,4 @@
-﻿using ConstructionSite.Areas.Admin.Models;
+﻿//using ConstructionSite.Areas.Admin.Models;
 using ConstructionSite.Entity.Identity;
 using ConstructionSite.Helpers.Exceptions;
 using Microsoft.AspNetCore.Identity;
@@ -26,28 +26,28 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user=new  ApplicationUser();
-                user.UserName=model.Name;
-                user.Email=model.Email;
-                var result=await _UserManager.CreateAsync(user,model.Password);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("",item.Description);
-                    }
-                }
-            }
-            return View(model);
-        }
+        //public async Task<IActionResult> Create(RegisterModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        ApplicationUser user=new  ApplicationUser();
+        //        user.UserName=model.Name;
+        //        user.Email=model.Email;
+        //        var result=await _UserManager.CreateAsync(user,model.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //            foreach (var item in result.Errors)
+        //            {
+        //                ModelState.AddModelError("",item.Description);
+        //            }
+        //        }
+        //    }
+        //    return View(model);
+        //}
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
