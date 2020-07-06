@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels;
+﻿using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
@@ -12,6 +6,10 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -62,13 +60,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     
 
                 }).ToList();
-            if (result.Count>0)
+            if (result is null)
             {
-                return View(result);
+               
+                ModelState.AddModelError("", "this list emity");
+                return Json(new
+                {
+                    message = "this list emity"
+                });
+
             }
             else
             {
-                ModelState.AddModelError("", "this list emity");
+                return View(result);
             }
             return View();
         }
@@ -86,7 +90,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
             var portfolioResult=  _unitOfWork.portfolioRepository.GetAll().ToList();
-            if (portfolioResult.Count>0)
+            if (portfolioResult is null)
             {
                 ViewBag.items = portfolioResult;
                
