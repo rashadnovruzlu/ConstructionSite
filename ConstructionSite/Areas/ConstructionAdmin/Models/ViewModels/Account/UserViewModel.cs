@@ -22,7 +22,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels
         public string Password { get; set; }
         [Required]
         [StringLength(maximumLength: 50)]
-        public string Name { get; set; }
+        public string Name { get; set; } 
 
         [Required]
         [Display(Name = "Role")]

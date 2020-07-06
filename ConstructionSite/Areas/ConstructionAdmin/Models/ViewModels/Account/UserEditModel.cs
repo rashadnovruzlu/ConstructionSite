@@ -23,5 +23,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account
         [Required]
         [StringLength(maximumLength: 50)]
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public string RoleId { get; set; }
+        public List<IdentityRole> Roles { get; set; }
     }
 }

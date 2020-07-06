@@ -44,6 +44,17 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this._identityDb = identityDb;
         }
 
+        //private async Task<UserEditModel> LoadUserEditModel(UserEditModel model, string id)
+        //{
+        //    var userRoles = await _identityDb.UserRoles
+        //                                        .Where(m => m.UserId == id)
+        //                                            .FirstOrDefaultAsync();
+        //    var roles = await _roleManager.Roles.ToListAsync();
+        //    model.Roles = roles;
+        //    model.RoleId = userRoles.RoleId;
+        //    return model;
+        //}
+
         [HttpGet]
         [Route("Index")]
         public IActionResult Index()
