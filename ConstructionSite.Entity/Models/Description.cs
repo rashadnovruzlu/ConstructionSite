@@ -12,5 +12,6 @@ namespace ConstructionSite.Entity.Models
         
         public virtual SubService SubService { get; set; }
         public virtual int SubServiceId { get; set; }
+       
     }
 }

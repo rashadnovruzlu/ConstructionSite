@@ -1,9 +1,14 @@
-﻿using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
+using ConstructionSite.DTO.AdminViewModels;
+using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,14 +18,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Area(nameof(ConstructionAdmin))]
     public class SubServiceController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
-
+        private string                         _lang;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public SubServiceController(IUnitOfWork unitOfWork,
-                                    IWebHostEnvironment env)
+                                    IWebHostEnvironment env,
+                                    IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
+            _httpContextAccessor=httpContextAccessor;
             _env = env;
+            _lang=_httpContextAccessor.getLang();
         }
 
         public IActionResult Index()
@@ -34,7 +43,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            return View();
+            var result=  _unitOfWork.SubServiceRepository.GetAll()
+                .Include(x=>x.Descriptions)
+                .Include(x=>x.SubServiceImages)
+                .Select(x=>new SubServiceViewModel
+                {
+                    Name=x.FindName(_lang),
+                    Content=x.FindContent(_lang),
+                    Descriptions=x.Descriptions.Select(y=>new DescriptionViewModel
+                    {
+                        Id=y.Id,
+                        Content=y.FindContent(_lang),
+                        Tittle=y.FindTitle(_lang)
+                    }).ToList()
+                })
+                .ToList();
+            if (result.Count<0)
+            {
+                return Json(new
+                {
+                    message = "this is empty"
+                });
+            }
+              
+            return View(result);
         }
 
         public IActionResult Add()
