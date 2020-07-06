@@ -21,19 +21,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = "Admin")]
     public class AboutController : Controller
     {
-        private string _lang;
+        private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IWebHostEnvironment  _env;
         
-        public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
+        public AboutController(IUnitOfWork unitOfWork, 
+                               IWebHostEnvironment env, 
+                               IHttpContextAccessor httpContextAccessor)
         {
 
             _unitOfWork = unitOfWork;
             _env=env;
             _httpContextAccessor=httpContextAccessor;
-          
-            _lang = _httpContextAccessor.getLang();
+           _lang = _httpContextAccessor.getLang();
         }
         [HttpGet]
         public IActionResult Index()
@@ -61,8 +62,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                
                 Image = y.Image.Path
             }).ToList();
-           
-           return View(result);
+             return View(result);
 
           
         }
@@ -70,6 +70,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             return View();
         }
         [HttpPost]
@@ -138,23 +148,60 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
         public async Task<IActionResult> Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-            var data=       await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
-            var about=      await _unitOfWork.AboutRepository.GetByIdAsync(data.AboutId);
-            var image=      await _unitOfWork.imageRepository.GetByIdAsync(data.ImageId);
-            var aboutResult=await _unitOfWork.AboutRepository.DeleteAsync(about);
-            var imageResult=await _unitOfWork.imageRepository.DeleteAsync(image);
-            var result=     await _unitOfWork.AboutImageRepository.DeleteAsync(data);
-            if (aboutResult.IsDone==true&&imageResult.IsDone==true&&result.IsDone==true)
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
+            if (AboutImageResult is null)
+            {
+                   return Json(new
+                    {
+                        message = "AboutId is null"
+                    });
+
+                
+            }
+            var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
+            if (aboutResult is null)
+            {
+                return Json(new
+                {
+                    message = "data is null"
+                });
+            }
+            var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
+            if (aboutDeleteResult.IsDone)
+            {
+                ModelState.AddModelError("","delete error");
+            }
+            var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
+            if (image is null)
+            {
+                return Json(new
+                {
+                    message = "data is null"
+                });
+            }
+            var imageResult = await _unitOfWork.imageRepository.DeleteAsync(image);
+            if (imageResult.IsDone)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                ModelState.AddModelError("","an error whene delete data");
+                ModelState.AddModelError("", "an error whene delete data");
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            return View();
+
+           
         }
     }
 }
