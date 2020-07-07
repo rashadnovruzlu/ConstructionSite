@@ -92,7 +92,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
 
             }
-            if (portfolio is null)
+            if (portfolio == null)
             {
                 return Json(new
                 {
