@@ -88,6 +88,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
+            int imageResultID=0;
             AboutImage aboutImage = new AboutImage();
             Image image = new Image();
             if (!ModelState.IsValid)
@@ -109,18 +110,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
               
             }
-            aboutImage.ImageId = await FileData.SaveImage(_env, "about", image, _unitOfWork);
-            if (aboutImage.ImageId<0)
+            imageResultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+            if (imageResultID < 0)
             {
                 return Json(new
                 {
                     message = "file not save"
                 });
             }
+         
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
             if (aboutResult.IsDone)
             {
                 aboutImage.AboutId=about.Id;
+                aboutImage.ImageId = imageResultID;
                 var aboutImageResult=  await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
                 if (aboutImageResult.IsDone)
                 {
@@ -128,6 +131,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 else
                 {
+                    FileData.DeleteImage(_env, "about", image, _unitOfWork);
+                    _unitOfWork.AboutRepository.Delete(about);
                     return Json(new
                     {
                         message = "aboutImage not save"
@@ -208,6 +213,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else
             {
+                
                 ModelState.AddModelError("", "an error whene delete data");
             }
             _unitOfWork.Dispose();

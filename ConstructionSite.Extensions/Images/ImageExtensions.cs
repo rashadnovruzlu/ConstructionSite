@@ -19,7 +19,7 @@ namespace ConstructionSite.Extensions.Images
             {
                 await file.CopyToAsync(stream);
             }
-
+           
             return "/"+fileName;
         }
 
