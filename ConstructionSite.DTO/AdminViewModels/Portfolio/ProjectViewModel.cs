@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
+using ConstructionSite.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

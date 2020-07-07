@@ -1,5 +1,5 @@
-﻿using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
-using ConstructionSite.DTO.AdminViewModels;
+﻿using ConstructionSite.DTO.AdminViewModels;
+using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
@@ -42,7 +42,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
                 var result=  _unitOfWork.portfolioRepository.GetAll()
                 .Include(x=>x.Projects)
-                .Select(x=>new DTO.AdminViewModels.PortfolioViewModel
+                .Select(x=>new PortfolioViewModel
                 {
                     Id=x.Id,
                     Name=x.FindName(_lang),

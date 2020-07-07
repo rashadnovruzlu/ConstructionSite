@@ -8,7 +8,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.TagHelpers
     [HtmlTargetElement(Attributes = "langs")]
     public class ServiceTagHelpers:TagHelper
     {
-        public ServiceViewModel langs { get; set; }
+       // public ServiceViewModel langs { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             

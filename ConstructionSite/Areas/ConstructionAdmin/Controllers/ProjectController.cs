@@ -1,4 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels;
+using ConstructionSite.DTO.AdminViewModels.Portfolio;
+using ConstructionSite.DTO.AdminViewModels.Project;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
