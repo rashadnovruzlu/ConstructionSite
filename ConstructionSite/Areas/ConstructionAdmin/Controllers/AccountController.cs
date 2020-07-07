@@ -23,7 +23,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationIdentityDbContext _identityDb;
+      //  private readonly ApplicationIdentityDbContext _identityDb;
 
         private void AddErrors(IdentityResult result)
         {
@@ -39,7 +39,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this.userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
-            this._identityDb = identityDb;
+           // this._identityDb = identityDb;
         }
 
         [HttpGet]
@@ -137,21 +137,37 @@ namespace ConstructionSite.Areas.Admin.Controllers
         //[Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
+                  
                     ApplicationUser appUser = await userManager.FindByEmailAsync(loginModel.Email);
-
+                   
                     if (appUser != null)
                     {
-                        bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
-
-                        if (checkPassword)
+                        //bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
+                         await _signInManager.SignOutAsync();
+                         var result=  await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
+                        if (result.Succeeded)
                         {
-                            await _signInManager.SignInAsync(appUser, false);
                             return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                         }
+                        //if (checkPassword)
+                        //{
+                        //    await _signInManager.SignInAsync(appUser, false);
+                        //    return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
+                        //}
                         else
                         {
                             ModelState.AddModelError("password", "Password is not correct.");
@@ -175,6 +191,13 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit()
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message=""
+                });
+            }
 
             ApplicationUser appUser = await userManager.GetUserAsync(User);
 
@@ -249,6 +272,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete([Required][FromForm] string id)
         {
             if (ModelState.IsValid)
