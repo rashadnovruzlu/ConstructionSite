@@ -163,6 +163,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
 
             }
+            if (id<0)
+            {
+                return Json(new
+                {
+                    message = "is null"
+                });
+            }
             var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
             if (AboutImageResult is null)
             {
