@@ -56,7 +56,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Id=y.About.Id,
                 Tittle=y.About.FindTitle(_lang),
                 Content=y.About.FindContent(_lang),
-               
                 Image = y.Image.Path
             }).ToList();
             if (result.Count<0)
@@ -109,6 +108,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             
          
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
+
             if (aboutResult.IsDone)
             {
                 if (FileData is null)
@@ -157,8 +157,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         #endregion
         #region --Update--
-        public IActionResult Update()
+        public IActionResult Update(int id)
         {
+            if (id<0)
+            {
+                ModelState.AddModelError("","this data not exists");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message= "ModelState IsValid"
+                });
+            }
+            _unitOfWork.AboutRepository
+              .GetById(id)
+                .AboutImages.Where(x=>x.AboutId==id)
             return View();
         }
         public IActionResult Update(AboutImage about)
