@@ -26,7 +26,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return image.Id;
         }
-        public static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
+        private static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
 
             string fileName = file.GetPath(subFolder);
@@ -38,6 +38,14 @@ namespace ConstructionSite.Extensions.Images
             }
 
             return "/" + fileName;
+        }
+        private static bool IsImage(this IFormFile file)
+        {
+            return file.ContentType == "image/jpeg" ||
+                   file.ContentType == "image/jpg" ||
+                   file.ContentType == "image/png" ||
+                   file.ContentType == "image/x-png" ||
+                   file.ContentType == "image/gif";
         }
     }
 }
