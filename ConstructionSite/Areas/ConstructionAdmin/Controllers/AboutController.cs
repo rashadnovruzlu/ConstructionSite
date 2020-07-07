@@ -88,7 +88,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
-            int imageResultID=0;
+            int imageresultID=0;
+            int aboutresultID=0;
             AboutImage aboutImage = new AboutImage();
             Image image = new Image();
             if (!ModelState.IsValid)
@@ -115,9 +116,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     });
 
                 }
-                imageResultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
-               
-                if (imageResultID < 0)
+                imageresultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+                if (imageresultID < 0)
                 {
                     return Json(new
                     {
@@ -125,7 +125,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     });
                 }
                 aboutImage.AboutId = about.Id;
-                aboutImage.ImageId = imageResultID;
+                aboutImage.ImageId = imageresultID;
                 var aboutImageResult=  await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
               
                 if (aboutImageResult.IsDone)
@@ -144,6 +144,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 
                     
             }
+            
             return View();
         }
         #endregion
