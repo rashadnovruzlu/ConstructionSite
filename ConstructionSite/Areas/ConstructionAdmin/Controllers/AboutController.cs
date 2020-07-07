@@ -206,7 +206,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "ModelState IsValid"
                 });
             }
-            About uabout = new About
+            About UpdateAbout = new About
             {
                 Id = about.aboutID,
                 ContentAz = about.ContentAz,
@@ -216,24 +216,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 TittleEn = about.TittleEn,
                 TittleRu = about.TittleRu,
             };
-            var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(uabout);
+            var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
             if (!aboutResult.IsDone)
             {
+                
                 ModelState.AddModelError("", "this is about update error");
             }
-            var imaged=new Image
+            if (file is null)
             {
-                Id=about.imageId,
-                Path=
+                return Json(new
+                {
+                    message="file is null"
+                });
             }
-            var uaboutimage = new AboutImage
+            Image image=_unitOfWork.imageRepository.GetById(about.imageId);
+            if (image==null)
+            {
+               return Json(
+                   new {message="this is empty"}
+                         );
+            }
+            file.UpdateAsyc(_env, image, "about", _unitOfWork);
+            var Updateaboutimage = new AboutImage
             {
                 Id = about.Id,
                 ImageId = about.imageId,
-                AboutId = uabout.Id,
+                AboutId = UpdateAbout.Id,
             };
             var AboutImageResult =
-             await _unitOfWork.AboutImageRepository.UpdateAsync(uaboutimage);
+             await _unitOfWork.AboutImageRepository.UpdateAsync(Updateaboutimage);
             if (!AboutImageResult.IsDone)
             {
                 ModelState.AddModelError("", "this is about update error");

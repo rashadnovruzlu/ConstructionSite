@@ -29,18 +29,22 @@ namespace ConstructionSite.Extensions.Images
         private static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
 
-            string  ImageName       =file.GetFileName();
-            string  filePath        =Path.Combine(_env.WebRootPath,_IMAGE,subFolder,ImageName);
-            string  folderPath      = Path.Combine(_env.WebRootPath, _IMAGE, subFolder);
+            if (file is null)
+            {
+                return string.Empty;
+            }
+            string ImageName = file.GetFileName();
+            string filePath = Path.Combine(_env.WebRootPath, _IMAGE, subFolder, ImageName);
+            string folderPath = Path.Combine(_env.WebRootPath, _IMAGE, subFolder);
             Create(folderPath);
-           
+
             await using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-           string dbPaht="/"+Path.Combine(_IMAGE,subFolder,ImageName);
-           return dbPaht;
+            string dbPaht = "/" + Path.Combine(_IMAGE, subFolder, ImageName);
+            return dbPaht;
         }
         public static void Delete(this IFormFile file, IWebHostEnvironment _env, Image image,string subFolder)
         {
@@ -50,6 +54,31 @@ namespace ConstructionSite.Extensions.Images
             }
            
         }
+        public static void Update(this IFormFile file, IWebHostEnvironment _env, Image image, string subFolder)
+        {
+            string FilePath = Path.Combine(_env.WebRootPath, _IMAGE, subFolder, image.Title);
+            if (File.Exists(FilePath))
+            {
+                File.Delete(FilePath);
+            }
+
+        }
+        public async static void UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, Image image, string subFolder,IUnitOfWork _unitOfWork)
+        {
+            if (file.IsImage())
+            {
+               
+                string name = await file.SaveAsync(_env, subFolder);
+                image.Title = file.GetFileName();
+                image.Path = name;
+                await _unitOfWork.imageRepository.UpdateAsync(image);
+
+
+            }
+           
+
+        }
+
         private static bool IsImage(this IFormFile file)
         {
             return file.ContentType == "image/jpeg" ||
