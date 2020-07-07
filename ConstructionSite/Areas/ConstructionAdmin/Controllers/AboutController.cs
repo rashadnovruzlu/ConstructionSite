@@ -52,12 +52,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
              var result = _unitOfWork.AboutImageRepository.GetAll()
             .Include(x => x.About)
             .Include(x => x.Image)
-            .Select(y => new AboutViewModel
-            {   Id=y.About.Id,
-                Tittle=y.About.FindTitle(_lang),
-                Content=y.About.FindContent(_lang),
-                imageId=y.Image.Id,
-                Image = y.Image.Path
+            .Select(x => new AboutViewModel
+            {   Id=x.Id,
+                aboutID=x.About.Id,
+                Tittle=x.About.FindTitle(_lang),
+                Content=x.About.FindContent(_lang),
+                imageId=x.Image.Id,
+                Image = x.Image.Path
             }).ToList();
             if (result.Count<0)
             {
@@ -191,7 +192,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return View(result);
             }
-            return View(id);
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public IActionResult Update(AboutUpdateViewModel about)
