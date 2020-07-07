@@ -214,7 +214,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 Email=user.Email,
                
                 
-            }
+            };
             return View(userModel);
         }
         //public async Task<IActionResult> Edit(string id)
