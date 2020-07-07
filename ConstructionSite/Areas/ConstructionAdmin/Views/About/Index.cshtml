@@ -5,7 +5,7 @@
 
 <section class="panel">
     <header class="panel-heading">
-        Editable Table
+        About Table
     </header>
     <div class="panel-body">
         <div class="adv-table editable-table ">
@@ -32,7 +32,7 @@
                             <td class="sorting_1">@item.Tittle</td>
                             <td class=" ">@item.Content</td>
                             <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
-                            <td class=" "><a class="edit" href="javascript:;">Edit</a></td>
+                            <td class=" "><a class="edit" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
                             <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
                         </tr>
                         }

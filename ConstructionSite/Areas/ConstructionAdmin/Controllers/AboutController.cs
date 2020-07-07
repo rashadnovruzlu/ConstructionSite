@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.DTO.AdminViewModels;
+using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -29,9 +31,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
-            _env                 =env;
-           
-           _lang                 = _httpContextAccessor.getLang();
+            _env                 = env;
+            _lang                = _httpContextAccessor.getLang();
         }
         [HttpGet]
         public IActionResult Index()
@@ -48,14 +49,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
 
-            var result = _unitOfWork.AboutImageRepository.GetAll()
+             var result = _unitOfWork.AboutImageRepository.GetAll()
             .Include(x => x.About)
             .Include(x => x.Image)
             .Select(y => new AboutViewModel
-            {
-                Id=y.About.Id,
+            {   Id=y.About.Id,
                 Tittle=y.About.FindTitle(_lang),
                 Content=y.About.FindContent(_lang),
+                imageId=y.Image.Id,
                 Image = y.Image.Path
             }).ToList();
             if (result.Count<0)
@@ -170,12 +171,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message= "ModelState IsValid"
                 });
             }
-            _unitOfWork.AboutRepository
-              .GetById(id)
-                .AboutImages.Where(x=>x.AboutId==id)
-            return View();
+                     var result=  _unitOfWork.AboutImageRepository.GetAll()
+                            .Include(x=>x.About)
+                               .Include(x=>x.Image)
+                                 .Select(x=>new AboutUpdateViewModel
+                                 {
+                                     Id=x.Id,
+                                     TittleAz=x.About.TittleAz,
+                                     TittleEn=x.About.TittleEn,
+                                     TittleRu=x.About.TittleRu,
+                                     ContentAz=x.About.ContentAz,
+                                     ContentEn=x.About.ContentEn,
+                                     ContentRu=x.About.ContentRu,
+                                     Image=x.Image.Path,
+                                     imageId=x.Image.Id
+                                 })
+                                   .FirstOrDefault(x=>x.Id==id);
+            if (result !=null)
+            {
+                return View(result);
+            }
+            return View(id);
         }
-        public IActionResult Update(AboutImage about)
+        [HttpPost]
+        public IActionResult Update(AboutUpdateViewModel about)
         {
             return View();
         }
