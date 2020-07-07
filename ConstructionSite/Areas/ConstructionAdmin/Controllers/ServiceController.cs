@@ -80,20 +80,43 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
-            if (service == null)
+            int imageresultID=0;
+            Image image = new Image();
+            if (!ModelState.IsValid)
             {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
 
             }
-            if (ModelState.IsValid)
+            if (FileData is null)
             {
-                Image image = new Image();
-               
-
-                service.ImageId = await FileData.SaveImage(_env, "service", image,_unitOfWork);
-              
-                if (await _unitOfWork.ServiceRepository.AddAsync(service) > 0)
-                    return RedirectToAction("Index");
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return Json(new
+                {
+                    message = "file not found BadRequest"
+                });
             }
+            imageresultID = await FileData.SaveImage(_env, "service", image, _unitOfWork);
+            if (imageresultID < 0)
+            {
+                Response.StatusCode = (int)HttpStatusCode.SeeOther;
+
+                return Json(new
+                {
+                    message = "file not save"
+                });
+            }
+            service.ImageId=imageresultID;
+            var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
+            if (serviceResult.IsDone)
+            {
+                return RedirectToAction("Index");
+            }
+            
             return View();
         }
     }
