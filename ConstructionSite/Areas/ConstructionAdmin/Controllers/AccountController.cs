@@ -184,11 +184,22 @@ namespace ConstructionSite.Areas.Admin.Controllers
             var roles = await _roleManager.Roles.ToListAsync();
             return View(new UserEditModel
             {
+<<<<<<< HEAD
                 Id = appUser.Id,
                 Username = appUser.UserName,
                 Name = appUser.Name,
                 Email = appUser.Email,
             });
+=======
+                Id=user.Id,
+                Name=user.Name,
+                Username=user.UserName,
+                Email=user.Email,
+               
+                
+            }
+            return View(userModel);
+>>>>>>> parent of b0a9e85... chaed
         }
 
         [HttpPost]
