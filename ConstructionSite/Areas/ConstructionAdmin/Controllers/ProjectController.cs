@@ -74,7 +74,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return View(result);
             }
-            return View();
+           // return View();
         }
         [HttpGet]
         public IActionResult Add()
@@ -90,7 +90,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
             var portfolioResult=  _unitOfWork.portfolioRepository.GetAll().ToList();
-            if (portfolioResult is null)
+            if (portfolioResult !=null)
             {
                 ViewBag.items = portfolioResult;
                
@@ -124,14 +124,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not exists"
                 });
             }
-            imageID = await file.SaveImage(_env, "project", img, _unitOfWork);
-            if (imageID<0)
-            {
-                return Json(new
-                {
-                    message = "file not save"
-                });
-            }
+           
             var result = new Project
             {
                 NameAz = project.NameAz,
@@ -146,6 +139,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var projectResult=  await _unitOfWork.projectRepository.AddAsync(result);
             if (projectResult.IsDone)
             {
+                imageID = await file.SaveImage(_env, "project", img, _unitOfWork);
+                if (imageID < 0)
+                {
+                    return Json(new
+                    {
+                        message = "file not save"
+                    });
+                }
                 ProjectImage image = new ProjectImage
                 {
                     ImageId = imageID,
