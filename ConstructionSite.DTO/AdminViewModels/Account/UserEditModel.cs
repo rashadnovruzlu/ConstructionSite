@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account
+namespace ConstructionSite.DTO.AdminViewModels.Account
 {
     public class UserEditModel
     {

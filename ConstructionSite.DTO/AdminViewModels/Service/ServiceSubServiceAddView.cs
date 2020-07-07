@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.DTO.AdminViewModels.AddModel
+namespace ConstructionSite.DTO.AdminViewModels.Service
 {
    public class ServiceSubServiceAddView
     {

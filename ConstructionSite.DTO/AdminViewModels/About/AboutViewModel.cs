@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.DTO.AdminViewModels
+namespace ConstructionSite.DTO.AdminViewModels.About
 {
    public class AboutViewModel
     {

@@ -1,6 +1,5 @@
 ﻿using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
-using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
-using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
+using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
