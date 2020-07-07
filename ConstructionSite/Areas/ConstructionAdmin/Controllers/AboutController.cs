@@ -128,28 +128,31 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         message = "file not save"
                     });
                 }
-                aboutImage.AboutId = about.Id;
-                aboutImage.ImageId = imageresultID;
+                aboutImage.ImageId=imageresultID;
+                aboutImage.AboutId=about.Id;
+             
                 var aboutImageResult=  await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
               
                 if (aboutImageResult.IsDone)
                 {
+                    _unitOfWork.Dispose();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    FileData.DeleteImage(_env, "about", image, _unitOfWork);
-                    _unitOfWork.AboutRepository.Delete(about);
-                    _unitOfWork.AboutImageRepository.Delete(aboutImage);
+                   FileData.Delete(_env,image,"about",_unitOfWork);
+                  
+                   _unitOfWork.Rollback();
                     return Json(new
                     {
                         message = "aboutImage not save"
                     });
                 }
+
                 
                     
             }
-            
+            _unitOfWork.Dispose();
             return View();
         }
         #endregion
