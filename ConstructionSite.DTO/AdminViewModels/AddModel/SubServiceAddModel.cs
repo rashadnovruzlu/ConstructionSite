@@ -7,7 +7,8 @@ namespace ConstructionSite.DTO.AdminViewModels.AddModel
 {
   public  class SubServiceAddModel
     {
-		public string NameAz { get; set; }
+        public int Id { get; set; }
+        public string NameAz { get; set; }
 
 		public string NameEn { get; set; }
         public string NameRu { get; set; }

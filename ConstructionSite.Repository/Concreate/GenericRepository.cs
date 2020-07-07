@@ -72,7 +72,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public async Task<RESULT<T>> AddAsync(T entity)
         {
-            RESULT<T>  result=new RESULT<T>();
+            RESULT<T>  result=new RESULT<T> { IsDone=true};
             if (entity == null)
             {
                 throw new ArgumentNullException();

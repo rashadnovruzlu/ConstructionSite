@@ -81,12 +81,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            ViewBag.data = _unitOfWork.ServiceRepository.GetAll()
+            var result = _unitOfWork.ServiceRepository.GetAll()
                 .Select(x=>new ServiceSubServiceAddView
                 {
                     Id=x.Id,
                     Name=x.FindName(_lang)
                 }).ToList();
+            if (result.Count>0)
+            {
+                ViewBag.data=result;
+            }
+           
             return View();
         }
 
@@ -104,6 +109,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
+          
+            if (subService is null)
+            {
+                return Json(new
+                {
+                    message = "file not found BadRequest"
+                });
+            }
+            var SubServiceResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
+            if (SubServiceResult.IsDone)
+            {
+                sub.SubServiceId = subService.Id;
+            }
             if (file is null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
@@ -112,7 +130,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not found BadRequest"
                 });
             }
-
             sub.ImageId = await file.SaveImage(_env, "subserver", image, _unitOfWork);
             if (sub.ImageId < 0)
             {
@@ -121,13 +138,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not save"
                 });
             }
-            var SubServiceResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
-            if (SubServiceResult.IsDone)
-            {
-                sub.SubServiceId = subService.Id;
-            }
             var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(sub);
-            if (!SubServiceImageResult.IsDone)
+            if (SubServiceImageResult.IsDone)
             {
                 return RedirectToAction("Index");
             }
