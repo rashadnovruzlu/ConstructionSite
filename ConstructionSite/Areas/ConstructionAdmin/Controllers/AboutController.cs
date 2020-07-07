@@ -140,7 +140,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 else
                 {
-                   FileData.Delete(_env,image,"about",_unitOfWork);
+                   FileData.Delete(_env,image,"about");
                   
                    _unitOfWork.Rollback();
                     return Json(new

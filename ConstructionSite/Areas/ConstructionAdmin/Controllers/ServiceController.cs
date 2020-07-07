@@ -80,6 +80,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
+            if (service==null)
+            {
+                return RedirectToAction("Index");
+            }
             int imageresultID=0;
             Image image = new Image();
             if (!ModelState.IsValid)
@@ -114,9 +118,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
             if (serviceResult.IsDone)
             {
+                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
-            
+            else
+            {
+                FileData.Delete(_env,image,"service");
+                _unitOfWork.Rollback();
+
+            }
+            _unitOfWork.Dispose();
             return View();
         }
     }

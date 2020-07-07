@@ -10,6 +10,7 @@ namespace ConstructionSite.Extensions.Images
 {
     public static class ImageExtensions
     {
+        private const string _IMAGE= "images";
 
         public async static Task<int> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
@@ -20,6 +21,7 @@ namespace ConstructionSite.Extensions.Images
                 image.Title = file.GetFileName();
                 image.Path = name;
                 await _unitOfWork.imageRepository.AddAsync(image);
+                _unitOfWork.Dispose();
                
             }
             return image.Id;
@@ -27,27 +29,28 @@ namespace ConstructionSite.Extensions.Images
         private static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
 
-            string reName=file.GetFileName();
-            string fileName =GetPath(reName,subFolder);
-            string DirectoryPath=GetPath(subFolder);
-            string path = Path.Combine(_env.WebRootPath, fileName);
-            Create(_env.WebRootPath,DirectoryPath);
+            string  ImageName       =file.GetFileName();
+            string  filePath        =Path.Combine(_env.WebRootPath,_IMAGE,subFolder,ImageName);
+            string  folderPath      = Path.Combine(_env.WebRootPath, _IMAGE, subFolder);
+            Create(folderPath);
            
-            await using (var stream = new FileStream(path, FileMode.Create))
+            await using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return "/" + fileName;
+           string dbPaht="/"+Path.Combine(_IMAGE,subFolder,ImageName);
+           return dbPaht;
         }
-        public static void Delete(this IFormFile file, IWebHostEnvironment _env, Image image,string subFolder,IUnitOfWork unitOfWork )
+        public static void Delete(this IFormFile file, IWebHostEnvironment _env, Image image,string subFolder)
         {
-           
-            var imagePath=Path.Combine(_env.WebRootPath, "images", subFolder,image.Title);
 
            
-            if (File.Exists(imagePath)){
-                File.Delete(imagePath);
+            string FilePath = Path.Combine(_env.WebRootPath, _IMAGE, subFolder,image.Title);
+
+
+            if (File.Exists(FilePath)){
+                File.Delete(FilePath);
             }
            
         }
@@ -59,28 +62,18 @@ namespace ConstructionSite.Extensions.Images
                    file.ContentType == "image/x-png" ||
                    file.ContentType == "image/gif";
         }
-        private static void Create(string rootPath, string folderName)
+        private static void Create(string path)
         {
-            var FolderPath = Path.Combine(rootPath, "images", folderName);
+            
 
-            if (!Directory.Exists(folderName))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(FolderPath);
+                Directory.CreateDirectory(path);
             }
 
         }
-        public static string GetPath(string SubFolder)
-        {
-          return  Path.Combine("images", SubFolder);
-        }
-        public static string GetPath(string name, string SubFolder)
-        {
-            
-            string fileName = Path.Combine(SubFolder,name);
-
-            string path = Path.Combine("images", fileName);
-            return path;
-        }
+       
+        
         private static string GetFileName(this IFormFile file)
         {
             string extension = Path.GetExtension(file.FileName);
