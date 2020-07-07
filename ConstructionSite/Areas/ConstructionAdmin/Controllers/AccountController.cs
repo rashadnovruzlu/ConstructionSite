@@ -188,34 +188,62 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpGet]
         [Route("Edit")]
-
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(string id)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new
                 {
-                    message=""
+                    message = ""
                 });
             }
 
-            ApplicationUser appUser = await userManager.GetUserAsync(User);
-
-            if (appUser == null)
+            var user=await userManager.FindByIdAsync(id);
+            if (user==null)
             {
-                throw new NullReferenceException();
+                return Json(new
+                {
+                    message = "User not Found"
+                });
             }
-
-            var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
-            var roles = await _roleManager.Roles.ToListAsync();
-            return View(new UserEditModel
+            var userModel=new UserEditModel
             {
-                Id = appUser.Id,
-                Username = appUser.UserName,
-                Name = appUser.Name,
-                Email = appUser.Email,
-            });
+                Id=user.Id,
+                Name=user.Name,
+                Username=user.UserName,
+                Email=user.Email,
+               
+                
+            }
+            return View(userModel);
         }
+        //public async Task<IActionResult> Edit(string id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return Json(new
+        //        {
+        //            message=""
+        //        });
+        //    }
+
+        //    ApplicationUser appUser = await userManager.FindByIdAsync(id);
+
+        //    if (appUser == null)
+        //    {
+        //        throw new NullReferenceException();
+        //    }
+
+        //    var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+        //    var roles = await _roleManager.Roles.ToListAsync();
+        //    return View(new UserEditModel
+        //    {
+        //        Id = appUser.Id,
+        //        Username = appUser.UserName,
+        //        Name = appUser.Name,
+        //        Email = appUser.Email,
+        //    });
+        //}
 
         [HttpPost]
         [Route("Edit")]
