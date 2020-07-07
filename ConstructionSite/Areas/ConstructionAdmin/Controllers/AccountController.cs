@@ -114,7 +114,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginModel)
+        public async Task<IActionResult> Login(LoginViewModel loginModel,string ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -140,7 +140,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
                          var result=  await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
                         if (result.Succeeded)
                         {
-                            return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
+                            return Redirect(ReturnUrl??"/");
+                            //return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                         }
                         //if (checkPassword)
                         //{

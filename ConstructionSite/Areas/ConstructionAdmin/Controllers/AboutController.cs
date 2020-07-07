@@ -101,30 +101,33 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
 
             }
-            if (FileData is null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotExtended;
-                return Json(new
-                {
-                    message = "file not found BadRequest"
-                });
-              
-            }
-            imageResultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
-            if (imageResultID < 0)
-            {
-                return Json(new
-                {
-                    message = "file not save"
-                });
-            }
+            
          
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
             if (aboutResult.IsDone)
             {
-                aboutImage.AboutId=about.Id;
+                if (FileData is null)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.NotExtended;
+                    return Json(new
+                    {
+                        message = "file not found BadRequest"
+                    });
+
+                }
+                imageResultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+               
+                if (imageResultID < 0)
+                {
+                    return Json(new
+                    {
+                        message = "file not save"
+                    });
+                }
+                aboutImage.AboutId = about.Id;
                 aboutImage.ImageId = imageResultID;
                 var aboutImageResult=  await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
+              
                 if (aboutImageResult.IsDone)
                 {
                     return RedirectToAction("Index");
