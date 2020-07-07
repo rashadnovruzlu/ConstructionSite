@@ -1,23 +1,23 @@
-﻿@model UserDTO
-<div class="panel-body bio-graph-info">
-    <div class="row">
-        <div class="bio-row">
-            <p><span>Username </span>: @Model.Name</p>
+﻿@model IEnumerable<UserDTO>
+    <div class="panel-body bio-graph-info">
+        @foreach (var admin in Model)
+        {
+        <div class="row">
+            <div class="bio-row">
+                <p><span>Name </span>: @admin.Name</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Username </span>: @admin.UserName</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Email </span>: @admin.Email</p>
+            </div>
+
+            <a class="btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id">Edit Admin Profile</a>
+            <a class="btn btn-danger" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index" asp-route-id="@admin.Id">Delete Admin Profile</a>
+
+            <hr />
         </div>
-        <div class="bio-row">
-            <p><span>Email </span>: @Model.Email</p>
-        </div>
-        <div class="bio-row">
-            <p><span>Country </span>: Azerbaijan</p>
-        </div>
-        <div class="bio-row">
-            <p><span>Address </span>: Adress yazilmali</p>
-        </div>
-        <div class="bio-row">
-            <p><span>Mobile </span>: (12) 03 4567890</p>
-        </div>
-        <div class="bio-row">
-            <p><span>Phone </span>: 88 (02) 123456</p>
-        </div>
+        }
+
     </div>
-</div>

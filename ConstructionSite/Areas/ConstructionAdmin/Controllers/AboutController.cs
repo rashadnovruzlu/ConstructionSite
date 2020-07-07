@@ -14,8 +14,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
-
     [Area(nameof(ConstructionAdmin))]
     [Authorize(Roles = "Admin")]
     public class AboutController : Controller
@@ -154,49 +152,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
         public async Task<IActionResult> Delete(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
-
-            }
-            var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
-            if (AboutImageResult is null)
-            {
-                   return Json(new
-                    {
-                        message = "AboutId is null"
-                    });
-
-                
-            }
-            var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
-            if (aboutResult is null)
-            {
-                return Json(new
-                {
-                    message = "data is null"
-                });
-            }
-            var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
-            if (aboutDeleteResult.IsDone)
-            {
-                ModelState.AddModelError("","delete error");
-            }
-            var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
-            if (image is null)
-            {
-                return Json(new
-                {
-                    message = "data is null"
-                });
-            }
-            var imageResult = await _unitOfWork.imageRepository.DeleteAsync(image);
-            if (imageResult.IsDone)
+            var data=       await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
+            var about=      await _unitOfWork.AboutRepository.GetByIdAsync(data.AboutId);
+            var image=      await _unitOfWork.imageRepository.GetByIdAsync(data.ImageId);
+            var aboutResult=await _unitOfWork.AboutRepository.DeleteAsync(about);
+            var imageResult=await _unitOfWork.imageRepository.DeleteAsync(image);
+            var result=     await _unitOfWork.AboutImageRepository.DeleteAsync(data);
+            if (aboutResult.IsDone==true&&imageResult.IsDone==true&&result.IsDone==true)
             {
                 return RedirectToAction("Index");
             }

@@ -106,42 +106,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 return Json(new
                 {
-                    message = "BadRequest"
-                });
-            }
-          
-            if (subService is null)
-            {
-                return Json(new
+                    Image image=new Image();
+                    SubServiceImage sub=new SubServiceImage();
+                    sub.ImageId=await file.SaveImage(_env,"subserver",image,_unitOfWork);
+                    sub.SubServiceId= await _unitOfWork.SubServiceRepository.AddAsync(subService);
+                    
+                    if( await _unitOfWork.SubServiceImageRepository.AddAsync(sub) > 0)
+                        return RedirectToAction("Index");
+                    
+                }
+                else
                 {
-                    message = "file not found BadRequest"
-                });
-            }
-            var SubServiceResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
-            if (SubServiceResult.IsDone)
-            {
-                sub.SubServiceId = subService.Id;
-            }
-            if (file is null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return Json(new
-                {
-                    message = "file not found BadRequest"
-                });
-            }
-            sub.ImageId = await file.SaveImage(_env, "subserver", image, _unitOfWork);
-            if (sub.ImageId < 0)
-            {
-                return Json(new
-                {
-                    message = "file not save"
-                });
-            }
-            var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(sub);
-            if (SubServiceImageResult.IsDone)
-            {
-                return RedirectToAction("Index");
+                   
+                    ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
+                }
             }
             ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
             return View();
