@@ -1,11 +1,9 @@
-﻿using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
-using ConstructionSite.DTO.AdminViewModels;
+﻿using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.DTO.AdminViewModels.AddModel;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -98,6 +96,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(SubService subService, IFormFile file)
         {
+            int imageresultID=0;
             SubServiceImage sub = new SubServiceImage();
             Image image = new Image();
             if (!ModelState.IsValid)
@@ -106,20 +105,36 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 return Json(new
                 {
-                    Image image=new Image();
-                    SubServiceImage sub=new SubServiceImage();
-                    sub.ImageId=await file.SaveImage(_env,"subserver",image,_unitOfWork);
-                    sub.SubServiceId= await _unitOfWork.SubServiceRepository.AddAsync(subService);
-                    
-                    if( await _unitOfWork.SubServiceImageRepository.AddAsync(sub) > 0)
-                        return RedirectToAction("Index");
-                    
-                }
-                else
+                    message = "BadRequest"
+                });
+            }
+            if (file is null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return Json(new
                 {
-                   
-                    ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
-                }
+                    message = "file not found BadRequest"
+                });
+            }
+
+            imageresultID = await file.SaveImage(_env, "subserver", image, _unitOfWork);
+            if (imageresultID < 0)
+            {
+                return Json(new
+                {
+                    message = "file not save"
+                });
+            }
+            sub.ImageId=imageresultID;
+            var SubServiceResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
+            if (SubServiceResult.IsDone)
+            {
+                sub.SubServiceId = subService.Id;
+            }
+            var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(sub);
+            if (SubServiceImageResult.IsDone)
+            {
+                return RedirectToAction("Index");
             }
             ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
             return View();
