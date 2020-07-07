@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,9 +24,10 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-            ;
+            
+            services.AddMvc();
           
+           
             services.IdentityLoad(Configuration);
             services.Configure<IISServerOptions>(options =>
             {
@@ -56,9 +58,9 @@ namespace ConstructionSite
                 app.UseHsts();
             }
             app.SeedRole();
-
+            
             app.UseStaticFiles();
-
+            app.UseRequestLocalization();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

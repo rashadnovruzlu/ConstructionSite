@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
+using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -13,34 +16,97 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
   
     public class PortfolioController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private string _lang;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PortfolioController(IUnitOfWork unitOfWork)
+        public PortfolioController(IUnitOfWork unitOfWork,
+                                   IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
+            _httpContextAccessor=httpContextAccessor;
+           _lang= _httpContextAccessor.getLang();
         }
-        public IActionResult Index()
+        public  IActionResult Index()
         {
-            return View();
+
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+                var result=  _unitOfWork.portfolioRepository.GetAll()
+                .Include(x=>x.Projects)
+                .Select(x=>new DTO.AdminViewModels.PortfolioViewModel
+                {
+                    Id=x.Id,
+                    Name=x.FindName(_lang),
+                    ProjectViewModel = x.Projects.Select(y=>new ProjectViewModel
+                    {
+                        Id=y.Id,
+                        Content=y.FindContent(_lang),
+                        Name=y.FindName(_lang)
+                        
+
+                        
+                    }).ToList()
+                }).ToList();
+            if (result.Count<0)
+            {
+                return Json(new
+                {
+                    message = "this is empty"
+                });
+            }
+            return View(result);
         }
         public IActionResult Add()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Add(Portfolio portfolio)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-             int result=  await _unitOfWork.portfolioRepository.AddAsync(portfolio);
-                if (result>0)
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
                 {
-                    return RedirectToAction("Index");
-                }
-                else
+                    message = "BadRequest"
+                });
+
+            }
+            if (portfolio == null)
+            {
+                return Json(new
                 {
-                    return View();
-                }
+                    message = "data is null"
+                });
+            }
+            var portfolioResult= await _unitOfWork.portfolioRepository.AddAsync(portfolio);
+            if (portfolioResult.IsDone)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError("","Data Not Save");
             }
             return View();
         }

@@ -1,11 +1,9 @@
 ﻿using ConstructionSite.Areas.ConstructionAdmin.Models.DTO;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
 using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels.Account;
-using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -25,7 +23,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationIdentityDbContext _identityDb;
+       private readonly ApplicationIdentityDbContext _identityDb;
 
         private void AddErrors(IdentityResult result)
         {
@@ -41,7 +39,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this.userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
-            this._identityDb = identityDb;
+           // this._identityDb = identityDb;
         }
 
         [HttpGet]
@@ -118,21 +116,37 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
+                  
                     ApplicationUser appUser = await userManager.FindByEmailAsync(loginModel.Email);
-
+                   
                     if (appUser != null)
                     {
-                        bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
-
-                        if (checkPassword)
+                        //bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
+                         await _signInManager.SignOutAsync();
+                         var result=  await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
+                        if (result.Succeeded)
                         {
-                            await _signInManager.SignInAsync(appUser, false);
                             return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                         }
+                        //if (checkPassword)
+                        //{
+                        //    await _signInManager.SignInAsync(appUser, false);
+                        //    return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
+                        //}
                         else
                         {
                             ModelState.AddModelError("password", "Password is not correct.");
@@ -155,21 +169,34 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
-            ApplicationUser appUser = await userManager.FindByIdAsync(id);
+
+            ApplicationUser appUser = await userManager.GetUserAsync(User);
 
             if (appUser == null)
             {
-                throw new NullReferenceException();
+                return Json(new
+                {
+                    message = ""
+                });
             }
 
+            var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
+            var roles = await _roleManager.Roles.ToListAsync();
             return View(new UserEditModel
             {
+
                 Id = appUser.Id,
                 Username = appUser.UserName,
                 Name = appUser.Name,
                 Email = appUser.Email,
             });
-        }
+
+               
+               
+                
+            }
+
+        
 
         [HttpPost]
         [Route("Edit")]
@@ -226,6 +253,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete([Required][FromForm] string id)
         {
             if (ModelState.IsValid)

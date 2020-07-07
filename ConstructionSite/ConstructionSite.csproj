@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.DTO.csproj" />
-    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
   </ItemGroup>
@@ -36,11 +35,10 @@
   <ItemGroup>
     <Folder Include="Areas\ConstructionAdmin\Data\" />
     <Folder Include="Areas\ConstructionAdmin\Models\" />
+    <Folder Include="Areas\ConstructionAdmin\Models\ViewModels\" />
     <Folder Include="Areas\ConstructionAdmin\Views\Contact\Models\" />
     <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
-    <Folder Include="wwwroot\images\about\" />
-    <Folder Include="wwwroot\images\subserver\" />
-    <Folder Include="wwwroot\images\service\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,7 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
     <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />

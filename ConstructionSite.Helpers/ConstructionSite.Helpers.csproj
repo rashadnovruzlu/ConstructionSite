@@ -30,8 +30,4 @@
     <PackageReference Include="MimeKit" Version="2.8.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
-  </ItemGroup>
-
 </Project>

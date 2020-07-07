@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -16,61 +18,129 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = "Admin")]
     public class AboutController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
-
-        public AboutController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        private string                        _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
+        
+        public AboutController(IUnitOfWork unitOfWork, 
+                               IWebHostEnvironment env, 
+                               IHttpContextAccessor httpContextAccessor)
         {
 
             _unitOfWork = unitOfWork;
             _env=env;
+            _httpContextAccessor=httpContextAccessor;
+           _lang = _httpContextAccessor.getLang();
         }
         [HttpGet]
         public IActionResult Index()
         {
+
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+
             var result = _unitOfWork.AboutImageRepository.GetAll()
             .Include(x => x.About)
             .Include(x => x.Image)
             .Select(y => new AboutViewModel
             {
                 Id=y.About.Id,
-                TittleAz = y.About.TittleAz,
-                TittleEn = y.About.TittleEn,
-                TittleRu = y.About.TittleRu,
-                ContentAz = y.About.ContentAz,
-                ContentEn = y.About.ContentEn,
-                ContentRu = y.About.ContentRu,
+                Tittle=y.About.FindTitle(_lang),
+                Content=y.About.FindContent(_lang),
+               
                 Image = y.Image.Path
             }).ToList();
-           
-           return View(result);
+            if (result.Count<0)
+            {
+                return Json(new
+                {
+                    message = "data is null"
+                });
+            }
+             return View(result);
+
+          
         }
         #region --Add--
         [HttpGet]
         public IActionResult Add()
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+            }
+                return View();
         }
         [HttpPost]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
-
-
-            if (ModelState.IsValid)
+            int imageResultID=0;
+            AboutImage aboutImage = new AboutImage();
+            Image image = new Image();
+            if (!ModelState.IsValid)
             {
-                AboutImage aboutImage = new AboutImage();
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                Image image = new Image();
-                aboutImage.ImageId = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
 
-
-                aboutImage.AboutId = await _unitOfWork.AboutRepository.AddAsync(about);
-                if (await _unitOfWork.AboutImageRepository.AddAsync(aboutImage) > 0)
-                    return RedirectToAction("Index");
             }
-
-
-
+            if (FileData is null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.NotExtended;
+                return Json(new
+                {
+                    message = "file not found BadRequest"
+                });
+              
+            }
+            imageResultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+            if (imageResultID < 0)
+            {
+                return Json(new
+                {
+                    message = "file not save"
+                });
+            }
+         
+            var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
+            if (aboutResult.IsDone)
+            {
+                aboutImage.AboutId=about.Id;
+                aboutImage.ImageId = imageResultID;
+                var aboutImageResult=  await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
+                if (aboutImageResult.IsDone)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    FileData.DeleteImage(_env, "about", image, _unitOfWork);
+                    _unitOfWork.AboutRepository.Delete(about);
+                    return Json(new
+                    {
+                        message = "aboutImage not save"
+                    });
+                }
+                
+                    
+            }
             return View();
         }
         #endregion
@@ -86,22 +156,70 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
         public async Task<IActionResult> Delete(int id)
         {
-            var data=       await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
-            var about=      await _unitOfWork.AboutRepository.GetByIdAsync(data.AboutId);
-            var image=      await _unitOfWork.imageRepository.GetByIdAsync(data.ImageId);
-            var aboutResult=await _unitOfWork.AboutRepository.DeleteAsync(about);
-            var imageResult=await _unitOfWork.imageRepository.DeleteAsync(image);
-            var result=     await _unitOfWork.AboutImageRepository.DeleteAsync(data);
-            if (aboutResult.IsDone==true&&imageResult.IsDone==true&&result.IsDone==true)
+
+
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            if (id<0)
+            {
+                return Json(new
+                {
+                    message = "is null"
+                });
+            }
+            var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
+            if (AboutImageResult is null)
+            {
+                return Json(new
+                {
+                    message = "AboutId is null"
+                });
+
+
+            }
+            var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
+            if (aboutResult is null)
+            {
+                return Json(new
+                {
+                    message = "data is null"
+                });
+            }
+            var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
+            if (aboutDeleteResult.IsDone)
+            {
+                ModelState.AddModelError("", "delete error");
+            }
+            var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
+            if (image is null)
+            {
+                return Json(new
+                {
+                    message = "data is null"
+                });
+            }
+            var imageResult = await _unitOfWork.imageRepository.DeleteAsync(image);
+            if (imageResult.IsDone)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                ModelState.AddModelError("","an error whene delete data");
+                
+                ModelState.AddModelError("", "an error whene delete data");
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            return View();
+
+
         }
     }
 }

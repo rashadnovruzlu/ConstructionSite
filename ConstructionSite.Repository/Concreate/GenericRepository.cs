@@ -48,9 +48,9 @@ namespace ConstructionSite.Repository.Concreate
 
         #region --Added--
 
-        public int Add(T entity)
+        public Task<RESULT<T>> Add(T entity)
         {
-           // RESULT<T> result = new RESULT<T> { IsDone = true };
+            RESULT<T> result = new RESULT<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -58,20 +58,21 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 _context.Set<T>().Add(entity);
-              return  _context.SaveChanges();
-               // result.Data = entity;
+               _context.SaveChanges();
+                result.Data = entity;
             }
             catch (Exception ex)
             {
                 string erro=ex.Message;
-               return 0;
+                result.IsDone=false;
             }
+            return Task.FromResult(result);
            
         }
 
-        public async Task<int> AddAsync(T entity)
+        public async Task<RESULT<T>> AddAsync(T entity)
         {
-          
+            RESULT<T>  result=new RESULT<T> { IsDone=true};
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -79,14 +80,16 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 await _context.Set<T>().AddAsync(entity);
-                return  await _context.SaveChangesAsync();
-                
+                await _context.SaveChangesAsync();
+                result.Data = entity;
+
             }
             catch (Exception ex)
             {
                string mesage=ex.Message;
-                return 0;
+                result.IsDone=false;
             }
+            return await  Task.FromResult(result);
           
         }
 

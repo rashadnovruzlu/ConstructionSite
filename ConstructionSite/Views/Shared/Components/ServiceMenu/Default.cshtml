@@ -8,49 +8,16 @@
          @foreach (var item in Model)
          {
             <li class="menu-item">
-                <a asp-controller="Services" asp-action="Renovation">@item.NameAz</a>
+                <a asp-controller="Services" asp-action="Renovation">@item.Name</a>
                 <ul class="sub-menu2">
                     @foreach (var ite in item.SubServices)
                     {
 
 
-                        <li class="menu-item"><a asp-controller="Services" asp-action="Architecture">@ite.NameAz</a></li>
+                        <li class="menu-item"><a asp-controller="Services" asp-action="Architecture">@ite.Name</a></li>
 
                     }
                 </ul>
             </li>
          }
         </ul>
-
-@*<li class="menu-item">
-    <a asp-controller="Services" asp-action="Renovation">Renovation</a>
-    <ul class="sub-menu2">
-        <li class="menu-item"><a asp-controller="Services" asp-action="Renovation">Service4</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Consulting">Service5</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Architecture">Service6</a></li>
-    </ul>
-</li>
-<li class="menu-item">
-    <a asp-controller="Services" asp-action="Consulting">Consulting</a>
-    <ul class="sub-menu2">
-        <li class="menu-item"><a asp-controller="Services" asp-action="Renovation">Service8</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Consulting">Service9</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Architecture">Service10</a></li>
-    </ul>
-</li>
-<li class="menu-item">
-    <a asp-controller="Services" asp-action="Architecture">Architecture</a>
-    <ul class="sub-menu2">
-        <li class="menu-item"><a asp-controller="Services" asp-action="Renovation">Service8</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Consulting">Service9</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Architecture">Service10</a></li>
-    </ul>
-</li>
-<li class="menu-item">
-    <a asp-controller="Services" asp-action="Electrical">Electrical</a>
-    <ul class="sub-menu2">
-        <li class="menu-item"><a asp-controller="Services" asp-action="Renovation">Service8</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Consulting">Service9</a></li>
-        <li class="menu-item"><a asp-controller="Services" asp-action="Architecture">Service10</a></li>
-    </ul>
-</li>*@

@@ -1,7 +1,81 @@
-﻿
+﻿@model ProjectAddModel
 @{
     ViewData["Title"] = "Add";
 }
 
-<h2>Add</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                   Project  Add
+                </header>
+                <div class="panel-body">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="text" asp-for="NameAz" id="f-name" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="text" asp-for="NameRu" id="f-name" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="text" asp-for="NameEn" id="f-name" class="form-control">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+
+                            <div class="col-lg-10">
+                                <textarea asp-for="ContentAz" class="form-control " id="ccomment" required=""></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+
+                            <div class="col-lg-10">
+                                <textarea asp-for="ContentRu" class="form-control " id="ccomment" required=""></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+
+                            <div class="col-lg-10">
+                                <textarea asp-for="ContentEn" class="form-control " id="ccomment" required=""></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10">
+                                <select class="form-control m-bot15" asp-for="PortfolioId" asp-items="@ViewBag.items">
+
+                                    <option>Please select one</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
 

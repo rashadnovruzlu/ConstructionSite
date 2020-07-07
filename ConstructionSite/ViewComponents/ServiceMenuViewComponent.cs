@@ -1,5 +1,8 @@
 ﻿using ConstructionSite.DTO.FrontViewModels;
+using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,9 +15,14 @@ namespace ConstructionSite.ViewComponents
     public class ServiceMenuViewComponent:ViewComponent
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ServiceMenuViewComponent(IUnitOfWork unitOfWork)
+        private  string _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ServiceMenuViewComponent(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork=unitOfWork;
+             
+            _httpContextAccessor=httpContextAccessor;
+           _lang= _httpContextAccessor.getLang();
         }
         public IViewComponentResult Invoke()
         {
@@ -23,10 +31,14 @@ namespace ConstructionSite.ViewComponents
                 .Select(x=>new ServiceMenuViewModel
                 {
                     Id=x.Id,
-                    NameAz=x.NameAz,
-                    NameEn=x.NameEn,
-                    NameRu=x.NameRu,
-                    SubServices=x.SubServices
+                    Name=x.FindName(_lang),
+                   SubServices=x.SubServices.Select(z=>new SingleSubServiceViewModel
+                   {
+                       id=x.Id,
+                       Name=x.FindName(_lang)
+                   })
+                   .ToList()
+                    
                 }).ToList();
             return View(result);
         }

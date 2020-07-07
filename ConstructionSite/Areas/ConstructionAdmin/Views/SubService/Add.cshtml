@@ -1,4 +1,4 @@
-﻿@model SubServiceViewModel
+﻿@model SubServiceAddModel
 @{
     ViewData["Title"] = "Add";
 }
@@ -16,7 +16,7 @@
                                 <div class="form-group">
 
                                     <div class="col-lg-10">
-                                        <input type="text" asp-for="NameAz" placeholder="NameAz" id="f-name" class="form-control">
+                                        <input type="text" asp-for="NameAz" placeholder="NameAz" id="f-name" class="form-control" required="">
 
                                     </div>
                                 </div>
@@ -56,9 +56,9 @@
                                 <div class="form-group">
                                     <div class="col-lg-10">
                                         <select class="form-control m-bot15" asp-for="ServiceId">
-                                            @foreach (var item in ViewBag.data)
+                                            @foreach (ServiceSubServiceAddView item in ViewBag.data)
                                             {
-                                                <option value="@item.Id">@item.NameAz</option>
+                                                <option value="@item.Id">@item.Name</option>
                                             }
 
                                         </select>

@@ -149,12 +149,10 @@ namespace ConstructionSite.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(35)")
                         .HasMaxLength(35);
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -170,16 +168,32 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Content")
+                    b.Property<string>("ContentAz")
                         .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("ContentEn")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("ContentRu")
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
                     b.Property<int>("SubServiceId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("TittleAz")
                         .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("TittleEn")
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("TittleRu")
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
@@ -187,7 +201,7 @@ namespace ConstructionSite.Migrations
 
                     b.HasIndex("SubServiceId");
 
-                    b.ToTable("Description");
+                    b.ToTable("Descriptions");
                 });
 
             modelBuilder.Entity("ConstructionSite.Entity.Models.HomePage", b =>

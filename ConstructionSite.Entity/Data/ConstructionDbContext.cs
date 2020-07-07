@@ -32,6 +32,7 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<StaticField> StaticFields { get; set; }
         public virtual DbSet<SubService> SubServices { get; set; }
         public virtual DbSet<SubServiceImage> SubServiceImages { get; set; }
+        public virtual DbSet<Description> Descriptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
