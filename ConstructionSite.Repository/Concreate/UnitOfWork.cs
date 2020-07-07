@@ -2,6 +2,7 @@
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Implementations;
 using ConstructionSite.Repository.Interfaces;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Repository.Concreate
@@ -173,5 +174,9 @@ namespace ConstructionSite.Repository.Concreate
            return  await _context.SaveChangesAsync();
         }
 
+        public void Rollback()
+        {
+            _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+        }
     }
 }

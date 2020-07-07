@@ -3,19 +3,21 @@ using ConstructionSite.Extensions.Paths;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Org.BouncyCastle.Math.EC.Rfc7748;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Extensions.Images
 {
-    public static class SaveFileExtension
+   public static class ImageSaveExtension
     {
         public async static Task<int> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             if (file.IsImage())
-            { 
-                
+            {
+
                 string name = await file.SaveAsync(_env,subFolder);
                 image.Title = file.GetFileName();
                 image.Path = name;
@@ -24,17 +26,18 @@ namespace ConstructionSite.Extensions.Images
             }
             return image.Id;
         }
-        public static void DeleteImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        public static async Task<string> SaveAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder)
         {
-           var folder= file.GetPath(subFolder);
-            var imageName=file.GetFileName();
-            string _imageToBeDeleted = Path.Combine(_env.WebRootPath,folder);
-            if (File.Exists(_imageToBeDeleted))
+
+            string fileName = file.GetPath(subFolder);
+            string path = Path.Combine(_env.WebRootPath, fileName);
+            file.Create(_env.WebRootPath, subFolder);
+            await using (var stream = new FileStream(path, FileMode.Create))
             {
-                File.Delete(_imageToBeDeleted);
+                await file.CopyToAsync(stream);
             }
 
-
+            return "/" + fileName;
         }
     }
 }

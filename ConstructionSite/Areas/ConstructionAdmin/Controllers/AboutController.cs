@@ -88,6 +88,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
+            if (about==null)
+            {
+                return View();
+            }
             int imageresultID=0;
             int aboutresultID=0;
             AboutImage aboutImage = new AboutImage();
@@ -136,6 +140,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     FileData.DeleteImage(_env, "about", image, _unitOfWork);
                     _unitOfWork.AboutRepository.Delete(about);
+                    _unitOfWork.AboutImageRepository.Delete(aboutImage);
                     return Json(new
                     {
                         message = "aboutImage not save"
