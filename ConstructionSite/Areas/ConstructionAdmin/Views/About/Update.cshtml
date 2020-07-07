@@ -12,6 +12,8 @@
             <div class="panel-body">
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="aboutID" value="@Model.aboutID" />
+                    <input type="hidden" name="imageId" value="@Model.imageId" />
                     <div class="form-group">
 
                         <div class="col-lg-10">
@@ -37,7 +39,7 @@
                     <div class="form-group ">
 
                         <div class="col-lg-10">
-                            <textarea  asp-for="ContentAz" class="form-control " id="ccomment" ></textarea>
+                            <textarea asp-for="ContentAz" class="form-control " id="ccomment"></textarea>
                         </div>
                     </div>
                     <div class="form-group ">
@@ -50,6 +52,12 @@
 
                         <div class="col-lg-10">
                             <textarea asp-for="ContentEn" class="form-control " id="ccomment"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+
+                        <div class="col-lg-10">
+                            <img src="@Model.Image" width="60" height="70" alt="Alternate Text" />
                         </div>
                     </div>
                     <div class="form-group">

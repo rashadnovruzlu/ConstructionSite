@@ -8,10 +8,12 @@ namespace ConstructionSite.DTO.AdminViewModels.About
     {
        
         public int Id { get; set; }
-        public int  aboutID { get; set; }
+       
         public string Tittle { get; set; }
         public string Content { get; set; }
-        public int    imageId { get; set; }
         public string Image { get; set; }
+        public int    imageId { get; set; }
+        public int aboutID { get; set; }
+       
     }
 }
