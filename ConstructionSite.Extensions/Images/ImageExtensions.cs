@@ -21,7 +21,7 @@ namespace ConstructionSite.Extensions.Images
                 image.Title = file.GetFileName();
                 image.Path = name;
                 await _unitOfWork.imageRepository.AddAsync(image);
-                _unitOfWork.Dispose();
+                
                
             }
             return image.Id;
@@ -44,11 +44,7 @@ namespace ConstructionSite.Extensions.Images
         }
         public static void Delete(this IFormFile file, IWebHostEnvironment _env, Image image,string subFolder)
         {
-
-           
             string FilePath = Path.Combine(_env.WebRootPath, _IMAGE, subFolder,image.Title);
-
-
             if (File.Exists(FilePath)){
                 File.Delete(FilePath);
             }
@@ -64,8 +60,6 @@ namespace ConstructionSite.Extensions.Images
         }
         private static void Create(string path)
         {
-            
-
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

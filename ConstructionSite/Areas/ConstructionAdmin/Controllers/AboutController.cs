@@ -27,11 +27,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                IWebHostEnvironment env, 
                                IHttpContextAccessor httpContextAccessor)
         {
-
-            _unitOfWork = unitOfWork;
-            _env=env;
-            _httpContextAccessor=httpContextAccessor;
-           _lang = _httpContextAccessor.getLang();
+            _httpContextAccessor = httpContextAccessor;
+            _unitOfWork          = unitOfWork;
+            _env                 =env;
+           
+           _lang                 = _httpContextAccessor.getLang();
         }
         [HttpGet]
         public IActionResult Index()
