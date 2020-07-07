@@ -7,10 +7,8 @@ namespace ConstructionSite.DTO.AdminViewModels.Portfolio
 {
     public class PortfolioViewModel
     {
-        public string NameAz { get; set; }
-
-        public string NameEn { get; set; }
-
-        public string NameRu { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<ProjectViewModel> ProjectViewModel { get; set; }
     }
 }
