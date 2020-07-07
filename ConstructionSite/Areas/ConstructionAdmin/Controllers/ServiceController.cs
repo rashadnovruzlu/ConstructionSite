@@ -80,6 +80,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
+            if (service == null)
+            {
+
+            }
             if (ModelState.IsValid)
             {
                 Image image = new Image();
