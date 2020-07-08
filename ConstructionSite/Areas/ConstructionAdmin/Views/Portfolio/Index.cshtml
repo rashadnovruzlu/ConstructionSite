@@ -5,7 +5,7 @@
 
     <section class="panel">
         <header class="panel-heading">
-            Editable Table
+            Portfolio Table
         </header>
         <div class="panel-body">
             <div class="adv-table editable-table ">
@@ -30,8 +30,8 @@
 
                                    
                                     <td class=" ">@item.Name</td>
-                                    <td class=" "><a class="edit" href="javascript:;">Edit</a></td>
-                                    <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                                    <td class=" "><a class="edit" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Edit" asp-route-id="@item.Id">Edit</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                                 </tr>
                             }
                         </tbody>

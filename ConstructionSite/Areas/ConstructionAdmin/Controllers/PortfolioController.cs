@@ -16,7 +16,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
   
     public class PortfolioController : Controller
     {
-        private string _lang;
+        private string                        _lang;
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -25,8 +25,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor=httpContextAccessor;
-           _lang= _httpContextAccessor.getLang();
+            _lang= _httpContextAccessor.getLang();
         }
+        [HttpGet]
         public  IActionResult Index()
         {
 
@@ -65,6 +66,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(result);
         }
+        [HttpGet]
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -80,6 +82,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Portfolio portfolio)
         {
             if (!ModelState.IsValid)
@@ -109,6 +112,43 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("","Data Not Save");
             }
             return View();
+        }
+        public IActionResult Update(int id)
+        {
+            return View();
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Portfolio portfolio = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
+            if (portfolio == null)
+            {
+                return RedirectToAction("Index");
+
+            }
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            var result=  await _unitOfWork.portfolioRepository.DeleteAsync(portfolio);
+            if (!result.IsDone)
+            {
+                ModelState.AddModelError("", "this portfolio was not delete");
+            }
+            else
+            {
+                _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+            }
+            _unitOfWork.Dispose();
+            return View(id);
         }
     }
 }
