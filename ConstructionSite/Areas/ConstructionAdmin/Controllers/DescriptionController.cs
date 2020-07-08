@@ -32,9 +32,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+
+            }
+            var result=_unitOfWork.descriptionRepstory.GetAll()
+                .Select(x=>new DescriptionViewModel
+                {
+                    Id=x.Id,
+                    Tittle=x.FindTitle(_lang),
+                    Content=x.FindContent(_lang)
+                }).ToList();
+            if (result==null|result.Count==0)
+            {
+                return Json(new
+                {
+                    message = "Description is null or empty"
+                });
+            }
+            return View(result);
         }
         [HttpGet]
         public IActionResult Add()
@@ -163,7 +189,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                ContentEn=descriptionUpdateViewModel.ContentEn,
                SubServiceID=descriptionUpdateViewModel.SubServiceId
            };
-           return View(result);
+            _unitOfWork.Dispose();
+            return View(result);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -199,13 +226,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 SubServiceId = model.SubServiceID
 
             };
-          var result=  _unitOfWork.descriptionRepstory.Update(DescriptionUpdateViewModel);
+            var result=  _unitOfWork.descriptionRepstory.Update(DescriptionUpdateViewModel);
             if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }
+            else
+            {
+                _unitOfWork.Rollback();
+            }
+            _unitOfWork.Dispose();
             return View(model.Id);
         }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
