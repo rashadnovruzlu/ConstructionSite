@@ -11,7 +11,7 @@
                 </header>
                 <div class="panel-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Description" asp-action="Update" method="post">
-                       
+                        <input type="hidden" name="SubServiceID" value="@Model.SubServiceID" />
                         <div class="form-group">
 
                             <div class="col-lg-10">

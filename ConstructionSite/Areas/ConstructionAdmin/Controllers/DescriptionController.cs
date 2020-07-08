@@ -227,13 +227,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             };
             var result=  _unitOfWork.descriptionRepstory.Update(DescriptionUpdateViewModel);
-            if (result.IsDone)
-            {
-                return RedirectToAction("Index");
-            }
-            else
+            if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
+                ModelState.AddModelError("","Description update not successfull");
+                return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
             return View(model.Id);
@@ -270,14 +268,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
            var result= _unitOfWork.descriptionRepstory.Delete(resultbyId);
-            if (result.IsDone)
+            if (!result.IsDone)
+            {
+                _unitOfWork.Rollback();
+              
+
+            }
+            else
             {
                 _unitOfWork.Dispose();
                 return RedirectToAction("Index");
-
             }
-          
-            return View();
+            _unitOfWork.Dispose();
+            return View(id);
         }
     }
 }
