@@ -249,7 +249,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "this is about update error");
             }
-
+            _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 
