@@ -9,7 +9,6 @@ namespace ConstructionSite.Entity.Models
     {
         public int Id { get; set; }
        
-        
         public virtual SubService SubService { get; set; }
         public virtual int SubServiceId { get; set; }
        
