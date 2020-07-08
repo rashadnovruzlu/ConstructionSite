@@ -251,9 +251,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return RedirectToAction("index", "Dashboard");
         }
 
-        [HttpPost]
+        
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete([Required][FromForm] string id)
+        public async Task<IActionResult> Delete( string id)
         {
             if (ModelState.IsValid)
             {

@@ -133,12 +133,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 if (aboutImageResult.IsDone)
                 {
+                   
                     _unitOfWork.Dispose();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    FileData.Delete(_env, image, "about");
+                   FileData.Delete(_env, image, "about");
 
                     _unitOfWork.Rollback();
                     return Json(new
