@@ -7,11 +7,8 @@ using System.Text;
 namespace ConstructionSite.Entity.Models
 {
 	   public class About: TitleContent
-	{
-		
-		public int Id { get; set; }
-		
-
-		public virtual ICollection<AboutImage> AboutImages { get; set; }
-	}
+	   {
+			public int Id { get; set; }
+			public virtual ICollection<AboutImage> AboutImages { get; set; }
+	   }
 }

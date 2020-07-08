@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels
+namespace ConstructionSite.DTO.AdminViewModels
 {
-    public class PortfolioViewModel
+  public  class PortfolioViewModel
     {
-        public string NameAz { get; set; }
-
-        public string NameEn { get; set; }
-
-        public string NameRu { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<ProjectViewModel> ProjectViewModel { get; set; }
     }
 }

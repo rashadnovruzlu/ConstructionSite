@@ -25,6 +25,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels
         public string Password { get; set; }
         [Required]
         [StringLength(maximumLength: 50)]
+        [UIHint("name")]
         public string Name { get; set; } 
     }
 }

@@ -16,7 +16,6 @@ namespace ConstructionSite.Controllers
             _unitOfWork = unitOfWork;
         }
         public async Task<IActionResult> Index()
-
         { 
          var data= await  _unitOfWork.AboutRepository.GetAllAsync();
           var about=  data.AsQueryable().Include(x=>x.AboutImages)

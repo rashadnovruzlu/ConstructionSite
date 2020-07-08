@@ -14,10 +14,19 @@
             </div>
 
             <a class="btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id">Edit Admin Profile</a>
-            <a class="btn btn-danger" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index" asp-route-id="@admin.Id">Delete Admin Profile</a>
+            <a class="btn btn-danger delete-btn" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Delete" asp-route-id="@admin.Id">Delete Admin Profile</a>
 
             <hr />
         </div>
         }
 
     </div>
+
+@section scripts{ 
+    <script>
+        $(".delete-btn").click(function () {
+            alert("Hello");
+        });
+        
+    </script>
+}

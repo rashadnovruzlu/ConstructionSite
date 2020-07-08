@@ -11,7 +11,6 @@ namespace ConstructionSite.Entity.Models
        
         public int Id { get; set; }
         public virtual Portfolio Portfolio { get; set; }
-       
         public int PortfolioId { get; set; }
 
         public virtual ICollection<ProjectImage> ProjectImages { get; set; }
