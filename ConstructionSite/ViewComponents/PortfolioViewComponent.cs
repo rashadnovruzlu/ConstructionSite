@@ -27,12 +27,12 @@ namespace ConstructionSite.ViewComponents
         {
             var result = _unitOfWork.projectRepository.GetAll()
                                         .Include(x => x.Portfolio)
-                                            .Include(x=>x.ProjectImages)
+                                            .Include(x => x.ProjectImages)
                                                 .Select(y => new PortfolioViewModel
                                                 {
                                                     Name = y.Portfolio.FindName(_lang),
-                                                    Id=y.Portfolio.Id
-                                                });
+                                                    Id = y.Portfolio.Id
+                                                }).ToList();
 
 
             return View(result);
