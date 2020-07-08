@@ -9,7 +9,7 @@ namespace ConstructionSite.Extensions.Seed
 {
     public static class SeedDataExtension
     {
-        public async static void Seeding(IApplicationBuilder app)
+        public async static void Seeding(this IApplicationBuilder app)
         {
             var context = app.ApplicationServices.GetRequiredService<ConstructionDbContext>();
             context.Database.Migrate();

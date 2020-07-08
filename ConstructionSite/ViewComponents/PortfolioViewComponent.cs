@@ -25,15 +25,30 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            var result = _unitOfWork.projectRepository.GetAll()
-                                        .Include(x => x.Portfolio)
-                                            .Include(x => x.ProjectImages)
-                                                .Select(y => new PortfolioViewModel
-                                                {
-                                                    Name = y.Portfolio.FindName(_lang),
-                                                    Id = y.Portfolio.Id
-                                                }).ToList();
+            /* var result = _unitOfWork.projectRepository.GetAll()
+                                       .Include(x => x.Portfolio)
+                                           .Include(x => x.ProjectImages)
+                                               .Select(y => new PortfolioViewModel
+                                               {
+                                                   Name = y.Portfolio.FindName(_lang),
+                                                   Id = y.Portfolio.Id
+                                               }).ToList();  */
 
+            var result = _unitOfWork.projectRepository.GetAll()
+                                    .Include(x => x.Portfolio)
+                                        .Select(x => new PortfolioViewModel
+                                        {
+                                            Name = x.Portfolio.FindName(_lang),
+                                            ProjectViewModel = new List<ProjectViewModel>
+                                            {
+                                                new ProjectViewModel
+                                                {
+                                                    Name=x.FindName(_lang),
+                                                    Content=x.FindContent(_lang),
+
+                                                }
+                                            }
+                                        });
 
             return View(result);
         }
