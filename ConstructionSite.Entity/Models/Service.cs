@@ -18,17 +18,17 @@ namespace ConstructionSite.Entity.Models
 		public int ImageId { get; set; }
 
 		public virtual ICollection<SubService> SubServices { get; set; }
-		public  string FindTitle(string lang)
-        {
-            if (lang== LANGUAGECONSTANT.Az)
-            {
-				return TittleAz;
-            }
-            else if(lang == LANGUAGECONSTANT.Ru)
-            {
-				return TittleRu;
-            }
-			return TittleEn;
-        }
+		//public  string FindTitle(string lang)
+  //      {
+  //          if (lang== LANGUAGECONSTANT.Az)
+  //          {
+		//		return TittleAz;
+  //          }
+  //          else if(lang == LANGUAGECONSTANT.Ru)
+  //          {
+		//		return TittleRu;
+  //          }
+		//	return TittleEn;
+  //      }
 	}
 }
