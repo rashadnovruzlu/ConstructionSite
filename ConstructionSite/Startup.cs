@@ -59,7 +59,7 @@ namespace ConstructionSite
                 app.UseHsts();
             }
             app.SeedRole();
-            app.Seeding();
+            //app.Seeding();
             
             app.UseStaticFiles();
             app.UseRequestLocalization();
