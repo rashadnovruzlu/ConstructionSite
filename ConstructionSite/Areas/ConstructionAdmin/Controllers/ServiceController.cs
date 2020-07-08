@@ -1,17 +1,15 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using ConstructionSite.DTO.AdminViewModels.Service;
+﻿using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -79,6 +77,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
             if (service==null)
@@ -129,6 +128,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
             _unitOfWork.Dispose();
+            return View();
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+          var service=await  _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            if (service==null)
+            {
+                return Json(new
+                {
+                    message="this is empty"
+                });
+            }
+          var result=  await _unitOfWork.ServiceRepository.DeleteAsync(service);
+            if (result.IsDone)
+            {
+                _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+
+            }
             return View();
         }
     }
