@@ -114,7 +114,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginModel)
+        public async Task<IActionResult> Login(LoginViewModel loginModel, string ReturnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -140,7 +140,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
                          var result=  await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
                         if (result.Succeeded)
                         {
-                            return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
+                            //return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
+                            return Redirect(ReturnUrl ?? "/");
                         }
                         //if (checkPassword)
                         //{
@@ -184,19 +185,12 @@ namespace ConstructionSite.Areas.Admin.Controllers
             var roles = await _roleManager.Roles.ToListAsync();
             return View(new UserEditModel
             {
-
                 Id = appUser.Id,
                 Username = appUser.UserName,
                 Name = appUser.Name,
                 Email = appUser.Email,
             });
-
-               
-               
-                
-            }
-
-        
+        }
 
         [HttpPost]
         [Route("Edit")]
@@ -252,9 +246,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return RedirectToAction("index", "Dashboard");
         }
 
-        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete([Required][FromForm] string id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (ModelState.IsValid)
             {
