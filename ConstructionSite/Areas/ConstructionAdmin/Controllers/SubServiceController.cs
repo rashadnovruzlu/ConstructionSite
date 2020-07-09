@@ -4,6 +4,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
+    [Authorize(Roles = "Admin")]
     public class SubServiceController : Controller
     {
         private string                         _lang;
@@ -30,7 +32,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang=_httpContextAccessor.getLang();
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -67,7 +69,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
               
             return View(result);
         }
-
+        [HttpGet]
+       
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -94,6 +97,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubService subService, IFormFile file)
         {
             int imageresultID=0;
