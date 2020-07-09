@@ -66,6 +66,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(result);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         //[HttpGet]
         //public IActionResult Add()
         //{
