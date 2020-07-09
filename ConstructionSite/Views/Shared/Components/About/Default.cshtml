@@ -1,4 +1,4 @@
-﻿@model AboutDTO
+﻿@model AboutViewModel
 <section id="about" class="wprt-section clearfix text-center">
     <div class="container">
         <div class="row">
@@ -9,7 +9,7 @@
                     <div class="line-1"></div>
                 </div>
                 <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-                <p class="wprt-subtitle">@Model.TitleAz</p>
+                <p class="wprt-subtitle">@Model.Title</p>
                 <div class="link"><a asp-controller="About" asp-action="Index" class="wprt-button small rounded-3px">READ MORE</a></div>
                 <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
                 <div class="text-center">

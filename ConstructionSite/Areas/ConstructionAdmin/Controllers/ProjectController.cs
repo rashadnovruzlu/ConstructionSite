@@ -1,10 +1,10 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using ConstructionSite.DTO.AdminViewModels.Portfolio;
+﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.DTO.AdminViewModels.Project;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -169,6 +169,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
             }
             _unitOfWork.Dispose();
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+         var projectImageResult = await  _unitOfWork.projectImageRepository.GetByIdAsync(id);
+            if (projectImageResult==null)
+            {
+
+            }
+          var projectResult= await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
+          var ImageResult  = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ImageId);
+            if (ImageResult!=null&&projectImageResult!=null)
+            {
+            var projectUpdateResult=    _unitOfWork.projectRepository.Delete(projectResult);
+            
+
+            }
             return View();
         }
     }
