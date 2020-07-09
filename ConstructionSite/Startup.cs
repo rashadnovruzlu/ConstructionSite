@@ -56,7 +56,7 @@ namespace ConstructionSite
                
                 app.UseHsts();
             }
-           // app.SeedRole();
+            app.SeedRole();
             
             app.UseStaticFiles();
             app.UseRequestLocalization();

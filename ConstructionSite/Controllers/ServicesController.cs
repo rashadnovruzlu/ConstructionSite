@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.DTO.FrontViewModels;
+﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
+using System.Linq;
 
 namespace ConstructionSite.Controllers
 {

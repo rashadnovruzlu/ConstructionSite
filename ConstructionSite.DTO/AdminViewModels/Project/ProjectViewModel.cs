@@ -1,9 +1,10 @@
-﻿using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
+using ConstructionSite.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.DTO.AdminViewModels
+namespace ConstructionSite.DTO.AdminViewModels.Project
 {
    public class ProjectViewModel
     {
@@ -11,6 +12,7 @@ namespace ConstructionSite.DTO.AdminViewModels
         public string Name { get; set; }
         public string Content { get; set; }
         public string Image { get; set; }
+        public int ImageId { get; set; }
         public PortfolioViewModel Portfolio { get; set; }
         
     }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.DTO.FrontViewModels
+namespace ConstructionSite.DTO.FrontViewModels.Service
 {
   public  class ServiceMenuViewModel
     {
