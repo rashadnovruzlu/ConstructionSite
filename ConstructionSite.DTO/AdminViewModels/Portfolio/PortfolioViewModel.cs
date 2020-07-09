@@ -6,6 +6,6 @@ namespace ConstructionSite.DTO.AdminViewModels.Portfolio
     {
         public int Id { get; set; }
         public string Name { get; set; }
-       // public List<ProjectViewModel> ProjectViewModel { get; set; }
+        
     }
 }
