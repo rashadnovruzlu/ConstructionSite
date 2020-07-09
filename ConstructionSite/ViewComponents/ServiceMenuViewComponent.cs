@@ -27,7 +27,7 @@ namespace ConstructionSite.ViewComponents
         public IViewComponentResult Invoke()
         {
           var result=  _unitOfWork.ServiceRepository.GetAll()
-                .Include(x=>x.SubServices)
+                .Include(x=>x.SubServices)  
                 .Select(x=>new ServiceMenuViewModel
                 {
                     Id=x.Id,

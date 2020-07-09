@@ -1,0 +1,52 @@
+﻿@model IEnumerable<NewsDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style type="text/css">
+    .button-create {
+        margin-bottom: 10px;
+    }
+</style>
+
+<section class="panel">
+    <header class="panel-heading">
+        Portfolio Elements Table
+    </header>
+    <div class="panel-body">
+        <div class="button-create">
+            <a asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Create" class="btn btn-primary">Create New News Element</a>
+        </div>
+        <div class="adv-table editable-table ">
+            <div class="space15"></div>
+            <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-hover table-bordered dataTable" id="editable-sample" aria-describedby="editable-sample_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Title</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Content</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Create Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd">
+                                <td class=" ">@item.Tittle</td>
+                                <td class=" ">@item.Content</td>
+                                <td class=" ">@item.Image</td>
+                                <td class=" ">@item.CreateDate</td>
+                                <td class="btn btn-primary"><a class="edit" href="javascript:;" data-id="@item.Id">Edit</a></td>
+                                <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

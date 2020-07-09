@@ -36,7 +36,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -45,7 +44,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
             }
 
             var result = _unitOfWork.AboutImageRepository.GetAll()
@@ -66,7 +64,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "data is null"
                 });
             }
-             return View(result);
+            return View(result);
 
           
         }
