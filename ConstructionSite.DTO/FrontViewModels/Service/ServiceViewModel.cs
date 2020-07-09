@@ -13,7 +13,6 @@ namespace ConstructionSite.DTO.FrontViewModels.Service
 
 		public string Tittle { get; set; }
 
-        public int SubServiceID { get; set; }
         public string image { get; set; }
 	}
 }

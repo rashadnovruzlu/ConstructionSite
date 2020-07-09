@@ -1,9 +1,9 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit.Encodings;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -22,7 +22,7 @@ namespace ConstructionSite.ViewComponents
             _httpContextAccessor = httpContextAccessor;
             _lang=httpContextAccessor.getLang();
         }
-        public  IViewComponentResult Invoke()
+        public IViewComponentResult Invoke()
         {
             if (!ModelState.IsValid)
             {
@@ -30,22 +30,27 @@ namespace ConstructionSite.ViewComponents
 
                 ModelState.AddModelError("", "BadRequest");
             }
-                var result=  _unitOfWork.ServiceRepository.GetAll()
+           
+            var result =  _unitOfWork.ServiceRepository.GetAll()
+                .Include(x=>x.SubServices)
                 .Include(x=>x.Image)
-                .Include(x=>x.SubServices).Select(x=>new ServiceViewModel
+                .Select(x=>new ServiceViewModel
                 {
                     Id=x.Id,
-                    image=x.Image.Path,
                     Name=x.FindName(_lang),
-                    Tittle=x.FindName(_lang),
-                   
+                    Tittle=x.FindTitle(_lang),
+                    image=x.Image.Path
+                  
+                    
+                    
                     
                 }).ToList();
-            if (result.Count==0|result==null)
+
+            if (result.Count == 0 | result == null)
             {
-                ModelState.AddModelError("","data not exists");
+                ModelState.AddModelError("", "data not exists");
             }
-         return View(result);
+            return View(result);
                 
                 
         }
