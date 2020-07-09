@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.DTO.AdminViewModels.AddModel
+namespace ConstructionSite.DTO.AdminViewModels.SubService
 {
   public  class SubServiceAddModel
     {
