@@ -22,8 +22,4 @@
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FrontViewModels\About\" />
-  </ItemGroup>
-
 </Project>
