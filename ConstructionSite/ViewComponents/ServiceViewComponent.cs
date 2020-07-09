@@ -1,15 +1,11 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using ConstructionSite.DTO.AdminViewModels.Service;
+﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
@@ -38,9 +34,10 @@ namespace ConstructionSite.ViewComponents
                 .Include(x=>x.SubServices).Select(x=>new ServiceViewModel
                 {
                     Id=x.Id,
-                    Image=x.Image.Path,
+                    image=x.Image.Path,
                     Name=x.FindName(_lang),
-                    Tittle=x.FindName(_lang)
+                    Tittle=x.FindName(_lang),
+                    SubServices=x.SubServices.ToList()
                     
                 }).ToList();
             if (result.Count==0|result==null)
