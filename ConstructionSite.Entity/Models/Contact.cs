@@ -9,6 +9,7 @@ namespace ConstructionSite.Entity.Models
 	public class Contact:TitleContent
 	{
 		public int Id { get; set; }
+		
 		public string Address { get; set; }
 
 		[RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]

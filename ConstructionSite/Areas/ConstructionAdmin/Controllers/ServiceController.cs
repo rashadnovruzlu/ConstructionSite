@@ -1,16 +1,17 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
+﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
+using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -78,8 +79,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
+            if (service==null)
+            {
+                return RedirectToAction("Index");
+            }
             int imageresultID=0;
             Image image = new Image();
             if (!ModelState.IsValid)
@@ -114,9 +120,130 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
             if (serviceResult.IsDone)
             {
+                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
+            else
+            {
+                FileData.Delete(_env,image,"service");
+                _unitOfWork.Rollback();
+
+            }
+            _unitOfWork.Dispose();
+            return View();
+        }
+        public IActionResult Update(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            if (id<0)
+            {
+                return Json(new
+                {
+                    message = "content is empty"
+                });
+            }
+            Service result= _unitOfWork.ServiceRepository.GetById(id);
+            if (result==null)
+            {
+                return Json(new {
+                    message="this is empty"
+                });
+
+            }
+          var data=new ServiceUpdateViewModel
+          {
+              id=result.Id,
+              TittleAz=result.TittleAz,
+              TittleEn=result.TittleEn,
+              TittleRu=result.TittleRu,
+              NameAz=result.NameAz,
+              NameEn=result.NameEn,
+              NameRu=result.NameRu,
+              path=result.Image.Path,
+              ImageId=result.ImageId
+          };
             
+            return View(data);
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(ServiceUpdateViewModel model,IFormFile file)
+        {
+            if (model==null)
+            {
+                return RedirectToAction("Index");
+            }
+            var imageResult = _unitOfWork.imageRepository.GetById(model.ImageId);
+            if (imageResult==null)
+            {
+                return Json(new
+                {
+                    message = "imageResult is empty"
+                });
+
+            }
+            if (file is null)
+            {
+                return Json(new
+                {
+                    message = "file is empty"
+                });
+            }
+            file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
+
+           Service service=new Service
+           {
+               Id=model.id,
+               NameAz=model.NameAz,
+               NameEn=model.NameEn,
+               NameRu=model.NameRu,
+               TittleAz=model.TittleAz,
+               TittleEn=model.TittleEn,
+               TittleRu=model.TittleRu,
+               ImageId=model.ImageId,
+               
+               
+           };
+           var result=  await  _unitOfWork.ServiceRepository.UpdateAsync(service);
+           if (result.IsDone)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+              ModelState.AddModelError("","this is error");
+            }
+
+            return View();
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+          var service=await  _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            if (service==null)
+            {
+                return Json(new
+                {
+                    message="this is empty"
+                });
+            }
+          var result=  await _unitOfWork.ServiceRepository.DeleteAsync(service);
+            if (result.IsDone)
+            {
+                _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+
+            }
             return View();
         }
     }

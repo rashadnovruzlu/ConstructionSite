@@ -36,14 +36,14 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr class="odd">
-
-                                <td class="sorting_1">@item.Tittle</td>
-                                <td class=" ">@item.Content</td>
-                                <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
-                                <td class=" "><a class="edit" href="javascript:;">Edit</a></td>
-                                <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
-                            </tr>
+                        <tr class="odd">
+                          
+                            <td class="sorting_1">@item.Tittle</td>
+                            <td class=" ">@item.Content</td>
+                            <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
+                            <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                            <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -57,8 +57,7 @@
 
         $(".delete-about").click(function () {
             var id = $(this).data("id");
-            alert(id);
-            window.ur
+           
         $.ajax({
             type: 'GET',
             url: '/ConstructionAdmin/About/Delete/' + id

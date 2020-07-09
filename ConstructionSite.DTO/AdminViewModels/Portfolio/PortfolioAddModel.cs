@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ConstructionSite.DTO.AdminViewModels.AddModel
+namespace ConstructionSite.DTO.AdminViewModels.Portfolio
 {
    public class PortfolioAddModel
     {

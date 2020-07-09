@@ -1,16 +1,11 @@
-﻿using ConstructionSite.Entity.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace ConstructionSite.DTO.AdminViewModels
+namespace ConstructionSite.DTO.AdminViewModels.Portfolio
 {
   public  class PortfolioViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Image Image { get; set; }
-        public int ImageId { get; set; }
-        public List<ProjectViewModel> ProjectViewModel { get; set; }
+        
     }
 }

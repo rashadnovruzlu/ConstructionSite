@@ -1,5 +1,5 @@
-﻿using ConstructionSite.Areas.ConstructionAdmin.Models.ViewModels;
-using ConstructionSite.DTO.AdminViewModels;
+﻿using ConstructionSite.DTO.AdminViewModels;
+using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
@@ -16,7 +16,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
   
     public class PortfolioController : Controller
     {
-        private string _lang;
+        private string                        _lang;
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -25,8 +25,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor=httpContextAccessor;
-           _lang= _httpContextAccessor.getLang();
+            _lang= _httpContextAccessor.getLang();
         }
+        [HttpGet]
         public  IActionResult Index()
         {
 
@@ -41,21 +42,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
                 var result=  _unitOfWork.portfolioRepository.GetAll()
-                .Include(x=>x.Projects)
-                .Select(x=>new DTO.AdminViewModels.PortfolioViewModel
+                .Select(x=>new PortfolioViewModel
                 {
                     Id=x.Id,
-                    Name=x.FindName(_lang),
-                    ProjectViewModel = x.Projects.Select(y=>new ProjectViewModel
-                    {
-                        Id=y.Id,
-                        Content=y.FindContent(_lang),
-                        Name=y.FindName(_lang)
-                        
-
-                        
-                    }).ToList()
+                    Name=x.FindName(_lang)
                 }).ToList();
+               
+               
             if (result.Count<0)
             {
                 return Json(new
@@ -65,6 +58,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(result);
         }
+        [HttpGet]
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -80,6 +74,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Portfolio portfolio)
         {
             if (!ModelState.IsValid)
@@ -102,13 +97,92 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var portfolioResult= await _unitOfWork.portfolioRepository.AddAsync(portfolio);
             if (portfolioResult.IsDone)
             {
+                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
             else
             {
+                _unitOfWork.Rollback();
                 ModelState.AddModelError("","Data Not Save");
             }
             return View();
+        }
+        public IActionResult Update(int id)
+        {
+            var portfoliUpdateViewModel = _unitOfWork.portfolioRepository.GetById(id);
+            if (portfoliUpdateViewModel == null)
+            {
+
+            }
+            var portfoliUpdateViewModelResult=new PortfoliUpdateViewModel
+            {
+                id= portfoliUpdateViewModel.Id,
+                NameAz= portfoliUpdateViewModel.NameAz,
+                NameEn= portfoliUpdateViewModel.NameEn,
+                NameRu= portfoliUpdateViewModel.NameRu
+            };
+            return View(portfoliUpdateViewModelResult);
+        }
+        [HttpPost]
+        public IActionResult Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
+        {
+            if (portfoliUpdateViewModel==null)
+            {
+
+            }
+            var portfoliUpdateViewModelresult = new Portfolio
+            {
+                Id=portfoliUpdateViewModel.id,
+                NameAz=portfoliUpdateViewModel.NameAz,
+                NameEn=portfoliUpdateViewModel.NameEn,
+                NameRu=portfoliUpdateViewModel.NameRu
+            };
+          var result=  _unitOfWork.portfolioRepository.Update(portfoliUpdateViewModelresult);
+            if (!result.IsDone)
+            {
+                _unitOfWork.Rollback();
+                _unitOfWork.Dispose();
+               ModelState.AddModelError("","this is not success ful");
+            }
+            else
+            {
+                _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+            }
+            return View(portfoliUpdateViewModel.id);
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Portfolio portfolio = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
+            if (portfolio == null)
+            {
+                return RedirectToAction("Index");
+
+            }
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            var result=  await _unitOfWork.portfolioRepository.DeleteAsync(portfolio);
+            if (!result.IsDone)
+            {
+                ModelState.AddModelError("", "this portfolio was not delete");
+            }
+            else
+            {
+                _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+            }
+            _unitOfWork.Dispose();
+            return View(id);
         }
     }
 }

@@ -1,11 +1,9 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
-using ConstructionSite.Extensions.Seed;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -58,8 +56,7 @@ namespace ConstructionSite
                
                 app.UseHsts();
             }
-            app.SeedRole();
-            //app.Seeding();
+           // app.SeedRole();
             
             app.UseStaticFiles();
             app.UseRequestLocalization();

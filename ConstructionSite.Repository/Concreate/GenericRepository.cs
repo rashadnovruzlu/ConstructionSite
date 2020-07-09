@@ -341,6 +341,13 @@ namespace ConstructionSite.Repository.Concreate
             return await _context.Set<T>().FindAsync(id);
         }
 
+        public void Rollback()
+        {
+            _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+        }
+
+
+
         #endregion --Search--
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConstructionSite.Areas.ConstructionAdmin.Models.DTO
+namespace ConstructionSite.DTO.AdminViewModels.Account
 {
     public class UserDTO
     {

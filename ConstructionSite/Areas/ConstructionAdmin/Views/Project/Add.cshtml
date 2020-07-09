@@ -53,9 +53,12 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-10">
-                                <select class="form-control m-bot15" asp-for="PortfolioId" asp-items="@ViewBag.items">
+                                <select class="form-control m-bot15" asp-for="PortfolioId">
+                                    @foreach (PortfolioViewModel item in ViewBag.items)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
 
-                                    <option>Please select one</option>
                                 </select>
                             </div>
 
@@ -63,7 +66,7 @@
                         <div class="form-group">
 
                             <div class="col-lg-10">
-                                <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control">
+                                <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
 
                             </div>
                         </div>
