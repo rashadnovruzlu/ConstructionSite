@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Service>
+﻿@model IEnumerable<ServiceViewModel>
 <section id="team" class="wprt-section clearfix text-center">
     <div class="container">
         <div class="row">
@@ -42,13 +42,13 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach (Service item in Model)
+                        @foreach (ServiceViewModel item in Model)
                         {
                             <div class="cbp-item">
                                 <div class="member">
                                     <div class="inner">
                                         <div class="image">
-                                            <div class="thumb"><img src="@item.Image.Path" /></div>
+                                            <div class="thumb"><img src="@item.image" /></div>
                                             <ul class="socials clearfix">
                                                 <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                 <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -56,8 +56,8 @@
                                             </ul>
                                         </div>
                                         <div class="service-item-wrap">
-                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Renovation">@item.NameAz</a></h3>
-                                            <p class="desc">@item.TittleAz</p>
+                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Renovation">@item.Name</a></h3>
+                                            <p class="desc">@item.Tittle</p>
                                         </div>
                                     </div>
                                 </div>

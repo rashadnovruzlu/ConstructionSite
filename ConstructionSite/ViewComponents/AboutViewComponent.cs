@@ -1,25 +1,22 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using ConstructionSite.DTO.AdminViewModels.About;
-using ConstructionSite.DTO.ModelsDTO;
+﻿using ConstructionSite.DTO.FrontViewModels.About;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace ConstructionSite.ViewComponents
 {
     public class AboutViewComponent:ViewComponent
     {
-        private readonly   IUnitOfWork _unitOfWork;
+        string                                  _lang;
+        private readonly   IUnitOfWork          _unitOfWork;
         private readonly   IHttpContextAccessor _httpContextAccessor;
-        string _lang;
-        public AboutViewComponent(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+        
+        public AboutViewComponent(IUnitOfWork unitOfWork, 
+                                  IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork=unitOfWork;
             _httpContextAccessor=httpContextAccessor;
@@ -28,7 +25,13 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-           var result=    _unitOfWork.AboutImageRepository.GetAll()
+            if (!ModelState.IsValid)
+            {
+               _httpContextAccessor.HttpContext.Response.StatusCode  = (int)HttpStatusCode.BadRequest;
+
+               ModelState.AddModelError("", "BadRequest");
+            }
+            var aboutImageResult =    _unitOfWork.AboutImageRepository.GetAll()
                .Include(x=>x.About)
                .Include(x=>x.Image)
                .Select(y=> new AboutViewModel
@@ -39,8 +42,12 @@ namespace ConstructionSite.ViewComponents
                   Id=y.About.Id
                }).ToList()
                .FirstOrDefault();
+            if (aboutImageResult==null)
+            {
+                ModelState.AddModelError("","data not exists ");
+            }
                    
-            return View(result);
+            return View(aboutImageResult);
         }
         }
 }
