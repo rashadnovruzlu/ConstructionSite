@@ -2,6 +2,7 @@
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Implementations;
 using ConstructionSite.Repository.Interfaces;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Repository.Concreate
@@ -24,6 +25,7 @@ namespace ConstructionSite.Repository.Concreate
         private IStaticFieldRepository _staticFieldRepository;
         private ISubServiceImageRepository _subServiceImageRepository;
         private ISubServiceRepository _SubServiceRepository;
+        private  IDescriptionRepstory _descriptionRepstory;
         private readonly ConstructionDbContext _context;
         public UnitOfWork(ConstructionDbContext context)
         {
@@ -157,6 +159,14 @@ namespace ConstructionSite.Repository.Concreate
             }
         }
 
+        public IDescriptionRepstory descriptionRepstory
+        {
+            get
+            {
+                return _descriptionRepstory??(_descriptionRepstory=new DescriptionRepstory(_context));
+            }
+        }
+
         public  int Commit()
         {
        return _context.SaveChanges();
@@ -173,5 +183,9 @@ namespace ConstructionSite.Repository.Concreate
            return  await _context.SaveChangesAsync();
         }
 
+        public void Rollback()
+        {
+            _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+        }
     }
 }

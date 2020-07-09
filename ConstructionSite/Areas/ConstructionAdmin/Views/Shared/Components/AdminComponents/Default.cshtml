@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<UserDTO>
-    <div class="panel-body bio-graph-info">
-        @foreach (var admin in Model)
-        {
+<div class="panel-body bio-graph-info">
+    @foreach (var admin in Model)
+    {
         <div class="row">
             <div class="bio-row">
                 <p><span>Name </span>: @admin.Name</p>
@@ -18,15 +18,21 @@
 
             <hr />
         </div>
-        }
 
-    </div>
+    }
 
-@section scripts{ 
+</div>
+@section scripts{
+
+    @*<script src="~/ConstructionAdmin/js/jquery-1.8.3.min.js"></script>*@
     <script>
-        $(".delete-btn").click(function () {
-            alert("Hello");
+        $(document).ready(function () {
+            $(".delete-item").click(function () {
+                alert("Salam");
+            });
         });
-        
+
+
     </script>
+
 }
