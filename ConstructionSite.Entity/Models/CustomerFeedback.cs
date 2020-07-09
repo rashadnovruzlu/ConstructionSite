@@ -7,7 +7,6 @@ namespace ConstructionSite.Entity.Models
 {
     public class CustomerFeedback
     {
-        
         public int Id { get; set; }
      
         public string ContentAz { get; set; }

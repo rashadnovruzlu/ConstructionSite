@@ -5,7 +5,6 @@ namespace ConstructionSite.Entity.Models
 {
     public class Portfolio:Name
     {
-      
         public int Id { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
     }

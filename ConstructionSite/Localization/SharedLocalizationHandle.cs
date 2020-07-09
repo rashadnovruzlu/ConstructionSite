@@ -10,8 +10,6 @@ namespace ConstructionSite.Localization
         private readonly IStringLocalizer localizer;
         public SharedLocalizationHandle(IStringLocalizerFactory stringLocalizer)
         {
-            
-
             var Name = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName).Name;
             
            localizer = stringLocalizer.Create("SharedResource", Name);

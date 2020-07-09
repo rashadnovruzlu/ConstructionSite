@@ -25,6 +25,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Account
         public string Password { get; set; }
         [Required]
         [StringLength(maximumLength: 50)]
+        [UIHint("name")]
         public string Name { get; set; } 
     }
 }
