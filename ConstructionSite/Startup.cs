@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ConstructionSite.Extensions.Seed;
 using Newtonsoft.Json;
 
 namespace ConstructionSite
@@ -58,6 +59,7 @@ namespace ConstructionSite
                 app.UseHsts();
             }
             app.SeedRole();
+            //app.Seeding();
             
             app.UseStaticFiles();
             app.UseRequestLocalization();
