@@ -32,7 +32,7 @@ namespace ConstructionSite.Controllers
                     Name=x.FindName(_lang),
                     Tittle=x.FindTitle(_lang),
                     image=x.Image.Path,
-                    SubServices=x.SubServices
+                   // SubServices=x.SubServices
 
                     
                 })

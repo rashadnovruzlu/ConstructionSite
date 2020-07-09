@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
@@ -37,7 +38,7 @@ namespace ConstructionSite.ViewComponents
                     image=x.Image.Path,
                     Name=x.FindName(_lang),
                     Tittle=x.FindName(_lang),
-                    SubServices=x.SubServices.ToList()
+                   
                     
                 }).ToList();
             if (result.Count==0|result==null)

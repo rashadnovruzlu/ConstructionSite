@@ -12,8 +12,8 @@ namespace ConstructionSite.DTO.FrontViewModels.Service
 		public string Name { get; set; }
 
 		public string Tittle { get; set; }
-		
-		public virtual ICollection<SubService> SubServices { get; set; }
-		public string image { get; set; }
+
+        public int SubServiceID { get; set; }
+        public string image { get; set; }
 	}
 }
