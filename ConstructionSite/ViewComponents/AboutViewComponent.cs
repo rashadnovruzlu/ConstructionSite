@@ -31,18 +31,7 @@ namespace ConstructionSite.ViewComponents
 
                ModelState.AddModelError("", "BadRequest");
             }
-            //var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()
-            //.Include(x => x.About)
-            //.Include(x => x.Image)
-            //.Select(x => new AboutViewModel
-            //{
-            //    Id = x.Id,
-            //    AboutID = x.About.Id,
-            //    Tittle = x.About.FindTitle(_lang),
-            //    Content = x.About.FindContent(_lang),
-            //    imageId = x.Image.Id,
-            //    Image = x.Image.Path
-            //}).ToList().FirstOrDefault();
+          
             var aboutImageResult=_unitOfWork.AboutImageRepository.GetAll()
                 .Select(x=>new AboutViewModel
                 {
