@@ -274,5 +274,76 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion
+
+        #region Delete
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+            }
+            if (id < 0)
+            {
+                return Json(new
+                {
+                    message = "Object is null"
+                });
+            }
+            var newsImageResult = await _unitOfWork.newsImageRepository
+                                                    .GetByIdAsync(id);
+            if (newsImageResult is null)
+            {
+                return Json(new
+                {
+                    message = "News is null"
+                });
+            }
+            var newsResult = await _unitOfWork.newsRepository
+                                                .GetByIdAsync(newsImageResult.NewsId);
+            if (newsResult is null)
+            {
+                return Json(new
+                {
+                    message = "Data is null"
+                });
+            }
+            var newsDeleteResult = await _unitOfWork.newsRepository
+                                                    .DeleteAsync(newsResult);
+            if (!newsDeleteResult.IsDone)
+            {
+                ModelState.AddModelError("", "The News could not be deleted");
+            }
+            var image = await _unitOfWork.imageRepository
+                                            .GetByIdAsync(newsImageResult.ImageId);
+            if (image is null)
+            {
+                return Json(new
+                {
+                    message = "No Image"
+                });
+            }
+            var imageResult = await _unitOfWork.imageRepository
+                                                .DeleteAsync(image);
+            if (imageResult.IsDone)
+            {
+                return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+            }
+            else
+            {
+                ModelState.AddModelError("", "The Image could not be deleted");
+            }
+            _unitOfWork.Dispose();
+            return View();
+        }
+
+        #endregion
     }
 }
