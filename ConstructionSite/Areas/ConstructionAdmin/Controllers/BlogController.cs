@@ -170,9 +170,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Edit(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
-                ModelState.AddModelError("", "This data not exists");
+                ModelState.AddModelError("", "This data is not exists");
             }
 
             if (!ModelState.IsValid)
@@ -188,7 +188,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                         .Include(x => x.Image)
                                             .Select(y => new BlogEditModel
                                             {
-                                                Id = y.Id,
+                                                Id = y.News.Id,
                                                 TittleAz = y.News.TittleAz,
                                                 TittleEn = y.News.TittleEn,
                                                 TittleRu = y.News.TittleRu,
@@ -209,7 +209,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BlogEditModel editModel, string id, IFormFile file)
+        public async Task<IActionResult> Edit(BlogEditModel editModel, IFormFile file)
         {
             if (editModel == null)
             {
@@ -255,7 +255,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "No Image" 
                 });
             }
-            file.UpdateAsyc(_env, image, "news", _unitOfWork);
+            var f = await file.UpdateAsyc(_env, image, "news", _unitOfWork);
 
             var editingNewsImage = new NewsImage
             {

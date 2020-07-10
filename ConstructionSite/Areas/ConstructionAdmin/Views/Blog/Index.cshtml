@@ -40,7 +40,7 @@
                                 <td class=" ">@item.Content</td>
                                 <td class=" ">@item.Image</td>
                                 <td class=" ">@item.CreateDate</td>
-                                <td class="btn btn-primary"><a class="edit" href="javascript:;" data-id="@item.Id">Edit</a></td>
+                                <td class="btn btn-primary"><a class="edit" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Edit</a></td>
                                 <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
                             </tr>
                         }

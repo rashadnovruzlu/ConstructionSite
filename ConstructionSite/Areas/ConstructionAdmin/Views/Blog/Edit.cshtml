@@ -8,7 +8,7 @@
             </header>
             <div class="panel-body">
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="Id" value="@Model.Id" />
+                    @*<input type="hidden" name="Id" value="@Model.Id" /> *@
                     <input type="hidden" name="aboutID" value="@Model.NewsId" />
                     <input type="hidden" name="imageId" value="@Model.ImageId" />
                     <div class="form-group">
