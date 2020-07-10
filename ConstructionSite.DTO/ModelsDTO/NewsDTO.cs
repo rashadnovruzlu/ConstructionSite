@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ConstructionSite.Entity.Models;
 
 namespace ConstructionSite.DTO.ModelsDTO
 {
-    class NewsDTO
+    public class NewsDTO
     {
         public int Id { get; set; }
-        public string TittleAz { get; set; }
-        public string TittleEn { get; set; }
-        public string TittleRu { get; set; }
-        public string ContentAz { get; set; }
-        public string ContentEn { get; set; }
-        public string ContentRu { get; set; }
+        public string Tittle { get; set; }
+        public string Content { get; set; }
+        public string Image { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

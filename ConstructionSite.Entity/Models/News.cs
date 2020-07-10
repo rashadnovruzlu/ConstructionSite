@@ -12,8 +12,8 @@ namespace ConstructionSite.Entity.Models
         public int Id { get; set; }
        
        
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CreateDate { get; set; }
 
         public virtual ICollection<NewsImage> NewsImages { get; set; }

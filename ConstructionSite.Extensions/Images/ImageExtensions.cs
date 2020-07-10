@@ -65,16 +65,16 @@ namespace ConstructionSite.Extensions.Images
 
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
-            var isResult=false;
+            bool isResult = false;
+
             if (file.IsImage())
             {
                 string name = await file.SaveAsync(_env, subFolder);
                 image.Title = file.GetFileName();
                 image.Path = name;
-              var result=  await _unitOfWork.imageRepository.UpdateAsync(image);
-                isResult=result.IsDone;
-               return await Task.FromResult(isResult);
-                
+                var imageResult = await _unitOfWork.imageRepository.UpdateAsync(image);
+                isResult = imageResult.IsDone;
+                return await Task.FromResult(isResult);
             }
             return await Task.FromResult(isResult);
         }
