@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConstructionSite.DTO.AdminViewModels.Testimonial;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -63,8 +65,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "this data is null or emoty");
             }
-           
-            return View();
+           var customerFeedbackUpdate=new CustomerUpdateModel
+           {
+               Id=customerFeedbackUpdateResult.Id,
+               ContentAz=customerFeedbackUpdateResult.ContentAz,
+               ContentRu=customerFeedbackUpdateResult.ContentRu,
+               ContentEn=customerFeedbackUpdateResult.ContentEn,
+               FullName=customerFeedbackUpdateResult.FullName,
+               Position=customerFeedbackUpdateResult.Position
+           };
+            if (customerFeedbackUpdate==null)
+            {
+                ModelState.AddModelError("", "this data is null or empity");
+            }
+            return View(customerFeedbackUpdate);
         }
         public IActionResult Update()
         {
