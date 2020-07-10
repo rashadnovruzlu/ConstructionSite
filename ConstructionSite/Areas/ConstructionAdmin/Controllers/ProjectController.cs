@@ -172,7 +172,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Update(int id)
+        public  IActionResult Update(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -188,33 +188,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("","id not exists");
             }
-            //var projectImageUpdateResult= _unitOfWork.projectImageRepository.GetAll()
-            //    .Include(x=>x.Image)
-            //    .FirstOrDefault(x=>x.Id==id);
-            //var result=new ProjectUpdateViewModel
-            //{
-            //   Id=projectImageUpdateResult.Id,
-            //   ContentAz=projectImageUpdateResult.Project.ContentAz,
-            //   ContentEn=projectImageUpdateResult.Project.ContentEn,
-            //   ContentRu=projectImageUpdateResult.Project.ContentRu,
-            //   NameAz = projectImageUpdateResult.Project.NameAz,
-            //   NameEn = projectImageUpdateResult.Project.NameEn,
-            //   NameRu = projectImageUpdateResult.Project.NameRu,
-            //   PortfolioId = projectImageUpdateResult.Project.PortfolioId,
-            //   ImagePath =projectImageUpdateResult.Image.Path
-              
-            //};
-            //if (result == null)
-            //{
-            //    ModelState.AddModelError("", "projectImage some error");
-            //}
-            //_unitOfWork.Dispose();
-           ViewBag.proj= _unitOfWork.projectRepository.GetAllAsync();
+            
+           ViewBag.items= _unitOfWork.projectRepository.GetAll();
+            _unitOfWork.Dispose();
            
             return View();
         }
-        public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel,IFormFile file)
         {
+            Image image=new Image();
+           
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -229,28 +214,49 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("","data is null");
             }
-         
-           
-            var portfolioUpdateViewModelResult = new Portfolio
-            {
-                Id= projectUpdateViewModel.PortfolioId,
-                NameAz = projectUpdateViewModel.NameAz,
-                NameEn = projectUpdateViewModel.NameEn,
-                NameRu = projectUpdateViewModel.NameRu
-            };
-           var portfolioUpdateResult=await _unitOfWork.portfolioRepository.UpdateAsync(portfolioUpdateViewModelResult);
-            if (!portfolioUpdateResult.IsDone)
-            {
-                ModelState.AddModelError("", "data update is error");
-            }
-            var portfolioUpdate=new Project
+            
+            var projectViewModelUpdate = new Project
             {
                 Id= projectUpdateViewModel.Id,
-                ContentAz=
+                NameAz=projectUpdateViewModel.NameAz,
+                NameRu=projectUpdateViewModel.NameRu,
+                NameEn=projectUpdateViewModel.NameEn,
+                ContentAz=projectUpdateViewModel.ContentAz,
+                ContentRu=projectUpdateViewModel.ContentRu,
+                ContentEn=projectUpdateViewModel.ContentEn,
+                PortfolioId=projectUpdateViewModel.PortfolioId
+            };
+            var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
+            if (!portfolioUpdateResult.IsDone)
+            {
+                ModelState.AddModelError("","update error");
             }
-            var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync()
+            if (file is null)
+            {
+                return Json(new
+                {
 
-            return View();
+                    message="file not is exists"
+                });
+            }
+            var imageResult=await  file.UpdateAsyc(_env,image, "project",_unitOfWork);
+            if (!imageResult)
+            {
+                ModelState.AddModelError("","image update error");
+            }
+            ProjectImage projectImage = new ProjectImage
+            {
+                ImageId=image.Id,
+                ProjectId=projectUpdateViewModel.Id
+            };
+            var projectImageUpdateResult=await   _unitOfWork.projectImageRepository.UpdateAsync(projectImage);
+            if (!projectImageUpdateResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "update is not valid");
+            }
+                _unitOfWork.Dispose();
+            return RedirectToAction("Index");
         }
 
 
@@ -260,15 +266,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
          var projectImageResult = await  _unitOfWork.projectImageRepository.GetByIdAsync(id);
             if (projectImageResult==null)
             {
-
+                ModelState.AddModelError("", "id not exists");
             }
           var projectResult= await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
           var ImageResult  = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ImageId);
+
             if (ImageResult!=null&&projectImageResult!=null)
             {
             var projectUpdateResult=    _unitOfWork.projectRepository.Delete(projectResult);
             
-
+                _unitOfWork.Dispose();
+            }
+            else
+            {
+                ModelState.AddModelError("", "delete is error");
             }
             return View();
         }

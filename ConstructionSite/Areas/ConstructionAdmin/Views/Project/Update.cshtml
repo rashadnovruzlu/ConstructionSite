@@ -57,10 +57,12 @@
                         <div class="form-group">
 
                             <div class="col-lg-10">
-                              @foreach (var item in ViewBag.proj)
-                              {
-
-                              }
+                                <select asp-for="PortfolioId">
+                                    @foreach (var item in ViewBag.items)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                </select>
 
                             </div>
                         </div>
