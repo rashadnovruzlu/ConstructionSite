@@ -39,11 +39,7 @@ namespace ConstructionSite.ViewComponents
                     Id=x.Id,
                     Name=x.FindName(_lang),
                     Tittle=x.FindTitle(_lang),
-                    image=x.Image.Path
-                  
-                    
-                    
-                    
+                    image=x.Image.Path    
                 }).ToList();
 
             if (result.Count == 0 | result == null)

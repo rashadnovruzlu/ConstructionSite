@@ -27,10 +27,6 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-          
-
-          
-
             return View();
         }
     }

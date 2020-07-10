@@ -49,6 +49,13 @@ namespace ConstructionSite.Helpers.Constants
         public const string SomethingIsWrong = "SomethingIsWrong";
         public const string AnErrorOccurred = "AnErrorOccurred";
 
+
+        #endregion
+
+        #region Data
+
+        public const string DataNotExists = "DataNotExists";
+
         #endregion
     }
 }

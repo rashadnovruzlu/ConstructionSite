@@ -1,4 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.About;
+using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +16,16 @@ namespace ConstructionSite.ViewComponents
         string                                  _lang;
         private readonly   IUnitOfWork          _unitOfWork;
         private readonly   IHttpContextAccessor _httpContextAccessor;
-        
+        private readonly ISharedLocalizationHandle _localizationHandle;
+
         public AboutViewComponent(IUnitOfWork unitOfWork, 
-                                  IHttpContextAccessor httpContextAccessor)
+                                  IHttpContextAccessor httpContextAccessor,
+                                  ISharedLocalizationHandle localizationHandle)
         {
             _unitOfWork=unitOfWork;
             _httpContextAccessor=httpContextAccessor;
             _lang=httpContextAccessor.getLang();
-            
+            _localizationHandle = localizationHandle;
         }
         public IViewComponentResult Invoke()
         {
@@ -56,7 +60,7 @@ namespace ConstructionSite.ViewComponents
                 .FirstOrDefault();
             if (aboutImageResult==null)
             {
-                ModelState.AddModelError("","data not exists ");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.DataNotExists));
             }
                    
             return View(aboutImageResult);
