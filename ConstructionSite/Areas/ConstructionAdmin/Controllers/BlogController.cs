@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -86,7 +87,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(News news , IFormFile file)
         {
             if (news == null)
@@ -154,9 +155,43 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            return View();
+            if (id < 0)
+            {
+                ModelState.AddModelError("", "This data not exists");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message = "The models are not true"
+                });
+            }
+
+            var result = _unitOfWork.newsImageRepository.GetAll()
+                                    .Include(x => x.News)
+                                        .Include(x => x.Image)
+                                            .Select(y => new BlogEditModel
+                                            {
+                                                Id = y.Id,
+                                                TittleAz = y.News.TittleAz,
+                                                TittleEn = y.News.TittleEn,
+                                                TittleRu = y.News.TittleRu,
+                                                ContentAz = y.News.ContentAz,
+                                                ContentEn = y.News.ContentEn,
+                                                ContentRu = y.News.ContentRu,
+                                                Image = y.Image.Path,
+                                                ImageId = y.Image.Id,
+                                                NewsId = y.NewsId
+                                            }).FirstOrDefault(x => x.Id == id);
+            if (result != null)
+            {
+                return View(result);
+            }
+
+            return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
         }
     }
 }
