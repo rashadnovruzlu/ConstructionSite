@@ -14,7 +14,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
 		public string ContentAz { get; set; }
 		public string ContentEn { get; set; }
 		public string ContentRu { get; set; }
-		public IFormFile Img { get; set; }
+		//public string Img { get; set; }
 		public int ImageId { get; set; }
 		public DateTime CreateDate { get; set; }
 	}

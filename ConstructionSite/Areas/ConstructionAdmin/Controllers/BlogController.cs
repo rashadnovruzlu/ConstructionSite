@@ -4,8 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ConstructionSite.DTO.AdminViewModels.Blog;
 using ConstructionSite.DTO.ModelsDTO;
 using ConstructionSite.Entity.Data;
+using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -70,40 +73,90 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+            }
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult Add()
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(News news , IFormFile file)
+        {
+            if (news == null)
+            {
+                return View();
+            }
 
-        //        return Json(new
-        //        {
-        //            message = "BadRequest"
-        //        });
+            int imageresultID = 0;
+            Image img = new Image();
+            NewsImage newsImg = new NewsImage();
 
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new
+                {
+                    message = "Bad Request"
+                });
+            }
+            var newsResult = await _unitOfWork.newsRepository.AddAsync(news);
 
-        //    }
-        //    return View();
-        //}
-        //[HttpGet]
-        //public IActionResult Add(string str)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            if (newsResult.IsDone)
+            {
+                if (file is null)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.NotExtended;
+                    return Json(new
+                    {
+                        message = "File not found"
+                    });
+                }
 
-        //        return Json(new
-        //        {
-        //            message = "BadRequest"
-        //        });
+                imageresultID = await file.SaveImage(_env, "news", img, _unitOfWork);
 
+                if (imageresultID < 0)
+                {
+                    return Json(new
+                    {
+                        message = "File not save"
+                    });
+                }
 
-        //    }
-        //    return View();
-        //}
+                newsImg.ImageId = imageresultID;
+                newsImg.NewsId = news.Id;
+
+                var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImg);
+
+                if (newsImageResult.IsDone)
+                {
+                    _unitOfWork.Dispose();
+                    return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+                }
+                else
+                {
+                    file.Delete(_env, img, "news");
+
+                    _unitOfWork.Rollback();
+                    return Json(new
+                    {
+                        message = "NewsImage not save"
+                    });
+                }
+            }
+            _unitOfWork.Dispose();
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
     }
 }
