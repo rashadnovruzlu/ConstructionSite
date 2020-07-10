@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -173,17 +174,82 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-          var projectImageUpdateResult=  _unitOfWork.projectImageRepository.GetById(id);
-            if (projectImageUpdateResult==null)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "projectImage some error");
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
             }
-            _unitOfWork.Dispose();
-            return View(projectImageUpdateResult);
-        }
-        public IActionResult Update(ProjectUpdateViewModel projectUpdateViewModel)
-        {
+            if (id<1)
+            {
+                ModelState.AddModelError("","id not exists");
+            }
+            //var projectImageUpdateResult= _unitOfWork.projectImageRepository.GetAll()
+            //    .Include(x=>x.Image)
+            //    .FirstOrDefault(x=>x.Id==id);
+            //var result=new ProjectUpdateViewModel
+            //{
+            //   Id=projectImageUpdateResult.Id,
+            //   ContentAz=projectImageUpdateResult.Project.ContentAz,
+            //   ContentEn=projectImageUpdateResult.Project.ContentEn,
+            //   ContentRu=projectImageUpdateResult.Project.ContentRu,
+            //   NameAz = projectImageUpdateResult.Project.NameAz,
+            //   NameEn = projectImageUpdateResult.Project.NameEn,
+            //   NameRu = projectImageUpdateResult.Project.NameRu,
+            //   PortfolioId = projectImageUpdateResult.Project.PortfolioId,
+            //   ImagePath =projectImageUpdateResult.Image.Path
+              
+            //};
+            //if (result == null)
+            //{
+            //    ModelState.AddModelError("", "projectImage some error");
+            //}
+            //_unitOfWork.Dispose();
+           ViewBag.proj= _unitOfWork.projectRepository.GetAllAsync();
            
+            return View();
+        }
+        public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            if (projectUpdateViewModel==null)
+            {
+                ModelState.AddModelError("","data is null");
+            }
+         
+           
+            var portfolioUpdateViewModelResult = new Portfolio
+            {
+                Id= projectUpdateViewModel.PortfolioId,
+                NameAz = projectUpdateViewModel.NameAz,
+                NameEn = projectUpdateViewModel.NameEn,
+                NameRu = projectUpdateViewModel.NameRu
+            };
+           var portfolioUpdateResult=await _unitOfWork.portfolioRepository.UpdateAsync(portfolioUpdateViewModelResult);
+            if (!portfolioUpdateResult.IsDone)
+            {
+                ModelState.AddModelError("", "data update is error");
+            }
+            var portfolioUpdate=new Project
+            {
+                Id= projectUpdateViewModel.Id,
+                ContentAz=
+            }
+            var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync()
+
             return View();
         }
 

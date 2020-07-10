@@ -6,6 +6,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Project
 {
   public  class ProjectUpdateViewModel
     {
+        public int Id { get; set; }
         public string NameAz { get; set; }
 
         public string NameEn { get; set; }
@@ -16,5 +17,6 @@ namespace ConstructionSite.DTO.AdminViewModels.Project
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
         public int PortfolioId { get; set; }
+        public string ImagePath { get; set; }
     }
 }
