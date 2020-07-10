@@ -1,15 +1,14 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using ConstructionSite.DTO.AdminViewModels.Portfolio;
+﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.DTO.AdminViewModels.Project;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -110,7 +109,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ProjectAddModel project,IFormFile file)
+        public async Task<IActionResult> Add(ProjectAddModel projectAddModel, IFormFile file)
         {
             Image img = new Image();
             int imageID=0;
@@ -132,22 +131,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
            
-            var result = new Project
+            var projectAddModelresult = new Project
             {
-                NameAz = project.NameAz,
-                NameRu = project.NameRu,
-                NameEn = project.NameEn,
-                ContentAz = project.ContentAz,
-                ContentRu = project.ContentRu,
-                ContentEn = project.ContentEn,
-                PortfolioId = project.PortfolioId,
+                NameAz =     projectAddModel.NameAz,
+                NameRu =     projectAddModel.NameRu,
+                NameEn =     projectAddModel.NameEn,
+                ContentAz =  projectAddModel.ContentAz,
+                ContentRu =  projectAddModel.ContentRu,
+                ContentEn =  projectAddModel.ContentEn,
+                PortfolioId =projectAddModel.PortfolioId,
 
             };
-            var projectResult=  await _unitOfWork.projectRepository.AddAsync(result);
+            var projectResult=  await _unitOfWork.projectRepository.AddAsync(projectAddModelresult);
             if (projectResult.IsDone)
             {
                 imageID = await file.SaveImage(_env, "project", img, _unitOfWork);
-                if (imageID < 0)
+                if (imageID < 1)
                 {
                     return Json(new
                     {
@@ -157,7 +156,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ProjectImage image = new ProjectImage
                 {
                     ImageId = imageID,
-                    ProjectId = result.Id
+                    ProjectId = projectAddModelresult.Id
                 };
                 var imageResult= await _unitOfWork.projectImageRepository.AddAsync(image);
                 if (imageResult.IsDone)
@@ -173,10 +172,93 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Update(int id)
+        public  IActionResult Update(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            if (id<1)
+            {
+                ModelState.AddModelError("","id not exists");
+            }
+            
+           ViewBag.items= _unitOfWork.projectRepository.GetAll();
+            _unitOfWork.Dispose();
+           
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel,IFormFile file)
+        {
+            Image image=new Image();
+           
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+
+            }
+            if (projectUpdateViewModel==null)
+            {
+                ModelState.AddModelError("","data is null");
+            }
+            
+            var projectViewModelUpdate = new Project
+            {
+                Id= projectUpdateViewModel.Id,
+                NameAz=projectUpdateViewModel.NameAz,
+                NameRu=projectUpdateViewModel.NameRu,
+                NameEn=projectUpdateViewModel.NameEn,
+                ContentAz=projectUpdateViewModel.ContentAz,
+                ContentRu=projectUpdateViewModel.ContentRu,
+                ContentEn=projectUpdateViewModel.ContentEn,
+                PortfolioId=projectUpdateViewModel.PortfolioId
+            };
+            var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
+            if (!portfolioUpdateResult.IsDone)
+            {
+                ModelState.AddModelError("","update error");
+            }
+            if (file is null)
+            {
+                return Json(new
+                {
+
+                    message="file not is exists"
+                });
+            }
+            var imageResult=await  file.UpdateAsyc(_env,image, "project",_unitOfWork);
+            if (!imageResult)
+            {
+                ModelState.AddModelError("","image update error");
+            }
+            ProjectImage projectImage = new ProjectImage
+            {
+                ImageId=image.Id,
+                ProjectId=projectUpdateViewModel.Id
+            };
+            var projectImageUpdateResult=await   _unitOfWork.projectImageRepository.UpdateAsync(projectImage);
+            if (!projectImageUpdateResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "update is not valid");
+            }
+                _unitOfWork.Dispose();
+            return RedirectToAction("Index");
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
@@ -184,15 +266,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
          var projectImageResult = await  _unitOfWork.projectImageRepository.GetByIdAsync(id);
             if (projectImageResult==null)
             {
-
+                ModelState.AddModelError("", "id not exists");
             }
           var projectResult= await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
           var ImageResult  = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ImageId);
+
             if (ImageResult!=null&&projectImageResult!=null)
             {
             var projectUpdateResult=    _unitOfWork.projectRepository.Delete(projectResult);
             
-
+                _unitOfWork.Dispose();
+            }
+            else
+            {
+                ModelState.AddModelError("", "delete is error");
             }
             return View();
         }
