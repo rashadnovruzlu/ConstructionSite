@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Helpers.Constants;
+﻿using ConstructionSite.DTO.FrontViewModels.Blog;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Concreate;
@@ -38,10 +39,23 @@ namespace ConstructionSite.ViewComponents
                 ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.BadRequest));
             }
 
-            var newsImageResult= _unitOfWork.newsImageRepository.GetAll()
-                                                .Select(x=>new BlogViewModel)
+            var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
+                                                .Select(x => new BlogViewModel
+                                                {
+                                                    Id = x.Id,
+                                                    Tittle = x.News.FindTitle(_lang),
+                                                    Content = x.News.FindContent(_lang),
+                                                    NewsId = x.NewsId,
+                                                    Image = x.Image.Path,
+                                                    ImageId = x.ImageId
+                                                }).ToList()
+                                                    .FirstOrDefault();
+            if (newsImageResult == null)
+            {
+                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.DataNotExists));
+            }
 
-            return View();
+            return View(newsImageResult);
         }
     }
 }
