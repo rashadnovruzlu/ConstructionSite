@@ -161,17 +161,31 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("","this is empty");
             }
             var subServiceImageResult=await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
+            var subServiceimageResultUpdate=new SubServiceUpdateViewModel
+            {
+                Id=subServiceImageResult.Id,
+                NameAz=subServiceImageResult.SubService.NameAz,
+                NameRu=subServiceImageResult.SubService.NameRu,
+                NameEn=subServiceImageResult.SubService.NameEn,
+                ContentAz=subServiceImageResult.SubService.ContentAz,
+                ContentRu=subServiceImageResult.SubService.ContentRu,
+                ContentEn=subServiceImageResult.SubService.ContentEn,
+                ServiceId=subServiceImageResult.SubService.ServiceId,
+                imageId=subServiceImageResult.Image.Id,
+                ImagePath=subServiceImageResult.Image.Path
+            };
             if (subServiceImageResult==null)
             {
                 ModelState.AddModelError("", "this is empty");
             }
             
-            return View(subServiceImageResult);
+            return View(subServiceimageResultUpdate);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(string id)
         {
+            
             return View();
         }
     }

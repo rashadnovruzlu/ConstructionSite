@@ -17,5 +17,7 @@ namespace ConstructionSite.DTO.AdminViewModels.SubService
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
         public int ServiceId { get; set; }
+        public int imageId { get; set; }
+        public string ImagePath { get; set; }
     }
 }
