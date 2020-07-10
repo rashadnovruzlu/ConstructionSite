@@ -160,7 +160,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Update(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
                 ModelState.AddModelError("", "this data not exists");
             }
