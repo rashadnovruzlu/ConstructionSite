@@ -20,7 +20,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class SubServiceController : Controller
     {
-        private string                         _lang;
+        private string                        _lang;
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IWebHostEnvironment  _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -45,13 +45,24 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-           
-            var SubServiceImage= _unitOfWork.SubServiceImageRepository.GetAll();
-            if (SubServiceImage==null)
+
+            var SubServiceImage = _unitOfWork.SubServiceImageRepository.GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.SubService)
+                .Select(x=>new SubServiceViewModel
+                {
+                    ImagePath=x.Image.Path,
+                    Name=x.SubService.FindName(_lang),
+                    Content=x.SubService.FindContent(_lang)
+                })
+                .ToList();
+            if (SubServiceImage==null&& SubServiceImage.Count<1)
             {
+                _unitOfWork.Rollback();
                 ModelState.AddModelError("", "this is empty");
             }
-              
+           
+            _unitOfWork.Dispose();
             return View(SubServiceImage);
         }
         [HttpGet]
@@ -73,11 +84,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id=x.Id,
                     Name=x.FindName(_lang)
                 }).ToList();
-            if (result.Count>0)
+            if (result.Count<0)
             {
-                ViewBag.data=result;
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "this is empty");
+               
             }
-           
+            _unitOfWork.Dispose();
+            ViewBag.data = result;
             return View();
         }
 
@@ -121,12 +135,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 sub.SubServiceId = subService.Id;
             }
             var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(sub);
-            if (SubServiceImageResult.IsDone)
+            if (!SubServiceImageResult.IsDone)
             {
-                return RedirectToAction("Index");
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "added error");
             }
+            _unitOfWork.Dispose();
             ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
-            return View();
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> Update(int id)
@@ -150,7 +166,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "this is empty");
             }
             
-            return View();
+            return View(subServiceImageResult);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
