@@ -1,11 +1,9 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using ConstructionSite.DTO.AdminViewModels.Portfolio;
+﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.DTO.AdminViewModels.Project;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -110,7 +108,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ProjectAddModel project,IFormFile file)
+        public async Task<IActionResult> Add(ProjectAddModel projectAddModel, IFormFile file)
         {
             Image img = new Image();
             int imageID=0;
@@ -132,22 +130,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
            
-            var result = new Project
+            var projectAddModelresult = new Project
             {
-                NameAz = project.NameAz,
-                NameRu = project.NameRu,
-                NameEn = project.NameEn,
-                ContentAz = project.ContentAz,
-                ContentRu = project.ContentRu,
-                ContentEn = project.ContentEn,
-                PortfolioId = project.PortfolioId,
+                NameAz =     projectAddModel.NameAz,
+                NameRu =     projectAddModel.NameRu,
+                NameEn =     projectAddModel.NameEn,
+                ContentAz =  projectAddModel.ContentAz,
+                ContentRu =  projectAddModel.ContentRu,
+                ContentEn =  projectAddModel.ContentEn,
+                PortfolioId =projectAddModel.PortfolioId,
 
             };
-            var projectResult=  await _unitOfWork.projectRepository.AddAsync(result);
+            var projectResult=  await _unitOfWork.projectRepository.AddAsync(projectAddModelresult);
             if (projectResult.IsDone)
             {
                 imageID = await file.SaveImage(_env, "project", img, _unitOfWork);
-                if (imageID < 0)
+                if (imageID < 1)
                 {
                     return Json(new
                     {
@@ -157,7 +155,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ProjectImage image = new ProjectImage
                 {
                     ImageId = imageID,
-                    ProjectId = result.Id
+                    ProjectId = projectAddModelresult.Id
                 };
                 var imageResult= await _unitOfWork.projectImageRepository.AddAsync(image);
                 if (imageResult.IsDone)
@@ -175,8 +173,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
+          var projectImageUpdateResult=  _unitOfWork.projectImageRepository.GetById(id);
+            if (projectImageUpdateResult==null)
+            {
+                ModelState.AddModelError("", "projectImage some error");
+            }
+            _unitOfWork.Dispose();
+            return View(projectImageUpdateResult);
+        }
+        public IActionResult Update(ProjectUpdateViewModel projectUpdateViewModel)
+        {
+           
             return View();
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
