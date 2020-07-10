@@ -33,7 +33,7 @@ namespace ConstructionSite.ViewComponents
             {
                _httpContextAccessor.HttpContext.Response.StatusCode  = (int)HttpStatusCode.BadRequest;
 
-               ModelState.AddModelError("", "BadRequest");
+               ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.BadRequest));
             }
             //var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()
             //.Include(x => x.About)
