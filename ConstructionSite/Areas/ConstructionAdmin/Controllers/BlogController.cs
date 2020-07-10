@@ -73,8 +73,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(result);
         }
-
-
         #endregion
 
         #region Create
