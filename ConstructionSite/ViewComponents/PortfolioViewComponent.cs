@@ -21,19 +21,14 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-          
-                 ViewBag.por=  _unitOfWork.portfolioRepository.GetAll()
-                .Include(x=>x.Projects)
-                .Select(x=>new PortfolioViewModel
-                {
-                    Id=x.Id,
-                    Name=x.FindName(_lang),
-                   
-                    
-                }).ToList();
-          
-
-            return View();
+            ViewBag.por=  _unitOfWork.portfolioRepository.GetAll()
+                                        .Include(x=>x.Projects)
+                                            .Select(x=>new PortfolioViewModel
+                                            {
+                                                Id=x.Id,
+                                                Name=x.FindName(_lang),
+                                            }).ToList();
+                return View();
         }
     }
 }
