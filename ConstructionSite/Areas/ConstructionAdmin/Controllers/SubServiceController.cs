@@ -2,6 +2,7 @@
 using ConstructionSite.DTO.AdminViewModels.SubService;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class SubServiceController : Controller
     {
         private string                         _lang;
@@ -44,30 +45,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            var result=  _unitOfWork.SubServiceRepository.GetAll()
-                .Include(x=>x.Descriptions)
-                .Include(x=>x.SubServiceImages)
-                .Select(x=>new SubServiceViewModel
-                {
-                    Name=x.FindName(_lang),
-                    Content=x.FindContent(_lang),
-                    Descriptions=x.Descriptions.Select(y=>new DescriptionViewModel
-                    {
-                        Id=y.Id,
-                        Content=y.FindContent(_lang),
-                        Tittle=y.FindTitle(_lang)
-                    }).ToList()
-                })
-                .ToList();
-            if (result.Count<0)
+           
+            var SubServiceImage= _unitOfWork.SubServiceImageRepository.GetAll();
+            if (SubServiceImage==null)
             {
-                return Json(new
-                {
-                    message = "this is empty"
-                });
+                ModelState.AddModelError("", "this is empty");
             }
               
-            return View(result);
+            return View(SubServiceImage);
         }
         [HttpGet]
        
@@ -141,6 +126,36 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+            }
+            if (id<1)
+            {
+                ModelState.AddModelError("","this is empty");
+            }
+            var subServiceImageResult=await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
+            if (subServiceImageResult==null)
+            {
+                ModelState.AddModelError("", "this is empty");
+            }
+            
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(string id)
+        {
             return View();
         }
     }

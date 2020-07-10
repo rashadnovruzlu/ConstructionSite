@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Testimonial;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class TestimonialController : Controller
     {
 
