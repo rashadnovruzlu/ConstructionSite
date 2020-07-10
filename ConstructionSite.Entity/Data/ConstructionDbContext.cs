@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace ConstructionSite.Entity.Data
 {
@@ -33,7 +34,10 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<SubService> SubServices { get; set; }
         public virtual DbSet<SubServiceImage> SubServiceImages { get; set; }
         public virtual DbSet<Description> Descriptions { get; set; }
-
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun

@@ -11,10 +11,10 @@ namespace ConstructionSite.Entity.Models
 
         public virtual About About { get; set; }
        
-        public int AboutId { get; set; }
+        public virtual int AboutId { get; set; }
         
         public virtual Image Image { get; set; }
        
-        public int ImageId { get; set; }
+        public virtual int ImageId { get; set; }
     }
 }
