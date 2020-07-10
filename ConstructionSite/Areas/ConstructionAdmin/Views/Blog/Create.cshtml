@@ -1,4 +1,4 @@
-﻿
+﻿@model BlogAddViewModel
 @{
     ViewData["Title"] = "Add";
 }
@@ -13,7 +13,7 @@
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Create" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input type="text" name="TittleAz" placeholder="TittleAz" id="f-name" class="form-control">
+                            <input type="text" asp-for="TittleAz" id="f-name" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

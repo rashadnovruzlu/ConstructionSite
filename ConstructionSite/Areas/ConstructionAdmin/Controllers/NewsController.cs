@@ -54,7 +54,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id=x.Id,
                     Content=x.News.FindContent(_lang),
                     Title=x.News.FindTitle(_lang),
-                    path=x.Image.Path,
+                    Imagepath=x.Image.Path,
                     CreateDate=x.News.CreateDate
 
                 }).ToListAsync();

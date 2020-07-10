@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Blog;
+using ConstructionSite.DTO.AdminViewModels.News;
 using ConstructionSite.DTO.ModelsDTO;
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
@@ -53,22 +54,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            var result = _unitOfWork.newsImageRepository.GetAll()
+            var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
                                         .Include(x => x.Image)
-                                            .Select(x => new NewsDTO
+                                            .Select(x => new NewsViewModel
                                             {
                                                 Id = x.News.Id,
-                                                Tittle = x.News.FindTitle(_lang),
+                                                Title = x.News.FindTitle(_lang),
                                                 Content = x.News.FindContent(_lang),
-                                                Image = x.Image.Path,
+                                                Imagepath = x.Image.Path,
                                                 CreateDate = x.News.CreateDate
                                             }).ToList();
-            if (result.Count < 1 | result == null)
+            if (newsImageResult.Count < 1 | newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");
             }
-            return View(result);
+            return View(newsImageResult);
         }
 
 
@@ -90,75 +91,131 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(News news, IFormFile file)
+        public async Task<IActionResult> Create(NewsAddModel newsAddModel, IFormFile file)
         {
-            if (news == null)
-            {
-                return View();
-            }
-
-            int imageresultID = 0;
-            Image img = new Image();
-            NewsImage newsImg = new NewsImage();
-
+            Image image = new Image();
+            NewsImage newsImage = new NewsImage();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new
                 {
-                    message = "Bad Request"
+                    message = "BadRequest"
                 });
             }
-            var newsResult = await _unitOfWork.newsRepository.AddAsync(news);
-
-            if (newsResult.IsDone)
+            if (newsAddModel == null)
             {
-                if (file is null)
+                return Json(new
                 {
-                    Response.StatusCode = (int)HttpStatusCode.NotExtended;
-                    return Json(new
-                    {
-                        message = "File not found"
-                    });
-                }
-
-                imageresultID = await file.SaveImage(_env, "news", img, _unitOfWork);
-
-                if (imageresultID < 0)
-                {
-                    return Json(new
-                    {
-                        message = "File not save"
-                    });
-                }
-
-                newsImg.ImageId = imageresultID;
-                newsImg.NewsId = news.Id;
-
-                var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImg);
-
-                if (newsImageResult.IsDone)
-                {
-                    _unitOfWork.Dispose();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    file.Delete(_env, img, "news");
-
-                    _unitOfWork.Rollback();
-                    return Json(new
-                    {
-                        message = "NewsImage not save"
-                    });
-                }
+                    message = "this is emty"
+                });
             }
-            _unitOfWork.Dispose();
+            var newsAddModelResult = new News
+            {
+                Id = newsAddModel.Id,
+                TittleAz = newsAddModel.TittleAz,
+                TittleEn = newsAddModel.TittleEn,
+                TittleRu = newsAddModel.TittleRu,
+                ContentAz = newsAddModel.ContentAz,
+                ContentEn = newsAddModel.ContentEn,
+                ContentRu = newsAddModel.ContentRu,
+                CreateDate = newsAddModel.CreateDate
+            };
+            var addNewViewResult = await _unitOfWork.newsRepository.AddAsync(newsAddModelResult);
+            if (!addNewViewResult.IsDone)
+            {
+                _unitOfWork.Dispose();
+                ModelState.AddModelError("", "news add samo errors");
+            }
+            newsImage.NewsId = newsAddModelResult.Id;
+            var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
+            if (addImageViewResult == 0 | addImageViewResult < 0)
+            {
+                ModelState.AddModelError("", "Image add samo errors");
+            }
+            newsImage.ImageId = addImageViewResult;
+            var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImage);
+            if (!newsImageResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "new image added error");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(News news, IFormFile file)
+        //{
+        //    if (news == null)
+        //    {
+        //        return View();
+        //    }
+
+        //    int imageresultID = 0;
+        //    Image img = new Image();
+        //    NewsImage newsImg = new NewsImage();
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        //        return Json(new
+        //        {
+        //            message = "Bad Request"
+        //        });
+        //    }
+        //    var newsResult = await _unitOfWork.newsRepository.AddAsync(news);
+
+        //    if (newsResult.IsDone)
+        //    {
+        //        if (file is null)
+        //        {
+        //            Response.StatusCode = (int)HttpStatusCode.NotExtended;
+        //            return Json(new
+        //            {
+        //                message = "File not found"
+        //            });
+        //        }
+
+        //        imageresultID = await file.SaveImage(_env, "news", img, _unitOfWork);
+
+        //        if (imageresultID < 0)
+        //        {
+        //            return Json(new
+        //            {
+        //                message = "File not save"
+        //            });
+        //        }
+
+        //        newsImg.ImageId = imageresultID;
+        //        newsImg.NewsId = news.Id;
+
+        //        var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImg);
+
+        //        if (newsImageResult.IsDone)
+        //        {
+        //            _unitOfWork.Dispose();
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //            file.Delete(_env, img, "news");
+
+        //            _unitOfWork.Rollback();
+        //            return Json(new
+        //            {
+        //                message = "NewsImage not save"
+        //            });
+        //        }
+        //    }
+        //    _unitOfWork.Dispose();
+        //    return View();
+        //}
 
 
         #endregion
