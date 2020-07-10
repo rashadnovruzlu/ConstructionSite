@@ -16,10 +16,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class TestimonialController : Controller
     {
 
-        private string   _lang;
+        private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
 
         public TestimonialController(IUnitOfWork unitOfWork,
                                      IWebHostEnvironment env,
@@ -123,6 +123,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(CustomerFeedback customerFeedback)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
+            }
             if (customerFeedback==null)
             {
                 ModelState.AddModelError("", "this data is null or empity");
