@@ -41,6 +41,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _lang = _httpContextAccessor.getLang();
 
         }
+
+        #region Index
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -64,12 +67,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                                 Image = x.Image.Path,
                                                 CreateDate = x.News.CreateDate
                                             }).ToList();
-            if (result.Count < 1 | result==null)
+            if (result.Count < 1 | result == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");
             }
             return View(result);
         }
+
+
+        #endregion
+
+        #region Create
 
         [HttpGet]
         public IActionResult Create()
@@ -88,7 +96,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(News news , IFormFile file)
+        public async Task<IActionResult> Create(News news, IFormFile file)
         {
             if (news == null)
             {
@@ -155,6 +163,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
+
+        #endregion
+
+        #region Edit
+
         public IActionResult Edit(int id)
         {
             if (id < 0)
@@ -193,5 +206,73 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(BlogEditModel editModel, string id, IFormFile file)
+        {
+            if (editModel == null)
+            {
+                ModelState.AddModelError("", "This data is not exist");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message = "The models are not true"
+                });
+            }
+
+            News editingNews = new News
+            {
+                Id = editModel.Id,
+                TittleAz = editModel.TittleAz,
+                TittleEn = editModel.TittleEn,
+                TittleRu = editModel.TittleRu,
+                ContentAz = editModel.ContentAz,
+                ContentEn = editModel.ContentEn,
+                ContentRu = editModel.ContentRu,
+            };
+            var newsResult = await _unitOfWork.newsRepository
+                                                .UpdateAsync(editingNews);
+            if (!newsResult.IsDone)
+            {
+                ModelState.AddModelError("", "An error occurred while updating the news");
+            }
+            if (file is null)
+            {
+                return Json(new
+                {
+                    message = "No File"
+                });
+            }
+            Image image = _unitOfWork.imageRepository
+                                        .GetById(editModel.ImageId);
+            if (image == null)
+            {
+                return Json(new 
+                { 
+                    message = "No Image" 
+                });
+            }
+            file.UpdateAsyc(_env, image, "news", _unitOfWork);
+
+            var editingNewsImage = new NewsImage
+            {
+                Id = editModel.Id,
+                ImageId = editModel.ImageId,
+                NewsId = editingNews.Id
+            };
+            var newsImageResult = await _unitOfWork.newsImageRepository
+                                                    .UpdateAsync(editingNewsImage);
+            if (!newsImageResult.IsDone)
+            {
+                ModelState.AddModelError("", "The Image could not be edited");
+            }
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+        }
+
+        #endregion
     }
 }

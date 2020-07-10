@@ -222,7 +222,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
             if (!aboutResult.IsDone)
             {
-                
                 ModelState.AddModelError("", "this is about update error");
             }
             if (file is null)
