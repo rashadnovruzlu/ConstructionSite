@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels.Blog;
+﻿using ConstructionSite.DTO.AdminViewModels.Blog;
 using ConstructionSite.DTO.ModelsDTO;
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
@@ -15,7 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -146,7 +143,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 if (newsImageResult.IsDone)
                 {
                     _unitOfWork.Dispose();
-                    return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -199,12 +196,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                                 ImageId = y.Image.Id,
                                                 NewsId = y.NewsId
                                             }).FirstOrDefault(x => x.Id == id);
-            if (result != null)
+            
+            if (result==null)
             {
-                return View(result);
+                ModelState.AddModelError("","blog update same errors");
             }
-
-            return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+            return View(result);
+           // return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
         }
 
         [HttpPost]
@@ -255,8 +253,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "No Image" 
                 });
             }
-            var f = await file.UpdateAsyc(_env, image, "news", _unitOfWork);
-
+            var updateImageResult = await file.UpdateAsyc(_env, image, "news", _unitOfWork);
+            if (updateImageResult)
+            {
+                ModelState.AddModelError("","this image update error");
+            }
             var editingNewsImage = new NewsImage
             {
                 Id = editModel.Id,

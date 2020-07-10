@@ -28,6 +28,8 @@
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Content</th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Create Date</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Update</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Delete</th>
                         </tr>
                     </thead>
 
@@ -38,9 +40,9 @@
                             <tr class="odd">
                                 <td class=" ">@item.Tittle</td>
                                 <td class=" ">@item.Content</td>
-                                <td class=" ">@item.Image</td>
+                                <td class=" "><img src="@item.Image" alt="Alternate Text" /></td>
                                 <td class=" ">@item.CreateDate</td>
-                                <td class="btn btn-primary"><a class="edit" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Edit</a></td>
+                                <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Update</a></td>
                                 <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
                             </tr>
                         }

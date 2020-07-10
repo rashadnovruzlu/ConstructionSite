@@ -198,8 +198,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file is empty"
                 });
             }
-            file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
-
+            var imageUpdateResult= await   file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
+            if (!imageUpdateResult)
+            {
+                ModelState.AddModelError("","image update error");
+            }
            Service service=new Service
            {
                Id=model.id,

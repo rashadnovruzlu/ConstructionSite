@@ -1,9 +1,11 @@
-﻿using ConstructionSite.DTO.AdminViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ConstructionSite.Areas.ConstructionAdmin.TagHelpers
+namespace ConstructionSite.TagHelpers
 {
     [HtmlTargetElement("p")]
     public class ServiceTagHelpers:TagHelper
@@ -14,7 +16,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.TagHelpers
         {
             if (!string.IsNullOrEmpty(Text))
             {
-                if (Text.Length <160)
+                if (Text.Length < 160)
                 {
                     output.Content.SetHtmlContent(Text.ToString());
                 }

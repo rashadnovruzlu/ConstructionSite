@@ -20,23 +20,22 @@ namespace ConstructionSite.ViewComponents
             _httpContextAccessor=httpContextAccessor;
            _lang= _httpContextAccessor.getLang();
         }
-        //public IViewComponentResult Invoke()
-        //{
-        //  //var result=  _unitOfWork.ServiceRepository.GetAll()
-        //  //      .Include(x=>x.SubServices)
-        //  //      .Select(x=>new ServiceMenuViewModel
-        //  //      {
-        //  //          Id=x.Id,
-        //  //          Name=x.FindName(_lang),
-        //  //         SubServices=x.SubServices.Select(z=>new SingleSubServiceViewModel
-        //  //         {
-        //  //             id=x.Id,
-        //  //             Name=x.FindName(_lang)
-        //  //         })
-        //  //         .ToList()
-                    
-        //  //      }).ToList();
-        //    return View(result);
-        //}
+        public IViewComponentResult Invoke()
+        {
+            var result = _unitOfWork.ServiceRepository.GetAll()
+                  .Include(x => x.SubServices)
+                  .Select(x => new ServiceMenuViewModel
+                  {
+                     Id=x.Id,
+                     Name=x.FindName(_lang),
+                     SubServices=x.SubServices.Select(y=>new SingleSubServiceViewModel
+                     {
+                         id=y.Id,
+                         Name=y.FindName(_lang)
+                     }).ToList()
+
+                  }).ToList();
+            return View(result);
+        }
     }
 }
