@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConstructionSite.DTO.AdminViewModels.Contact
 {
-    class ContactAddViewModel
+    public class ContactAddViewModel
     {
     }
 }

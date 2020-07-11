@@ -59,15 +59,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
+        #region Create
 
+        [HttpGet]
         public IActionResult Create()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "Bad Request"
+                });
+            }
             return View();
         }
         public IActionResult Create(string n)
         {
             return View();
         }
+
+        #endregion
+
+
         public IActionResult Update()
         {
             return View();

@@ -84,7 +84,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 return Json(new
                 {
-                    message = "BadRequest"
+                    message = "Bad Request"
                 });
             }
             return View();
