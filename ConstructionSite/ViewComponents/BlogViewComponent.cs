@@ -1,28 +1,25 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Blog;
 using ConstructionSite.Helpers.Constants;
-using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
-using ConstructionSite.Repository.Concreate;
+using ConstructionSite.Localization;
+using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
     public class BlogViewComponent:ViewComponent
     {
         string _lang;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly ISharedLocalizationHandle _localizationHandle;
+        private readonly SharedLocalizationService _localizationHandle;
 
-        public BlogViewComponent(UnitOfWork unitOfWork,
+        public BlogViewComponent(IUnitOfWork unitOfWork,
                                  IHttpContextAccessor contextAccessor,
-                                 ISharedLocalizationHandle localizationHandle)
+                                 SharedLocalizationService localizationHandle)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
@@ -36,7 +33,7 @@ namespace ConstructionSite.ViewComponents
             {
                 _contextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.BadRequest));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
@@ -49,10 +46,10 @@ namespace ConstructionSite.ViewComponents
                                                     Image = x.Image.Path,
                                                     ImageId = x.ImageId
                                                 }).ToList()
-                                                    .FirstOrDefault();
+                                                    ;
             if (newsImageResult == null)
             {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.DataNotExists));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
             return View(newsImageResult);

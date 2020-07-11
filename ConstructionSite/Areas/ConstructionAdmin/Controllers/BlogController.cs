@@ -2,12 +2,14 @@
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -16,7 +18,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class BlogController : Controller
     {
         private string _lang;
@@ -118,7 +120,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ContentAz = newsAddModel.ContentAz,
                 ContentEn = newsAddModel.ContentEn,
                 ContentRu = newsAddModel.ContentRu,
-                CreateDate = newsAddModel.CreateDate
+                CreateDate = DateTime.Now
             };
             var addNewViewResult = await _unitOfWork.newsRepository.AddAsync(newsAddModelResult);
             if (!addNewViewResult.IsDone)

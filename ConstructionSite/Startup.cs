@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ConstructionSite.Extensions.Seed;
 using Newtonsoft.Json;
+using ConstructionSite.Helpers.Interfaces;
+using ConstructionSite.Localization;
 
 namespace ConstructionSite
 {
@@ -25,7 +27,7 @@ namespace ConstructionSite
         {
             
             services.AddMvc();
-          
+           services.AddLocalizationInjection();
            
             services.IdentityLoad(Configuration);
             services.Configure<IISServerOptions>(options =>
