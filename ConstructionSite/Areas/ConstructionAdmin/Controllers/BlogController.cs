@@ -343,7 +343,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var newsImageResult = await _unitOfWork.newsImageRepository
                                                     .GetByIdAsync(id);
-            if (newsImageResult is null)
+            if (newsImageResult == null)
             {
                 return Json(new
                 {
@@ -352,7 +352,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
-            if (newsResult is null)
+            if (newsResult== null)
             {
                 return Json(new
                 {

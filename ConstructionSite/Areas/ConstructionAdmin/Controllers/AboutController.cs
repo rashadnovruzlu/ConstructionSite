@@ -239,7 +239,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                    new {message="this is empty"}
                          );
             }
-            file.UpdateAsyc(_env, image, "about", _unitOfWork);
+          var imageResult=await  file.UpdateAsyc(_env, image, "about", _unitOfWork);
+            if (!imageResult)
+            {
+
+            }
             var Updateaboutimage = new AboutImage
             {
                 Id = about.Id,
