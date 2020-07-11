@@ -367,7 +367,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var image = await _unitOfWork.imageRepository
                                             .GetByIdAsync(newsImageResult.ImageId);
-            if (image is null)
+            if (image == null)
             {
                 return Json(new
                 {
