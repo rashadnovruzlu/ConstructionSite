@@ -1,10 +1,13 @@
-﻿using ConstructionSite.Helpers.Constants;
+﻿using ConstructionSite.DTO.AdminViewModels.Contact;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Net;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -26,11 +29,29 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _contextAccessor = contextAccessor;
             _lang = _contextAccessor.getLang();
         }
-
+        #region Index
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return Json(new
+                {
+                    message = "Bad Request"
+                });
+            }
+            var contactResult=_unitOfWork.ContactRepository.GetAll()
+                                            .Select(y=>new ContactViewModel
+                                            {
+                                            })
+
             return View();
         }
+
+        #endregion
+
+
         public IActionResult Add()
         {
             return View();
