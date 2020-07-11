@@ -86,7 +86,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "this data is not add");
             }
             _unitOfWork.Dispose();
-            return View();
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

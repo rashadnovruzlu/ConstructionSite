@@ -236,6 +236,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     new { message = "this is empty" }
                           );
             }
+             file.Delete(_env,image, "about");
             var imageResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
             if (!imageResult)
             {
@@ -295,6 +296,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
             if (aboutDeleteResult.IsDone)
             {
+                
                 ModelState.AddModelError("", "delete error");
             }
             var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
