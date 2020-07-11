@@ -1,14 +1,15 @@
-﻿using AspNetCore;
-using ConstructionSite.DTO.AdminViewModels.Blog;
+﻿using ConstructionSite.DTO.AdminViewModels.Blog;
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -17,26 +18,25 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class BlogController : Controller
     {
-        private string                        _lang;
+        private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork          _unitOfWork;
-        private readonly IWebHostEnvironment  _env;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
+
         public BlogController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
-                                 IHttpContextAccessor httpContextAccessor, 
+                                 IHttpContextAccessor httpContextAccessor,
                                  ConstructionDbContext dbContext)
         {
-
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
             _lang = _httpContextAccessor.getLang();
-
         }
 
         #region Index
@@ -70,7 +70,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(newsImageResult);
         }
-        #endregion
+
+        #endregion Index
 
         #region Create
 
@@ -88,6 +89,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogAddViewModel newsAddModel, IFormFile file)
@@ -118,7 +120,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ContentAz = newsAddModel.ContentAz,
                 ContentEn = newsAddModel.ContentEn,
                 ContentRu = newsAddModel.ContentRu,
-                CreateDate = newsAddModel.CreateDate
+                CreateDate = DateTime.Now
             };
             var addNewViewResult = await _unitOfWork.newsRepository.AddAsync(newsAddModelResult);
             if (!addNewViewResult.IsDone)
@@ -126,9 +128,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 _unitOfWork.Dispose();
                 ModelState.AddModelError("", "news add samo errors");
             }
-            
+
             var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
-            if (addImageViewResult == 0 )
+            if (addImageViewResult == 0)
             {
                 ModelState.AddModelError("", "Image add samo errors");
             }
@@ -140,10 +142,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "new image added error");
             }
-           _unitOfWork.Dispose();
-                return RedirectToAction("Index");
-           
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index");
         }
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create(News news, IFormFile file)
@@ -213,8 +215,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         //    return View();
         //}
 
-
-        #endregion
+        #endregion Create
 
         #region Edit
 
@@ -249,20 +250,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                                 ImageId = y.Image.Id,
                                                 NewsId = y.NewsId
                                             }).FirstOrDefault(x => x.Id == id);
-            
-            if (result==null)
+
+            if (result == null)
             {
-                ModelState.AddModelError("","blog update same errors");
+                ModelState.AddModelError("", "blog update same errors");
             }
             return View(result);
-          
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BlogEditModel blogEditModel, IFormFile file)
         {
-            
             if (!ModelState.IsValid)
             {
                 return Json(new
@@ -274,50 +273,47 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
-            var resultViewModel=new News
+            var resultViewModel = new News
             {
-                Id=blogEditModel.NewsId,
-                ContentAz=blogEditModel.ContentAz,
-                ContentEn=blogEditModel.ContentEn,
-                ContentRu=blogEditModel.ContentRu,
-                TittleAz=blogEditModel.TittleAz,
-                TittleEn=blogEditModel.TittleEn,
-                TittleRu=blogEditModel.TittleRu,
-                CreateDate=blogEditModel.DateTime
-
+                Id = blogEditModel.NewsId,
+                ContentAz = blogEditModel.ContentAz,
+                ContentEn = blogEditModel.ContentEn,
+                ContentRu = blogEditModel.ContentRu,
+                TittleAz = blogEditModel.TittleAz,
+                TittleEn = blogEditModel.TittleEn,
+                TittleRu = blogEditModel.TittleRu,
+                CreateDate = blogEditModel.DateTime
             };
-      var newsResult=  await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
-            if (newsResult==null)
+            var newsResult = await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
+            if (newsResult == null)
             {
-
             }
-            var imageResult=await  _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
-            if (imageResult==null)
+            var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
+            if (imageResult == null)
             {
                 if (file != null)
                 {
-                   var resultUpdateAsyc = await file.UpdateAsyc(_env,imageResult, "News",_unitOfWork);
+                    var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
                     if (resultUpdateAsyc)
                     {
-
                     }
                 }
             }
-            NewsImage newsImage=new NewsImage
+            NewsImage newsImage = new NewsImage
             {
-                NewsId=blogEditModel.NewsId,
-                ImageId=blogEditModel.ImageId
+                NewsId = blogEditModel.NewsId,
+                ImageId = blogEditModel.ImageId
             };
-         var result=  await _unitOfWork.newsImageRepository.UpdateAsync(newsImage);
+            var result = await _unitOfWork.newsImageRepository.UpdateAsync(newsImage);
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
             }
-           _unitOfWork.Dispose();
-           return RedirectToAction("Index");
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion Edit
 
         #region Delete
 
@@ -343,7 +339,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var newsImageResult = await _unitOfWork.newsImageRepository
                                                     .GetByIdAsync(id);
-            if (newsImageResult is null)
+            if (newsImageResult == null)
             {
                 return Json(new
                 {
@@ -352,7 +348,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
-            if (newsResult is null)
+            if (newsResult == null)
             {
                 return Json(new
                 {
@@ -379,13 +375,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!imageResult.IsDone)
             {
                 _unitOfWork.Rollback();
-              
             }
-            
+
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion Delete
     }
 }

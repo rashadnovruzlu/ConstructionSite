@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Localization;
 
 namespace ConstructionSite.Controllers
 {
     public class AboutController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ISharedLocalizationHandle _localizationHandle;
+        private readonly SharedLocalizationService _localizationHandle;
 
-        public AboutController(IUnitOfWork unitOfWork, ISharedLocalizationHandle localizationHandle)
+        public AboutController(IUnitOfWork unitOfWork, SharedLocalizationService localizationHandle)
         {
             _unitOfWork = unitOfWork;
             _localizationHandle = localizationHandle;

@@ -44,12 +44,12 @@
 </section>
 
 @section scripts{
-   
+
     <script>
 
         $(".delete-about").click(function () {
             var id = $(this).data("id");
-           
+
         $.ajax({
             type: 'GET',
             url: '/ConstructionAdmin/Description/Delete/' + id

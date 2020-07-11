@@ -16,6 +16,6 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
 		public string ContentAz { get; set; }
 		public string ContentEn { get; set; }
 		public string ContentRu { get; set; }
-		public DateTime CreateDate { get; set; }
+		
 	}
 }

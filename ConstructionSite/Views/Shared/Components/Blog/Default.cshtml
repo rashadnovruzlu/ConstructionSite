@@ -16,22 +16,24 @@
             <div class="col-md-12">
                 <div class="wprt-service arrow-style-2 has-arrows arrow60 arrow-light" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
                     <div id="service-wrap" class="cbp">
-                        <div class="cbp-item">
-                            <div class="service-item clearfix">
-                                @foreach (BlogViewModel item in Model)
-                                {
-                                    <div class="thumb"><img src="@item.Image" alt="image" /></div>
+                        @foreach (BlogViewModel item in Model)
+                        {
+                            <div class="cbp-item">
+                                <div class="service-item clearfix">
+
+                                    <div class="thumb"><img width="300" height="370" src="@item.Image" alt="image" /></div>
                                     <div class="service-item-wrap">
                                         <h3 class="title font-size-18"><a href="#">@item.Tittle</a></h3>
-                                        <p text="@item.Content"></p>
+                                        <p blogtext="@item.Content"></p>
                                         <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
                                     </div>
-                                }
 
+
+                                </div>
                             </div>
-                        </div>
-                        <!-- /.cbp-item -->
+                            <!-- /.cbp-item -->
 
+                        }
                     </div>
                     <!-- /.wprt-service -->
 

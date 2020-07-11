@@ -16,11 +16,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class TestimonialController : Controller
     {
-
-        private string                        _lang;
+        private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork          _unitOfWork;
-        private readonly IWebHostEnvironment  _env;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
 
         public TestimonialController(IUnitOfWork unitOfWork,
                                      IWebHostEnvironment env,
@@ -31,6 +30,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -45,6 +45,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public IActionResult add()
         {
@@ -59,6 +60,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(CustomerFeedback customerFeedback)
@@ -72,11 +74,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            if (customerFeedback==null)
+            if (customerFeedback == null)
             {
-              ModelState.AddModelError("","this data is null or emoty");
+                ModelState.AddModelError("", "this data is null or emoty");
             }
-           var customerFeedbackResult=await  _unitOfWork.customerFeedbackRepository.AddAsync(customerFeedback);
+            var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerFeedback);
 
             if (!customerFeedbackResult.IsDone)
             {
@@ -86,6 +88,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -98,21 +101,21 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            var customerFeedbackUpdateResult=await  _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
-            if (customerFeedbackUpdateResult==null)
+            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
+            if (customerFeedbackUpdateResult == null)
             {
                 ModelState.AddModelError("", "this data is null or emoty");
             }
-           var customerFeedbackUpdate=new CustomerUpdateModel
-           {
-               Id=customerFeedbackUpdateResult.Id,
-               ContentAz=customerFeedbackUpdateResult.ContentAz,
-               ContentRu=customerFeedbackUpdateResult.ContentRu,
-               ContentEn=customerFeedbackUpdateResult.ContentEn,
-               FullName=customerFeedbackUpdateResult.FullName,
-               Position=customerFeedbackUpdateResult.Position
-           };
-            if (customerFeedbackUpdate==null)
+            var customerFeedbackUpdate = new CustomerUpdateModel
+            {
+                Id = customerFeedbackUpdateResult.Id,
+                ContentAz = customerFeedbackUpdateResult.ContentAz,
+                ContentRu = customerFeedbackUpdateResult.ContentRu,
+                ContentEn = customerFeedbackUpdateResult.ContentEn,
+                FullName = customerFeedbackUpdateResult.FullName,
+                Position = customerFeedbackUpdateResult.Position
+            };
+            if (customerFeedbackUpdate == null)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "this data is null or empity");
@@ -120,6 +123,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View(customerFeedbackUpdate);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(CustomerFeedback customerFeedback)
@@ -133,17 +137,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            if (customerFeedback==null)
+            if (customerFeedback == null)
             {
                 ModelState.AddModelError("", "this data is null or empity");
             }
-            var customerFeedbackUpdateResult=await  _unitOfWork.customerFeedbackRepository.UpdateAsync(customerFeedback);
+            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerFeedback);
             if (!customerFeedbackUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "this data is null or empity");
             }
             return RedirectToAction("Index");
         }
+
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -155,17 +160,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            if (id<1)
+            if (id < 1)
             {
                 ModelState.AddModelError("", "id is null");
-
             }
-            var customerFeedbackResult= await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
-            if (customerFeedbackResult!=null)
+            var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
+            if (customerFeedbackResult != null)
             {
                 ModelState.AddModelError("", "this data is null or empity");
             }
-            var customerFeedbackDeleteResult=await  _unitOfWork.customerFeedbackRepository.DeleteAsync(customerFeedbackResult);
+            var customerFeedbackDeleteResult = await _unitOfWork.customerFeedbackRepository.DeleteAsync(customerFeedbackResult);
             if (!customerFeedbackDeleteResult.IsDone)
             {
                 _unitOfWork.Rollback();

@@ -15,28 +15,25 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
     [Area(nameof(ConstructionAdmin))]
     [Authorize(Roles = ROLESNAME.Admin)]
     public class ServiceController : Controller
     {
-
-
-
-        private string                        _lang;
-        private readonly IUnitOfWork          _unitOfWork;
+        private string _lang;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IWebHostEnvironment  _env;
+        private readonly IWebHostEnvironment _env;
+
         public ServiceController(IUnitOfWork unitOfWork,
-                                 IWebHostEnvironment env, 
+                                 IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _env = env;
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.getLang();
-
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -48,7 +45,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
             }
             var result = _unitOfWork.ServiceRepository.GetAll()
                 .Include(x => x.Image)
@@ -63,6 +59,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .ToList();
             return View(result);
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -74,19 +71,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Service service, IFormFile FileData)
         {
-            if (service==null)
+            if (service == null)
             {
                 return RedirectToAction("Index");
             }
-            int imageresultID=0;
+            int imageresultID = 0;
             Image image = new Image();
             if (!ModelState.IsValid)
             {
@@ -96,7 +93,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
             }
             if (FileData is null)
             {
@@ -116,7 +112,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not save"
                 });
             }
-            service.ImageId=imageresultID;
+            service.ImageId = imageresultID;
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
             if (serviceResult.IsDone)
             {
@@ -125,13 +121,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else
             {
-                FileData.Delete(_env,image,"service");
+                FileData.Delete(_env, image, "service");
                 _unitOfWork.Rollback();
-
             }
             _unitOfWork.Dispose();
             return View();
         }
+
         public IActionResult Update(int id)
         {
             if (!ModelState.IsValid)
@@ -142,54 +138,53 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
             }
-            if (id<0)
+            if (id < 0)
             {
                 return Json(new
                 {
                     message = "content is empty"
                 });
             }
-            Service result= _unitOfWork.ServiceRepository.GetById(id);
-            if (result==null)
+            Service result = _unitOfWork.ServiceRepository.GetById(id);
+            if (result == null)
             {
-                return Json(new {
-                    message="this is empty"
+                return Json(new
+                {
+                    message = "this is empty"
                 });
-
             }
-          var data=new ServiceUpdateViewModel
-          {
-              id=result.Id,
-              TittleAz=result.TittleAz,
-              TittleEn=result.TittleEn,
-              TittleRu=result.TittleRu,
-              NameAz=result.NameAz,
-              NameEn=result.NameEn,
-              NameRu=result.NameRu,
-              path=result.Image.Path,
-              ImageId=result.ImageId
-          };
-            
+            var data = new ServiceUpdateViewModel
+            {
+                id = result.Id,
+                TittleAz = result.TittleAz,
+                TittleEn = result.TittleEn,
+                TittleRu = result.TittleRu,
+                NameAz = result.NameAz,
+                NameEn = result.NameEn,
+                NameRu = result.NameRu,
+                path = result.Image.Path,
+                ImageId = result.ImageId
+            };
+
             return View(data);
         }
+
         [HttpGet]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ServiceUpdateViewModel model,IFormFile file)
+        public async Task<IActionResult> Update(ServiceUpdateViewModel model, IFormFile file)
         {
-            if (model==null)
+            if (model == null)
             {
                 return RedirectToAction("Index");
             }
             var imageResult = _unitOfWork.imageRepository.GetById(model.ImageId);
-            if (imageResult==null)
+            if (imageResult == null)
             {
                 return Json(new
                 {
                     message = "imageResult is empty"
                 });
-
             }
             if (file is null)
             {
@@ -198,57 +193,54 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file is empty"
                 });
             }
-            var imageUpdateResult= await   file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
+            var imageUpdateResult = await file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
             if (!imageUpdateResult)
             {
-                ModelState.AddModelError("","image update error");
+                ModelState.AddModelError("", "image update error");
             }
-           Service service=new Service
-           {
-               Id=model.id,
-               NameAz=model.NameAz,
-               NameEn=model.NameEn,
-               NameRu=model.NameRu,
-               TittleAz=model.TittleAz,
-               TittleEn=model.TittleEn,
-               TittleRu=model.TittleRu,
-               ImageId=model.ImageId,
-               
-               
-           };
-           var result=  await  _unitOfWork.ServiceRepository.UpdateAsync(service);
-           if (result.IsDone)
+            Service service = new Service
+            {
+                Id = model.id,
+                NameAz = model.NameAz,
+                NameEn = model.NameEn,
+                NameRu = model.NameRu,
+                TittleAz = model.TittleAz,
+                TittleEn = model.TittleEn,
+                TittleRu = model.TittleRu,
+                ImageId = model.ImageId,
+            };
+            var result = await _unitOfWork.ServiceRepository.UpdateAsync(service);
+            if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-              ModelState.AddModelError("","this is error");
+                ModelState.AddModelError("", "this is error");
             }
 
             return View();
         }
+
         [HttpGet]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-          var service=await  _unitOfWork.ServiceRepository.GetByIdAsync(id);
-            if (service==null)
+            var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            if (service == null)
             {
                 return Json(new
                 {
-                    message="this is empty"
+                    message = "this is empty"
                 });
             }
-          var result=  await _unitOfWork.ServiceRepository.DeleteAsync(service);
+            var result = await _unitOfWork.ServiceRepository.DeleteAsync(service);
             if (result.IsDone)
             {
                 _unitOfWork.Dispose();
                 return RedirectToAction("Index");
-
             }
             return View();
         }
     }
 }
-
