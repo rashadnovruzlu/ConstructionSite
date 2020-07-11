@@ -9,7 +9,7 @@ namespace ConstructionSite.ViewComponents
     [ViewComponent(Name="AdminEdit")]
     public class AdminEditViewComponents : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
             return View(new UserDTO
             {

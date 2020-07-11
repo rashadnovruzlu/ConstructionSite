@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    [ViewComponent(Name ="AdminComponents")]
+    //[ViewComponent(Name ="AdminComponents")]
     public class AdminComponentsViewComponent : ViewComponent
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -15,7 +15,7 @@ namespace ConstructionSite.ViewComponents
         {
             _userManager = userManager;
         }
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
             var result = _userManager.Users.Select(m => new UserDTO
             {

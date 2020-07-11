@@ -35,7 +35,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this.userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
-            // this._identityDb = identityDb;
+            this._identityDb = identityDb;
         }
 
         [HttpGet]
