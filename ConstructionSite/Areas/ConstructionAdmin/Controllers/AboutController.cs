@@ -214,9 +214,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 }
                 var imageUpdateAfterResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
-                if (imageUpdateAfterResult)
+                if (!imageUpdateAfterResult)
                 {
-                    ModelState.AddModelError("", "");
+                    ModelState.AddModelError("", "data is null");
                 }
             }
             
@@ -275,7 +275,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
             var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
-            if (aboutDeleteResult.IsDone)
+            if (!aboutDeleteResult.IsDone)
             {
                 
                 ModelState.AddModelError("", "delete error");
@@ -291,7 +291,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
            var imageResult= ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
            
-            if (imageResult)
+            if (!imageResult)
             {
                 ModelState.AddModelError("", "an error whene delete data");
             }
