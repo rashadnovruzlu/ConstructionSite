@@ -51,8 +51,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                                 PhoneNumber = y.PhoneNumber,
                                                 Email = y.Email
                                             }).ToList();
+            if (contactResult.Count < 1)
+            {
+                return Json(new
+                {
+                    message = "Data is Null"
+                });
+            }
 
-            return View();
+            return View(contactResult);
         }
 
         #endregion
