@@ -8,7 +8,7 @@
             <aside class="profile-nav col-lg-3">
                 <section class="panel">
 
-                    <vc:user-profile-name></vc:user-profile-name>
+                    @await Component.InvokeAsync("UserProfile")
                 </section>
             </aside>
             <aside class="profile-info col-lg-9">
@@ -16,8 +16,9 @@
                     <div class="bio-graph-heading">
                         <h1>Bio Graph</h1>
                     </div>
+                    
+                    @await Component.InvokeAsync("AdminComponents") 
 
-                    <vc:admin-components></vc:admin-components>
                 </section>
             </aside>
         </div>
