@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-       private readonly ApplicationIdentityDbContext _identityDb;
+        private readonly ApplicationIdentityDbContext _identityDb;
 
         private void AddErrors(IdentityResult result)
         {
@@ -33,11 +32,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-
             this.userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
-           // this._identityDb = identityDb;
+            // this._identityDb = identityDb;
         }
 
         [HttpGet]
@@ -48,7 +46,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 Id = m.Id,
                 Name = m.Name,
                 Email = m.Email,
-                UserName=m.UserName
+                UserName = m.UserName
             });
             return View(users);
         }
@@ -73,7 +71,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     {
                         UserName = viewModel.Username,
                         Email = viewModel.Email,
-                        Name=viewModel.Name
+                        Name = viewModel.Name
                     };
 
                     IdentityResult result = await userManager.CreateAsync(user, viewModel.Password);
@@ -122,20 +120,18 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 {
                     message = "BadRequest"
                 });
-
             }
             if (ModelState.IsValid)
             {
                 try
                 {
-                  
                     ApplicationUser appUser = await userManager.FindByEmailAsync(loginModel.Email);
-                   
+
                     if (appUser != null)
                     {
                         //bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
-                         await _signInManager.SignOutAsync();
-                         var result=  await _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
+                        await _signInManager.SignOutAsync();
+                        var result = await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, true, true);
                         if (result.Succeeded)
                         {
                             //return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
@@ -168,7 +164,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
-
             ApplicationUser appUser = await userManager.GetUserAsync(User);
 
             if (appUser == null)

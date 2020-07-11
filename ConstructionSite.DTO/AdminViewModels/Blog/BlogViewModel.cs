@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ConstructionSite.Entity.Models;
 
-namespace ConstructionSite.DTO.ModelsDTO
+namespace ConstructionSite.DTO.AdminViewModels.Blog
 {
-    public class NewsDTO
+   public class BlogViewModel
     {
         public int Id { get; set; }
-        public string Tittle { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
-        public string Image { get; set; }
+        public string Imagepath { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

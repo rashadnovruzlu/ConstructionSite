@@ -11,20 +11,24 @@ namespace ConstructionSite.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private UserManager<ApplicationUser> _UserManager;
+
         public AdminController(UserManager<ApplicationUser> UserManager)
         {
-            _UserManager=UserManager;
+            _UserManager = UserManager;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
             return View(_UserManager.Users);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         //public async Task<IActionResult> Create(RegisterModel model)
         //{
@@ -51,16 +55,15 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-        var user=  await  _UserManager.FindByIdAsync(id);
-            if (user==null)
+            var user = await _UserManager.FindByIdAsync(id);
+            if (user == null)
             {
                 ModelState.AddModelError("", "User Not Exists");
                 throw new UserNotExistsException("User Not Exists");
-
             }
-            if (user!=null)
+            if (user != null)
             {
-              var result=await  _UserManager.DeleteAsync(user);
+                var result = await _UserManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -69,30 +72,29 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 {
                     foreach (var item in result.Errors)
                     {
-                        ModelState.AddModelError("",item.Description);
+                        ModelState.AddModelError("", item.Description);
                     }
                 }
             }
-            return View("Index",_UserManager.Users);
+            return View("Index", _UserManager.Users);
         }
+
         public async Task<IActionResult> Update(string id)
         {
-            var user=await _UserManager.FindByIdAsync(id);
-            if (user==null)
+            var user = await _UserManager.FindByIdAsync(id);
+            if (user == null)
             {
                 ModelState.AddModelError("", "User Not Exists");
                 throw new UserNotExistsException("User Not Exists");
             }
-            if (user!=null)
+            if (user != null)
             {
                 return View(user);
             }
             else
             {
-
                 return RedirectToAction("Index");
             }
-           
         }
     }
 }

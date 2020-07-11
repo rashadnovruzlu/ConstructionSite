@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels.Description;
+﻿using ConstructionSite.DTO.AdminViewModels.Description;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
@@ -11,6 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -32,6 +30,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -43,17 +42,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
-
             }
-            var result=_unitOfWork.descriptionRepstory.GetAll()
-                .Select(x=>new DescriptionViewModel
+            var result = _unitOfWork.descriptionRepstory.GetAll()
+                .Select(x => new DescriptionViewModel
                 {
-                    Id=x.Id,
-                    Tittle=x.FindTitle(_lang),
-                    Content=x.FindContent(_lang)
+                    Id = x.Id,
+                    Tittle = x.FindTitle(_lang),
+                    Content = x.FindContent(_lang)
                 }).ToList();
-            if (result==null|result.Count==0)
+            if (result == null | result.Count == 0)
             {
                 return Json(new
                 {
@@ -62,6 +59,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(result);
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -73,8 +71,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
-
             }
             var result = _unitOfWork.SubServiceRepository.GetAll()
                  .Select(x => new DescriptionSubServer
@@ -82,7 +78,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                      Id = x.Id,
                      Name = x.FindName(_lang)
                  }).ToList();
-            if (result == null| result.Count<0)
+            if (result == null | result.Count < 0)
             {
                 return Json(new
                 {
@@ -93,6 +89,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(DescriptionAddViewModel model)
@@ -105,10 +102,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
-
             }
-            if (model==null)
+            if (model == null)
             {
                 return Json(new
                 {
@@ -117,16 +112,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             Description Descriptionresult = new Description
             {
-                Id=model.Id,
-                TittleAz=model.TittleAz,
-                TittleRu=model.TittleRu,
-                TittleEn=model.TittleEn,
-                ContentAz=model.ContentAz,
-                ContentRu=model.ContentRu,
-                ContentEn=model.ContentEn,
-                SubServiceId=model.SubServiceID
+                Id = model.Id,
+                TittleAz = model.TittleAz,
+                TittleRu = model.TittleRu,
+                TittleEn = model.TittleEn,
+                ContentAz = model.ContentAz,
+                ContentRu = model.ContentRu,
+                ContentEn = model.ContentEn,
+                SubServiceId = model.SubServiceID
             };
-          var isResult=await _unitOfWork.descriptionRepstory.AddAsync(Descriptionresult);
+            var isResult = await _unitOfWork.descriptionRepstory.AddAsync(Descriptionresult);
             if (isResult.IsDone)
             {
                 _unitOfWork.Dispose();
@@ -140,15 +135,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }).ToList();
             if (result == null | result.Count < 0)
             {
+                _unitOfWork.Rollback();
                 return Json(new
                 {
                     message = "SubService is empty"
                 });
             }
             ViewBag.items = result;
-            _unitOfWork.Rollback();
+            _unitOfWork.Dispose();
             return View();
         }
+
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -160,8 +157,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
-
             }
             if (id == 0)
             {
@@ -170,28 +165,29 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "id is null"
                 });
             }
-            var descriptionUpdateViewModel=  _unitOfWork.descriptionRepstory.GetById(id);
-            if (descriptionUpdateViewModel==null)
+            var descriptionUpdateViewModel = _unitOfWork.descriptionRepstory.GetById(id);
+            if (descriptionUpdateViewModel == null)
             {
                 return Json(new
                 {
-                    message= "DescriptionUpdateViewModel is empty"
+                    message = "DescriptionUpdateViewModel is empty"
                 });
             }
-            var result=new DescriptionAddViewModel
-           {
-               Id      =descriptionUpdateViewModel.Id,
-               TittleAz=descriptionUpdateViewModel.TittleAz,
-               TittleRu=descriptionUpdateViewModel.TittleRu,
-               TittleEn=descriptionUpdateViewModel.TittleEn,
-               ContentAz=descriptionUpdateViewModel.ContentAz,
-               ContentRu=descriptionUpdateViewModel.ContentRu,
-               ContentEn=descriptionUpdateViewModel.ContentEn,
-               SubServiceID=descriptionUpdateViewModel.SubServiceId
-           };
+            var result = new DescriptionAddViewModel
+            {
+                Id = descriptionUpdateViewModel.Id,
+                TittleAz = descriptionUpdateViewModel.TittleAz,
+                TittleRu = descriptionUpdateViewModel.TittleRu,
+                TittleEn = descriptionUpdateViewModel.TittleEn,
+                ContentAz = descriptionUpdateViewModel.ContentAz,
+                ContentRu = descriptionUpdateViewModel.ContentRu,
+                ContentEn = descriptionUpdateViewModel.ContentEn,
+                SubServiceID = descriptionUpdateViewModel.SubServiceId
+            };
             _unitOfWork.Dispose();
             return View(result);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(DescriptionUpdateViewModel model)
@@ -204,17 +200,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
-
             }
-            if (model==null)
+            if (model == null)
             {
                 return Json(new
                 {
                     message = "DescriptionUpdateViewMode is null"
                 });
             }
-            var DescriptionUpdateViewModel=new Description
+            var DescriptionUpdateViewModel = new Description
             {
                 Id = model.Id,
                 TittleAz = model.TittleAz,
@@ -224,18 +218,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ContentRu = model.ContentRu,
                 ContentEn = model.ContentEn,
                 SubServiceId = model.SubServiceID
-
             };
-            var result=  _unitOfWork.descriptionRepstory.Update(DescriptionUpdateViewModel);
+            var result = _unitOfWork.descriptionRepstory.Update(DescriptionUpdateViewModel);
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("","Description update not successfull");
+                ModelState.AddModelError("", "Description update not successfull");
                 return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
             return View(model.Id);
         }
+
         [HttpGet]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -248,35 +242,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     message = "BadRequest"
                 });
-
-
             }
-            if (id==0)
+            if (id == 0)
             {
                 return Json(new
                 {
                     message = "id is null"
                 });
             }
-             var resultbyId= _unitOfWork.descriptionRepstory.GetById(id);
-            if (resultbyId==null)
+            var resultbyId = _unitOfWork.descriptionRepstory.GetById(id);
+            if (resultbyId == null)
             {
                 return Json(new
                 {
                     message = "id is null"
                 });
-
             }
-           var result= _unitOfWork.descriptionRepstory.Delete(resultbyId);
+            var result = _unitOfWork.descriptionRepstory.Delete(resultbyId);
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
-              
-
             }
             else
             {
-                _unitOfWork.Dispose();
+                _unitOfWork.Rollback();
                 return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();

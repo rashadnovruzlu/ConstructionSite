@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.DTO.ModelsDTO
+namespace ConstructionSite.DTO.AdminViewModels.SubService
 {
-    class MessageDTO
+   public class ServiceName
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public bool IsAnswerd { get; set; }
     }
 }

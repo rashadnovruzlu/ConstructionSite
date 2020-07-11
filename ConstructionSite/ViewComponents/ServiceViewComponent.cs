@@ -2,6 +2,7 @@
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,10 @@ namespace ConstructionSite.ViewComponents
         string                                    _lang;
         private readonly IUnitOfWork              _unitOfWork;
         private readonly IHttpContextAccessor    _httpContextAccessor;
-        private readonly ISharedLocalizationHandle _localizationHandle;
+        private readonly SharedLocalizationService _localizationHandle;
         public ServiceViewComponent(IUnitOfWork unitOfWork, 
                                     IHttpContextAccessor httpContextAccessor,
-                                    ISharedLocalizationHandle localizationHandle)
+                                    SharedLocalizationService localizationHandle)
         {
             _unitOfWork=unitOfWork;
             _httpContextAccessor = httpContextAccessor;
@@ -33,7 +34,7 @@ namespace ConstructionSite.ViewComponents
             {
                 _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.BadRequest));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
            
             var result =  _unitOfWork.ServiceRepository.GetAll()
@@ -49,7 +50,7 @@ namespace ConstructionSite.ViewComponents
 
             if (result.Count == 0 | result == null)
             {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.DataNotExists));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataNotExists));
             }
             return View(result);
                 

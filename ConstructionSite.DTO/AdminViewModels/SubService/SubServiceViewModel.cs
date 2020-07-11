@@ -8,13 +8,10 @@ namespace ConstructionSite.DTO.AdminViewModels.SubService
 {
    public class SubServiceViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
-       
-
         public string Content { get; set; }
-        public ICollection<DescriptionViewModel> Descriptions { get; set; }
-
-        public ICollection<SubServiceImage> SubServiceImages { get; set; }
+        public string ImagePath { get; set; }
     }
 }

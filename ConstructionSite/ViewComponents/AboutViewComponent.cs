@@ -2,10 +2,10 @@
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 
@@ -16,11 +16,11 @@ namespace ConstructionSite.ViewComponents
         string                                  _lang;
         private readonly   IUnitOfWork          _unitOfWork;
         private readonly   IHttpContextAccessor _httpContextAccessor;
-        private readonly   ISharedLocalizationHandle _localizationHandle;
+        private readonly   SharedLocalizationService _localizationHandle;
 
         public AboutViewComponent(IUnitOfWork unitOfWork, 
                                   IHttpContextAccessor httpContextAccessor,
-                                  ISharedLocalizationHandle localizationHandle)
+                                  SharedLocalizationService localizationHandle)
         {
             _unitOfWork=unitOfWork;
             _httpContextAccessor=httpContextAccessor;
@@ -33,7 +33,7 @@ namespace ConstructionSite.ViewComponents
             {
                _httpContextAccessor.HttpContext.Response.StatusCode  = (int)HttpStatusCode.BadRequest;
 
-               ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.BadRequest));
+               ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
           
             var aboutImageResult=_unitOfWork.AboutImageRepository.GetAll()
@@ -49,7 +49,7 @@ namespace ConstructionSite.ViewComponents
                 .FirstOrDefault();
             if (aboutImageResult==null)
             {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.DataNotExists));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataNotExists));
             }
                    
             return View(aboutImageResult);

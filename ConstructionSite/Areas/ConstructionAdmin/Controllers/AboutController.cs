@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -15,10 +16,10 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class AboutController : Controller
     {
-        private string   _lang;
+        private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
@@ -66,8 +67,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
             return View(result);
-
-          
         }
 
         #region --Add--
@@ -135,13 +134,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 if (aboutImageResult.IsDone)
                 {
-                   
                     _unitOfWork.Dispose();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                   FileData.Delete(_env, image, "about");
+                    FileData.Delete(_env, image, "about");
 
                     _unitOfWork.Rollback();
                     return Json(new
@@ -196,7 +194,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(AboutUpdateViewModel about,IFormFile file)
+        public async Task<IActionResult> Update(AboutUpdateViewModel about, IFormFile file)
         {
             if (about == null)
             {
@@ -228,17 +226,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return Json(new
                 {
-                    message="file is null"
+                    message = "file is null"
                 });
             }
-            Image image=_unitOfWork.imageRepository.GetById(about.imageId);
-            if (image==null)
+            Image image = _unitOfWork.imageRepository.GetById(about.imageId);
+            if (image == null)
             {
-               return Json(
-                   new {message="this is empty"}
-                         );
+                return Json(
+                    new { message = "this is empty" }
+                          );
             }
-            file.UpdateAsyc(_env, image, "about", _unitOfWork);
+            var imageResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
+            if (!imageResult)
+            {
+            }
             var Updateaboutimage = new AboutImage
             {
                 Id = about.Id,
