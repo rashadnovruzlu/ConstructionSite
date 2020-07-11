@@ -1,5 +1,4 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Blog;
-using ConstructionSite.DTO.AdminViewModels.News;
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
@@ -56,7 +55,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
                                         .Include(x => x.Image)
-                                            .Select(x => new NewsViewModel
+                                            .Select(x => new BlogViewModel
                                             {
                                                 Id = x.News.Id,
                                                 Title = x.News.FindTitle(_lang),
@@ -92,7 +91,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(NewsAddModel newsAddModel, IFormFile file)
+        public async Task<IActionResult> Create(BlogAddViewModel newsAddModel, IFormFile file)
         {
             Image image = new Image();
             NewsImage newsImage = new NewsImage();
@@ -263,12 +262,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BlogEditModel editModel, IFormFile file)
+        public async Task<IActionResult> Edit(NewsImage newsImage, IFormFile file)
         {
-            if (editModel == null)
-            {
-                ModelState.AddModelError("", "This data is not exist");
-            }
+            
             if (!ModelState.IsValid)
             {
                 return Json(new
@@ -276,21 +272,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "The models are not true"
                 });
             }
-
-            News editingNews = new News
+            if (newsImage == null)
             {
-                Id = editModel.Id,
-                TittleAz = editModel.TittleAz,
-                TittleEn = editModel.TittleEn,
-                TittleRu = editModel.TittleRu,
-                ContentAz = editModel.ContentAz,
-                ContentEn = editModel.ContentEn,
-                ContentRu = editModel.ContentRu,
-            };
-            var newsResult = await _unitOfWork.newsRepository
-                                                .UpdateAsync(editingNews);
+                ModelState.AddModelError("", "This data is not exist");
+            }
+
+
+            var newsResult = _unitOfWork.newsImageRepository.Update(newsImage);
             if (!newsResult.IsDone)
             {
+                _unitOfWork.Rollback();
                 ModelState.AddModelError("", "An error occurred while updating the news");
             }
             if (file is null)
@@ -301,7 +292,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
             Image image = _unitOfWork.imageRepository
-                                        .GetById(editModel.ImageId);
+                                        .GetById(1);
             if (image == null)
             {
                 return Json(new 
@@ -316,18 +307,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var editingNewsImage = new NewsImage
             {
-                Id = editModel.Id,
-                ImageId = editModel.ImageId,
-                NewsId = editingNews.Id
+                Id =    1,
+                ImageId = 1,
+                NewsId = 1
             };
             var newsImageResult = await _unitOfWork.newsImageRepository
                                                     .UpdateAsync(editingNewsImage);
             if (!newsImageResult.IsDone)
             {
+
                 ModelState.AddModelError("", "The Image could not be edited");
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+            return RedirectToAction("Index");
         }
 
         #endregion
