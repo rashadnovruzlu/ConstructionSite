@@ -1,4 +1,5 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Blog;
+﻿using AspNetCore;
+using ConstructionSite.DTO.AdminViewModels.Blog;
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
@@ -125,24 +126,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 _unitOfWork.Dispose();
                 ModelState.AddModelError("", "news add samo errors");
             }
-            newsImage.NewsId = newsAddModelResult.Id;
+            
             var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
-            if (addImageViewResult == 0 | addImageViewResult < 0)
+            if (addImageViewResult == 0 )
             {
                 ModelState.AddModelError("", "Image add samo errors");
             }
             newsImage.ImageId = addImageViewResult;
+            newsImage.NewsId = newsAddModelResult.Id;
             var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImage);
             if (!newsImageResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "new image added error");
             }
-            else
-            {
+           _unitOfWork.Dispose();
                 return RedirectToAction("Index");
-            }
-            return View();
+           
         }
         //[HttpPost]
         //[ValidateAntiForgeryToken]
@@ -255,12 +255,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("","blog update same errors");
             }
             return View(result);
-           // return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+          
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(NewsImage newsImage, IFormFile file)
+        public async Task<IActionResult> Edit(BlogEditModel blogEditModel, IFormFile file)
         {
             
             if (!ModelState.IsValid)
@@ -270,54 +270,51 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "The models are not true"
                 });
             }
-            if (newsImage == null)
+            if (blogEditModel == null)
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
+            var resultViewModel=new News
+            {
+                Id=blogEditModel.NewsId,
+                ContentAz=blogEditModel.ContentAz,
+                ContentEn=blogEditModel.ContentEn,
+                ContentRu=blogEditModel.ContentRu,
+                TittleAz=blogEditModel.TittleAz,
+                TittleEn=blogEditModel.TittleEn,
+                TittleRu=blogEditModel.TittleRu,
+                CreateDate=blogEditModel.DateTime
 
+            };
+      var newsResult=  await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
+            if (newsResult==null)
+            {
 
-            var newsResult = _unitOfWork.newsImageRepository.Update(newsImage);
-            if (!newsResult.IsDone)
+            }
+            var imageResult=await  _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
+            if (imageResult==null)
+            {
+                if (file != null)
+                {
+                   var resultUpdateAsyc = await file.UpdateAsyc(_env,imageResult, "News",_unitOfWork);
+                    if (resultUpdateAsyc)
+                    {
+
+                    }
+                }
+            }
+            NewsImage newsImage=new NewsImage
+            {
+                NewsId=blogEditModel.NewsId,
+                ImageId=blogEditModel.ImageId
+            };
+         var result=  await _unitOfWork.newsImageRepository.UpdateAsync(newsImage);
+            if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "An error occurred while updating the news");
             }
-            if (file is null)
-            {
-                return Json(new
-                {
-                    message = "No File"
-                });
-            }
-            Image image = _unitOfWork.imageRepository
-                                        .GetById(1);
-            if (image == null)
-            {
-                return Json(new 
-                { 
-                    message = "No Image" 
-                });
-            }
-            var updateImageResult = await file.UpdateAsyc(_env, image, "news", _unitOfWork);
-            if (updateImageResult)
-            {
-                ModelState.AddModelError("","this image update error");
-            }
-            var editingNewsImage = new NewsImage
-            {
-                Id =    1,
-                ImageId = 1,
-                NewsId = 1
-            };
-            var newsImageResult = await _unitOfWork.newsImageRepository
-                                                    .UpdateAsync(editingNewsImage);
-            if (!newsImageResult.IsDone)
-            {
-
-                ModelState.AddModelError("", "The Image could not be edited");
-            }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+           _unitOfWork.Dispose();
+           return RedirectToAction("Index");
         }
 
         #endregion
@@ -379,16 +376,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var imageResult = await _unitOfWork.imageRepository
                                                 .DeleteAsync(image);
-            if (imageResult.IsDone)
+            if (!imageResult.IsDone)
             {
-                return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+                _unitOfWork.Rollback();
+              
             }
-            else
-            {
-                ModelState.AddModelError("", "The Image could not be deleted");
-            }
+            
             _unitOfWork.Dispose();
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion
