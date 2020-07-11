@@ -15,7 +15,7 @@
     </header>
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="SubServiceController" asp-action="Add" class="btn btn-primary">Create New Service Element</a>
+            <a asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Add" class="btn btn-primary">Create New Service Element</a>
         </div>
         <div class="adv-table editable-table ">
 
@@ -42,8 +42,8 @@
                                 <td class=" ">@item.Tittle</td>
 
                                 <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
-                                <td class=" "><a class="edit" href="javascript:;">Edit</a></td>
-                                <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                                <td class=" "><a class="edit" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                                <td class=" "><a class="btn btn-danger delete delete-about"  asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                             </tr>
                         }
                     </tbody>

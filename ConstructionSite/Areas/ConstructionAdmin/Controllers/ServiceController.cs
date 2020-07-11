@@ -4,6 +4,7 @@ using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -128,6 +129,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Update(int id)
         {
             if (!ModelState.IsValid)
@@ -170,7 +172,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(data);
         }
 
-        [HttpGet]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ServiceUpdateViewModel model, IFormFile file)
         {
@@ -222,10 +224,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-        [HttpGet]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            if (id < 1)
+            {
+                ModelState.AddModelError("", "Data is not exists");
+            }
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
             if (service == null)
             {
@@ -235,12 +241,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
             var result = await _unitOfWork.ServiceRepository.DeleteAsync(service);
-            if (result.IsDone)
+            if (!result.IsDone)
             {
-                _unitOfWork.Dispose();
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Data cannot delete");
+
+                _unitOfWork.Rollback();
             }
-            return View();
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index");
         }
     }
 }
