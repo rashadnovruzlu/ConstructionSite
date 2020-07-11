@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Index";
 }
+    <div asp-validation-summary="All">
 
+    </div>
     <style type="text/css">
         .button-create {
             margin-bottom: 10px;
@@ -45,7 +47,7 @@
                                     </td>
                                    
                                     <td class=" "><a class="edit" asp-controller="SubService" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
-                                    <td class=" "><a class="btn btn-danger delete delete-about">Delete</a></td>
+                                    <td class=" "><a class="btn btn-danger delete" asp-controller="SubService" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                                 </tr>
                             }
                         </tbody>

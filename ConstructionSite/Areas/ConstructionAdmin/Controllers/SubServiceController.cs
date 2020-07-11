@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.SubService;
+using ConstructionSite.Entity.Configuration;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
@@ -146,7 +147,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -211,6 +212,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var resultSubServiceModel=new SubService
             {
                 Id=subServiceUpdateViewModel.SubServiceId,
+                ServiceId=subServiceUpdateViewModel.ServerId,
                 NameAz=subServiceUpdateViewModel.NameAz,
                 NameEn=subServiceUpdateViewModel.NameEn,
                 NameRu=subServiceUpdateViewModel.NameRu,
@@ -251,10 +253,43 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 SubServiceId=subServiceUpdateViewModel.SubServiceId,
                 ImageId=subServiceUpdateViewModel.imageId
             };
-            _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImage);
+          var subServiceImageResult=await  _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImage);
+            if (!subServiceImageResult.IsDone)
+            {
+                ModelState.AddModelError("", "file not exists");
+            }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
             
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+          var subServiceImageResult =await  _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
+            if (subServiceImageResult == null)
+            {
+                ModelState.AddModelError("", "data is null");
+            }
+          var subServiceResult=await  _unitOfWork.SubServiceRepository.GetByIdAsync(subServiceImageResult.SubServiceId);
+            if (subServiceResult == null)
+            {
+                ModelState.AddModelError("","not found id");
+            }
+            var imageResult=await _unitOfWork.imageRepository.GetByIdAsync(subServiceImageResult.ImageId);
+            if (imageResult==null)
+            {
+                ModelState.AddModelError("", "not found id");
+            }
+            var resultUpdate=  await _unitOfWork.SubServiceImageRepository.DeleteAsync(subServiceImageResult);
+            if (!resultUpdate.IsDone)
+            {
+                ModelState.AddModelError("", "update error");
+                _unitOfWork.Rollback();
+
+            }
+            _unitOfWork.Dispose();
+           return RedirectToAction("Index");
         }
     }
 }
