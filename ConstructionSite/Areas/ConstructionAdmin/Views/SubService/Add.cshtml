@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Add";
 }
+    <div asp-validation-summary="All">
 
+    </div>
     <section id="main-content">
         <div class="wrapper">
             <div class="row">
@@ -16,21 +18,21 @@
                                 <div class="form-group">
 
                                     <div class="col-lg-10">
-                                        <input type="text" asp-for="NameAz" placeholder="NameAz" id="f-name" class="form-control" required="">
+                                        <input type="text" asp-for="NameAz"  id="f-name" class="form-control" required="">
 
                                     </div>
                                 </div>
                                 <div class="form-group">
 
                                     <div class="col-lg-10">
-                                        <input type="text" asp-for="NameRu" placeholder="NameRu" id="f-name" class="form-control">
+                                        <input type="text" asp-for="NameRu" id="f-name" class="form-control">
 
                                     </div>
                                 </div>
                                 <div class="form-group">
 
                                     <div class="col-lg-10">
-                                        <input type="text" asp-for="NameEn" placeholder="NameEn" id="f-name" class="form-control">
+                                        <input type="text" asp-for="NameEn"  id="f-name" class="form-control">
 
                                     </div>
                                 </div>
@@ -38,19 +40,19 @@
                                 <div class="form-group ">
 
                                     <div class="col-lg-10">
-                                        <textarea placeholder="TittleAz" class="form-control " id="ccomment" asp-for="ContentAz" required=""></textarea>
+                                        <textarea  class="form-control " id="ccomment" asp-for="ContentAz" required=""></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group ">
 
                                     <div class="col-lg-10">
-                                        <textarea placeholder="TittleEn" class="form-control " id="ccomment" asp-for="ContentRu" required=""></textarea>
+                                        <textarea  class="form-control " id="ccomment" asp-for="ContentRu" required=""></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group ">
 
                                     <div class="col-lg-10">
-                                        <textarea placeholder="TittleRu" class="form-control " id="ccomment" asp-for="ContentEn" required=""></textarea>
+                                        <textarea class="form-control " id="ccomment" asp-for="ContentEn" required=""></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

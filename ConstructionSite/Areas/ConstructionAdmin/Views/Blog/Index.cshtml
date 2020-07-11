@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NewsDTO>
+﻿@model IEnumerable<NewsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -38,9 +38,9 @@
                         @foreach (var item in Model)
                         {
                             <tr class="odd">
-                                <td class=" ">@item.Tittle</td>
+                                <td class=" ">@item.Title</td>
                                 <td class=" ">@item.Content</td>
-                                <td class=" "><img src="@item.Image" alt="Alternate Text" /></td>
+                                <td class=" "><img width="50" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
                                 <td class=" ">@item.CreateDate</td>
                                 <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Update</a></td>
                                 <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>

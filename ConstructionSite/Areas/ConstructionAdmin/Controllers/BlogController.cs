@@ -1,5 +1,5 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Blog;
-using ConstructionSite.DTO.ModelsDTO;
+﻿using AspNetCore;
+using ConstructionSite.DTO.AdminViewModels.Blog;
 using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
@@ -53,22 +53,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "BadRequest"
                 });
             }
-            var result = _unitOfWork.newsImageRepository.GetAll()
+            var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
                                         .Include(x => x.Image)
-                                            .Select(x => new NewsDTO
+                                            .Select(x => new BlogViewModel
                                             {
                                                 Id = x.News.Id,
-                                                Tittle = x.News.FindTitle(_lang),
+                                                Title = x.News.FindTitle(_lang),
                                                 Content = x.News.FindContent(_lang),
-                                                Image = x.Image.Path,
+                                                Imagepath = x.Image.Path,
                                                 CreateDate = x.News.CreateDate
                                             }).ToList();
-            if (result.Count < 1 | result == null)
+            if (newsImageResult.Count < 1 | newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");
             }
-            return View(result);
+            return View(newsImageResult);
         }
         #endregion
 
@@ -88,75 +88,130 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(News news, IFormFile file)
+        public async Task<IActionResult> Create(BlogAddViewModel newsAddModel, IFormFile file)
         {
-            if (news == null)
-            {
-                return View();
-            }
-
-            int imageresultID = 0;
-            Image img = new Image();
-            NewsImage newsImg = new NewsImage();
-
+            Image image = new Image();
+            NewsImage newsImage = new NewsImage();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new
                 {
-                    message = "Bad Request"
+                    message = "BadRequest"
                 });
             }
-            var newsResult = await _unitOfWork.newsRepository.AddAsync(news);
-
-            if (newsResult.IsDone)
+            if (newsAddModel == null)
             {
-                if (file is null)
+                return Json(new
                 {
-                    Response.StatusCode = (int)HttpStatusCode.NotExtended;
-                    return Json(new
-                    {
-                        message = "File not found"
-                    });
-                }
-
-                imageresultID = await file.SaveImage(_env, "news", img, _unitOfWork);
-
-                if (imageresultID < 0)
-                {
-                    return Json(new
-                    {
-                        message = "File not save"
-                    });
-                }
-
-                newsImg.ImageId = imageresultID;
-                newsImg.NewsId = news.Id;
-
-                var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImg);
-
-                if (newsImageResult.IsDone)
-                {
-                    _unitOfWork.Dispose();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    file.Delete(_env, img, "news");
-
-                    _unitOfWork.Rollback();
-                    return Json(new
-                    {
-                        message = "NewsImage not save"
-                    });
-                }
+                    message = "this is emty"
+                });
             }
-            _unitOfWork.Dispose();
-            return View();
+            var newsAddModelResult = new News
+            {
+                Id = newsAddModel.Id,
+                TittleAz = newsAddModel.TittleAz,
+                TittleEn = newsAddModel.TittleEn,
+                TittleRu = newsAddModel.TittleRu,
+                ContentAz = newsAddModel.ContentAz,
+                ContentEn = newsAddModel.ContentEn,
+                ContentRu = newsAddModel.ContentRu,
+                CreateDate = newsAddModel.CreateDate
+            };
+            var addNewViewResult = await _unitOfWork.newsRepository.AddAsync(newsAddModelResult);
+            if (!addNewViewResult.IsDone)
+            {
+                _unitOfWork.Dispose();
+                ModelState.AddModelError("", "news add samo errors");
+            }
+            
+            var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
+            if (addImageViewResult == 0 )
+            {
+                ModelState.AddModelError("", "Image add samo errors");
+            }
+            newsImage.ImageId = addImageViewResult;
+            newsImage.NewsId = newsAddModelResult.Id;
+            var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImage);
+            if (!newsImageResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "new image added error");
+            }
+           _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+           
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(News news, IFormFile file)
+        //{
+        //    if (news == null)
+        //    {
+        //        return View();
+        //    }
+
+        //    int imageresultID = 0;
+        //    Image img = new Image();
+        //    NewsImage newsImg = new NewsImage();
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        //        return Json(new
+        //        {
+        //            message = "Bad Request"
+        //        });
+        //    }
+        //    var newsResult = await _unitOfWork.newsRepository.AddAsync(news);
+
+        //    if (newsResult.IsDone)
+        //    {
+        //        if (file is null)
+        //        {
+        //            Response.StatusCode = (int)HttpStatusCode.NotExtended;
+        //            return Json(new
+        //            {
+        //                message = "File not found"
+        //            });
+        //        }
+
+        //        imageresultID = await file.SaveImage(_env, "news", img, _unitOfWork);
+
+        //        if (imageresultID < 0)
+        //        {
+        //            return Json(new
+        //            {
+        //                message = "File not save"
+        //            });
+        //        }
+
+        //        newsImg.ImageId = imageresultID;
+        //        newsImg.NewsId = news.Id;
+
+        //        var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImg);
+
+        //        if (newsImageResult.IsDone)
+        //        {
+        //            _unitOfWork.Dispose();
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //            file.Delete(_env, img, "news");
+
+        //            _unitOfWork.Rollback();
+        //            return Json(new
+        //            {
+        //                message = "NewsImage not save"
+        //            });
+        //        }
+        //    }
+        //    _unitOfWork.Dispose();
+        //    return View();
+        //}
 
 
         #endregion
@@ -200,17 +255,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("","blog update same errors");
             }
             return View(result);
-           // return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+          
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BlogEditModel editModel, IFormFile file)
+        public async Task<IActionResult> Edit(BlogEditModel blogEditModel, IFormFile file)
         {
-            if (editModel == null)
-            {
-                ModelState.AddModelError("", "This data is not exist");
-            }
+            
             if (!ModelState.IsValid)
             {
                 return Json(new
@@ -218,58 +270,51 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "The models are not true"
                 });
             }
+            if (blogEditModel == null)
+            {
+                ModelState.AddModelError("", "This data is not exist");
+            }
+            var resultViewModel=new News
+            {
+                Id=blogEditModel.NewsId,
+                ContentAz=blogEditModel.ContentAz,
+                ContentEn=blogEditModel.ContentEn,
+                ContentRu=blogEditModel.ContentRu,
+                TittleAz=blogEditModel.TittleAz,
+                TittleEn=blogEditModel.TittleEn,
+                TittleRu=blogEditModel.TittleRu,
+                CreateDate=blogEditModel.DateTime
 
-            News editingNews = new News
-            {
-                Id = editModel.Id,
-                TittleAz = editModel.TittleAz,
-                TittleEn = editModel.TittleEn,
-                TittleRu = editModel.TittleRu,
-                ContentAz = editModel.ContentAz,
-                ContentEn = editModel.ContentEn,
-                ContentRu = editModel.ContentRu,
             };
-            var newsResult = await _unitOfWork.newsRepository
-                                                .UpdateAsync(editingNews);
-            if (!newsResult.IsDone)
+      var newsResult=  await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
+            if (newsResult==null)
             {
-                ModelState.AddModelError("", "An error occurred while updating the news");
+
             }
-            if (file is null)
+            var imageResult=await  _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
+            if (imageResult==null)
             {
-                return Json(new
+                if (file != null)
                 {
-                    message = "No File"
-                });
+                   var resultUpdateAsyc = await file.UpdateAsyc(_env,imageResult, "News",_unitOfWork);
+                    if (resultUpdateAsyc)
+                    {
+
+                    }
+                }
             }
-            Image image = _unitOfWork.imageRepository
-                                        .GetById(editModel.ImageId);
-            if (image == null)
+            NewsImage newsImage=new NewsImage
             {
-                return Json(new 
-                { 
-                    message = "No Image" 
-                });
-            }
-            var updateImageResult = await file.UpdateAsyc(_env, image, "news", _unitOfWork);
-            if (updateImageResult)
-            {
-                ModelState.AddModelError("","this image update error");
-            }
-            var editingNewsImage = new NewsImage
-            {
-                Id = editModel.Id,
-                ImageId = editModel.ImageId,
-                NewsId = editingNews.Id
+                NewsId=blogEditModel.NewsId,
+                ImageId=blogEditModel.ImageId
             };
-            var newsImageResult = await _unitOfWork.newsImageRepository
-                                                    .UpdateAsync(editingNewsImage);
-            if (!newsImageResult.IsDone)
+         var result=  await _unitOfWork.newsImageRepository.UpdateAsync(newsImage);
+            if (!result.IsDone)
             {
-                ModelState.AddModelError("", "The Image could not be edited");
+                _unitOfWork.Rollback();
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+           _unitOfWork.Dispose();
+           return RedirectToAction("Index");
         }
 
         #endregion
@@ -322,7 +367,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var image = await _unitOfWork.imageRepository
                                             .GetByIdAsync(newsImageResult.ImageId);
-            if (image is null)
+            if (image == null)
             {
                 return Json(new
                 {
@@ -331,16 +376,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var imageResult = await _unitOfWork.imageRepository
                                                 .DeleteAsync(image);
-            if (imageResult.IsDone)
+            if (!imageResult.IsDone)
             {
-                return RedirectToAction("Index", "Blog", new { Areas = "ConstructionAdmin" });
+                _unitOfWork.Rollback();
+              
             }
-            else
-            {
-                ModelState.AddModelError("", "The Image could not be deleted");
-            }
+            
             _unitOfWork.Dispose();
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion

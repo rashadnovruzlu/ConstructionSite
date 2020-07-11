@@ -15,7 +15,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
         public string ContentRu { get; set; }
         public string Image { get; set; }
         public int ImageId { get; set; }
-
+        public DateTime DateTime { get; set; }
         public int NewsId { get; set; }
     }
 }
