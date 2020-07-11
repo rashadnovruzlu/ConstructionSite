@@ -22,7 +22,6 @@ namespace ConstructionSite.TagHelpers
                 }
                 else
                 {
-
                     output.Content.SetHtmlContent(Text.Substring(0, 160).ToString());
                 }
             }
