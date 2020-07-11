@@ -40,7 +40,7 @@
             <a href="index.html" class="logo">Flat<span>lab</span></a>
             <!--logo end-->
 
-            <vc:Claims></vc:Claims>
+            @await Component.InvokeAsync("UserClaims") 
         </header>
         <!--header end-->
         <!--sidebar start-->

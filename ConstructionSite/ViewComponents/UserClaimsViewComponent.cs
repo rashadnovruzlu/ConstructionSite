@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    [ViewComponent(Name = "Claims")]
     public class UserClaimsViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke()

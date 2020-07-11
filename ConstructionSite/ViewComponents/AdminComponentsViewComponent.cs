@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    //[ViewComponent(Name ="AdminComponents")]
     public class AdminComponentsViewComponent : ViewComponent
     {
         private readonly UserManager<ApplicationUser> _userManager;

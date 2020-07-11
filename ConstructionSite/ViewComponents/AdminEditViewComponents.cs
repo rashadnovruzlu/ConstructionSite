@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    [ViewComponent(Name="AdminEdit")]
-    public class AdminEditViewComponents : ViewComponent
+    public class AdminEditViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke()
         {
