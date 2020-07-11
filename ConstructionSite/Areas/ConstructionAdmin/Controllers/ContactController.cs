@@ -41,10 +41,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "Bad Request"
                 });
             }
-            var contactResult=_unitOfWork.ContactRepository.GetAll()
-                                            .Select(y=>new ContactViewModel
+            var contactResult = _unitOfWork.ContactRepository.GetAll()
+                                            .Select(y => new ContactViewModel
                                             {
-                                            })
+                                                Id = y.Id,
+                                                Tittle = y.FindTitle(_lang),
+                                                Content = y.FindContent(_lang),
+                                                Address = y.Address,
+                                                PhoneNumber = y.PhoneNumber,
+                                                Email = y.Email
+                                            }).ToList();
 
             return View();
         }
