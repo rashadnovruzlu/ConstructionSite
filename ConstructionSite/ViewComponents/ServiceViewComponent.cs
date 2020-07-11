@@ -1,4 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Service;
+using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -15,12 +17,15 @@ namespace ConstructionSite.ViewComponents
         string                                    _lang;
         private readonly IUnitOfWork              _unitOfWork;
         private readonly IHttpContextAccessor    _httpContextAccessor;
+        private readonly ISharedLocalizationHandle _localizationHandle;
         public ServiceViewComponent(IUnitOfWork unitOfWork, 
-                                    IHttpContextAccessor httpContextAccessor)
+                                    IHttpContextAccessor httpContextAccessor,
+                                    ISharedLocalizationHandle localizationHandle)
         {
             _unitOfWork=unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _lang=httpContextAccessor.getLang();
+            _localizationHandle = localizationHandle;
         }
         public IViewComponentResult Invoke()
         {
@@ -28,7 +33,7 @@ namespace ConstructionSite.ViewComponents
             {
                 _httpContextAccessor.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                ModelState.AddModelError("", "BadRequest");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.BadRequest));
             }
            
             var result =  _unitOfWork.ServiceRepository.GetAll()
@@ -39,16 +44,12 @@ namespace ConstructionSite.ViewComponents
                     Id=x.Id,
                     Name=x.FindName(_lang),
                     Tittle=x.FindTitle(_lang),
-                    image=x.Image.Path
-                  
-                    
-                    
-                    
+                    image=x.Image.Path    
                 }).ToList();
 
             if (result.Count == 0 | result == null)
             {
-                ModelState.AddModelError("", "data not exists");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizationByKey(RESOURCEKEYS.DataNotExists));
             }
             return View(result);
                 

@@ -3,16 +3,21 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using ConstructionSite.Helpers.Interfaces;
+using ConstructionSite.Helpers.Constants;
 
 namespace ConstructionSite.Controllers
 {
     public class AboutController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        
-        public AboutController(IUnitOfWork unitOfWork)
+        private readonly ISharedLocalizationHandle _localizationHandle;
+
+        public AboutController(IUnitOfWork unitOfWork, ISharedLocalizationHandle localizationHandle)
         {
             _unitOfWork = unitOfWork;
+            _localizationHandle = localizationHandle;
+            //_localizationHandle.GetLocalizationByKey(RESOURCEKEYS.)
         }
         //public async Task<IActionResult> Index()
         //{ 

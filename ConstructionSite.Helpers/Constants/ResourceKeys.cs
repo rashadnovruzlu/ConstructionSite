@@ -15,17 +15,21 @@ namespace ConstructionSite.Helpers.Constants
         public const string UserNotAuthenticate = "UserNotAuthenticate";
         public const string UserNotFound = "UserNotFound";
         #endregion
+
         #region ValidErros
         public const string InvalidLoginAttempt = "InvalidLoginAttempt";
         public const string ModelNotValid = "ModelNotValid";
         public const string InvalidPasswordResetToken = "InvalidPasswordResetToken";
         public const string FormIsNotValid = "FormIsNotValid";
+        public const string BadRequest = "BadRequest";
         #endregion
+
         #region RequiredErros
         public const string TheEmailFieldIsRequired = "TheEmailFieldIsRequired";
         public const string ThePasswordFieldisRequired = "ThePasswordFieldisRequired";
         public const string LanguageRequired = "LanguageRequired";
         #endregion
+
         #region EmailErros
         public const string ThisEmailAddressIsAlreadySubscribed = "ThisEmailAddressIsAlreadySubscribed";
         public const string NoEmailsWereFound = "NoEmailsWereFound";
@@ -33,11 +37,13 @@ namespace ConstructionSite.Helpers.Constants
             InstructionsForResettingYourPasswordHaveBeenSentToYourEmailAddress =
             "InstructionsForResettingYourPasswordHaveBeenSentToYourEmailAddress";
         #endregion 
+
         #region PasswordErros
         public const string AnErrorOccurredWhileResettingYourPassword = "AnErrorOccurredWhileResettingYourPassword";
         public const string YourPasswordHasBeenSuccessfullyReset = "YourPasswordHasBeenSuccessfullyReset";
         public const string PasswordAndConfirmPasswordNotMatched = "PasswordAndConfirmPasswordNotMatched";
         #endregion
+
         #region GenrialErros
         public const string IsLockedOut5Minutes = "IsLockedOut5Minutes";
         public const string YouHaveSubscribedToTheSiteInformation = "YouHaveSubscribedToTheSiteInformation";
@@ -48,6 +54,11 @@ namespace ConstructionSite.Helpers.Constants
         public const string TotalPriceFake = "TotalPriceFake";
         public const string SomethingIsWrong = "SomethingIsWrong";
         public const string AnErrorOccurred = "AnErrorOccurred";
+        #endregion
+
+        #region Data
+
+        public const string DataNotExists = "DataNotExists";
 
         #endregion
     }

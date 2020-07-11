@@ -69,8 +69,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(newsImageResult);
         }
-
-
         #endregion
 
         #region Create
