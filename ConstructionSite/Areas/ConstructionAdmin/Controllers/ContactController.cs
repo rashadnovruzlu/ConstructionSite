@@ -29,7 +29,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _contextAccessor = contextAccessor;
             _lang = _contextAccessor.getLang();
         }
+
         #region Index
+
+        [HttpGet]
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -51,25 +54,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                                 PhoneNumber = y.PhoneNumber,
                                                 Email = y.Email
                                             }).ToList();
-            if (contactResult.Count < 1)
-            {
-                return Json(new
-                {
-                    message = "Data is Null"
-                });
-            }
-
             return View(contactResult);
         }
 
         #endregion
 
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return View();
         }
-        public IActionResult Add(string n)
+        public IActionResult Create(string n)
         {
             return View();
         }
