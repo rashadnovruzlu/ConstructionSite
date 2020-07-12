@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    [ViewComponent(Name="AdminEdit")]
-    public class AdminEditViewComponents : ViewComponent
+    public class AdminEditViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
             return View(new UserDTO
             {

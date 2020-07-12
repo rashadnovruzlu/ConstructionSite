@@ -56,7 +56,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                imageId = x.Image.Id,
                Image = x.Image.Path
            }).ToList();
-            if (result.Count < 0)
+            if (result.Count < 1)
             {
                 ModelState.AddModelError("","data is null");
                 

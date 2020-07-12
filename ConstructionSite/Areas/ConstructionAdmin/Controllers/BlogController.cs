@@ -84,7 +84,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 return Json(new
                 {
-                    message = "BadRequest"
+                    message = "Bad Request"
                 });
             }
             return View();
@@ -187,7 +187,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (result == null)
             {
-                ModelState.AddModelError("", "blog update same errors");
+                ModelState.AddModelError("", "blog update Some errors");
             }
             return View(result);
         }

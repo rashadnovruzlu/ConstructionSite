@@ -1,5 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Index";
-}
+﻿@model IEnumerable<ContactViewModel>
 
-    <h2>Contact</h2>
+<style type="text/css">
+    .button-create {
+        margin-bottom: 10px;
+    }
+</style>
+
+<section class="panel">
+    <header class="panel-heading">
+        Contact - Table
+    </header>
+
+    <div class="panel-body">
+        <div class="button-create">
+            <a asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Create" class="btn btn-primary">Create New Contact Element</a>
+        </div>
+        <div class="adv-table editable-table ">
+            <div class="space15"></div>
+            <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-hover table-bordered dataTable" id="editable-sample" aria-describedby="editable-sample_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Title</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Content</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Address</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Phone Number</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Email</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Edit</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Delete</th>
+                        </tr>
+                    </thead>
+
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+                        @foreach (var item in Model)
+                        {
+                        <tr class="odd">
+
+                            <td class="sorting_1">@item.Tittle</td>
+                            <td class=" ">@item.Content</td>
+                            <td class="sorting_1">@item.Address</td>
+                            <td class="sorting_1">@item.PhoneNumber</td>
+                            <td class="sorting_1">@item.Email</td>
+                            <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Edit">Edit</a></td>
+                            <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script>
+        $(".delete-about").click(function () {
+            var id = $(this).data("id");
+            $.ajax({
+                type: 'GET',
+                url: '/ConstructionAdmin/Contact/Delete/' + id
+            })
+        });
+    </script>
+}

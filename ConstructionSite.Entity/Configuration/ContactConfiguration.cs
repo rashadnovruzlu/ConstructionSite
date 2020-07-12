@@ -18,6 +18,10 @@ namespace ConstructionSite.Entity.Configuration
                 .HasMaxLength(150);
             builder.Property(x=>x.ContentAz)
                 .IsRequired();
+            builder.Property(x => x.ContentEn)
+                .IsRequired();
+            builder.Property(x => x.ContentRu)
+                .IsRequired();
             builder.Property(x=>x.Address)
                 .IsRequired()
                 .HasMaxLength(150);

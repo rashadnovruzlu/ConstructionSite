@@ -1,0 +1,74 @@
+﻿@model ContactAddViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Create Contact Elements
+            </header>
+            <div class="panel-body">
+                <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title Aze">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="text" asp-for="TittleEn" id="f-name" class="form-control" placeholder="Title Eng">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Title Ru">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentAz" class="form-control " id="ccomment" required="" placeholder="Content Aze"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentEn" class="form-control " id="ccomment" required="" placeholder="Content Eng"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentRu" class="form-control " id="ccomment" required="" placeholder="Content Ru"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="text" asp-for="Address" id="f-name" class="form-control" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="text" asp-for="PhoneNumber" id="f-name" class="form-control" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input type="text" asp-for="Email" id="f-name" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-danger" type="submit">Save</button>
+                            <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Contact/Index";
+        })
+    </script>
+}
