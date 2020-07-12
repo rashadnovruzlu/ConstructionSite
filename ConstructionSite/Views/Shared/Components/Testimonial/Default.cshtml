@@ -1,4 +1,5 @@
-﻿<section id="testimonials" class="wprt-section">
+﻿@model IEnumerable<CustomerViewModel>
+<section id="testimonials" class="wprt-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -16,71 +17,21 @@
             <div class="col-md-12">
                 <div class="wprt-testimonials style-1 has-bullets bullet-style-1 bullet50" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
                     <div id="testimonials-wrap" class="cbp">
-                        <div class="cbp-item">
-                            <div class="customer clearfix">
-                                <div class="inner">
-                                    <h4 class="name">GEORGE SLOWS</h4>
-                                    <div class="position">Builder manager</div>
-                                    <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                </div>
-                            </div>
-                        </div>
+
                         <!-- /.cbp-item -->
 
-                        <div class="cbp-item">
-                            <div class="customer clearfix">
-                                <div class="inner">
-                                    <h4 class="name">BARBARA DOUGLAS</h4>
-                                    <div class="position">Builder manager</div>
-                                    <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
+                        @foreach (var item  in Model)
+                        {
+                            <div class="cbp-item">
+                                <div class="customer clearfix">
+                                    <div class="inner">
+                                        <h4 class="name">@item.FullName</h4>
+                                        <div class="position">@item.Position</div>
+                                        <blockquote class="whisper">@item.Content</blockquote>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /.cbp-item -->
-
-                        <div class="cbp-item">
-                            <div class="customer clearfix">
-                                <div class="inner">
-                                    <h4 class="name">GEORGE SLOWS</h4>
-                                    <div class="position">Builder manager</div>
-                                    <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.cbp-item -->
-
-                        <div class="cbp-item">
-                            <div class="customer clearfix">
-                                <div class="inner">
-                                    <h4 class="name">GEORGE SLOWS</h4>
-                                    <div class="position">Builder manager</div>
-                                    <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.cbp-item -->
-
-                        <div class="cbp-item">
-                            <div class="customer clearfix">
-                                <div class="inner">
-                                    <h4 class="name">GEORGE SLOWS</h4>
-                                    <div class="position">Builder manager</div>
-                                    <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.cbp-item -->
-
-                        <div class="cbp-item">
-                            <div class="customer clearfix">
-                                <div class="inner">
-                                    <h4 class="name">GEORGE SLOWS</h4>
-                                    <div class="position">Builder manager</div>
-                                    <blockquote class="whisper">Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui.</blockquote>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.cbp-item -->
+                        }
 
                     </div>
                 </div>

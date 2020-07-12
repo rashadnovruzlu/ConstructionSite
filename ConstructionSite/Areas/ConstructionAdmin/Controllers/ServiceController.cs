@@ -113,7 +113,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "file not save"
                 });
             }
-            service.ImageId = imageresultID;
+            service.ImageId = image.Id;
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
             if (serviceResult.IsDone)
             {
@@ -122,7 +122,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else
             {
-                FileData.Delete(_env, image, "service");
+               // FileData.Delete(_env, image, "service");
                 _unitOfWork.Rollback();
             }
             _unitOfWork.Dispose();

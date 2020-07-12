@@ -12,7 +12,7 @@ namespace ConstructionSite.ViewComponents
     {
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContext;
-        string _lang;
+        private    string                     _lang;
         public PortfolioViewComponent(IUnitOfWork unitOfWork, IHttpContextAccessor httpContext)
         {
             _unitOfWork=unitOfWork;

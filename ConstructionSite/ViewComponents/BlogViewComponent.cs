@@ -45,7 +45,8 @@ namespace ConstructionSite.ViewComponents
                                                     NewsId = x.NewsId,
                                                     Image = x.Image.Path,
                                                     ImageId = x.ImageId
-                                                }).ToList()
+                                                }).Take(3)
+                                                .ToList()
                                                     ;
             if (newsImageResult == null)
             {

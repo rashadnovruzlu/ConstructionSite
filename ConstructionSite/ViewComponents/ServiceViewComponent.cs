@@ -46,7 +46,7 @@ namespace ConstructionSite.ViewComponents
                     Name=x.FindName(_lang),
                     Tittle=x.FindTitle(_lang),
                     image=x.Image.Path    
-                }).ToList();
+                }).Take(4).ToList();
 
             if (result.Count == 0 | result == null)
             {
