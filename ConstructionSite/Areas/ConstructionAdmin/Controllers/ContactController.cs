@@ -162,9 +162,43 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(result);
         }
-        public IActionResult Update(string s)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(ContactUpdateViewModel viewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message = "The models are not true"
+                });
+            }
+            if (viewModel == null)
+            {
+                ModelState.AddModelError("", "This data is not exist");
+            }
+            var updateContactModel = new Contact
+            {
+                Id = viewModel.Id,
+                TittleAz = viewModel.TittleAz,
+                TittleEn = viewModel.TittleEn,
+                TittleRu = viewModel.TittleRu,
+                ContentAz = viewModel.ContentAz,
+                ContentEn = viewModel.ContentEn,
+                ContentRu = viewModel.ContentRu,
+                Address = viewModel.Address,
+                PhoneNumber = viewModel.PhoneNumber,
+                Email = viewModel.Email
+            };
+            var contactResult = await _unitOfWork.ContactRepository
+                                                    .UpdateAsync(updateContactModel);
+            if (!contactResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+            }
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index", "Contact", new { Areas = "ConstructionAdmin" });
         }
 
         #endregion
