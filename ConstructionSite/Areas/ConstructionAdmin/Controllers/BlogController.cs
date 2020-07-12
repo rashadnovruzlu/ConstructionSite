@@ -183,7 +183,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (result == null)
             {
-                ModelState.AddModelError("", "blog update same errors");
+                ModelState.AddModelError("", "blog update Some errors");
             }
             return View(result);
         }

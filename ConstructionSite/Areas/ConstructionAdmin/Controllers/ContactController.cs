@@ -50,7 +50,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var contactResult = _unitOfWork.ContactRepository.GetAll()
                                             .Select(y => new ContactViewModel
                                             {
-                                                Id = y.Id,
                                                 Tittle = y.FindTitle(_lang),
                                                 Content = y.FindContent(_lang),
                                                 Address = y.Address,
@@ -124,15 +123,53 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
+        #region Update
 
-        public IActionResult Update()
+        [HttpGet]
+        public IActionResult Update(int id)
         {
-            return View();
+            if (id < 1)
+            {
+                ModelState.AddModelError("", "This data is not exists");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message = "The models are not true"
+                });
+            }
+
+            var result = _unitOfWork.ContactRepository.GetAll()
+                                        .Select(y => new ContactUpdateViewModel
+                                        {
+                                            Id=y.Id,
+                                            TittleAz=y.TittleAz,
+                                            TittleEn=y.TittleEn,
+                                            TittleRu=y.TittleRu,
+                                            ContentAz=y.ContentAz,
+                                            ContentEn=y.ContentEn,
+                                            ContentRu=y.ContentRu,
+                                            Address=y.Address,
+                                            PhoneNumber=y.PhoneNumber,
+                                            Email=y.Email
+                                        }).FirstOrDefault(x => x.Id == id);
+
+            if (result == null)
+            {
+                ModelState.AddModelError("", "Errors occured while editing Contact");
+            }
+            return View(result);
         }
         public IActionResult Update(string s)
         {
             return View();
         }
+
+        #endregion
+
+
     }
    
 }
