@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region Create
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Add()
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ContactAddViewModel viewModel)
+        public async Task<IActionResult> Add(ContactAddViewModel contactAddViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +91,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "Bad Request"
                 });
             }
-            if (viewModel == null)
+            if (contactAddViewModel == null)
             {
                 return Json(new
                 {
@@ -99,15 +100,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var contactAddModelResult = new Contact
             {
-                TittleAz = viewModel.TittleAz,
-                TittleEn = viewModel.TittleEn,
-                TittleRu = viewModel.TittleRu,
-                ContentAz = viewModel.ContentAz,
-                ContentEn = viewModel.ContentEn,
-                ContentRu = viewModel.ContentRu,
-                Address = viewModel.Address,
-                PhoneNumber = viewModel.PhoneNumber,
-                Email = viewModel.Email
+                TittleAz    = contactAddViewModel.TittleAz,
+                TittleEn    = contactAddViewModel.TittleEn,
+                TittleRu    = contactAddViewModel.TittleRu,
+                ContentAz   = contactAddViewModel.ContentAz,
+                ContentEn   = contactAddViewModel.ContentEn,
+                ContentRu   = contactAddViewModel.ContentRu,
+                Address     = contactAddViewModel.Address,
+                PhoneNumber = contactAddViewModel.PhoneNumber,
+                Email       = contactAddViewModel.Email
             };
             var addContactResult = await _unitOfWork.ContactRepository
                                                         .AddAsync(contactAddModelResult);
@@ -117,7 +118,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Errors occured while creating Contact");
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index", "Contact", new { Areas = "ConstructionAdmin" });
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -140,31 +141,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 });
             }
 
-            var result = _unitOfWork.ContactRepository.GetAll()
-                                        .Select(y => new ContactUpdateViewModel
-                                        {
-                                            Id=y.Id,
-                                            TittleAz=y.TittleAz,
-                                            TittleEn=y.TittleEn,
-                                            TittleRu=y.TittleRu,
-                                            ContentAz=y.ContentAz,
-                                            ContentEn=y.ContentEn,
-                                            ContentRu=y.ContentRu,
-                                            Address=y.Address,
-                                            PhoneNumber=y.PhoneNumber,
-                                            Email=y.Email
-                                        }).FirstOrDefault(x => x.Id == id);
-
-            if (result == null)
+            var contantcUpdateResult = _unitOfWork.ContactRepository.GetById(id);
+            if (contantcUpdateResult==null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");
             }
-            return View(result);
+            var updateContactUpdate=new ContactUpdateViewModel
+            {
+                Id=contantcUpdateResult.Id,
+                ContentAz=contantcUpdateResult.ContentAz,
+                ContentEn=contantcUpdateResult.ContentEn,
+                ContentRu=contantcUpdateResult.ContentRu,
+                TittleAz=contantcUpdateResult.TittleAz,
+                TittleEn=contantcUpdateResult.TittleEn,
+                TittleRu=contantcUpdateResult.TittleRu,
+                Address=contantcUpdateResult.Address,
+                Email=contantcUpdateResult.Email,
+                PhoneNumber=contantcUpdateResult.PhoneNumber
+            };
+
+            if (updateContactUpdate == null)
+            {
+                ModelState.AddModelError("", "Errors occured while editing Contact");
+            }
+            return View(contantcUpdateResult);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ContactUpdateViewModel viewModel)
+        public async Task<IActionResult> Update(ContactUpdateViewModel contactUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -173,33 +178,57 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "The models are not true"
                 });
             }
-            if (viewModel == null)
+            if (contactUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
             var updateContactModel = new Contact
             {
-                Id = viewModel.Id,
-                TittleAz = viewModel.TittleAz,
-                TittleEn = viewModel.TittleEn,
-                TittleRu = viewModel.TittleRu,
-                ContentAz = viewModel.ContentAz,
-                ContentEn = viewModel.ContentEn,
-                ContentRu = viewModel.ContentRu,
-                Address = viewModel.Address,
-                PhoneNumber = viewModel.PhoneNumber,
-                Email = viewModel.Email
+                Id          = contactUpdateViewModel.Id,
+                TittleAz    = contactUpdateViewModel.TittleAz,
+                TittleEn    = contactUpdateViewModel.TittleEn,
+                TittleRu    = contactUpdateViewModel.TittleRu,
+                ContentAz   = contactUpdateViewModel.ContentAz,
+                ContentEn   = contactUpdateViewModel.ContentEn,
+                ContentRu   = contactUpdateViewModel.ContentRu,
+                Address     = contactUpdateViewModel.Address,
+                PhoneNumber = contactUpdateViewModel.PhoneNumber,
+                Email       = contactUpdateViewModel.Email
             };
             var contactResult = await _unitOfWork.ContactRepository
                                                     .UpdateAsync(updateContactModel);
             if (!contactResult.IsDone)
             {
                 _unitOfWork.Rollback();
+                ModelState.AddModelError("","update error");
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index", "Contact", new { Areas = "ConstructionAdmin" });
+            return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
 
+            if (!ModelState.IsValid)
+            {
+                return Json(new
+                {
+                    message = "The models are not true"
+                });
+            }
+         var contactViewModel=  await _unitOfWork.ContactRepository.GetByIdAsync(id);
+            if (contactViewModel==null)
+            {
+
+            }
+          var contatDeleteResult=await  _unitOfWork.ContactRepository.DeleteAsync(contactViewModel);
+            if (!contatDeleteResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+            }
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index");
+        }
         #endregion
 
 

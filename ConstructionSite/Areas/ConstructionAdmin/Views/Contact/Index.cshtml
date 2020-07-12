@@ -13,7 +13,7 @@
 
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Create" class="btn btn-primary">Create New Contact Element</a>
+            <a asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Add" class="btn btn-primary">Create New Contact Element</a>
         </div>
         <div class="adv-table editable-table ">
             <div class="space15"></div>
@@ -42,7 +42,7 @@
                             <td class="sorting_1">@item.Address</td>
                             <td class="sorting_1">@item.PhoneNumber</td>
                             <td class="sorting_1">@item.Email</td>
-                            <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Edit">Edit</a></td>
+                            <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update">Edit</a></td>
                             <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
                         </tr>
                         }
