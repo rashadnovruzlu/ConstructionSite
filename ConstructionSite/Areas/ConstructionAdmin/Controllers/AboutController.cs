@@ -34,6 +34,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _lang = _httpContextAccessor.getLang();
         }
 
+        #region Index
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -41,10 +43,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not valid");
             }
 
             var result = _unitOfWork.AboutImageRepository.GetAll()
@@ -61,13 +60,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
            }).ToList();
             if (result.Count < 1)
             {
-                return Json(new
-                {
-                    message = "data is null"
-                });
+                ModelState.AddModelError("", "Data is null");
             }
             return View(result);
         }
+
+        #endregion
+
 
         #region --Add--
 
