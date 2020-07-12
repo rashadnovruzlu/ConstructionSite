@@ -1,4 +1,6 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Contact;
+﻿using ConstructionSite.DTO.AdminViewModels.Blog;
+using ConstructionSite.DTO.AdminViewModels.Contact;
+using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -75,9 +78,48 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
-        public IActionResult Create(string n)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ContactAddViewModel viewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new
+                {
+                    message = "Bad Request"
+                });
+            }
+            if (viewModel == null)
+            {
+                return Json(new
+                {
+                    message = "View Model is Empty"
+                });
+            }
+            var contactAddModelResult = new Contact
+            {
+                Id = viewModel.Id,
+                TittleAz = viewModel.TittleAz,
+                TittleEn = viewModel.TittleEn,
+                TittleRu = viewModel.TittleRu,
+                ContentAz = viewModel.ContentAz,
+                ContentEn = viewModel.ContentEn,
+                ContentRu = viewModel.ContentRu,
+                Address = viewModel.Address,
+                PhoneNumber = viewModel.PhoneNumber,
+                Email = viewModel.Email
+            };
+            var addContactResult = await _unitOfWork.ContactRepository
+                                                        .AddAsync(contactAddModelResult);
+            if (!addContactResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "Errors occured while creating Contact");
+            }
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index", "Contact", new { Areas = "ConstructionAdmin" });
         }
 
         #endregion

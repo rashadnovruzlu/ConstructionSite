@@ -17,9 +17,11 @@ namespace ConstructionSite.DTO.AdminViewModels.Contact
 		public string Address { get; set; }
 
 		[RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}")]
+		[UIHint("phonenumber")]
 		public string PhoneNumber { get; set; }
 
 		[RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
+		[UIHint("email")]
 		public string Email { get; set; }
 	}
 }
