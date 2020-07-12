@@ -21,12 +21,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class BlogController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
+        #endregion
 
+        #region CTOR
         public BlogController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
@@ -38,8 +41,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _dbContext = dbContext;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
 
-        #region Index
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -48,10 +52,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
@@ -73,7 +74,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion Index
 
-        #region Create
+        #region CREATE
 
         [HttpGet]
         public IActionResult Create()
@@ -82,10 +83,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "Bad Request"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             return View();
         }
@@ -99,17 +97,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (newsAddModel == null)
             {
-                return Json(new
-                {
-                    message = "this is emty"
-                });
+                ModelState.AddModelError("", "MNews is empty.");
             }
             var newsAddModelResult = new News
             {
@@ -126,13 +118,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!addNewViewResult.IsDone)
             {
                 _unitOfWork.Dispose();
-                ModelState.AddModelError("", "news add samo errors");
+                ModelState.AddModelError("", "Errors occured while creating News");
             }
 
             var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
             if (addImageViewResult == 0)
             {
-                ModelState.AddModelError("", "Image add samo errors");
+                ModelState.AddModelError("", "Errors occured while creating Image");
             }
             newsImage.ImageId = addImageViewResult;
             newsImage.NewsId = newsAddModelResult.Id;
@@ -140,7 +132,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!newsImageResult.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "new image added error");
+                ModelState.AddModelError("", "Errors occured while creating News Images");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
