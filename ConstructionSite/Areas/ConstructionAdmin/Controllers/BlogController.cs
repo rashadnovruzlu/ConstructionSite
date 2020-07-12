@@ -137,9 +137,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+
         #endregion Create
 
-        #region Edit
+        #region EDIT
 
         public IActionResult Edit(int id)
         {
@@ -150,10 +151,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
 
             var result = _unitOfWork.newsImageRepository.GetAll()
@@ -175,7 +173,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (result == null)
             {
-                ModelState.AddModelError("", "blog update Some errors");
+                ModelState.AddModelError("", "Errors occured while editing News");
             }
             return View(result);
         }
@@ -186,10 +184,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (blogEditModel == null)
             {
@@ -237,7 +232,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion Edit
 
-        #region Delete
+        #region DELETE
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -247,35 +242,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (id < 0)
             {
-                return Json(new
-                {
-                    message = "Object is null"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var newsImageResult = await _unitOfWork.newsImageRepository
                                                     .GetByIdAsync(id);
             if (newsImageResult == null)
             {
-                return Json(new
-                {
-                    message = "News is null"
-                });
+                ModelState.AddModelError("", "News is NULL");
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
             if (newsResult == null)
             {
-                return Json(new
-                {
-                    message = "Data is null"
-                });
+                ModelState.AddModelError("", "News is NULL");
             }
             var newsDeleteResult = await _unitOfWork.newsRepository
                                                     .DeleteAsync(newsResult);
@@ -287,10 +270,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                             .GetByIdAsync(newsImageResult.ImageId);
             if (image == null)
             {
-                return Json(new
-                {
-                    message = "No Image"
-                });
+                ModelState.AddModelError("", "Image is empty");
             }
             var imageResult = await _unitOfWork.imageRepository
                                                 .DeleteAsync(image);
@@ -303,6 +283,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion Delete
+        #endregion DELETE
     }
 }
