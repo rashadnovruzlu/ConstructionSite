@@ -19,11 +19,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class AboutController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        #endregion
 
+        #region CTOR
         public AboutController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
                                IHttpContextAccessor httpContextAccessor)
@@ -33,6 +36,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
 
         #region Index
 

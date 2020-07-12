@@ -18,11 +18,14 @@ namespace ConstructionSite.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
+        #region Fields
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationIdentityDbContext _identityDb;
+        #endregion
 
+        #region AddErrors Method
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -30,7 +33,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 ModelState.AddModelError("", error.Description);
             }
         }
+        #endregion
 
+        #region CTOR
         public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
@@ -38,6 +43,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this._roleManager = roleManager;
             this._identityDb = identityDb;
         }
+        #endregion
 
         #region INDEX
 
@@ -229,6 +235,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         #endregion
 
+        #region LOGOUT
 
         [HttpGet]
         [AllowAnonymous]
@@ -243,6 +250,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
             return RedirectToAction("index", "Dashboard");
         }
+
+        #endregion
+
+        #region DELETE
 
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
@@ -288,5 +299,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 status = HttpStatusCode.NotFound
             });
         }
+
+        #endregion
     }
 }
