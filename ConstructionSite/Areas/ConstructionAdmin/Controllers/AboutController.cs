@@ -19,10 +19,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class AboutController : Controller
     {
-        private string _lang;
+        private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
 
         public AboutController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
@@ -78,6 +78,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
             AboutImage aboutImage = new AboutImage();
