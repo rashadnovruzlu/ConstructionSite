@@ -86,10 +86,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id = x.Id,
                     Name = x.FindName(_lang)
                 }).ToList();
-            if (result.Count < 0)
+            if (result.Count < 1)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "this is empty");
+                return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
             ViewBag.data = result;
@@ -100,49 +101,43 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubService subService, IFormFile file)
         {
-            int imageresultID = 0;
-            SubServiceImage sub = new SubServiceImage();
-            Image image = new Image();
+            
+            SubServiceImage subServiceImageResult = new SubServiceImage();
+            Image imageSubService = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "BadRequest");
+               
             }
-            if (file is null)
+            if (file == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return Json(new
-                {
-                    message = "file not found BadRequest"
-                });
+                ModelState.AddModelError("", "file is null");
+               
             }
 
-            imageresultID = await file.SaveImage(_env, "subserver", image, _unitOfWork);
-            if (imageresultID < 0)
+          var  imageResultID = await file.SaveImage(_env, "subserver", imageSubService, _unitOfWork);
+            if (imageResultID < 1)
             {
-                return Json(new
-                {
-                    message = "file not save"
-                });
+                ModelState.AddModelError("", "data not save");
             }
-            sub.ImageId = imageresultID;
-            var SubServiceResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
-            if (SubServiceResult.IsDone)
+            subServiceImageResult.ImageId = imageSubService.Id;
+            var SubServiceAddResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
+            if (!SubServiceAddResult.IsDone)
             {
-                sub.SubServiceId = subService.Id;
+                ModelState.AddModelError("", "data not save");
+                
             }
-            var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(sub);
+            subServiceImageResult.SubServiceId = subService.Id;
+            var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
             if (!SubServiceImageResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "added error");
             }
             _unitOfWork.Dispose();
-            ViewBag.data = _unitOfWork.ServiceRepository.GetAll().ToList();
+           
             return RedirectToAction("Index");
         }
 

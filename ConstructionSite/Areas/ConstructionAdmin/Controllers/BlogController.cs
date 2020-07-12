@@ -135,7 +135,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ImageExtensions.DeleteAsyc(_env,image,"News",_unitOfWork);
                 ModelState.AddModelError("", "Image add samo errors");
             }
-            newsImage.ImageId = addImageViewResult;
+            newsImage.ImageId = image.Id;
             newsImage.NewsId = newsAddModelResult.Id;
             var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImage);
             if (!newsImageResult.IsDone)
