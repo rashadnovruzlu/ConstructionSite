@@ -39,7 +39,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this._identityDb = identityDb;
         }
 
-        #region Index
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -55,6 +55,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         #endregion
+
+        #region CREATE
 
         [HttpGet]
         [Route("Create")]
@@ -105,6 +107,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View(viewModel);
         }
 
+        #endregion
+
+        #region LOGIN
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -131,19 +137,12 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (appUser != null)
                     {
-                        //bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
                         await _signInManager.SignOutAsync();
                         var result = await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, true, true);
                         if (result.Succeeded)
                         {
-                            //return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                             return Redirect(ReturnUrl ?? "/");
                         }
-                        //if (checkPassword)
-                        //{
-                        //    await _signInManager.SignInAsync(appUser, false);
-                        //    return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
-                        //}
                         else
                         {
                             ModelState.AddModelError("password", "Password is not correct.");
@@ -162,6 +161,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View(loginModel);
         }
 
+        #endregion
+
+        #region EDIT
+
         [HttpGet]
         [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
@@ -170,10 +173,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
             if (appUser == null)
             {
-                return Json(new
-                {
-                    message = ""
-                });
+                ModelState.AddModelError("", "User or Admin is empty");
             }
 
             var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
@@ -226,6 +226,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             return View(userEditModel);
         }
+
+        #endregion
+
 
         [HttpGet]
         [AllowAnonymous]
