@@ -7,7 +7,6 @@ namespace ConstructionSite.DTO.AdminViewModels.Contact
 {
     public class ContactAddViewModel
     {
-		public int Id { get; set; }
 		public string TittleAz { get; set; }
 		public string TittleEn { get; set; }
 		public string TittleRu { get; set; }

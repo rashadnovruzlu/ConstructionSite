@@ -99,7 +99,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var contactAddModelResult = new Contact
             {
-                Id = viewModel.Id,
                 TittleAz = viewModel.TittleAz,
                 TittleEn = viewModel.TittleEn,
                 TittleRu = viewModel.TittleRu,
