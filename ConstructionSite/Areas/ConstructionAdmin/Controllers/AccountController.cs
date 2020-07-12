@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this._identityDb = identityDb;
         }
 
+        #region Index
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -50,6 +53,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
             });
             return View(users);
         }
+
+        #endregion
 
         [HttpGet]
         [Route("Create")]
@@ -116,10 +121,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (ModelState.IsValid)
             {

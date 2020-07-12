@@ -230,52 +230,39 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion --Update--
 
+        #region Delete
+
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid");
             }
             if (id < 0)
             {
-                return Json(new
-                {
-                    message = "is null"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
             if (AboutImageResult is null)
             {
-                return Json(new
-                {
-                    message = "AboutId is null"
-                });
+                ModelState.AddModelError("", "About Image is null");
             }
             var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
             if (aboutResult is null)
             {
-                return Json(new
-                {
-                    message = "data is null"
-                });
+                ModelState.AddModelError("", "About is null");
             }
             var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
             if (aboutDeleteResult.IsDone)
             {
-                ModelState.AddModelError("", "delete error");
+                ModelState.AddModelError("", "Errors occured while deleting About");
             }
             var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
             if (image is null)
             {
-                return Json(new
-                {
-                    message = "data is null"
-                });
+                ModelState.AddModelError("", "Image is null");
             }
             var imageResult = await _unitOfWork.imageRepository.DeleteAsync(image);
             if (imageResult.IsDone)
@@ -289,5 +276,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View();
         }
+
+        #endregion
     }
 }
