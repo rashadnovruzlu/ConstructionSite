@@ -67,7 +67,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
-
         #region --Add--
 
         [HttpGet]
@@ -77,10 +76,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid");
             }
             return View();
         }
@@ -93,17 +89,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 return View();
             }
             int imageresultID = 0;
-            int aboutresultID = 0;
             AboutImage aboutImage = new AboutImage();
             Image image = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid");
             }
 
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
@@ -113,18 +105,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 if (FileData is null)
                 {
                     Response.StatusCode = (int)HttpStatusCode.NotExtended;
-                    return Json(new
-                    {
-                        message = "file not found BadRequest"
-                    });
+
+                    ModelState.AddModelError("", "The file is empty");
                 }
                 imageresultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
                 if (imageresultID < 0)
                 {
-                    return Json(new
-                    {
-                        message = "file not save"
-                    });
+                    ModelState.AddModelError("", "Image is not.");
                 }
                 aboutImage.ImageId = imageresultID;
                 aboutImage.AboutId = about.Id;
@@ -141,10 +128,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     FileData.Delete(_env, image, "about");
 
                     _unitOfWork.Rollback();
-                    return Json(new
-                    {
-                        message = "aboutImage not save"
-                    });
+                    ModelState.AddModelError("", "About Image is not saved.");
                 }
             }
             _unitOfWork.Dispose();
@@ -163,10 +147,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "ModelState IsValid"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             var result = _unitOfWork.AboutImageRepository.GetAll()
                    .Include(x => x.About)
@@ -201,10 +182,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "ModelState IsValid"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             About UpdateAbout = new About
             {
@@ -219,21 +197,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
             if (!aboutResult.IsDone)
             {
-                ModelState.AddModelError("", "this is about update error");
+                ModelState.AddModelError("", "Errors occured while editing About");
             }
             if (file is null)
             {
-                return Json(new
-                {
-                    message = "file is null"
-                });
+                ModelState.AddModelError("", "File is empty");
             }
             Image image = _unitOfWork.imageRepository.GetById(about.imageId);
             if (image == null)
             {
-                return Json(
-                    new { message = "this is empty" }
-                          );
+                ModelState.AddModelError("", "Image is empty");
             }
             var imageResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
             if (!imageResult)
@@ -249,7 +222,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
              await _unitOfWork.AboutImageRepository.UpdateAsync(Updateaboutimage);
             if (!AboutImageResult.IsDone)
             {
-                ModelState.AddModelError("", "this is about update error");
+                ModelState.AddModelError("", "Errors occured while editing About Images");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
