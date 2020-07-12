@@ -86,11 +86,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(About about, IFormFile FileData)
         {
+            AboutImage aboutImage = new AboutImage();
+            Image image = new Image();
             if (about == null)
             {
-                return View();
+                ModelState.AddModelError("", "Data is null");
             }
             int imageresultID = 0;
             AboutImage aboutImage = new AboutImage();
@@ -103,8 +106,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
 
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
-
-            if (aboutResult.IsDone)
+            if (!aboutResult.IsDone)
             {
                 if (FileData is null)
                 {
@@ -129,14 +131,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 else
                 {
-                    FileData.Delete(_env, image, "about");
+                    ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
 
                     _unitOfWork.Rollback();
                     ModelState.AddModelError("", "About Image is not saved.");
                 }
             }
             _unitOfWork.Dispose();
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion --Add--
@@ -203,30 +205,33 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Errors occured while editing About");
             }
-            if (file is null)
+            if (file!=null)
             {
-                ModelState.AddModelError("", "File is empty");
+                Image image = _unitOfWork.imageRepository.GetById(about.imageId);
+                if (image == null)
+                {
+
+                }
+                var imageUpdateAfterResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
+                if (!imageUpdateAfterResult)
+                {
+                    ModelState.AddModelError("", "data is null");
+                }
             }
-            Image image = _unitOfWork.imageRepository.GetById(about.imageId);
-            if (image == null)
-            {
-                ModelState.AddModelError("", "Image is empty");
-            }
-            var imageResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
-            if (!imageResult)
-            {
-            }
-            var Updateaboutimage = new AboutImage
+            
+            
+            var updateAboutImage = new AboutImage
             {
                 Id = about.Id,
                 ImageId = about.imageId,
                 AboutId = UpdateAbout.Id,
             };
             var AboutImageResult =
-             await _unitOfWork.AboutImageRepository.UpdateAsync(Updateaboutimage);
+             await _unitOfWork.AboutImageRepository.UpdateAsync(updateAboutImage);
             if (!AboutImageResult.IsDone)
             {
-                ModelState.AddModelError("", "Errors occured while editing About Images");
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "this is about update error");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
@@ -249,20 +254,21 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "NULL");
             }
             var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
-            if (AboutImageResult is null)
+            if (AboutImageResult == null)
             {
                 ModelState.AddModelError("", "About Image is null");
             }
             var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
-            if (aboutResult is null)
+            if (aboutResult == null)
             {
                 ModelState.AddModelError("", "About is null");
             }
             var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
-            if (aboutDeleteResult.IsDone)
+            if (!aboutDeleteResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while deleting About");
             }
+           
             var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
             if (image is null)
             {
@@ -271,14 +277,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var imageResult = await _unitOfWork.imageRepository.DeleteAsync(image);
             if (imageResult.IsDone)
             {
-                return RedirectToAction("Index");
+
+                ModelState.AddModelError("", "data is null");
+               
             }
-            else
+           var imageResult= ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+           
+            if (!imageResult)
             {
                 ModelState.AddModelError("", "an error whene delete data");
             }
+           
             _unitOfWork.Dispose();
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion

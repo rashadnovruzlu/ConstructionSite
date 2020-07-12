@@ -12,10 +12,10 @@ namespace ConstructionSite.Entity.Models
 		
 		public string Address { get; set; }
 
-		[RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
+		//[RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
 		public string Email { get; set; }
 
-		[RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}")]
+		//[RegularExpression(@"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}")]
 		public string PhoneNumber { get; set; }
 	}
 }

@@ -124,9 +124,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
             if (addImageViewResult == 0)
             {
+                ImageExtensions.DeleteAsyc(_env,image,"News",_unitOfWork);
+                ModelState.AddModelError("", "Image add samo errors");
                 ModelState.AddModelError("", "Errors occured while creating Image");
             }
-            newsImage.ImageId = addImageViewResult;
+            newsImage.ImageId = image.Id;
             newsImage.NewsId = newsAddModelResult.Id;
             var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImage);
             if (!newsImageResult.IsDone)
@@ -211,8 +213,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 if (file != null)
                 {
                     var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
-                    if (resultUpdateAsyc)
+                    if (!resultUpdateAsyc)
                     {
+                        ModelState.AddModelError("","file is null");
                     }
                 }
             }

@@ -52,10 +52,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }).ToList();
             if (result == null | result.Count == 0)
             {
-                return Json(new
-                {
-                    message = "Description is null or empty"
-                });
+                ModelState.AddModelError("", "Description is null or empty");
+              
             }
             return View(result);
         }
