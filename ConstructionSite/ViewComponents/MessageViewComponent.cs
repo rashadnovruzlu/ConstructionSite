@@ -1,5 +1,4 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Contact;
-using ConstructionSite.Injections;
+﻿using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -11,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class ContactViewComponent:ViewComponent
+    public class MessageViewComponent:ViewComponent
     {
         string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
-        public ContactViewComponent(IUnitOfWork unitOfWork,
+
+        public MessageViewComponent(IUnitOfWork unitOfWork,
                                   IHttpContextAccessor httpContextAccessor,
                                   SharedLocalizationService localizationHandle)
         {
@@ -28,18 +28,7 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-          var contactResult=  _unitOfWork.ContactRepository.GetAll()
-                .Select(x=>new ContactViewModel
-                {
-                   
-                    Tittle=x.FindTitle(_lang),
-                    Content=x.FindContent(_lang),
-                    Address=x.Address,
-                    Email=x.Email,
-                    PhoneNumber=x.PhoneNumber
-                }).FirstOrDefault();
-           
-            return View(contactResult);
+            return View();
         }
-    }
+        }
 }

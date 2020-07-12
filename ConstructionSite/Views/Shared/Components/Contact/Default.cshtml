@@ -1,4 +1,23 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ContactViewModel
+ 
+    <div class="col-md-12">
+        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+        <h2 class="text-center margin-bottom-20">CONTACT US</h2>
+        <div class="wprt-lines style-2 custom-1">
+            <div class="line-1"></div>
+        </div>
+        <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
+        <p class="wprt-subtitle">@Model.Content</p>
+        <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
+    </div>
+<div class="col-md-4">
+    <h5>Address</h5>
+    <p>@Model.Address</p>
+    <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
+    <h5>Phone number</h5>
+    <p>@Model.PhoneNumber</p>
+    <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
+    <h5>E-mail address</h5>
+    <p>@Model.Email</p>
+    <div class="wprt-spacer" data-desktop="0" data-mobi="10" data-smobi="10"></div>
+</div>
