@@ -159,16 +159,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var result = await _unitOfWork.portfolioRepository.DeleteAsync(portfolio);
             if (!result.IsDone)
             {
-                ModelState.AddModelError("", "this portfolio was not delete");
+                ModelState.AddModelError("", "This portfolio was not delete");
             }
             else
             {

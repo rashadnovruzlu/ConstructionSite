@@ -16,11 +16,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = "Admin")]
     public class DescriptionController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        #endregion
 
+        #region CTOR
         public DescriptionController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
                                IHttpContextAccessor httpContextAccessor)
@@ -30,6 +33,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
+
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -37,11 +43,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _unitOfWork.descriptionRepstory.GetAll()
                 .Select(x => new DescriptionViewModel
@@ -53,10 +55,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (result == null | result.Count == 0)
             {
                 ModelState.AddModelError("", "Description is null or empty");
-              
             }
             return View(result);
         }
+
+        #endregion
 
         [HttpGet]
         public IActionResult Add()
