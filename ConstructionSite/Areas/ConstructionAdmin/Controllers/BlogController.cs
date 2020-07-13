@@ -21,12 +21,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class BlogController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
+        #endregion
 
+        #region CTOR
         public BlogController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
@@ -38,8 +41,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _dbContext = dbContext;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
 
-        #region Index
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -47,11 +51,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
@@ -71,9 +71,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(newsImageResult);
         }
 
-        #endregion Index
+        #endregion
 
-        #region Create
+        #region CREATE
 
         [HttpGet]
         public IActionResult Create()
@@ -81,11 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "Bad Request"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             return View();
         }
@@ -99,17 +95,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (newsAddModel == null)
             {
-                return Json(new
-                {
-                    message = "this is emty"
-                });
+                ModelState.AddModelError("", "News is empty");
             }
             var newsAddModelResult = new News
             {
@@ -126,14 +116,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!addNewViewResult.IsDone)
             {
                 _unitOfWork.Dispose();
-                ModelState.AddModelError("", "news add samo errors");
+                ModelState.AddModelError("", "Errors occured while creating News");
             }
 
             var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
             if (addImageViewResult == 0)
             {
-                ImageExtensions.DeleteAsyc(_env,image,"News",_unitOfWork);
-                ModelState.AddModelError("", "Image add samo errors");
+                ImageExtensions.DeleteAsyc(_env, image, "News", _unitOfWork);
+                ModelState.AddModelError("", "Errors occured while creating Images");
             }
             newsImage.ImageId = image.Id;
             newsImage.NewsId = newsAddModelResult.Id;
@@ -141,84 +131,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!newsImageResult.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "new image added error");
+                ModelState.AddModelError("", "Errors occured while creating News Images");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(News news, IFormFile file)
-        //{
-        //    if (news == null)
-        //    {
-        //        return View();
-        //    }
+        #endregion
 
-        //    int imageresultID = 0;
-        //    Image img = new Image();
-        //    NewsImage newsImg = new NewsImage();
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        return Json(new
-        //        {
-        //            message = "Bad Request"
-        //        });
-        //    }
-        //    var newsResult = await _unitOfWork.newsRepository.AddAsync(news);
-
-        //    if (newsResult.IsDone)
-        //    {
-        //        if (file is null)
-        //        {
-        //            Response.StatusCode = (int)HttpStatusCode.NotExtended;
-        //            return Json(new
-        //            {
-        //                message = "File not found"
-        //            });
-        //        }
-
-        //        imageresultID = await file.SaveImage(_env, "news", img, _unitOfWork);
-
-        //        if (imageresultID < 0)
-        //        {
-        //            return Json(new
-        //            {
-        //                message = "File not save"
-        //            });
-        //        }
-
-        //        newsImg.ImageId = imageresultID;
-        //        newsImg.NewsId = news.Id;
-
-        //        var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImg);
-
-        //        if (newsImageResult.IsDone)
-        //        {
-        //            _unitOfWork.Dispose();
-        //            return RedirectToAction("Index");
-        //        }
-        //        else
-        //        {
-        //            file.Delete(_env, img, "news");
-
-        //            _unitOfWork.Rollback();
-        //            return Json(new
-        //            {
-        //                message = "NewsImage not save"
-        //            });
-        //        }
-        //    }
-        //    _unitOfWork.Dispose();
-        //    return View();
-        //}
-
-        #endregion Create
-
-        #region Edit
+        #region UPDATE
 
         public IActionResult Edit(int id)
         {
@@ -229,10 +150,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
 
             var result = _unitOfWork.newsImageRepository.GetAll()
@@ -254,7 +172,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (result == null)
             {
-                ModelState.AddModelError("", "blog update Some errors");
+                ModelState.AddModelError("", "Errors occured while editing Blog Images");
             }
             return View(result);
         }
@@ -265,10 +183,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (blogEditModel == null)
             {
@@ -297,7 +212,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
                     if (!resultUpdateAsyc)
                     {
-                        ModelState.AddModelError("","file is null");
+                        ModelState.AddModelError("", "File is NULL");
                     }
                 }
             }
@@ -315,9 +230,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion Edit
+        #endregion
 
-        #region Delete
+        #region DELETE
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -326,31 +241,24 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "BadRequest");
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (id < 0)
             {
-                return Json(new
-                {
-                    message = "Object is null"
-                });
+                ModelState.AddModelError("", "Object is NULL");
             }
             var newsImageResult = await _unitOfWork.newsImageRepository
                                                     .GetByIdAsync(id);
             if (newsImageResult == null)
             {
-                ModelState.AddModelError("","data is null");
-               
+                ModelState.AddModelError("", "Data is NULL");
+
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
             if (newsResult == null)
             {
-                ModelState.AddModelError("", "data is null");
+                ModelState.AddModelError("", "News is Null");
             }
             var newsDeleteResult = await _unitOfWork.newsRepository
                                                     .DeleteAsync(newsResult);
@@ -362,7 +270,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                             .GetByIdAsync(newsImageResult.ImageId);
             if (image == null)
             {
-                ModelState.AddModelError("", "data is null");
+                ModelState.AddModelError("", "Image is NUll");
             }
             var imageResult = await _unitOfWork.imageRepository
                                                 .DeleteAsync(image);
@@ -375,6 +283,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion Delete
+        #endregion
     }
 }

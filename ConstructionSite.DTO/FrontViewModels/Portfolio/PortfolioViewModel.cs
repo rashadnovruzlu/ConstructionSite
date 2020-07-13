@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.DTO.FrontViewModels.Portfolio;
+using ConstructionSite.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,6 @@ namespace ConstructionSite.DTO.FrontViewModels.Portfoli
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Project> Projects { get; set; }
+        public List<ProjectMenuViewModel> Projects { get; set; }
     }
 }

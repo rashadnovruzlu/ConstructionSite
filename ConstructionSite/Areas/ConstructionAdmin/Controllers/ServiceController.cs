@@ -20,11 +20,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class ServiceController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
+        #endregion
 
+        #region CTOR
         public ServiceController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor)
@@ -34,6 +37,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
+
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -41,11 +47,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _unitOfWork.ServiceRepository.GetAll()
                 .Include(x => x.Image)
@@ -61,17 +63,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(result);
         }
 
+        #endregion
+
+        #region CREATE
+
         [HttpGet]
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             return View();
         }
@@ -89,29 +91,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (FileData is null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return Json(new
-                {
-                    message = "file not found BadRequest"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             imageresultID = await FileData.SaveImage(_env, "service", image, _unitOfWork);
             if (imageresultID < 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.SeeOther;
-
-                return Json(new
-                {
-                    message = "file not save"
-                });
+                ModelState.AddModelError("", "Images are not saved");
             }
             service.ImageId = image.Id;
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
@@ -122,12 +113,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else
             {
-               // FileData.Delete(_env, image, "service");
                 _unitOfWork.Rollback();
             }
             _unitOfWork.Dispose();
             return View();
         }
+
+        #endregion
+
+        #region UPDATE
 
         [HttpGet]
         public IActionResult Update(int id)
@@ -135,26 +129,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (id < 0)
             {
-                return Json(new
-                {
-                    message = "content is empty"
-                });
+                ModelState.AddModelError("", "Content is empty");
             }
             Service result = _unitOfWork.ServiceRepository.GetById(id);
             if (result == null)
             {
-                return Json(new
-                {
-                    message = "this is empty"
-                });
+                ModelState.AddModelError("", "Service is NULL");
             }
             var data = new ServiceUpdateViewModel
             {
@@ -183,22 +167,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var imageResult = _unitOfWork.imageRepository.GetById(model.ImageId);
             if (imageResult == null)
             {
-                return Json(new
-                {
-                    message = "imageResult is empty"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (file is null)
             {
-                return Json(new
-                {
-                    message = "file is empty"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var imageUpdateResult = await file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
             if (!imageUpdateResult)
             {
-                ModelState.AddModelError("", "image update error");
+                ModelState.AddModelError("", "Errors occured while editing Images");
             }
             Service service = new Service
             {
@@ -218,14 +196,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "this is error");
+                ModelState.AddModelError("", "This is error");
             }
 
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        #endregion
+
+        #region DELETE
         public async Task<IActionResult> Delete(int id)
         {
             if (id < 1)
@@ -235,10 +214,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
             if (service == null)
             {
-                return Json(new
-                {
-                    message = "this is empty"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var result = await _unitOfWork.ServiceRepository.DeleteAsync(service);
             if (!result.IsDone)
@@ -250,5 +226,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

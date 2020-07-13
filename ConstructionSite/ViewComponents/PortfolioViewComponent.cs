@@ -1,4 +1,6 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Portfoli;
+﻿using ConstructionSite.DTO.AdminViewModels.Project;
+using ConstructionSite.DTO.FrontViewModels.Portfoli;
+using ConstructionSite.DTO.FrontViewModels.Portfolio;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -21,14 +23,20 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            ViewBag.por=  _unitOfWork.portfolioRepository.GetAll()
-                                        .Include(x=>x.Projects)
-                                            .Select(x=>new PortfolioViewModel
+            var result = _unitOfWork.portfolioRepository.GetAll()
+                                    .Include(x => x.Projects)
+                                        .Select(x => new PortfolioViewModel
+                                        {
+                                            Id = x.Id,
+                                            Name = x.FindName(_lang),
+                                            Projects = x.Projects.Select(y => new ProjectMenuViewModel
                                             {
-                                                Id=x.Id,
-                                                Name=x.FindName(_lang),
-                                            }).ToList();
-                return View();
+                                                Id = y.Id,
+                                                Name = y.FindName(_lang)
+                                            }).ToList()
+                                        }).ToList();
+
+                return View(result);
         }
     }
 }
