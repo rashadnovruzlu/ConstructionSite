@@ -21,12 +21,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class BlogController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
+        #endregion
 
+        #region CTOR
         public BlogController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
@@ -38,8 +41,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _dbContext = dbContext;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
 
-        #region Index
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -47,11 +51,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
@@ -71,9 +71,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(newsImageResult);
         }
 
-        #endregion Index
+        #endregion
 
-        #region Create
+        #region CREATE
 
         [HttpGet]
         public IActionResult Create()
@@ -81,11 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "Bad Request"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             return View();
         }
@@ -99,17 +95,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (newsAddModel == null)
             {
-                return Json(new
-                {
-                    message = "this is emty"
-                });
+                ModelState.AddModelError("", "News is empty");
             }
             var newsAddModelResult = new News
             {
