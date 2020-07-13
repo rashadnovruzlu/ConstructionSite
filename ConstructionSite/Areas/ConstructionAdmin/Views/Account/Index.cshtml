@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<UserDTO>
+
+<div class="text-danger" asp-validation-summary="All"></div>
+
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
@@ -9,6 +12,7 @@
                 <section class="panel">
 
                     @await Component.InvokeAsync("UserProfile")
+
                 </section>
             </aside>
             <aside class="profile-info col-lg-9">
