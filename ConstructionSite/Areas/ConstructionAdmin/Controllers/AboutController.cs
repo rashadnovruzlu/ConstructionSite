@@ -233,64 +233,49 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         #endregion
 
+        #region DELETE
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (id < 0)
             {
-                return Json(new
-                {
-                    message = "is null"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
             if (AboutImageResult == null)
             {
-                return Json(new
-                {
-                    message = "AboutId is null"
-                });
+                ModelState.AddModelError("", "About Image is empty.");
             }
             var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
             if (aboutResult == null)
             {
-                return Json(new
-                {
-                    message = "data is null"
-                });
+                ModelState.AddModelError("", "About is empty.");
             }
             var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
             if (!aboutDeleteResult.IsDone)
             {
-
-                ModelState.AddModelError("", "delete error");
+                ModelState.AddModelError("", "Errors occured while deleting About");
             }
 
             var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
 
             if (image == null)
             {
-
-                ModelState.AddModelError("", "data is null");
-
+                ModelState.AddModelError("", "NULL");
             }
             var imageResult = ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
 
             if (!imageResult)
             {
-                ModelState.AddModelError("", "an error whene delete data");
+                ModelState.AddModelError("", "An Error occured while deleting Image");
             }
-
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }
