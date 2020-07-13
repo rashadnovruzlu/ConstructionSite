@@ -1,5 +1,8 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Service;
+using ConstructionSite.Injections;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
@@ -9,78 +12,29 @@ namespace ConstructionSite.Controllers
 {
     public class ServicesController : Controller
     {
-        //private readonly IUnitOfWork _unitOfWork;
-        //private string _lang;
-        //public ServicesController(IUnitOfWork unitOfWork)
-        //{
-        //    _unitOfWork = unitOfWork;
-        //    var rqf = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-        //    var culture = rqf.RequestCulture.Culture;
-        //    _lang = culture.Name;
+        string _lang;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly SharedLocalizationService _localizationHandle;
 
-
-        //}
-        //public IActionResult Index()
-        //{
-           
-        //  var result=  _unitOfWork.ServiceRepository.GetAll()
-        //        .Include(x=>x.Image)
-        //        .Include(x=>x.SubServices)
-        //        .Select(x=>new ServiceViewModel
-        //        {
-        //            Id=x.Id,
-        //            Name=x.FindName(_lang),
-        //            Tittle=x.FindTitle(_lang),
-        //            image=x.Image.Path,
-        //           // SubServices=x.SubServices
-
-                    
-        //        })
-                
-        //        .ToList();
-        //    return View(result);
-        //}
-        //public IActionResult Single(int id)
-        //{
-        //  var result=  _unitOfWork.ServiceRepository.GetAll()
-        //        .Include(x=>x.Image)
-        //        .Include(x=>x.SubServices)
-        //        .Select(x=>new SingleServiceViewModel
-        //        {
-        //            Id=x.Id,
-                  
-        //            Name=x.FindName(_lang),
-        //            Tittle=x.FindTitle(_lang),
-                   
-        //            image=x.Image.Path
-
-
-        //        }).FirstOrDefault(x=>x.Id==id);
-        //    return View(result);
-        //}
-        public IActionResult Construction()
+        public ServicesController(IUnitOfWork unitOfWork,
+                                  IHttpContextAccessor httpContextAccessor,
+                                  SharedLocalizationService localizationHandle)
         {
-            return View();
+            _unitOfWork = unitOfWork;
+            _httpContextAccessor = httpContextAccessor;
+            _lang = httpContextAccessor.getLang();
+            _localizationHandle = localizationHandle;
         }
-        
-        public IActionResult Renovation()
+        public IActionResult Index(int id)
         {
+            var resut=_unitOfWork.SubServiceImageRepository.GetById(id);
+               
+             
+              
             return View();
         }
 
-        public IActionResult Consulting()
-        {
-            return View();
-        }
 
-        public IActionResult Architecture()
-        {
-            return View();
-        }
-
-        public IActionResult Electrical()
-        {
-            return View();
-        }
     }
 }
