@@ -256,6 +256,5 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion
-
     }
 }
