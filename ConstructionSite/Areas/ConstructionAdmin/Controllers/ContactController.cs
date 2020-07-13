@@ -100,15 +100,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var contactAddModelResult = new Contact
             {
-                TittleAz    = contactAddViewModel.TittleAz,
-                TittleEn    = contactAddViewModel.TittleEn,
-                TittleRu    = contactAddViewModel.TittleRu,
-                ContentAz   = contactAddViewModel.ContentAz,
-                ContentEn   = contactAddViewModel.ContentEn,
-                ContentRu   = contactAddViewModel.ContentRu,
-                Address     = contactAddViewModel.Address,
+                TittleAz = contactAddViewModel.TittleAz,
+                TittleEn = contactAddViewModel.TittleEn,
+                TittleRu = contactAddViewModel.TittleRu,
+                ContentAz = contactAddViewModel.ContentAz,
+                ContentEn = contactAddViewModel.ContentEn,
+                ContentRu = contactAddViewModel.ContentRu,
+                Address = contactAddViewModel.Address,
                 PhoneNumber = contactAddViewModel.PhoneNumber,
-                Email       = contactAddViewModel.Email
+                Email = contactAddViewModel.Email
             };
             var addContactResult = await _unitOfWork.ContactRepository
                                                         .AddAsync(contactAddModelResult);
@@ -142,22 +142,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
 
             var contantcUpdateResult = _unitOfWork.ContactRepository.GetById(id);
-            if (contantcUpdateResult==null)
+            if (contantcUpdateResult == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");
             }
-            var updateContactUpdate=new ContactUpdateViewModel
+            var updateContactUpdate = new ContactUpdateViewModel
             {
-                Id=contantcUpdateResult.Id,
-                ContentAz=contantcUpdateResult.ContentAz,
-                ContentEn=contantcUpdateResult.ContentEn,
-                ContentRu=contantcUpdateResult.ContentRu,
-                TittleAz=contantcUpdateResult.TittleAz,
-                TittleEn=contantcUpdateResult.TittleEn,
-                TittleRu=contantcUpdateResult.TittleRu,
-                Address=contantcUpdateResult.Address,
-                Email=contantcUpdateResult.Email,
-                PhoneNumber=contantcUpdateResult.PhoneNumber
+                Id = contantcUpdateResult.Id,
+                ContentAz = contantcUpdateResult.ContentAz,
+                ContentEn = contantcUpdateResult.ContentEn,
+                ContentRu = contantcUpdateResult.ContentRu,
+                TittleAz = contantcUpdateResult.TittleAz,
+                TittleEn = contantcUpdateResult.TittleEn,
+                TittleRu = contantcUpdateResult.TittleRu,
+                Address = contantcUpdateResult.Address,
+                Email = contantcUpdateResult.Email,
+                PhoneNumber = contantcUpdateResult.PhoneNumber
             };
 
             if (updateContactUpdate == null)
@@ -184,23 +184,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var updateContactModel = new Contact
             {
-                Id          = contactUpdateViewModel.Id,
-                TittleAz    = contactUpdateViewModel.TittleAz,
-                TittleEn    = contactUpdateViewModel.TittleEn,
-                TittleRu    = contactUpdateViewModel.TittleRu,
-                ContentAz   = contactUpdateViewModel.ContentAz,
-                ContentEn   = contactUpdateViewModel.ContentEn,
-                ContentRu   = contactUpdateViewModel.ContentRu,
-                Address     = contactUpdateViewModel.Address,
+                Id = contactUpdateViewModel.Id,
+                TittleAz = contactUpdateViewModel.TittleAz,
+                TittleEn = contactUpdateViewModel.TittleEn,
+                TittleRu = contactUpdateViewModel.TittleRu,
+                ContentAz = contactUpdateViewModel.ContentAz,
+                ContentEn = contactUpdateViewModel.ContentEn,
+                ContentRu = contactUpdateViewModel.ContentRu,
+                Address = contactUpdateViewModel.Address,
                 PhoneNumber = contactUpdateViewModel.PhoneNumber,
-                Email       = contactUpdateViewModel.Email
+                Email = contactUpdateViewModel.Email
             };
             var contactResult = await _unitOfWork.ContactRepository
                                                     .UpdateAsync(updateContactModel);
             if (!contactResult.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("","update error");
+                ModelState.AddModelError("", "update error");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
@@ -216,12 +216,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     message = "The models are not true"
                 });
             }
-         var contactViewModel=  await _unitOfWork.ContactRepository.GetByIdAsync(id);
-            if (contactViewModel==null)
+            var contactViewModel = await _unitOfWork.ContactRepository.GetByIdAsync(id);
+            if (contactViewModel == null)
             {
 
             }
-          var contatDeleteResult=await  _unitOfWork.ContactRepository.DeleteAsync(contactViewModel);
+            var contatDeleteResult = await _unitOfWork.ContactRepository.DeleteAsync(contactViewModel);
             if (!contatDeleteResult.IsDone)
             {
                 _unitOfWork.Rollback();
@@ -233,5 +233,5 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
     }
-   
+
 }

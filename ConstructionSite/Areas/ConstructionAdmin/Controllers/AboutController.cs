@@ -19,14 +19,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class AboutController : Controller
     {
-        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        #endregion
 
-        #region CTOR
         public AboutController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
                                IHttpContextAccessor httpContextAccessor)
@@ -36,9 +33,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
-        #endregion
-
-        #region Index
 
         [HttpGet]
         public IActionResult Index()
@@ -46,8 +40,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "BadRequest");
 
-                ModelState.AddModelError("", "Model State is not valid");
             }
 
             var result = _unitOfWork.AboutImageRepository.GetAll()
@@ -64,12 +58,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
            }).ToList();
             if (result.Count < 1)
             {
-                ModelState.AddModelError("", "Data is null");
+                ModelState.AddModelError("", "data is null");
+
             }
             return View(result);
         }
-
-        #endregion
 
         #region --Add--
 
@@ -79,8 +72,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                ModelState.AddModelError("", "Model State is not Valid");
+                ModelState.AddModelError("", "BadRequest");
             }
             return View();
         }
@@ -95,31 +87,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Data is null");
             }
-            int imageresultID = 0;
-            AboutImage aboutImage = new AboutImage();
-            Image image = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "BadRequest");
 
-                ModelState.AddModelError("", "Model State is not Valid");
             }
 
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
             if (!aboutResult.IsDone)
             {
-                if (FileData is null)
-                {
-                    Response.StatusCode = (int)HttpStatusCode.NotExtended;
+                ModelState.AddModelError("", "data is not save");
+            }
+            if (FileData == null)
+            {
+                ModelState.AddModelError("", "file not exists");
+            }
+            int imageresultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
+            if (imageresultID < 1)
+            {
+                ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "file not save");
 
-                    ModelState.AddModelError("", "The file is empty");
-                }
-                imageresultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
-                if (imageresultID < 0)
-                {
-                    ModelState.AddModelError("", "Image is not.");
-                }
-                aboutImage.ImageId = imageresultID;
+            }
+            if (aboutResult.IsDone)
+            {
+
+
+                aboutImage.ImageId = image.Id;
                 aboutImage.AboutId = about.Id;
 
                 var aboutImageResult = await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
@@ -134,7 +130,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
 
                     _unitOfWork.Rollback();
-                    ModelState.AddModelError("", "About Image is not saved.");
+                    ModelState.AddModelError("", "file not save");
                 }
             }
             _unitOfWork.Dispose();
@@ -153,7 +149,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Model State is not Valid.");
+                return Json(new
+                {
+                    message = "ModelState IsValid"
+                });
             }
             var result = _unitOfWork.AboutImageRepository.GetAll()
                    .Include(x => x.About)
@@ -188,7 +187,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Model State is not Valid.");
+                return Json(new
+                {
+                    message = "ModelState IsValid"
+                });
             }
             About UpdateAbout = new About
             {
@@ -203,9 +205,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
             if (!aboutResult.IsDone)
             {
-                ModelState.AddModelError("", "Errors occured while editing About");
+                ModelState.AddModelError("", "this is about update error");
             }
-            if (file!=null)
+            if (file != null)
             {
                 Image image = _unitOfWork.imageRepository.GetById(about.imageId);
                 if (image == null)
@@ -218,8 +220,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ModelState.AddModelError("", "data is null");
                 }
             }
-            
-            
+
+
             var updateAboutImage = new AboutImage
             {
                 Id = about.Id,
@@ -239,59 +241,64 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion --Update--
 
-        #region Delete
-
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                ModelState.AddModelError("", "Model State is not Valid");
+                return Json(new
+                {
+                    message = "BadRequest"
+                });
             }
             if (id < 0)
             {
-                ModelState.AddModelError("", "NULL");
+                return Json(new
+                {
+                    message = "is null"
+                });
             }
             var AboutImageResult = await _unitOfWork.AboutImageRepository.GetByIdAsync(id);
             if (AboutImageResult == null)
             {
-                ModelState.AddModelError("", "About Image is null");
+                return Json(new
+                {
+                    message = "AboutId is null"
+                });
             }
             var aboutResult = await _unitOfWork.AboutRepository.GetByIdAsync(AboutImageResult.AboutId);
             if (aboutResult == null)
             {
-                ModelState.AddModelError("", "About is null");
+                return Json(new
+                {
+                    message = "data is null"
+                });
             }
             var aboutDeleteResult = await _unitOfWork.AboutRepository.DeleteAsync(aboutResult);
             if (!aboutDeleteResult.IsDone)
             {
-                ModelState.AddModelError("", "Errors occured while deleting About");
+
+                ModelState.AddModelError("", "delete error");
             }
-           
+
             var image = await _unitOfWork.imageRepository.GetByIdAsync(AboutImageResult.ImageId);
-            if (image is null)
-            {
-                ModelState.AddModelError("", "Image is null");
-            }
-            var imageResult = await _unitOfWork.imageRepository.DeleteAsync(image);
-            if (imageResult.IsDone)
+
+            if (image == null)
             {
 
                 ModelState.AddModelError("", "data is null");
-               
+
             }
-           var imageResult= ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-           
+            var imageResult = ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+
             if (!imageResult)
             {
                 ModelState.AddModelError("", "an error whene delete data");
             }
-           
+
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
-
-        #endregion
     }
 }

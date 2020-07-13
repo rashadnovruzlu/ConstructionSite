@@ -205,6 +205,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
+        #region DELETE
+
         [HttpGet]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -212,26 +214,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid."); 
             }
             if (id == 0)
             {
-                return Json(new
-                {
-                    message = "id is null"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var resultbyId = _unitOfWork.descriptionRepstory.GetById(id);
             if (resultbyId == null)
             {
-                return Json(new
-                {
-                    message = "id is null"
-                });
+                ModelState.AddModelError("", "NULL");
             }
             var result = _unitOfWork.descriptionRepstory.Delete(resultbyId);
             if (!result.IsDone)
@@ -246,5 +238,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View(id);
         }
+
+        #endregion
     }
 }
