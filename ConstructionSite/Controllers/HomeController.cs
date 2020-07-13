@@ -26,6 +26,7 @@ namespace ConstructionSite.Controllers
         {
             return View();
         }
+      
         //public IActionResult Blog()
         //{
         //    var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()

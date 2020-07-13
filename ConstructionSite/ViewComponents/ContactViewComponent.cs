@@ -1,23 +1,23 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
+﻿using ConstructionSite.DTO.FrontViewModels.Contact;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace ConstructionSite.Controllers
+namespace ConstructionSite.ViewComponents
 {
-    public class ServicesController : Controller
+    public class ContactViewComponent:ViewComponent
     {
         string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
-
-        public ServicesController(IUnitOfWork unitOfWork,
+        public ContactViewComponent(IUnitOfWork unitOfWork,
                                   IHttpContextAccessor httpContextAccessor,
                                   SharedLocalizationService localizationHandle)
         {
@@ -26,15 +26,20 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
-        public IActionResult Index(int id)
+        public IViewComponentResult Invoke()
         {
-            var resut=_unitOfWork.SubServiceImageRepository.GetById(id);
-               
-             
-              
-            return View();
+          var contactResult=  _unitOfWork.ContactRepository.GetAll()
+                .Select(x=>new ContactViewModel
+                {
+                   
+                    Tittle=x.FindTitle(_lang),
+                    Content=x.FindContent(_lang),
+                    Address=x.Address,
+                    Email=x.Email,
+                    PhoneNumber=x.PhoneNumber
+                }).FirstOrDefault();
+           
+            return View(contactResult);
         }
-
-
     }
 }
