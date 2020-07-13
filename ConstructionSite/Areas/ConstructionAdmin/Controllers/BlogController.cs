@@ -270,7 +270,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                             .GetByIdAsync(newsImageResult.ImageId);
             if (image == null)
             {
-                ModelState.AddModelError("", "data is null");
+                ModelState.AddModelError("", "Image is NUll");
             }
             var imageResult = await _unitOfWork.imageRepository
                                                 .DeleteAsync(image);
@@ -283,6 +283,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion Delete
+        #endregion
     }
 }
