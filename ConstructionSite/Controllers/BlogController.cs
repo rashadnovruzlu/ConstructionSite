@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels.News;
-using ConstructionSite.DTO.FrontViewModels.Blog;
+﻿using ConstructionSite.DTO.FrontViewModels.Blog;
 using ConstructionSite.Injections;
-using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {

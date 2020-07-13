@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Math.EC.Rfc7748;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
@@ -26,12 +29,14 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
-        public IActionResult Index(int id)
+        public async  Task<IActionResult> Index(int id)
         {
-            var resut=_unitOfWork.SubServiceImageRepository.GetById(id);
-               
-             
-              
+
+      
+
+
+
+
             return View();
         }
 

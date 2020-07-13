@@ -20,12 +20,12 @@ namespace ConstructionSite.Controllers
             _localizationHandle = localizationHandle;
             //_localizationHandle.GetLocalizationByKey(RESOURCEKEYS.)
         }
-        //public async Task<IActionResult> Index()
-        //{ 
-        // var data= await  _unitOfWork.AboutRepository.GetAllAsync();
-        //  var about=  data.AsQueryable().Include(x=>x.AboutImages)
-        //        .ThenInclude(x=>x.Image);
-        //        return View();
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var data = await _unitOfWork.AboutRepository.GetAllAsync();
+            var about = data.AsQueryable().Include(x => x.AboutImages)
+                  .ThenInclude(x => x.Image);
+            return View();
+        }
     }
 }
