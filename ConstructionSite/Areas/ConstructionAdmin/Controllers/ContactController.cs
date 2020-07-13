@@ -19,11 +19,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class ContactController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _environment;
         private readonly IHttpContextAccessor _contextAccessor;
+        #endregion
 
+        #region CTOR
         public ContactController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment environment,
                                  IHttpContextAccessor contextAccessor)
@@ -33,8 +36,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _contextAccessor = contextAccessor;
             _lang = _contextAccessor.getLang();
         }
+        #endregion
 
-        #region Index
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -42,11 +46,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "Bad Request"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var contactResult = _unitOfWork.ContactRepository.GetAll()
                                             .Select(y => new ContactViewModel
@@ -62,7 +62,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
-        #region Create
+        #region CREATE
 
         [HttpGet]
         public IActionResult Add()
@@ -70,11 +70,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "Bad Request"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             return View();
         }
@@ -86,29 +82,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new
-                {
-                    message = "Bad Request"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (contactAddViewModel == null)
             {
-                return Json(new
-                {
-                    message = "View Model is Empty"
-                });
+                ModelState.AddModelError("", "View Model is empty.");
             }
             var contactAddModelResult = new Contact
             {
-                TittleAz    = contactAddViewModel.TittleAz,
-                TittleEn    = contactAddViewModel.TittleEn,
-                TittleRu    = contactAddViewModel.TittleRu,
-                ContentAz   = contactAddViewModel.ContentAz,
-                ContentEn   = contactAddViewModel.ContentEn,
-                ContentRu   = contactAddViewModel.ContentRu,
-                Address     = contactAddViewModel.Address,
+                TittleAz = contactAddViewModel.TittleAz,
+                TittleEn = contactAddViewModel.TittleEn,
+                TittleRu = contactAddViewModel.TittleRu,
+                ContentAz = contactAddViewModel.ContentAz,
+                ContentEn = contactAddViewModel.ContentEn,
+                ContentRu = contactAddViewModel.ContentRu,
+                Address = contactAddViewModel.Address,
                 PhoneNumber = contactAddViewModel.PhoneNumber,
-                Email       = contactAddViewModel.Email
+                Email = contactAddViewModel.Email
             };
             var addContactResult = await _unitOfWork.ContactRepository
                                                         .AddAsync(contactAddModelResult);
@@ -123,7 +113,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
-        #region Update
+        #region UPDATE
 
         [HttpGet]
         public IActionResult Update(int id)
@@ -135,29 +125,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
 
             var contantcUpdateResult = _unitOfWork.ContactRepository.GetById(id);
-            if (contantcUpdateResult==null)
+            if (contantcUpdateResult == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");
             }
-            var updateContactUpdate=new ContactUpdateViewModel
+            var updateContactUpdate = new ContactUpdateViewModel
             {
-                Id=contantcUpdateResult.Id,
-                ContentAz=contantcUpdateResult.ContentAz,
-                ContentEn=contantcUpdateResult.ContentEn,
-                ContentRu=contantcUpdateResult.ContentRu,
-                TittleAz=contantcUpdateResult.TittleAz,
-                TittleEn=contantcUpdateResult.TittleEn,
-                TittleRu=contantcUpdateResult.TittleRu,
-                Address=contantcUpdateResult.Address,
-                Email=contantcUpdateResult.Email,
-                PhoneNumber=contantcUpdateResult.PhoneNumber
+                Id = contantcUpdateResult.Id,
+                ContentAz = contantcUpdateResult.ContentAz,
+                ContentEn = contantcUpdateResult.ContentEn,
+                ContentRu = contantcUpdateResult.ContentRu,
+                TittleAz = contantcUpdateResult.TittleAz,
+                TittleEn = contantcUpdateResult.TittleEn,
+                TittleRu = contantcUpdateResult.TittleRu,
+                Address = contantcUpdateResult.Address,
+                Email = contantcUpdateResult.Email,
+                PhoneNumber = contantcUpdateResult.PhoneNumber
             };
 
             if (updateContactUpdate == null)
@@ -173,10 +160,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (contactUpdateViewModel == null)
             {
@@ -184,44 +168,46 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var updateContactModel = new Contact
             {
-                Id          = contactUpdateViewModel.Id,
-                TittleAz    = contactUpdateViewModel.TittleAz,
-                TittleEn    = contactUpdateViewModel.TittleEn,
-                TittleRu    = contactUpdateViewModel.TittleRu,
-                ContentAz   = contactUpdateViewModel.ContentAz,
-                ContentEn   = contactUpdateViewModel.ContentEn,
-                ContentRu   = contactUpdateViewModel.ContentRu,
-                Address     = contactUpdateViewModel.Address,
+                Id = contactUpdateViewModel.Id,
+                TittleAz = contactUpdateViewModel.TittleAz,
+                TittleEn = contactUpdateViewModel.TittleEn,
+                TittleRu = contactUpdateViewModel.TittleRu,
+                ContentAz = contactUpdateViewModel.ContentAz,
+                ContentEn = contactUpdateViewModel.ContentEn,
+                ContentRu = contactUpdateViewModel.ContentRu,
+                Address = contactUpdateViewModel.Address,
                 PhoneNumber = contactUpdateViewModel.PhoneNumber,
-                Email       = contactUpdateViewModel.Email
+                Email = contactUpdateViewModel.Email
             };
             var contactResult = await _unitOfWork.ContactRepository
                                                     .UpdateAsync(updateContactModel);
             if (!contactResult.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("","update error");
+                ModelState.AddModelError("", "Errors occured while updating Contact");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region DELETE
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
 
             if (!ModelState.IsValid)
             {
-                return Json(new
-                {
-                    message = "The models are not true"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
-         var contactViewModel=  await _unitOfWork.ContactRepository.GetByIdAsync(id);
-            if (contactViewModel==null)
+            var contactViewModel = await _unitOfWork.ContactRepository.GetByIdAsync(id);
+            if (contactViewModel == null)
             {
 
             }
-          var contatDeleteResult=await  _unitOfWork.ContactRepository.DeleteAsync(contactViewModel);
+            var contatDeleteResult = await _unitOfWork.ContactRepository.DeleteAsync(contactViewModel);
             if (!contatDeleteResult.IsDone)
             {
                 _unitOfWork.Rollback();
@@ -229,9 +215,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+
         #endregion
-
-
     }
-   
 }

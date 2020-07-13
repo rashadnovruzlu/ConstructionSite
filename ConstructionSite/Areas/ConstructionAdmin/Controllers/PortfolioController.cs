@@ -13,10 +13,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Area(nameof(ConstructionAdmin))]
     public class PortfolioController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        #endregion
 
+        #region CTOR
         public PortfolioController(IUnitOfWork unitOfWork,
                                    IHttpContextAccessor httpContextAccessor)
         {
@@ -24,6 +27,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
+
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -31,11 +37,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _unitOfWork.portfolioRepository.GetAll()
             .Select(x => new PortfolioViewModel
@@ -46,13 +48,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (result.Count < 0)
             {
-                return Json(new
-                {
-                    message = "this is empty"
-                });
+                ModelState.AddModelError("", "This is empty");
             }
             return View(result);
         }
+
+        #endregion
+
+        #region CREATE
 
         [HttpGet]
         public IActionResult Add()
@@ -60,11 +63,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             return View();
         }
@@ -76,18 +75,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (portfolio == null)
             {
-                return Json(new
-                {
-                    message = "data is null"
-                });
+                ModelState.AddModelError("", "Portfolio is NULL");
             }
             var portfolioResult = await _unitOfWork.portfolioRepository.AddAsync(portfolio);
             if (portfolioResult.IsDone)
@@ -98,10 +90,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             else
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Data Not Save");
+                ModelState.AddModelError("", "Data is Not Saved.");
             }
             return View();
         }
+
+        #endregion
+
+        #region UPDATE
 
         public IActionResult Update(int id)
         {
@@ -137,7 +133,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 _unitOfWork.Rollback();
                 _unitOfWork.Dispose();
-                ModelState.AddModelError("", "this is not success ful");
+                ModelState.AddModelError("", "This is not successfull");
             }
             else
             {
@@ -146,6 +142,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(portfoliUpdateViewModel.id);
         }
+
+        #endregion
+
+        #region DELETE
 
         [HttpGet]
         [ValidateAntiForgeryToken]
@@ -159,16 +159,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var result = await _unitOfWork.portfolioRepository.DeleteAsync(portfolio);
             if (!result.IsDone)
             {
-                ModelState.AddModelError("", "this portfolio was not delete");
+                ModelState.AddModelError("", "This portfolio was not delete");
             }
             else
             {
@@ -178,5 +174,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View(id);
         }
+
+        #endregion
     }
 }

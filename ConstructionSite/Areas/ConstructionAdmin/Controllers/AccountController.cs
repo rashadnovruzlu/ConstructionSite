@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,14 @@ namespace ConstructionSite.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
+        #region Fields
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationIdentityDbContext _identityDb;
+        #endregion
 
+        #region AddErrors Method
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -29,7 +33,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 ModelState.AddModelError("", error.Description);
             }
         }
+        #endregion
 
+        #region CTOR
         public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
@@ -37,6 +43,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
             this._roleManager = roleManager;
             this._identityDb = identityDb;
         }
+        #endregion
+
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -50,6 +59,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             });
             return View(users);
         }
+
+        #endregion
+
+        #region CREATE
 
         [HttpGet]
         [Route("Create")]
@@ -100,6 +113,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View(viewModel);
         }
 
+        #endregion
+
+        #region LOGIN
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -116,10 +133,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (ModelState.IsValid)
             {
@@ -129,19 +143,12 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
                     if (appUser != null)
                     {
-                        //bool checkPassword = await userManager.CheckPasswordAsync(appUser, loginModel.Password);
                         await _signInManager.SignOutAsync();
                         var result = await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, true, true);
                         if (result.Succeeded)
                         {
-                            //return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
                             return Redirect(ReturnUrl ?? "/");
                         }
-                        //if (checkPassword)
-                        //{
-                        //    await _signInManager.SignInAsync(appUser, false);
-                        //    return RedirectToAction("Index", "Dashboard", new { Areas = "ConstructionAdmin" });
-                        //}
                         else
                         {
                             ModelState.AddModelError("password", "Password is not correct.");
@@ -160,6 +167,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View(loginModel);
         }
 
+        #endregion
+
+        #region EDIT
+
         [HttpGet]
         [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
@@ -168,10 +179,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
             if (appUser == null)
             {
-                return Json(new
-                {
-                    message = ""
-                });
+                ModelState.AddModelError("", "User or Admin is empty");
             }
 
             var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
@@ -225,6 +233,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View(userEditModel);
         }
 
+        #endregion
+
+        #region LOGOUT
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
@@ -238,6 +250,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
             return RedirectToAction("index", "Dashboard");
         }
+
+        #endregion
+
+        #region DELETE
 
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
@@ -283,5 +299,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 status = HttpStatusCode.NotFound
             });
         }
+
+        #endregion
     }
 }

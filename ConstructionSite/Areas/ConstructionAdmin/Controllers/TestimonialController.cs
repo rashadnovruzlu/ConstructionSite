@@ -16,11 +16,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class TestimonialController : Controller
     {
+        #region Fields
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        #endregion
 
+        #region CTOR
         public TestimonialController(IUnitOfWork unitOfWork,
                                      IWebHostEnvironment env,
                                      IHttpContextAccessor httpContextAccessor)
@@ -30,6 +33,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLang();
         }
+        #endregion
+
+        #region INDEX
 
         [HttpGet]
         public IActionResult Index()
@@ -37,26 +43,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             return View();
         }
 
+        #endregion
+
+        #region CREATE
+
         [HttpGet]
-        public IActionResult add()
+        public IActionResult Add()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             return View();
         }
@@ -68,26 +70,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (customerFeedback == null)
             {
-                ModelState.AddModelError("", "this data is null or emoty");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerFeedback);
 
             if (!customerFeedbackResult.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "this data is not add");
+                ModelState.AddModelError("", "This data is not added");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region UPDATE
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
@@ -95,16 +97,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
             if (customerFeedbackUpdateResult == null)
             {
-                ModelState.AddModelError("", "this data is null or emoty");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             var customerFeedbackUpdate = new CustomerUpdateModel
             {
@@ -118,7 +116,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (customerFeedbackUpdate == null)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "this data is null or empity");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             _unitOfWork.Dispose();
             return View(customerFeedbackUpdate);
@@ -131,52 +129,50 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Model State is not Valid.");
             }
             if (customerFeedback == null)
             {
-                ModelState.AddModelError("", "this data is null or empity");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerFeedback);
             if (!customerFeedbackUpdateResult.IsDone)
             {
-                ModelState.AddModelError("", "this data is null or empity");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             return RedirectToAction("Index");
         }
+
+        #endregion
+
+        #region DELETE
 
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (id < 1)
             {
-                ModelState.AddModelError("", "id is null");
+                ModelState.AddModelError("", "Id is null");
             }
             var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
             if (customerFeedbackResult != null)
             {
-                ModelState.AddModelError("", "this data is null or empity");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             var customerFeedbackDeleteResult = await _unitOfWork.customerFeedbackRepository.DeleteAsync(customerFeedbackResult);
             if (!customerFeedbackDeleteResult.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "this data is null or empity");
+                ModelState.AddModelError("", "This data is null or empty");
             }
             _unitOfWork.Dispose();
             return View();
         }
+
+        #endregion
     }
 }
