@@ -1,4 +1,4 @@
-﻿<!-- Featured Title -->
+﻿@model BlogDetalyeViewModel
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
@@ -16,14 +16,14 @@
             <div id="inner-content" class="inner-content-wrap">
                 <article class="hentry">
                     <div class="post-media clearfix">
-                        <a href="#"><img src="~/assets/img/news/1.jpg" alt="image"></a>
+                        <a href="javascrip:void(0)"><img src="@Model.imagePath" alt="image"></a>
                     </div>
                     <!-- /.post-media -->
 
                     <div class="post-content-wrap">
                         <h2 class="post-title">
                             <span class="post-title-inner">
-                                <a href="#">History of the Interstate Highway System</a>
+                                <a href="javascrip:void(0)">@Model.Title</a>
                             </span>
                         </h2>
                         <!-- /.post-title -->
@@ -32,30 +32,15 @@
                             <div class="post-meta-content">
                                 <div class="post-meta-content-inner">
                                     <span class="post-date item">
-                                        <span class="inner"><span class="entry-date">December 30, 2016</span></span>
+                                        <span class="inner"><span class="entry-date">@Model.dateTime</span></span>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.post-meta -->
+                      
 
                         <div class="post-content post-excerpt">
-                            <p>Integer rhoncus hendrerit sem egestas porttitor. Integer et mi sed dolor eleifend pretium quis ut velit. Nam sit amet arcu feugiat, consequat orci at, ultrices magna. Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. Nulla commodo leo eget justo blandit, non sagittis lectus dignissim.</p>
-                        </div>
-                        <!-- /.post-excerpt -->
-
-                        <div class="post-content post-excerpt">
-                            <p>Integer rhoncus hendrerit sem egestas porttitor. Integer et mi sed dolor eleifend pretium quis ut velit. Nam sit amet arcu feugiat, consequat orci at, ultrices magna. Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. Nulla commodo leo eget justo blandit, non sagittis lectus dignissim.</p>
-                        </div>
-                        <!-- /.post-excerpt -->
-
-                        <div class="post-content post-excerpt">
-                            <p>Integer rhoncus hendrerit sem egestas porttitor. Integer et mi sed dolor eleifend pretium quis ut velit. Nam sit amet arcu feugiat, consequat orci at, ultrices magna. Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. Nulla commodo leo eget justo blandit, non sagittis lectus dignissim.</p>
-                        </div>
-                        <!-- /.post-excerpt -->
-
-                        <div class="post-content post-excerpt">
-                            <p>Integer rhoncus hendrerit sem egestas porttitor. Integer et mi sed dolor eleifend pretium quis ut velit. Nam sit amet arcu feugiat, consequat orci at, ultrices magna. Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. Nulla commodo leo eget justo blandit, non sagittis lectus dignissim.</p>
+                            <p>@Model.Content.</p>
                         </div>
                         <!-- /.post-excerpt -->
 

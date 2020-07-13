@@ -15,10 +15,10 @@ namespace ConstructionSite.ViewComponents
 {
     public class ServiceViewComponent:ViewComponent
     {
-        string                                    _lang;
-        private readonly IUnitOfWork              _unitOfWork;
-        private readonly IHttpContextAccessor    _httpContextAccessor;
-        private readonly SharedLocalizationService _localizationHandle;
+        string                                      _lang;
+        private readonly IUnitOfWork                _unitOfWork;
+        private readonly IHttpContextAccessor       _httpContextAccessor;
+        private readonly SharedLocalizationService  _localizationHandle;
         public ServiceViewComponent(IUnitOfWork unitOfWork, 
                                     IHttpContextAccessor httpContextAccessor,
                                     SharedLocalizationService localizationHandle)
@@ -51,7 +51,7 @@ namespace ConstructionSite.ViewComponents
                     Name=x.FindName(_lang),
                     Tittle=x.FindTitle(_lang),
                     image=x.Image.Path    
-                }).Take(4).ToList();
+                }).ToList();
 
             if (result.Count == 0 | result == null)
             {
