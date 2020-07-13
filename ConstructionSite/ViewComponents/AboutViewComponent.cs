@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
@@ -36,7 +37,7 @@ namespace ConstructionSite.ViewComponents
                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
           
-            var aboutImageResult=_unitOfWork.AboutImageRepository.GetAll()
+            var aboutImageResult= _unitOfWork.AboutImageRepository.GetAll()
                 .Select(x=>new AboutViewModel
                 {
                     Id=x.Id,
