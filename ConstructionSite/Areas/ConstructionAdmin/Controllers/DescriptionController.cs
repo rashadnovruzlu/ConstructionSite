@@ -61,17 +61,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion
 
+        #region CREATE
+
         [HttpGet]
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _unitOfWork.SubServiceRepository.GetAll()
                  .Select(x => new DescriptionSubServer
@@ -81,10 +79,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                  }).ToList();
             if (result == null | result.Count < 0)
             {
-                return Json(new
-                {
-                    message = "SubService is empty"
-                });
+                ModelState.AddModelError("", "Sub Service is empty.");
             }
             ViewBag.items = result;
             _unitOfWork.Dispose();
@@ -98,18 +93,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (model == null)
             {
-                return Json(new
-                {
-                    message = "description add model is null"
-                });
+                ModelState.AddModelError("", "Description is empty.");
             }
             Description Descriptionresult = new Description
             {
@@ -137,15 +125,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (result == null | result.Count < 0)
             {
                 _unitOfWork.Rollback();
-                return Json(new
-                {
-                    message = "SubService is empty"
-                });
+                ModelState.AddModelError("", "Sub Service is empty.");
             }
             ViewBag.items = result;
             _unitOfWork.Dispose();
             return View();
         }
+
+        #endregion
+
+        #region UPDATE
 
         [HttpGet]
         public IActionResult Update(int id)
@@ -153,26 +142,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (id == 0)
             {
-                return Json(new
-                {
-                    message = "id is null"
-                });
+                ModelState.AddModelError("", "Id is NULL");
             }
             var descriptionUpdateViewModel = _unitOfWork.descriptionRepstory.GetById(id);
             if (descriptionUpdateViewModel == null)
             {
-                return Json(new
-                {
-                    message = "DescriptionUpdateViewModel is empty"
-                });
+                ModelState.AddModelError("", "Description is empty");
             }
             var result = new DescriptionAddViewModel
             {
@@ -196,18 +175,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                return Json(new
-                {
-                    message = "BadRequest"
-                });
+                ModelState.AddModelError("", "Models are not valid.");
             }
             if (model == null)
             {
-                return Json(new
-                {
-                    message = "DescriptionUpdateViewMode is null"
-                });
+                ModelState.AddModelError("", "Description is empty");
             }
             var DescriptionUpdateViewModel = new Description
             {
@@ -224,12 +196,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Description update not successfull");
+                ModelState.AddModelError("", "Errors occured while editing Description.");
                 return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
             return View(model.Id);
         }
+
+        #endregion
 
         [HttpGet]
         [ValidateAntiForgeryToken]
