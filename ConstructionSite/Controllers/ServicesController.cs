@@ -1,14 +1,8 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
-using ConstructionSite.Injections;
-using ConstructionSite.Localization;
+﻿using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Math.EC.Rfc7748;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
@@ -32,7 +26,12 @@ namespace ConstructionSite.Controllers
         public async  Task<IActionResult> Index(int id)
         {
 
-      
+
+            var data = await _unitOfWork.ServiceRepository.GetAllAsync();
+            data.AsQueryable().Include(x => x.SubServices)
+                .ThenInclude(x=>x.SubServiceImages)
+                .ThenInclude()
+
 
 
 
