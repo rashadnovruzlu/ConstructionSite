@@ -9,5 +9,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             return View();
         }
+        public IActionResult About()
+        {
+            return View();
+        }
     }
 }

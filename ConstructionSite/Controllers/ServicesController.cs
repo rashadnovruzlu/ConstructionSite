@@ -1,4 +1,4 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
+﻿using ConstructionSite.DTO.FrontViewModels.SubService;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -32,6 +32,28 @@ namespace ConstructionSite.Controllers
 
            
             return View();
+        }
+        public IActionResult Inner(int id)
+        {
+          
+             var result=  _unitOfWork.SubServiceImageRepository.GetAll()
+                .Include(x=>x.SubService.Service)
+                .Include(x=>x.Image)
+                .Include(x=>x.SubService)
+                .Where(y=>y.SubService.ServiceId==id)
+                .Select(x=> new ServiceSubServiceImage
+                {
+                 id=x.Id,
+                 SubServiceID=x.SubServiceId,
+                 SubContent=x.SubService.FindContent(_lang),
+                 SubName=x.SubService.FindName(_lang)
+                }).ToList();
+            _unitOfWork.ServiceRepository.GetAll()
+                .Include(x=>x.SubServices)
+                ;
+               
+               
+            return View(result);
         }
 
 

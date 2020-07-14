@@ -58,8 +58,7 @@ namespace ConstructionSite.Controllers
                 imagePath=newsImageResult.Image.Path,
                 
                 
-            }
-;
+            };
             return View(blogDetalyeViewModel);
         }
 
