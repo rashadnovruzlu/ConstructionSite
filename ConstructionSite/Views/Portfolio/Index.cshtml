@@ -1,4 +1,5 @@
-﻿<section id="works" class="wprt-section">
+﻿@model IEnumerable<PortfolioViewModel>
+<section id="works" class="wprt-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -23,205 +24,20 @@
             <div data-filter="*" class="cbp-filter-item">
                 <span>All</span>
             </div>
-            <div data-filter=".architecture" class="cbp-filter-item">
-                <span>Architecture</span>
-            </div>
-            <div data-filter=".building" class="cbp-filter-item">
-                <span>Building</span>
-            </div>
-            <div data-filter=".garden" class="cbp-filter-item">
-                <span>Garden</span>
-            </div>
-            <!--  <div data-filter=".interior" class="cbp-filter-item">
-                 <span>Interior</span>
-             </div>
-             <div data-filter=".office" class="cbp-filter-item">
-                 <span>Office</span>
-             </div>
-             <div data-filter=".workspace" class="cbp-filter-item">
-                 <span>Workspace</span>
-             </div> -->
+            @foreach (var item in Model)
+            {
+                <div class="cbp-filter-item">
+                    
+                    <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@item.Id"><span>@item.Name</span></a>
+                </div>
+            }
+
+         
+
         </div>
         <!-- /#project-filter -->
 
-        <div id="projects" class="cbp">
-            <div class="cbp-item architecture interior workspace">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-zoe">
-                                <img src="~/assets/img/projects/1.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/1-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item building office workspace">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-honey">
-                                <img src="~/assets/img/projects/2.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/2-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item architecture garden interior">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-oscar">
-                                <img src="~/assets/img/projects/2.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/3-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item building interior workspace">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-sadie">
-                                <img src="~/assets/img/projects/1.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/4-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item garden office workspace">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-zoe">
-                                <img src="~/assets/img/projects/1.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/5-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item architecture garden office">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-honey">
-                                <img src="~/assets/img/projects/2.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/6-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item architecture garden office">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-oscar">
-                                <img src="~/assets/img/projects/1.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/7-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-            <div class="cbp-item architecture garden office">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-sadie">
-                                <img src="~/assets/img/projects/1.jpg" alt="image" />
-                                <figcaption>
-                                    <div>
-                                        <h2><a target="_blank" asp-controller="Portfolio" asp-action="Detail">LUXURY BUILDINGS</a></h2>
-                                        <p>Construction</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <a class="project-zoom cbp-lightbox" href="assets/img/projects/8-full.jpg" data-title="LUXURY BUILDINGS">
-                            <i class="fa fa-arrows-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!--/.cbp-item -->
-
-        </div>
+        
         <!-- /#projects -->
 
     </div>

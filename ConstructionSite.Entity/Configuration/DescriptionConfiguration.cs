@@ -31,8 +31,7 @@ namespace ConstructionSite.Entity.Configuration
              
               .HasMaxLength(500);
 
-            builder.HasOne(x => x.SubService)
-                      .WithMany(s => s.Descriptions);
+            
         }
     }
 }

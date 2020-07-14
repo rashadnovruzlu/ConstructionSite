@@ -3,10 +3,10 @@ using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
@@ -26,12 +26,11 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
-        public IActionResult Index(int id)
+        public async  Task<IActionResult> Index(int id)
         {
-            var resut=_unitOfWork.SubServiceImageRepository.GetById(id);
-               
-             
-              
+           
+
+           
             return View();
         }
 
