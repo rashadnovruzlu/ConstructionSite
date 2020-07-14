@@ -1,4 +1,4 @@
-﻿@model ConstructionSite.Entity.Models.About
+﻿@model AboutIndexViewModel
 <!-- Featured Title -->
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
@@ -31,7 +31,7 @@
 
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
 
-                                    <p class="wprt-subtitle">@Model.TittleAz</p>
+                                    <p class="wprt-subtitle">@Model.Title</p>
 
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
                                 </div>
@@ -43,7 +43,7 @@
                                         <div class="line-1"></div>
                                     </div>
                                     <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
-                                    <p class=" margin-bottom-25">@Model.ContentAz</p>
+                                    <p class=" margin-bottom-25">@Model.Context</p>
                                     <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
                                 </div>
                                 <!-- /.col-md-6 -->
@@ -54,9 +54,9 @@
                                             <ul class="slides">
                                                 <li class="flex-active-slide">
                                                     <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="~/assets/img/gallery/1.jpg" alt="image" />
+                                                    <img src="@Model.imagePath" alt="image" />
                                                 </li>
-                                                <li class="flex-active-slide">
+                                                @*<li class="flex-active-slide">
                                                     <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
                                                     <img src="~/assets/img/gallery/2.jpg" alt="image" />
                                                 </li>
@@ -67,7 +67,7 @@
                                                 <li class="flex-active-slide">
                                                     <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
                                                     <img src="~/assets/img/gallery/2.jpg" alt="image" />
-                                                </li>
+                                                </li>*@
                                             </ul>
                                         </div>
                                         <div id="wprt-carousel" class="flexslider">
@@ -95,13 +95,13 @@
 
                     <!-- FACTS -->
                     <!-- TEAM -->
-                    <section class="wprt-section team">
+                    <!--<section class="wprt-section team">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12">-->
                                     <!--  <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
                                     -->
-                                    <h2 class="margin-bottom-10">MEET OUR TEAM</h2>
+                                    <!--<h2 class="margin-bottom-10">MEET OUR TEAM</h2>
                                     <div class="wprt-lines style-1 custom-3">
                                         <div class="line-1"></div>
                                         <div class="line-2"></div>
@@ -289,27 +289,27 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <!-- /#team-wrap -->
 
-                                    </div>
+                                    <!--</div>-->
                                     <!-- /.wprt-team -->
 
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col-md-12 -->
 
-                                <div class="col-md-12">
+                                <!--<div class="col-md-12">
                                     <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
-                                </div>
+                                </div>-->
                                 <!-- /.col-md-12 -->
 
-                            </div>
+                            <!--</div>-->
                             <!-- /.row -->
 
-                        </div>
+                        <!--</div>-->
                         <!-- /.container -->
 
-                    </section>
+                    <!--</section>-->
                 </div>
             </div>
         </div>

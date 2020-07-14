@@ -1,7 +1,10 @@
-﻿using ConstructionSite.Localization;
+﻿using ConstructionSite.DTO.FrontViewModels.About;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,21 +12,33 @@ namespace ConstructionSite.Controllers
 {
     public class AboutController : Controller
     {
+        private string _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        SharedLocalizationService _localizationHandle;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly SharedLocalizationService _localizationHandle;
 
-        public AboutController(IUnitOfWork unitOfWork, SharedLocalizationService localizationHandle)
+        public AboutController(IUnitOfWork unitOfWork,
+            SharedLocalizationService localizationHandle,
+             IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor=httpContextAccessor;
             _unitOfWork = unitOfWork;
             _localizationHandle = localizationHandle;
             //_localizationHandle.GetLocalizationByKey(RESOURCEKEYS.)
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var data = await _unitOfWork.AboutRepository.GetAllAsync();
-            var about = data.AsQueryable().Include(x => x.AboutImages)
-                  .ThenInclude(x => x.Image);
-            return View();
+        var data=_unitOfWork.AboutImageRepository.GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.About)
+                .Select(x=>new AboutIndexViewModel
+                {
+                    Id=x.Id,
+                    Context=x.About.FindContent(_lang),
+                    Title=x.About.FindTitle(_lang),
+                    imagePath=x.Image.Path
+                });
+            return View(data);
         }
     }
 }

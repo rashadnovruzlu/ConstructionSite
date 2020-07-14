@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ServiceViewModel>
+﻿@model ServiceViewModel
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
@@ -27,14 +27,17 @@
 
                         <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25" style="height:25px"></div>
 
-                        <p class="margin-bottom-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui. Cras id justo eget sapien scelerisque lacinia non a eros.</p>
+                        <p class="margin-bottom-0">@Model.Tittle</p>
 
                         <div class="wprt-spacer" data-desktop="35" data-mobi="35" data-smobi="35" style="height:35px"></div>
 
-                        <div class="wprt-toggle style-1">
-                            <h3 class="toggle-title">We use technology to do the job more quickly</h3>
-                            <div class="toggle-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a metus pellentesque, scelerisque ex sed, volutpat nisi. Curabitur tortor mi, eleifend ornare lobortis non. Nulla porta purus quis iaculis ultrices. Proin aliquam sem at nibh hendrerit sagittis. Nullam ornare odio eu lacus tincidunt malesuada. Sed eu vestibulum elit. Curabitur tortor mi, eleifend ornare.</div>
-                        </div>
+                       
+                            @*<div class="wprt-toggle style-1">
+                                <h3 class="toggle-title">@item</h3>
+                                <div class="toggle-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a metus pellentesque, scelerisque ex sed, volutpat nisi. Curabitur tortor mi, eleifend ornare lobortis non. Nulla porta purus quis iaculis ultrices. Proin aliquam sem at nibh hendrerit sagittis. Nullam ornare odio eu lacus tincidunt malesuada. Sed eu vestibulum elit. Curabitur tortor mi, eleifend ornare.</div>
+                            </div>*@
+                       
+
 
                         <div class="wprt-toggle active style-1">
                             <h3 class="toggle-title">Quality construction continues after the project</h3>
