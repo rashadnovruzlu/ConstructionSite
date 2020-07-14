@@ -1,4 +1,5 @@
-﻿<section id="works" class="wprt-section">
+﻿@model IEnumerable<PortfolioViewModel>
+<section id="works" class="wprt-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -23,24 +24,18 @@
             <div data-filter="*" class="cbp-filter-item">
                 <span>All</span>
             </div>
-            <div data-filter=".architecture" class="cbp-filter-item">
-                <span>Architecture</span>
-            </div>
-            <div data-filter=".building" class="cbp-filter-item">
-                <span>Building</span>
-            </div>
-            <div data-filter=".garden" class="cbp-filter-item">
-                <span>Garden</span>
-            </div>
-            <!--  <div data-filter=".interior" class="cbp-filter-item">
-                 <span>Interior</span>
-             </div>
-             <div data-filter=".office" class="cbp-filter-item">
-                 <span>Office</span>
-             </div>
-             <div data-filter=".workspace" class="cbp-filter-item">
-                 <span>Workspace</span>
-             </div> -->
+            @foreach (var item in Model)
+            {
+                <div class="cbp-filter-item">
+                    
+                    <a asp-controller="Project" asp-action="byid" asp-route-id="@item.Id"><span>@item.Name</span></a>
+                </div>
+            }
+
+            @*<div data-filter=".architecture" class="cbp-filter-item">
+            <span>Architecture</span>
+        </div>*@
+
         </div>
         <!-- /#project-filter -->
 

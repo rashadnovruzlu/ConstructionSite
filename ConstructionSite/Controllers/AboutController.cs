@@ -1,4 +1,6 @@
-﻿using ConstructionSite.DTO.FrontViewModels.About;
+﻿using Castle.Core.Internal;
+using ConstructionSite.DTO.FrontViewModels;
+using ConstructionSite.DTO.FrontViewModels.About;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +39,9 @@ namespace ConstructionSite.Controllers
                     Context=x.About.FindContent(_lang),
                     Title=x.About.FindTitle(_lang),
                     imagePath=x.Image.Path
-                });
+                   
+                }).ToList().OrderByDescending(x=>x.Id).FirstOrDefault();
+         
             return View(data);
         }
     }
