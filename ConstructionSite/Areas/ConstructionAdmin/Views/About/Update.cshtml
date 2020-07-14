@@ -60,6 +60,7 @@
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                             <button class="btn btn-success" type="submit">Submit</button>
+                            <button class="btn btn-default cancel-button" type="button">Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -67,3 +68,11 @@
         </section>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/About/Index";
+        })
+    </script>
+}
