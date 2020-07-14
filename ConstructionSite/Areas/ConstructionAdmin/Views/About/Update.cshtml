@@ -18,55 +18,45 @@
                     <input type="hidden" name="aboutID" value="@Model.aboutID" />
                     <input type="hidden" name="imageId" value="@Model.imageId" />
                     <div class="form-group">
-
                         <div class="col-lg-10">
-                            <input type="text" asp-for="TittleAz" id="f-name" class="form-control">
+                            <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-10">
-                            <input type="text" asp-for="TittleRu" id="f-name" class="form-control">
+                            <input type="text" asp-for="TittleEn" id="f-name" class="form-control" placeholder="Title ENG">
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-10">
-                            <input type="text" asp-for="TittleEn" id="f-name" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="form-group ">
-
-                        <div class="col-lg-10">
-                            <textarea asp-for="ContentAz" class="form-control " id="ccomment"></textarea>
+                            <input type="text" asp-for="TittleRu" id="f-name" class="form-control" placeholder="Title RU">
                         </div>
                     </div>
                     <div class="form-group ">
-
                         <div class="col-lg-10">
-                            <textarea asp-for="ContentRu" class="form-control " id="ccomment"></textarea>
+                            <textarea asp-for="ContentAz" class="form-control " id="ccomment" placeholder="Content AZE"></textarea>
                         </div>
                     </div>
                     <div class="form-group ">
-
                         <div class="col-lg-10">
-                            <textarea asp-for="ContentEn" class="form-control " id="ccomment"></textarea>
+                            <textarea asp-for="ContentEn" class="form-control " id="ccomment" placeholder="Content ENG"></textarea>
                         </div>
                     </div>
                     <div class="form-group ">
-
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentRu" class="form-control " id="ccomment" placeholder="Content RU"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group ">
                         <div class="col-lg-10">
                             <img src="@Model.Image" width="60" height="70" alt="Alternate Text" />
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-10">
                             <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                             <button class="btn btn-success" type="submit">Submit</button>
