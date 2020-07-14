@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ConstructionSite.Entity.Models.SubService>
+﻿@model IEnumerable<AddSubServiceViewModel>
 @{
     ViewData["Title"] = "SubService";
 }
@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <div class="col-lg-10">
                             <select class="form-control m-bot15" name="Id">
-                                @foreach (ServiceSubServiceAddView item in ViewBag.data)
+                                @foreach (AddSubServiceViewModel item in Model)
                                 {
                                     <option value="@item.Id">@item.Name</option>
                                 }
@@ -30,12 +30,7 @@
                             <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group">
-
-                        <div class="col-lg-10">
-                            <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
-                        </div>
-                    </div>
+                   
 
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">

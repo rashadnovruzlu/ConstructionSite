@@ -9,6 +9,7 @@ namespace ConstructionSite.Entity.Configuration
         public void Configure(EntityTypeBuilder<About> builder)
         {
             builder.HasKey(x=>x.Id);
+           
             builder
               .Property(x => x.TittleAz)
               .IsRequired()

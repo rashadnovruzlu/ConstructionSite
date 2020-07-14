@@ -13,7 +13,7 @@ namespace ConstructionSite.Entity.Models
         public virtual Service Service { get; set; }
         
         public virtual int ServiceId { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
+       
         public virtual ICollection<Description> Descriptions { get; set; }
 
         public virtual ICollection<SubServiceImage> SubServiceImages { get; set; }

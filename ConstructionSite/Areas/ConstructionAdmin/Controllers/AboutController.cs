@@ -98,7 +98,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-
+            
             var aboutResult = await _unitOfWork.AboutRepository.AddAsync(about);
             if (!aboutResult.IsDone)
             {
@@ -115,6 +115,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "File is not saved.");
             }
+            
             if (aboutResult.IsDone)
             {
                 aboutImage.ImageId = image.Id;

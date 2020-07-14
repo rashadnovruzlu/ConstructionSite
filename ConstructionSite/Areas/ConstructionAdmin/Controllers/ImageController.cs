@@ -1,10 +1,12 @@
-﻿using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.DTO.AdminViewModels.Image;
+using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
@@ -38,13 +40,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult About()
         {
-            var result=_unitOfWork.AboutRepository.GetAll();
+            var result=_unitOfWork.AboutRepository.GetAll().Select(x=>new AddAboutViewModel
+            {
+                Id=x.Id,
+                Title=x.FindTitle(_lang)
+            }).ToList();
             if (result==null)
             {
                 ModelState.AddModelError("","this is errors");
                 return RedirectToAction("Add", "About");
             }
-           
+           _unitOfWork.Dispose();
             return View(result);
         }
         [HttpPost]
@@ -59,7 +65,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("","this is errors");
             }
-            aboutImageResult.Images.Add(image);
+
+          
             await _unitOfWork.AboutRepository.UpdateAsync(aboutImageResult);
            
             _unitOfWork.Dispose();
@@ -68,12 +75,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public IActionResult SubService()
         {
-            var imageSubServiceResult=_unitOfWork.SubServiceRepository.GetAll();
+            var imageSubServiceResult=_unitOfWork.SubServiceRepository.GetAll()
+                .Select(x=>new AddSubServiceViewModel
+                {
+                    Id=x.Id,
+                    Name=x.FindName(_lang)
+                }).ToList();
             if (imageSubServiceResult!=null)
             {
                 ModelState.AddModelError("", "this is errors");
                 return RedirectToAction("Add", "SubService");
             }
+            _unitOfWork.Dispose();
             return View(imageSubServiceResult);
         }
         [HttpPost]
@@ -87,7 +100,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             }
             await file.SaveImage(_env,"subservice",image,_unitOfWork);
-            subserviceImage.Images.Add(image);
+           
             _unitOfWork.SubServiceRepository.Update(subserviceImage);
             _unitOfWork.Dispose();
             return View();
