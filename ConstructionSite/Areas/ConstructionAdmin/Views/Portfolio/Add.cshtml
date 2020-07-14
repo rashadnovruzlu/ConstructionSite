@@ -16,27 +16,24 @@
                     <div class="panel-body">
                         <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" method="post">
                             <div class="form-group">
-
                                 <div class="col-lg-10">
-                                    <input type="text" asp-for="NameAz" placeholder="NameAz" id="f-name" class="form-control">
+                                    <input type="text" asp-for="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <div class="col-lg-10">
-                                    <input type="text" asp-for="NameRu" placeholder="NameRu" id="f-name" class="form-control">
+                                    <input type="text" asp-for="NameEn" placeholder="Name ENG" id="f-name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <div class="col-lg-10">
-                                    <input type="text" asp-for="NameEn" placeholder="NameEn" id="f-name" class="form-control">
+                                    <input type="text" asp-for="NameRu" placeholder="Name RU" id="f-name" class="form-control">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
                                     <button class="btn btn-success" type="submit">Submit</button>
+                                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -46,3 +43,11 @@
         </div>
     </div>
 </section>
+
+@section scripts{
+<script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Contact/Index";
+        })
+</script>
+}
