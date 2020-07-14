@@ -16,24 +16,20 @@
                     <input type="hidden" name="ImageId" value="@Model.ImageId" />
                     <input type="hidden" name="id" value="@Model.id" />
                     <div class="form-group">
-
                         <div class="col-lg-10">
                             <input type="text" asp-for="TittleAz" id="f-name" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-10">
                             <input type="text" asp-for="TittleRu" id="f-name" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-
                         <div class="col-lg-10">
                             <input type="text" asp-for="TittleEn" id="f-name" class="form-control">
                         </div>
                     </div>
-
                     <div class="form-group ">
 
                         <div class="col-lg-10">
@@ -68,6 +64,7 @@
                     <div class="form-group">
                         <div class="col-lg-offset-2 col-lg-10">
                             <button class="btn btn-success" type="submit">Submit</button>
+                            <button class="btn btn-default cancel-button" type="button">Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -75,3 +72,11 @@
         </section>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Contact/Index";
+        })
+    </script>
+}
