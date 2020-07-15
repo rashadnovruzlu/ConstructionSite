@@ -76,6 +76,14 @@ namespace ConstructionSite.Helpers.Constants
 
         #region About
         public const string AboutUs = "AboutUs";
+        public const string OurHistoryAndFacts = "OurHistoryAndFacts";
+        public const string WhyChooseUs = "WhyChooseUs";
+        public const string MeetOurTeam = "MeetOurTeam";
+        public const string CivilEngineer = "CivilEngineer";
+        public const string ConstructionAssistant = "ConstructionAssistant";
+        public const string ConstructionManager = "ConstructionManager";
+        public const string Electricians = "Electricians";
+
         #endregion
 
         #region Region
