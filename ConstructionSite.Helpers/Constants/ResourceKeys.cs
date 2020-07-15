@@ -90,7 +90,10 @@ namespace ConstructionSite.Helpers.Constants
         public const string WhatIsIncluded = "WhatIsIncluded";
         public const string WeUseTechnologyToDoTheJobMoreQuickly = "WeUseTechnologyToDoTheJobMoreQuickly";
         public const string QualityConstructionContinuesAfterTheProject = "QualityConstructionContinuesAfterTheProject";
-
+        public const string EmployeesAreContinuallyTrainedOnSafetyIssues = "EmployeesAreContinuallyTrainedOnSafetyIssues";
+        public const string GalleryProject = "GalleryProject";
+        public const string Preconstruction = "Preconstruction";
+        public const string AfterTheProject = "AfterTheProject";
         #endregion
 
         #region Region
@@ -113,6 +116,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string GreenBuilding = "GreenBuilding";
         public const string ResconstructionServices = "ResconstructionServices";
         public const string RoofingAndFlooringServices = "RoofingAndFlooringServices";
+        public const string News = "News"; 
         #endregion
 
         #region CONTACT US
