@@ -11,7 +11,7 @@ namespace ConstructionSite.DTO.FrontViewModels.SubService
         public int SubServiceID { get; set; }
 
         public string       SubName { get; set; }
-        public string       SubContent { get; set; }
+        public string       Content { get; set; }
        
        
     }

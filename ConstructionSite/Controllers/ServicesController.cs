@@ -35,6 +35,10 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Inner(int id)
         {
+            if (id<1)
+            {
+                return RedirectToAction("Index");
+            }
           
              var result=  _unitOfWork.SubServiceImageRepository.GetAll()
                 .Include(x=>x.SubService.Service)
@@ -45,17 +49,17 @@ namespace ConstructionSite.Controllers
                 {
                  id=x.Id,
                  SubServiceID=x.SubServiceId,
-                 SubContent=x.SubService.FindContent(_lang),
+                 Content=x.SubService.FindContent(_lang),
                  SubName=x.SubService.FindName(_lang)
-                }).ToList();
-            _unitOfWork.ServiceRepository.GetAll()
-                .Include(x=>x.SubServices)
-                ;
+                }).FirstOrDefault();
                
-               
+              
             return View(result);
         }
-
+        public IActionResult subservice(int id)
+        {
+            return View();
+        }
 
     }
 }
