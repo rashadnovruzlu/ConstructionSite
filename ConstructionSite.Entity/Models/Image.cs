@@ -15,9 +15,8 @@ namespace ConstructionSite.Entity.Models
 		public string Path { get; set; }
 		
 		public virtual Service Service { get; set; }
-       
-
-        public virtual ICollection<AboutImage> AboutImages { get; set; }
+	
+		public virtual ICollection<AboutImage> AboutImages { get; set; }
 
 		public virtual ICollection<HomePage> HomePages { get; set; }
 

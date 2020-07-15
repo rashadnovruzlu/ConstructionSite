@@ -242,7 +242,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (id < 0)
+            if (id < 1)
             {
                 ModelState.AddModelError("", "NULL");
             }

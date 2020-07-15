@@ -15,52 +15,45 @@
                     <div class="panel-body">
                         <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Add" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-
                                 <div class="col-lg-10">
-                                    <input type="text" name="NameAz" placeholder="NameAz" id="f-name" class="form-control">
+                                    <input type="text" name="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <div class="col-lg-10">
-                                    <input type="text" name="NameRu" placeholder="NameRu" id="f-name" class="form-control">
+                                    <input type="text" name="NameEn" placeholder="Name ENG" id="f-name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <div class="col-lg-10">
-                                    <input type="text" name="NameEn" placeholder="NameEn" id="f-name" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group ">
-
-                                <div class="col-lg-10">
-                                    <textarea placeholder="TittleAz" class="form-control " id="ccomment" name="TittleAz" required=""></textarea>
+                                    <input type="text" name="NameRu" placeholder="Name RU" id="f-name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group ">
-
                                 <div class="col-lg-10">
-                                    <textarea placeholder="TittleEn" class="form-control " id="ccomment" name="TittleEn" required=""></textarea>
+                                    <input placeholder="Tittle AZE" class="form-control " id="ccomment" name="TittleAz" required="" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-10">
+                                    <input placeholder="Tittle ENG" class="form-control " id="ccomment" name="TittleEn" required="" />
                                 </div>
                             </div>
                             <div class="form-group ">
 
                                 <div class="col-lg-10">
-                                    <textarea placeholder="TittleRu" class="form-control " id="ccomment" name="TittleRu" required=""></textarea>
+                                    <input placeholder="Tittle RU" class="form-control " id="ccomment" name="TittleRu" required="" />
                                 </div>
                             </div>
                             <div class="form-group">
-
                                 <div class="col-lg-10">
                                     <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="col-lg-offset-2 col-lg-10">
                                     <button class="btn btn-success" type="submit">Submit</button>
+                                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -70,3 +63,11 @@
         </div>
     </div>
 </section>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Service/Index";
+        })
+    </script>
+}
