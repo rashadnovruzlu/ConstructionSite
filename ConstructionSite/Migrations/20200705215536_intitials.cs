@@ -7,6 +7,7 @@ namespace ConstructionSite.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+          
             migrationBuilder.CreateTable(
                 name: "Abouts",
                 columns: table => new
@@ -339,7 +340,7 @@ namespace ConstructionSite.Migrations
                         column: x => x.SubServiceId,
                         principalTable: "SubServices",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

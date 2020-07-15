@@ -4,14 +4,16 @@ using ConstructionSite.Entity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    partial class ConstructionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200714152759_h")]
+    partial class h
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,12 +237,17 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
+                    b.Property<int>("SubServiceID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubServiceID");
 
                     b.ToTable("Images");
                 });
@@ -590,6 +597,15 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
                         .WithMany("HomePages")
                         .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Image", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.SubService", "SubService")
+                        .WithMany("Images")
+                        .HasForeignKey("SubServiceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

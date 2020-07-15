@@ -4,14 +4,16 @@ using ConstructionSite.Entity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    partial class ConstructionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200714153536_checed")]
+    partial class checed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,10 +232,16 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AboutID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<int>("SubServiceID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -241,6 +249,10 @@ namespace ConstructionSite.Migrations
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AboutID");
+
+                    b.HasIndex("SubServiceID");
 
                     b.ToTable("Images");
                 });
@@ -590,6 +602,21 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
                         .WithMany("HomePages")
                         .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Image", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.About", "About")
+                        .WithMany("Images")
+                        .HasForeignKey("AboutID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ConstructionSite.Entity.Models.SubService", "SubService")
+                        .WithMany("Images")
+                        .HasForeignKey("SubServiceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
