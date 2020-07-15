@@ -57,9 +57,18 @@ namespace ConstructionSite.Helpers.Constants
         #endregion
 
         #region Data
-
         public const string DataNotExists = "DataNotExists";
+        #endregion
 
+        #region MENU
+        public const string Home = "Home";
+        public const string About = "About";
+        public const string Service = "Service";
+        public const string Construction = "Construction";
+        public const string Renovation = "Renovation";
+        public const string Consulting = "Consulting";
+        public const string Architecture = "Architecture";
+        public const string Electrical = "Electrical";
         #endregion
     }
 }
