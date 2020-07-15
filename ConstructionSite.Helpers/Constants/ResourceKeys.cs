@@ -107,6 +107,14 @@ namespace ConstructionSite.Helpers.Constants
         public const string Name = "Name";
         public const string Email = "Email";
         public const string Subject = "Subject";
+        public const string Message = "Message";
+        public const string SendMessage = "SendMessage";
+        #endregion
+
+        #region Footer
+        public const string UsefulLinks = "UsefulLinks";
+        public const string TermOfUse = "TermOfUse";
+        public const string Conditions = "Conditions";
         #endregion
     }
 }
