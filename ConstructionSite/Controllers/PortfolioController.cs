@@ -45,18 +45,17 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Project(int id)
         {
-
-        var result=  _unitOfWork.projectImageRepository.GetAll()
-                .Where(x=>x.ProjectId==id)
-                .Include(x=>x.Project)
-                .Include(x=>x.Image)
-                .Select(x=>new PoftfiloProjectViewModel
-                {
-                    id=x.Project.Id,
-                    Name=x.Project.FindName(_lang),
-                    Imagepath=x.Image.Path
-                })
-                .ToList();
+            var result=  _unitOfWork.projectImageRepository.GetAll()
+                    .Where(x=>x.ProjectId==id)
+                    .Include(x=>x.Project)
+                    .Include(x=>x.Image)
+                    .Select(x=>new PoftfiloProjectViewModel
+                    {
+                        id=x.Project.Id,
+                        Name=x.Project.FindName(_lang),
+                        Imagepath=x.Image.Path
+                    })
+                    .ToList();
             return View(result);
         }
     }
