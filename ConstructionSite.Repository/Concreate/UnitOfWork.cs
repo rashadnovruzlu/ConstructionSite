@@ -169,8 +169,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public  int Commit()
         {
-       return _context.SaveChanges();
-      
+            return _context.SaveChanges();
         }
 
         public void Dispose()
