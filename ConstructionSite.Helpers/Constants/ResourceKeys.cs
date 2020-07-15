@@ -83,6 +83,13 @@ namespace ConstructionSite.Helpers.Constants
         public const string ConstructionAssistant = "ConstructionAssistant";
         public const string ConstructionManager = "ConstructionManager";
         public const string Electricians = "Electricians";
+        public const string JuniorArchitect = "JuniorArchitect";
+        #endregion
+
+        #region SERVICES
+        public const string WhatIsIncluded = "WhatIsIncluded";
+        public const string WeUseTechnologyToDoTheJobMoreQuickly = "WeUseTechnologyToDoTheJobMoreQuickly";
+        public const string QualityConstructionContinuesAfterTheProject = "QualityConstructionContinuesAfterTheProject";
 
         #endregion
 
