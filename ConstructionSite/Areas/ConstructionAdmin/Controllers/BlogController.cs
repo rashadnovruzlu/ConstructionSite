@@ -58,11 +58,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                         .Include(x => x.Image)
                                             .Select(x => new BlogViewModel
                                             {
-                                                Id = x.News.Id,
+                                                Id = x.Id,
                                                 Title = x.News.FindTitle(_lang),
                                                 Content = x.News.FindContent(_lang),
                                                 Imagepath = x.Image.Path,
-                                                CreateDate = x.News.CreateDate
+                                                CreateDate = x.News.CreateDate,
                                             }).ToList();
             if (newsImageResult.Count < 1 | newsImageResult == null)
             {
@@ -233,9 +233,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region DELETE
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -243,7 +240,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (id < 0)
+            if (id < 1)
             {
                 ModelState.AddModelError("", "Object is NULL");
             }
@@ -272,11 +269,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Image is NUll");
             }
-            var imageResult = await _unitOfWork.imageRepository
-                                                .DeleteAsync(image);
-            if (!imageResult.IsDone)
+            //var imageResult = await _unitOfWork.imageRepository
+            //                                    .DeleteAsync(image);
+
+            var imageResult = ImageExtensions.DeleteAsyc(_env, image, "news", _unitOfWork);
+
+            if (!imageResult)
             {
-                _unitOfWork.Rollback();
+                //_unitOfWork.Rollback();
+
+                ModelState.AddModelError("", "An Error occured while deleting Image");
             }
 
             _unitOfWork.Dispose();
