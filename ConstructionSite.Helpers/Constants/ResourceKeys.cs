@@ -91,6 +91,22 @@ namespace ConstructionSite.Helpers.Constants
 
         #region TESTIMONIALS
         public const string Testimonials = "Testimonials";
+        public const string BuilderManager = "BuilderManager";
+        #endregion
+
+        #region BLOG
+        public const string GreenBuilding = "GreenBuilding";
+        public const string ResconstructionServices = "ResconstructionServices";
+        public const string RoofingAndFlooringServices = "RoofingAndFlooringServices";
+        #endregion
+
+        #region CONTACT US
+        public const string Address = "Address";
+        public const string PhoneNumber = "PhoneNumber";
+        public const string EmailAddress = "EmailAddress";
+        public const string Name = "Name";
+        public const string Email = "Email";
+        public const string Subject = "Subject";
         #endregion
     }
 }
