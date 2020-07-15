@@ -69,6 +69,18 @@ namespace ConstructionSite.Helpers.Constants
         public const string Consulting = "Consulting";
         public const string Architecture = "Architecture";
         public const string Electrical = "Electrical";
+        public const string Portfolio = "Portfolio";
+        public const string Blog = "Blog";
+        public const string Contact = "Contact";
+        #endregion
+
+        #region About
+        public const string AboutUs = "AboutUs";
+
+        #endregion
+
+        #region Region
+        public const string ReadMore = "ReadMore";
         #endregion
     }
 }
