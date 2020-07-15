@@ -76,11 +76,21 @@ namespace ConstructionSite.Helpers.Constants
 
         #region About
         public const string AboutUs = "AboutUs";
-
         #endregion
 
         #region Region
         public const string ReadMore = "ReadMore";
+        #endregion
+
+        #region Portfolio
+        public const string All = "All";
+        public const string Building = "Building";
+        public const string Garden = "Garden";
+        public const string LuxuryBuildings = "LuxuryBuildings";
+        #endregion
+
+        #region TESTIMONIALS
+        public const string Testimonials = "Testimonials";
         #endregion
     }
 }
