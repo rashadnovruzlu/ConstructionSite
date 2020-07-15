@@ -3,49 +3,57 @@
     ViewData["Title"] = "Add";
 }
 
-    <div class="text-danger" asp-validation-summary="All"></div>
+<div class="text-danger" asp-validation-summary="All"></div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    Add About Elements
-                </header>
-                <div class="panel-body">
-                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Add" method="post">
-                        <div class="form-group ">
-                            <div class="col-lg-10">
-                                <textarea asp-for="ContentAz" class="form-control " id="ccomment" required=""></textarea>
-                            </div>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Add About Elements
+            </header>
+            <div class="panel-body">
+                <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Add" method="post">
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input asp-for="FullName" id="f-name" class="form-control" required placeholder="Full Name">
                         </div>
-                        <div class="form-group ">
-                            <div class="col-lg-10">
-                                <textarea asp-for="ContentEn" class="form-control " id="ccomment" required=""></textarea>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10">
+                            <input asp-for="Position" id="f-name" class="form-control" required placeholder="Position">
                         </div>
-                        <div class="form-group ">
-                            <div class="col-lg-10">
-                                <textarea asp-for="ContentRu" class="form-control " id="ccomment" required=""></textarea>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                            <button class="btn btn-default cancel-button" type="button">Cancel</button>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input asp-for="FullName" id="f-name" class="form-control" required>
-                            </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentAz" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-10">
-                                <input asp-for="Position" id="f-name" class="form-control" required>
-                            </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentEn" class="form-control " id="ccomment" required="" placeholder="Content ENG"></textarea>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-success" type="submit">Submit</button>
-                                <button class="btn btn-default cancel-button" type="button">Cancel</button>
-                            </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-lg-10">
+                            <textarea asp-for="ContentRu" class="form-control " id="ccomment" required="" placeholder="Content RU"></textarea>
                         </div>
-                    </form>
-                </div>
-            </section>
-        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
     </div>
+</div>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Testimonial/Index";
+        })
+    </script>
+}
