@@ -29,7 +29,7 @@ namespace ConstructionSite.ViewComponents
         public IViewComponentResult Invoke()
         {
           var contactResult=  _unitOfWork.ContactRepository.GetAll()
-                .Select(x=>new ContactViewModel
+                .Select(x=>new ContactIndexViewModel
                 {
                    
                     Tittle=x.FindTitle(_lang),

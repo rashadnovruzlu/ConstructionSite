@@ -1,4 +1,6 @@
-﻿<!-- Featured Title -->
+﻿@model ContactIndexViewModel
+
+<!-- Featured Title -->
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
@@ -21,25 +23,25 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="text-center margin-bottom-20">GET IN TOUCH WITH US</h2>
+                                    <h2 class="text-center margin-bottom-20">@Model.Tittle</h2>
                                     <div class="wprt-lines style-2 custom-1">
                                         <div class="line-1"></div>
                                     </div>
                                     <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-                                    <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
+                                    <p class="wprt-subtitle">@Model.Content</p>
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
                                 </div>
                                 <!-- /.col-md-12 -->
 
                                 <div class="col-md-4">
                                     <h5>Address</h5>
-                                    <p>68 Havemeyer St, Brooklyn, NY 11211<br> United States</p>
+                                    <p>@Model.Address</p>
                                     <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
                                     <h5>Phone number</h5>
-                                    <p>+1 718-955-2838 or +1 718-955-3290</p>
+                                    <p>@Model.PhoneNumber</p>
                                     <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
                                     <h5>E-mail address</h5>
-                                    <p>contact@construction.com</p>
+                                    <p>@Model.Email</p>
                                     <div class="wprt-spacer" data-desktop="0" data-mobi="10" data-smobi="10"></div>
                                 </div>
                                 <!-- /.col-md-4 -->
