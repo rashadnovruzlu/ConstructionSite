@@ -178,9 +178,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(AboutUpdateViewModel about, IFormFile file)
+        public async Task<IActionResult> Update(AboutUpdateViewModel aboutUpdateViewModel, IFormFile file)
         {
-            if (about == null)
+           
+            if (aboutUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data not exists");
             }
@@ -190,13 +191,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             About UpdateAbout = new About
             {
-                Id = about.aboutID,
-                ContentAz = about.ContentAz,
-                ContentEn = about.ContentEn,
-                ContentRu = about.ContentRu,
-                TittleAz = about.TittleAz,
-                TittleEn = about.TittleEn,
-                TittleRu = about.TittleRu,
+                Id = aboutUpdateViewModel.aboutID,
+                ContentAz = aboutUpdateViewModel.ContentAz,
+                ContentEn = aboutUpdateViewModel.ContentEn,
+                ContentRu = aboutUpdateViewModel.ContentRu,
+                TittleAz = aboutUpdateViewModel.TittleAz,
+                TittleEn = aboutUpdateViewModel.TittleEn,
+                TittleRu = aboutUpdateViewModel.TittleRu,
             };
             var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
             if (!aboutResult.IsDone)
@@ -205,21 +206,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (file != null)
             {
-                Image image = _unitOfWork.imageRepository.GetById(about.imageId);
+                Image image = _unitOfWork.imageRepository.GetById(aboutUpdateViewModel.imageId);
                 if (image == null)
                 {
-
+                    ModelState.AddModelError("", "NULL");
                 }
                 var imageUpdateAfterResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
                 if (!imageUpdateAfterResult)
                 {
                     ModelState.AddModelError("", "NULL");
                 }
+               
             }
+           
             var updateAboutImage = new AboutImage
             {
-                Id = about.Id,
-                ImageId = about.imageId,
+                Id = aboutUpdateViewModel.Id,
+                ImageId =aboutUpdateViewModel.imageId,
                 AboutId = UpdateAbout.Id,
             };
             var AboutImageResult =

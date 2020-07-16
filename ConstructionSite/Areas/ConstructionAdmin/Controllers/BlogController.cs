@@ -182,6 +182,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BlogEditModel blogEditModel, IFormFile file)
         {
+           
+           
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
@@ -190,9 +192,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
+           
             var resultViewModel = new News
             {
                 Id = blogEditModel.NewsId,
+                
                 ContentAz = blogEditModel.ContentAz,
                 ContentEn = blogEditModel.ContentEn,
                 ContentRu = blogEditModel.ContentRu,
@@ -205,24 +209,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (newsResult == null)
             {
             }
-            var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
-            if (imageResult == null)
+            if (file!=null)
             {
-                if (file != null)
+                var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
+                if (imageResult==null)
                 {
-                    var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
-                    if (!resultUpdateAsyc)
-                    {
-                        ModelState.AddModelError("", "File is NULL");
-                    }
+
                 }
+                var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
+                if (!resultUpdateAsyc)
+                {
+                    ModelState.AddModelError("", "File is NULL");
+                }
+              
+               
+              
             }
-            NewsImage newsImage = new NewsImage
+         
+
+
+
+            var newsImageSelectResult = await _unitOfWork.newsImageRepository.GetByIdAsync(blogEditModel.Id);
+            if (newsImageSelectResult==null)
             {
-                NewsId = blogEditModel.NewsId,
-                ImageId = blogEditModel.ImageId
-            };
-            var result = await _unitOfWork.newsImageRepository.UpdateAsync(newsImage);
+                ModelState.AddModelError("", "File is NULL");
+            }
+           newsImageSelectResult.NewsId=resultViewModel.Id;
+           newsImageSelectResult.ImageId= blogEditModel.ImageId;
+         
+            var result = await _unitOfWork.newsImageRepository.UpdateAsync(newsImageSelectResult);
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
