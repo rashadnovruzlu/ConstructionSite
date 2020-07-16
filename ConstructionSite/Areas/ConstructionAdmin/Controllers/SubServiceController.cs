@@ -249,8 +249,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region DELETE
 
-        [HttpGet]
-        [ValidateAntiForgeryToken]
+        //[HttpGet]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
