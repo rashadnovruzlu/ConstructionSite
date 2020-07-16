@@ -8,8 +8,8 @@ namespace ConstructionSite.Helpers.Constants
     {
         #region UserErrors
         public const string ThisUserDeactivated = "ThisUserDeactivated";
-        public const string TheUsernameFieldIsRequired = "TheUsernameFieldisRequired";
-        public const string UsernameOrPasswordWrong = "UsernameOrPassWordwrong";
+        public const string TheUsernameFieldisRequired = "TheUsernameFieldisRequired";
+        public const string UsernameOrPasswordwrong = "UsernameOrPassWordwrong";
         public const string NoUsersFound = "NoUsersFound";
         public const string UsernameOrEmailHasAlreadyBeenUsed = "UsernameOrEmailHasAlreadyBeenUsed";
         public const string UserNotAuthenticate = "UserNotAuthenticate";
@@ -128,12 +128,14 @@ namespace ConstructionSite.Helpers.Constants
         public const string Subject = "Subject";
         public const string Message = "Message";
         public const string SendMessage = "SendMessage";
+        public const string TermsAndConditions = "TermsAndConditions";
         #endregion
 
         #region Footer
         public const string UsefulLinks = "UsefulLinks";
         public const string TermOfUse = "TermOfUse";
         public const string Conditions = "Conditions";
+        public const string Top = "Top";
         #endregion
     }
 }
