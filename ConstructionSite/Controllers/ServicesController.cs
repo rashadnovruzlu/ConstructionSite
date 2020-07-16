@@ -39,22 +39,30 @@ namespace ConstructionSite.Controllers
             {
                 return RedirectToAction("Index");
             }
-          
-             var result=  _unitOfWork.SubServiceImageRepository.GetAll()
-                .Include(x=>x.SubService.Service)
-                .Include(x=>x.Image)
-                .Include(x=>x.SubService)
-                .Where(y=>y.SubService.ServiceId==id)
-                .Select(x=> new ServiceSubServiceImage
-                {
-                 id=x.Id,
-                 SubServiceID=x.SubServiceId,
-                 Content=x.SubService.FindContent(_lang),
-                 SubName=x.SubService.FindName(_lang)
-                }).FirstOrDefault();
-               
-              
+
+            //var result=_unitOfWork.ServiceRepository.GetAll()
+            //    .Include(x=>x.SubServices)
+            //    .Select(x=>new ServiceSubServiceImage
+            //    {
+            //        id=x.Id,
+            //        Content=x.SubServices.
+            //    })
+            var result = _unitOfWork.SubServiceImageRepository.GetAll()
+               .Include(x => x.SubService.Service)
+               .Include(x => x.Image)
+               .Include(x => x.SubService)
+               .Where(y => y.SubService.ServiceId == id)
+               .Select(x => new ServiceSubServiceImage
+               {
+                   id = x.Id,
+                   SubServiceID = x.SubServiceId,
+                   Content = x.SubService.FindContent(_lang),
+                   SubName = x.SubService.FindName(_lang)
+               }).FirstOrDefault();
+
+
             return View(result);
+
         }
         public IActionResult subservice(int id)
         {
