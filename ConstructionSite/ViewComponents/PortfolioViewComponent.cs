@@ -15,7 +15,8 @@ namespace ConstructionSite.ViewComponents
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IHttpContextAccessor _httpContext;
         private    string                     _lang;
-        public PortfolioViewComponent(IUnitOfWork unitOfWork, IHttpContextAccessor httpContext)
+        public PortfolioViewComponent(IUnitOfWork unitOfWork,
+                                      IHttpContextAccessor httpContext)
         {
             _unitOfWork=unitOfWork;
             _httpContext = httpContext;

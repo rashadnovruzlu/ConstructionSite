@@ -12,5 +12,15 @@ namespace ConstructionSite.Controllers
         {
             return View();
         }
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(string str)
+        {
+            return View();
+        }
     }
 }

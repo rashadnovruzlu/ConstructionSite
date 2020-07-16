@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<PortfolioViewModel>
     <section id="works" class="wprt-section">
         <div class="container">
             <div class="row">
@@ -30,7 +30,7 @@
                     <span>Building</span>
                 </div>*@
 
-                @foreach (PortfolioViewModel item in ViewBag.por)
+                @foreach (PortfolioViewModel item in Model)
                 {
                     <div data-filter=".garden" class="cbp-filter-item">
                         <span>@item.Name</span>

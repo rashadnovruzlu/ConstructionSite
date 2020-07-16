@@ -59,7 +59,8 @@ namespace ConstructionSite.Helpers.Constants
         #region Data
 
         public const string DataNotExists = "DataNotExists";
-
+       
         #endregion
+
     }
 }
