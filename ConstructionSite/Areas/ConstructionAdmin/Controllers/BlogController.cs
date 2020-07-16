@@ -59,6 +59,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                             .Select(x => new BlogViewModel
                                             {
                                                 Id = x.Id,
+                                                NewsId=x.News.Id,
                                                 Title = x.News.FindTitle(_lang),
                                                 Content = x.News.FindContent(_lang),
                                                 Imagepath = x.Image.Path,
@@ -156,18 +157,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var result = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
                                         .Include(x => x.Image)
-                                            .Select(y => new BlogEditModel
+                                            .Select(x => new BlogEditModel
                                             {
-                                                Id = y.News.Id,
-                                                TittleAz = y.News.TittleAz,
-                                                TittleEn = y.News.TittleEn,
-                                                TittleRu = y.News.TittleRu,
-                                                ContentAz = y.News.ContentAz,
-                                                ContentEn = y.News.ContentEn,
-                                                ContentRu = y.News.ContentRu,
-                                                Image = y.Image.Path,
-                                                ImageId = y.Image.Id,
-                                                NewsId = y.NewsId
+                                                Id = x.Id,
+                                                TittleAz = x.News.TittleAz,
+                                                TittleEn = x.News.TittleEn,
+                                                TittleRu = x.News.TittleRu,
+                                                ContentAz = x.News.ContentAz,
+                                                ContentEn = x.News.ContentEn,
+                                                ContentRu = x.News.ContentRu,
+                                                Image = x.Image.Path,
+                                                ImageId = x.Image.Id,
+                                                NewsId = x.News.Id
                                             }).FirstOrDefault(x => x.Id == id);
 
             if (result == null)
