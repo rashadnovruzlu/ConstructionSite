@@ -106,15 +106,17 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
        
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
+            ViewBag.returnUrl= returnUrl;
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginModel, string ReturnUrl)
+        
+        public async Task<IActionResult> Login(LoginViewModel loginModel, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -134,7 +136,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                         var result = await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, true, true);
                         if (result.Succeeded)
                         {
-                            return Redirect(ReturnUrl ?? "/");
+                            return Redirect(returnUrl ?? "/");
                         }
                         else
                         {
@@ -160,7 +162,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region EDIT
 
         [HttpGet]
-        [Route("Edit")]
+      //  [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
         
@@ -187,7 +189,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("Edit")]
+        //[Route("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, UserEditModel userEditModel)
         {
