@@ -20,13 +20,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class ServiceController : Controller
     {
         #region Fields
+
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public ServiceController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor)
@@ -36,7 +39,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.getLang();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -62,7 +66,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(result);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
@@ -79,46 +83,56 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Service service, IFormFile FileData)
+        public async Task<IActionResult> Add(ServiceAddViewModel serviceAddViewModel, IFormFile FileData)
         {
-            if (service == null)
+            Image image = new Image();
+            if (serviceAddViewModel == null)
             {
                 return RedirectToAction("Index");
             }
-            int imageresultID = 0;
-            Image image = new Image();
+
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (FileData is null)
+            if (FileData == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "NULL");
             }
-            imageresultID = await FileData.SaveImage(_env, "service", image, _unitOfWork);
-            if (imageresultID < 0)
+            var imageResultID = await FileData.SaveImage(_env, "service", image, _unitOfWork);
+            if (!imageResultID)
             {
                 Response.StatusCode = (int)HttpStatusCode.SeeOther;
                 ModelState.AddModelError("", "Images are not saved");
             }
-            service.ImageId = image.Id;
-            var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(service);
-            if (serviceResult.IsDone)
+
+            var serviceAddViewModelResult = new Service
             {
-                _unitOfWork.Dispose();
+                Id = serviceAddViewModel.ID,
+                NameAz = serviceAddViewModel.NameAz,
+                NameRu = serviceAddViewModel.NameRu,
+                NameEn = serviceAddViewModel.NameEn,
+                TittleAz = serviceAddViewModel.TittleAz,
+                TittleEn = serviceAddViewModel.TittleEn,
+                TittleRu = serviceAddViewModel.TittleRu,
+                ImageId = serviceAddViewModel.ImageId
+            };
+            var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(serviceAddViewModelResult);
+            if (!serviceResult.IsDone)
+            {
+                _unitOfWork.Rollback();
                 return RedirectToAction("Index");
             }
             else
             {
-                _unitOfWork.Rollback();
+                _unitOfWork.Dispose();
+                return RedirectToAction("Index");
             }
-            _unitOfWork.Dispose();
-            return View();
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
 
@@ -157,40 +171,52 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ServiceUpdateViewModel model, IFormFile file)
+        public async Task<IActionResult> Update(ServiceUpdateViewModel serviceUpdateViewModel, IFormFile file)
         {
-            if (model == null)
+            if (!ModelState.IsValid)
             {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+            if (serviceUpdateViewModel == null)
+            {
+                ModelState.AddModelError("", "data is not exists");
                 return RedirectToAction("Index");
             }
-            var imageResult = _unitOfWork.imageRepository.GetById(model.ImageId);
+            var imageResult = _unitOfWork.imageRepository.GetById(serviceUpdateViewModel.ImageId);
+
             if (imageResult == null)
             {
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (file is null)
+            if (file != null)
             {
-                ModelState.AddModelError("", "NULL");
+                var imageUpdateResult = await file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
+                if (!imageUpdateResult)
+                {
+                    ModelState.AddModelError("", "update is errors");
+                }
             }
-            var imageUpdateResult = await file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
-            if (!imageUpdateResult)
+            else
             {
-                ModelState.AddModelError("", "Errors occured while editing Images");
+                ModelState.AddModelError("", "FILE NULL");
             }
-            Service service = new Service
+
+            var serviceAddViewModelResult = new Service
             {
-                Id = model.id,
-                NameAz = model.NameAz,
-                NameEn = model.NameEn,
-                NameRu = model.NameRu,
-                TittleAz = model.TittleAz,
-                TittleEn = model.TittleEn,
-                TittleRu = model.TittleRu,
-                ImageId = model.ImageId,
+                Id = serviceUpdateViewModel.id,
+                NameAz = serviceUpdateViewModel.NameAz,
+                NameEn = serviceUpdateViewModel.NameEn,
+                NameRu = serviceUpdateViewModel.NameRu,
+                TittleAz = serviceUpdateViewModel.TittleAz,
+                TittleEn = serviceUpdateViewModel.TittleEn,
+                TittleRu = serviceUpdateViewModel.TittleRu,
+                ImageId = serviceUpdateViewModel.ImageId,
             };
-            var result = await _unitOfWork.ServiceRepository.UpdateAsync(service);
+            var result = await _unitOfWork.ServiceRepository.UpdateAsync(serviceAddViewModelResult);
             if (result.IsDone)
             {
+                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
             else
@@ -198,24 +224,25 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This is error");
             }
 
-            return View();
+            return View(serviceUpdateViewModel);
         }
 
-        #endregion
+        #endregion UPDATE
 
         #region DELETE
+
         public async Task<IActionResult> Delete(int id)
         {
             if (id < 1)
             {
                 ModelState.AddModelError("", "Data is not exists");
             }
-            var service = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
-            if (service == null)
+            var serviceIDResult = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            if (serviceIDResult == null)
             {
                 ModelState.AddModelError("", "NULL");
             }
-            var result = await _unitOfWork.ServiceRepository.DeleteAsync(service);
+            var result = await _unitOfWork.ServiceRepository.DeleteAsync(serviceIDResult);
             if (!result.IsDone)
             {
                 ModelState.AddModelError("", "Data cannot delete");
@@ -225,6 +252,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
-        #endregion
+
+        #endregion DELETE
     }
 }

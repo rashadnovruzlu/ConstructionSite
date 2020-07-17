@@ -13,9 +13,9 @@ namespace ConstructionSite.Extensions.Images
     {
         private const string _IMAGE = "images";
 
-        public async static Task<int> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        public async static Task<bool> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
-            int IsResult=0;
+            bool IsResult=false;
 
 
             if (file!=null)
@@ -28,7 +28,7 @@ namespace ConstructionSite.Extensions.Images
                 bool folderIsCreatedSuccess= createFolder(_env,subFolder);
                 if (!folderIsCreatedSuccess)
                 {
-                    IsResult=0;
+                    IsResult=false;
                 }
                 await using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -39,9 +39,9 @@ namespace ConstructionSite.Extensions.Images
                 var imageSaveUpdate= await _unitOfWork.imageRepository.AddAsync(image);
                 if (!imageSaveUpdate.IsDone)
                 {
-                    IsResult=0;
+                    IsResult=false;
                 }
-                IsResult=1;
+                IsResult=true;
             }
             return IsResult;
         }

@@ -114,7 +114,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var imageResultID = await file.SaveImage(_env, "project", image, _unitOfWork);
 
-            if (imageResultID < 1)
+            if (!imageResultID)
             {
                 ModelState.AddModelError("", "Data didn't save");
             }

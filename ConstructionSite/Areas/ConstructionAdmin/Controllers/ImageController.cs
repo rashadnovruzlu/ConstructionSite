@@ -61,7 +61,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var aboutImageResult=await _unitOfWork.AboutRepository.GetByIdAsync(id);
             Image image = new Image();
             var result =await file.SaveImage(_env, "about", image, _unitOfWork);
-            if (result<1)
+            if (!result)
             {
                 ModelState.AddModelError("","this is errors");
             }
