@@ -1,5 +1,4 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Blog;
-using ConstructionSite.DTO.AdminViewModels.Contact;
+﻿using ConstructionSite.DTO.AdminViewModels.Contact;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -205,11 +203,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var contactViewModel = await _unitOfWork.ContactRepository.GetByIdAsync(id);
             if (contactViewModel == null)
             {
-
+                ModelState.AddModelError("", "Data is Null ");
             }
             var contatDeleteResult = await _unitOfWork.ContactRepository.DeleteAsync(contactViewModel);
             if (!contatDeleteResult.IsDone)
             {
+                ModelState.AddModelError("", "data can,t be delete ");
                 _unitOfWork.Rollback();
             }
             _unitOfWork.Dispose();
