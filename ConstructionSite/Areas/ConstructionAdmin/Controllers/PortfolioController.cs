@@ -146,9 +146,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region DELETE
-
-        [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             Portfolio portfolio = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
