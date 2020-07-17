@@ -118,91 +118,91 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value />
+    <value>About</value>
   </data>
   <data name="AboutUs" xml:space="preserve">
-    <value />
+    <value>About us</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value />
+    <value>Address</value>
   </data>
   <data name="AfterTheProject" xml:space="preserve">
-    <value />
+    <value>AFTER THE PROJECT</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value />
+    <value>All</value>
   </data>
   <data name="AnErrorOccurred" xml:space="preserve">
-    <value />
+    <value>An Error Occurred</value>
   </data>
   <data name="AnErrorOccurredWhileResettingYourPassword" xml:space="preserve">
-    <value />
+    <value>An Error Occurred while resetting your password</value>
   </data>
   <data name="Architecture" xml:space="preserve">
-    <value />
+    <value>Architecture</value>
   </data>
   <data name="BadRequest" xml:space="preserve">
-    <value />
+    <value>Bad Request</value>
   </data>
   <data name="Blog" xml:space="preserve">
-    <value />
+    <value>Blog</value>
   </data>
   <data name="BuilderManager" xml:space="preserve">
-    <value />
+    <value>Builder manager</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value />
+    <value>Building</value>
   </data>
   <data name="CivilEngineer" xml:space="preserve">
-    <value />
+    <value>Civil Engineer</value>
   </data>
   <data name="Conditions" xml:space="preserve">
-    <value />
+    <value>Conditions</value>
   </data>
   <data name="Construction" xml:space="preserve">
-    <value />
+    <value>Construction</value>
   </data>
   <data name="ConstructionAssistant" xml:space="preserve">
-    <value />
+    <value>Construction Assistant</value>
   </data>
   <data name="ConstructionManager" xml:space="preserve">
-    <value />
+    <value>ConstructionManager</value>
   </data>
   <data name="Consulting" xml:space="preserve">
-    <value />
+    <value>Consulting</value>
   </data>
   <data name="Contact" xml:space="preserve">
-    <value />
+    <value>Contact</value>
   </data>
   <data name="DataNotExists" xml:space="preserve">
-    <value />
+    <value>Data not exists</value>
   </data>
   <data name="Electrical" xml:space="preserve">
-    <value />
+    <value>Electrical</value>
   </data>
   <data name="Electricians" xml:space="preserve">
-    <value />
+    <value>Electricians</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value />
+    <value>Email</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value />
+    <value>E-mail address</value>
   </data>
   <data name="EmployeesAreContinuallyTrainedOnSafetyIssues" xml:space="preserve">
-    <value />
+    <value>Employees are continually trained on safety issues</value>
   </data>
   <data name="FormIsNotValid" xml:space="preserve">
-    <value />
+    <value>Form is not valid</value>
   </data>
   <data name="GalleryProject" xml:space="preserve">
-    <value />
+    <value>GALLERY PROJECT</value>
   </data>
   <data name="Garden" xml:space="preserve">
-    <value />
+    <value>Garden</value>
   </data>
   <data name="GreenBuilding" xml:space="preserve">
-    <value />
+    <value>Green building</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value />
