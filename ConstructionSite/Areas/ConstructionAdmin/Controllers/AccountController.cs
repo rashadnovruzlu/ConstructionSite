@@ -1,14 +1,8 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
-using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -19,10 +13,13 @@ namespace ConstructionSite.Areas.Admin.Controllers
     public class AccountController : Controller
     {
         #region Fields
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly ApplicationIdentityDbContext _identityDb;
+        private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
+        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
+       
+      //  private readonly ApplicationIdentityDbContext _identityDb;
         #endregion
 
         #region AddErrors Method
@@ -36,12 +33,18 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #endregion
 
         #region CTOR
-        public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationIdentityDbContext identityDb, 
+                                 UserManager<ApplicationUser> userManager,
+                                 SignInManager<ApplicationUser> signInManager,
+                                 RoleManager<IdentityRole> roleManager,
+                                 IPasswordValidator<ApplicationUser> passwordValidator,
+                                 IPasswordHasher<ApplicationUser> passwordHasher)
         {
-            this.userManager = userManager;
+            this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
-            this._identityDb = identityDb;
+            _passwordValidator=passwordValidator;
+            _passwordHasher=passwordHasher;
         }
         #endregion
 
@@ -50,14 +53,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<UserDTO> users = userManager.Users.Select(m => new UserDTO
-            {
-                Id = m.Id,
-                Name = m.Name,
-                Email = m.Email,
-                UserName = m.UserName
-            });
-            return View(users);
+          
+            return View();
         }
 
         #endregion
@@ -65,69 +62,63 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region CREATE
 
         [HttpGet]
-        [Route("Create")]
+        
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Route("Create")]
+       
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                try
+
+            }
+            
+            ApplicationUser user=new ApplicationUser();
+            user.UserName=viewModel.Username;
+            user.Email=viewModel.Email;
+          var result=  await  _userManager.CreateAsync(user,viewModel.Password);
+            if (result.Succeeded)
+            {
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+                foreach (var item in result.Errors)
                 {
-                    ApplicationUser user = new ApplicationUser
-                    {
-                        UserName = viewModel.Username,
-                        Email = viewModel.Email,
-                        Name = viewModel.Name
-                    };
-
-                    IdentityResult result = await userManager.CreateAsync(user, viewModel.Password);
-
-                    if (result.Succeeded)
-                    {
-                        ApplicationUser appUser = await userManager.FindByEmailAsync(user.Email);
-
-                        return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
-                    }
-                    else
-                    {
-                        AddErrors(result);
-
-                        if (ModelState.ErrorCount != 0)
-                        {
-                            return View(viewModel);
-                        }
-                    }
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Some error occured. Please try again.");
+                    ModelState.AddModelError("",item.Description.ToString());
                 }
             }
-            return View(viewModel);
+
+            return View();
         }
 
         #endregion
 
         #region LOGIN
 
-        [HttpGet]
+       
         [AllowAnonymous]
-        public IActionResult Login()
+       
+        public IActionResult Login(string returnUrl)
         {
-            return View(new LoginViewModel());
+            ViewBag.returnUrl= returnUrl;
+            return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginModel, string ReturnUrl)
+        [Route("Login")]
+        public async Task<IActionResult> Login(LoginViewModel loginModel, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -137,34 +128,29 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                try
-                {
-                    ApplicationUser appUser = await userManager.FindByEmailAsync(loginModel.Email);
+                
+                    ApplicationUser appUser = await _userManager.FindByEmailAsync(loginModel.Email);
 
                     if (appUser != null)
                     {
-                        await _signInManager.SignOutAsync();
-                        var result = await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, true, true);
+                      await _signInManager.SignOutAsync();
+                    var result=  await  _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
                         if (result.Succeeded)
                         {
-                            return Redirect(ReturnUrl ?? "/");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("password", "Password is not correct.");
+                            return Redirect(returnUrl ?? "/");
+
                         }
                     }
+
                     else
                     {
                         ModelState.AddModelError("email", "This email does not exist.");
                     }
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Some error occured. Please try again.");
-                }
+               
+               
             }
-            return View(loginModel);
+            ViewBag.returnUrl= returnUrl;
+            return View();
         }
 
         #endregion
@@ -172,65 +158,82 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region EDIT
 
         [HttpGet]
-        [Route("Edit")]
+      //  [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
-            ApplicationUser appUser = await userManager.GetUserAsync(User);
-
-            if (appUser == null)
+        
+            var userResult=await _userManager.FindByIdAsync(id);
+            if (userResult!=null)
             {
-                ModelState.AddModelError("", "User or Admin is empty");
+                UserEditModel userEditModel=new UserEditModel
+                {
+                    Username=userResult.UserName,
+                    Email=userResult.Email,
+                    Id=userResult.Id,
+                    Name=userResult.Name,
+                    Password=userResult.PasswordHash,
+                };
+
+
+                return View(userEditModel);
             }
-
-            var userRole = await _identityDb.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
-            var roles = await _roleManager.Roles.ToListAsync();
-            return View(new UserEditModel
+            else
             {
-                Id = appUser.Id,
-                Username = appUser.UserName,
-                Name = appUser.Name,
-                Email = appUser.Email,
-            });
+
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
-        [Route("Edit")]
+        //[Route("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, UserEditModel userEditModel)
         {
-            if (ModelState.IsValid)
+           
+            if (!ModelState.IsValid)
             {
-                try
+                
+            }
+            var user=await    _userManager.FindByIdAsync(id);
+            if (user!=null)
+            {
+                if (!string.IsNullOrEmpty(userEditModel.Password))
                 {
-                    ApplicationUser appUser = await userManager.FindByIdAsync(id);
-
-                    if (appUser == null)
-                        throw new NullReferenceException();
-                    appUser.Email = userEditModel.Email;
-                    appUser.Name = userEditModel.Name;
-                    appUser.UserName = userEditModel.Username;
-                    appUser.PasswordHash = (!String.IsNullOrWhiteSpace(userEditModel.Password)) ? userManager.PasswordHasher.HashPassword(appUser, userEditModel.Password) : appUser.PasswordHash;
-                    IdentityResult result = await userManager.UpdateAsync(appUser);
-
-                    if (result.Succeeded)
+              var   validpass=  await  _passwordValidator.ValidateAsync(_userManager,user,userEditModel.Password);
+                    if (validpass.Succeeded)
                     {
-                        return RedirectToAction("Index", "Account", new { Areas = "Constructionadmin" });
+                      user.PasswordHash=  _passwordHasher.HashPassword(user,userEditModel.Password);
                     }
                     else
                     {
-                        AddErrors(result);
-                        if (ModelState.ErrorCount != 0)
+
+                        foreach (var item in validpass.Errors)
                         {
-                            return View(userEditModel);
+                            ModelState.AddModelError("",item.Description.ToString());
                         }
                     }
+                   
                 }
-                catch
-                {
-                    ModelState.AddModelError("", "Some error occured. Please try again");
-                }
+               
+               
+
             }
-            return View(userEditModel);
+           ApplicationUser applicationUser = new ApplicationUser
+                {
+                    Email = userEditModel.Email,
+                    UserName = userEditModel.Username
+                };
+           user.Email=userEditModel.Email;
+            user.Name=userEditModel.Name;
+            user.UserName=userEditModel.Username;
+          var result=await  _userManager.UpdateAsync(user);
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError("",item.Description.ToString());
+            }
+            
+           
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -241,26 +244,44 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
-            try
-            {
+            
                 await _signInManager.SignOutAsync();
-                return RedirectToAction(nameof(Login));
-            }
-            catch { }
-
-            return RedirectToAction("index", "Dashboard");
+                return RedirectToAction("index", "Dashboard");
+            
+          
         }
-
+      
         #endregion
 
         #region DELETE
 
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
-     
+        
+            var userResult=await _userManager.FindByIdAsync(id);
+            if (userResult!=null)
+            {
+          var identityResult=   await   _userManager.DeleteAsync(userResult);
+                if (!identityResult.Succeeded)
+                {
+                    foreach (var item in identityResult.Errors)
+                    {
+                        ModelState.AddModelError("",item.Description.ToString());
+                    }
+                }
+                else
+                {
+
+                    return View("Index", _userManager.Users);
+                }
+            }
+           
+            return View("Index",_userManager.Users);
+
         }
 
         #endregion
+     
     }
 }

@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Area(nameof(ConstructionAdmin))]
+    [Authorize(Roles = "Admin")]
+   
     public class DashboardController : Controller
     {
         public DashboardController()

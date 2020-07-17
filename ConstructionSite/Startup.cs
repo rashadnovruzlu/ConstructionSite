@@ -36,11 +36,12 @@ namespace ConstructionSite
             });
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
-                options.AccessDeniedPath = new PathString("/ConstructionAdmin/Dashboard/Index");
-            });
+            services.ConfigureApplicationCookie(ops=>ops.LoginPath= "/ConstructionAdmin/Account/Login");
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
+            //    options.AccessDeniedPath = new PathString("/ConstructionAdmin/Dashboard/Index");
+            //});
             services.AddAuthentication(CookieAuthenticationDefaults
                         .AuthenticationScheme)
                             .AddCookie();
@@ -65,7 +66,7 @@ namespace ConstructionSite
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-          
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

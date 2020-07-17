@@ -8,12 +8,12 @@ namespace ConstructionSite.DTO.AdminViewModels.Account
 {
     public class LoginViewModel
     {
-        //[Required]
-        //[RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", ErrorMessage = "Please enter a valid email.")]
-        //[StringLength(maximumLength: 50)]
+       
+        [Required]
+        [UIHint("email")]
         public string Email { get; set; }
-        //[Required]
-        //[DataType(DataType.Password)]
+        [Required]
+        [UIHint("password")]
         public string Password { get; set; }
     }
 }
