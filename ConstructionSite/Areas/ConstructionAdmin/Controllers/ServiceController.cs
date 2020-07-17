@@ -201,7 +201,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "FILE NULL");
             }
-
+           
             var serviceAddViewModelResult = new Service
             {
                 Id = serviceUpdateViewModel.id,
@@ -221,6 +221,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else
             {
+                _unitOfWork.Rollback();
                 ModelState.AddModelError("", "This is error");
             }
 

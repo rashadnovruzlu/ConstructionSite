@@ -90,7 +90,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }).ToList();
             if (result.Count < 1)
             {
-                _unitOfWork.Rollback();
+               _unitOfWork.Dispose();
                 ModelState.AddModelError("", "This is empty");
                 return RedirectToAction("Index");
             }
@@ -121,13 +121,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
-            subServiceImageResult.ImageId = imageSubService.Id;
+           
             var SubServiceAddResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
             if (!SubServiceAddResult.IsDone)
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
             subServiceImageResult.SubServiceId = subService.Id;
+            subServiceImageResult.ImageId = imageSubService.Id;
             var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
             if (!SubServiceImageResult.IsDone)
             {
