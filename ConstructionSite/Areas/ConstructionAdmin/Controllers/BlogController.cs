@@ -278,27 +278,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
             
-            var newsDeleteResult = await _unitOfWork.newsRepository
-                                                    .DeleteAsync(newsResult);
-            
-            var image = await _unitOfWork.imageRepository
+           var imageResult = await _unitOfWork.imageRepository
                                             .GetByIdAsync(newsImageResult.ImageId);
-            if (image == null)
+
+            if (newsResult!=null&&imageResult!=null)
             {
-                ModelState.AddModelError("", "Image is NUll");
+                var newsDeleteResult = await _unitOfWork.newsRepository
+                                                   .DeleteAsync(newsResult);
+               var imageDeleteResult= ImageExtensions.DeleteAsyc(_env, imageResult, "news", _unitOfWork);
+                if (newsDeleteResult.IsDone&&imageDeleteResult)
+                {
+                    _unitOfWork.Dispose();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("","delete error");
+                }
             }
           
-
-            var imageResult = ImageExtensions.DeleteAsyc(_env, image, "news", _unitOfWork);
-
-            if (!imageResult)
-            {
-               
-
-                ModelState.AddModelError("", "An Error occured while deleting Image");
-            }
-
-            _unitOfWork.Dispose();
+           
             return RedirectToAction("Index");
         }
 

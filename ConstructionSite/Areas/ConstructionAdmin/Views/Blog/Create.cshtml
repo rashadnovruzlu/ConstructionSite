@@ -15,22 +15,22 @@
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Create" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
+                            <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input asp-for="TittleEn" id="f-name" class="form-control" placeholder="Title ENG">
+                            <input asp-for="TittleEn" id="f-name" class="form-control" placeholder="Title ENG" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Title RU">
+                            <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Title RU" required>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-lg-10">
-                            <textarea asp-for="ContentAz" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
+                            <textarea asp-for="ContentAz" class="form-control " id="ccomment" required="" placeholder="Content AZE" ></textarea>
                         </div>
                     </div>
                     <div class="form-group ">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input type="file" name="file" id="f-name" class="form-control" placeholder="Images>
+                            <input type="file" name="file" id="f-name" class="form-control" placeholder="Images">
                         </div>
                     </div>
 
