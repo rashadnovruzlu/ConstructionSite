@@ -277,31 +277,31 @@
     <value>Resconstruction Services</value>
   </data>
   <data name="RoofingAndFlooringServices" xml:space="preserve">
-    <value />
+    <value>Roofing and flooring services</value>
   </data>
   <data name="SelectedAnswerValueFake" xml:space="preserve">
-    <value />
+    <value>Selected answer value fake</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
-    <value />
+    <value>SEND MESSAGE</value>
   </data>
   <data name="Service" xml:space="preserve">
-    <value />
+    <value>Service</value>
   </data>
   <data name="SomethingIsWrong" xml:space="preserve">
-    <value />
+    <value>Something is Wrong</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value />
+    <value>Subject</value>
   </data>
   <data name="TermOfUse" xml:space="preserve">
-    <value />
+    <value>Term of Use</value>
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
-    <value />
+    <value>TERMS AND CONDITIONS</value>
   </data>
   <data name="Testimonials" xml:space="preserve">
-    <value />
+    <value>TESTIMONIALS</value>
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
     <value />
