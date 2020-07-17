@@ -1,14 +1,8 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
-using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,6 +16,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IPasswordValidator<ApplicationUser> _passwordValidator;
+        private readonly IPasswordHasher<ApplicationUser> _passwordHasher;
+       
       //  private readonly ApplicationIdentityDbContext _identityDb;
         #endregion
 
@@ -36,12 +33,18 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #endregion
 
         #region CTOR
-        public AccountController(ApplicationIdentityDbContext identityDb, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationIdentityDbContext identityDb, 
+                                 UserManager<ApplicationUser> userManager,
+                                 SignInManager<ApplicationUser> signInManager,
+                                 RoleManager<IdentityRole> roleManager,
+                                 IPasswordValidator<ApplicationUser> passwordValidator,
+                                 IPasswordHasher<ApplicationUser> passwordHasher)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
-          //  this._identityDb = identityDb;
+            _passwordValidator=passwordValidator;
+            _passwordHasher=passwordHasher;
         }
         #endregion
 
@@ -59,7 +62,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region CREATE
 
         [HttpGet]
-        [Route("Create")]
+        //[Route("Create")]
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -67,7 +71,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Create")]
+       // [Route("Create")]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -136,6 +140,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                         {
                             ModelState.AddModelError("password", "Password is not correct.");
                         }
+                       
                     }
                     else
                     {
@@ -158,22 +163,27 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
-            ApplicationUser appUser = await _userManager.GetUserAsync(User);
-
-            if (appUser == null)
+        
+            var userResult=await _userManager.FindByIdAsync(id);
+            if (userResult!=null)
             {
-                ModelState.AddModelError("", "User or Admin is empty");
+                UserEditModel userEditModel=new UserEditModel
+                {
+                    Username=userResult.UserName,
+                    Email=userResult.Email,
+                    Id=userResult.Id,
+                    Name=userResult.Name,
+                    Password=userResult.PasswordHash,
+                };
+
+
+                return View(userEditModel);
             }
-
-            var userRole = await _userManager.UserRoles.Where(m => m.UserId == appUser.Id).FirstOrDefaultAsync();
-            var roles = await _roleManager.Roles.ToListAsync();
-            return View(new UserEditModel
+            else
             {
-                Id = appUser.Id,
-                Username = appUser.UserName,
-                Name = appUser.Name,
-                Email = appUser.Email,
-            });
+
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -181,39 +191,51 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, UserEditModel userEditModel)
         {
-            if (ModelState.IsValid)
+           
+            if (!ModelState.IsValid)
             {
-                try
+                
+            }
+            var user=await    _userManager.FindByIdAsync(id);
+            if (user!=null)
+            {
+                if (!string.IsNullOrEmpty(userEditModel.Password))
                 {
-                    ApplicationUser appUser = await _userManager.FindByIdAsync(id);
-
-                    if (appUser == null)
-                        throw new NullReferenceException();
-                    appUser.Email = userEditModel.Email;
-                    appUser.Name = userEditModel.Name;
-                    appUser.UserName = userEditModel.Username;
-                    appUser.PasswordHash = (!String.IsNullOrWhiteSpace(userEditModel.Password)) ? _userManager.PasswordHasher.HashPassword(appUser, userEditModel.Password) : appUser.PasswordHash;
-                    IdentityResult result = await _userManager.UpdateAsync(appUser);
-
-                    if (result.Succeeded)
+              var   validpass=  await  _passwordValidator.ValidateAsync(_userManager,user,userEditModel.Password);
+                    if (validpass.Succeeded)
                     {
-                        return RedirectToAction("Index", "Account", new { Areas = "Constructionadmin" });
+                      user.PasswordHash=  _passwordHasher.HashPassword(user,userEditModel.Password);
                     }
                     else
                     {
-                        AddErrors(result);
-                        if (ModelState.ErrorCount != 0)
+
+                        foreach (var item in validpass.Errors)
                         {
-                            return View(userEditModel);
+                            ModelState.AddModelError("",item.Description.ToString());
                         }
                     }
+                   
                 }
-                catch
-                {
-                    ModelState.AddModelError("", "Some error occured. Please try again");
-                }
+               
+               
+
             }
-            return View(userEditModel);
+           ApplicationUser applicationUser = new ApplicationUser
+                {
+                    Email = userEditModel.Email,
+                    UserName = userEditModel.Username
+                };
+           user.Email=userEditModel.Email;
+            user.Name=userEditModel.Name;
+            user.UserName=userEditModel.Username;
+          var result=await  _userManager.UpdateAsync(user);
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError("",item.Description.ToString());
+            }
+            
+           
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -224,26 +246,23 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
-            try
-            {
+            
                 await _signInManager.SignOutAsync();
-                return RedirectToAction(nameof(Login));
-            }
-            catch { }
-
-            return RedirectToAction("index", "Dashboard");
+                return RedirectToAction("index", "Dashboard");
+            
+          
         }
-
+      
         #endregion
 
         #region DELETE
 
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
         
             var userResult=await _userManager.FindByIdAsync(id);
-            if (userResult==null)
+            if (userResult!=null)
             {
           var identityResult=   await   _userManager.DeleteAsync(userResult);
                 if (!identityResult.Succeeded)
@@ -256,7 +275,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 else
                 {
 
-                    ModelState.AddModelError("","this user not exists curret data");
+                    return View("Index", _userManager.Users);
                 }
             }
            
