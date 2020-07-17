@@ -104,11 +104,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         #region LOGIN
 
-        [HttpGet]
+       
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View(new LoginViewModel());
+            return View();
         }
 
         [HttpPost]
