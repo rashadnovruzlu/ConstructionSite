@@ -126,7 +126,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!SubServiceAddResult.IsDone)
             {
                 ModelState.AddModelError("", "Data didn't save");
-
             }
             subServiceImageResult.SubServiceId = subService.Id;
             var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
@@ -248,9 +247,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region DELETE
-
-        [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);

@@ -61,7 +61,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }).ToList();
             if (result == null | result.Count == 0)
             {
-                ModelState.AddModelError("", "This list empty");
+                ModelState.AddModelError("", "This list is empty");
             }
             _unitOfWork.Dispose();
             return View(result);
@@ -71,7 +71,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region CREATE
 
-        [HttpGet]
+        [HttpGet] 
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -85,68 +85,56 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id = x.Id,
                     Name = x.FindName(_lang)
                 }).ToList();
-            if (portfolioResult != null)
+            if (portfolioResult.Count < 1)
             {
-                ViewBag.items = portfolioResult;
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "This is empty");
+                return RedirectToAction("Index");
             }
-            else
-            {
-                ModelState.AddModelError("", "This list is empty");
-            }
+            _unitOfWork.Dispose();
+            ViewBag.data = portfolioResult;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ProjectAddModel projectAddModel, IFormFile file)
+        public async Task<IActionResult> Add(Project project, IFormFile file)
         {
-            Image img = new Image();
-            int imageID = 0;
+            ProjectImage projectImage = new ProjectImage();
+            Image image = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
+                ModelState.AddModelError("", "Models are not valid");
             }
-            if (file is null)
+            if (file == null)
             {
-                ModelState.AddModelError("", "NULL");
+                Response.StatusCode = (int)HttpStatusCode.NotFound;
+                ModelState.AddModelError("", "File is null");
             }
+            var imageResultID = await file.SaveImage(_env, "project", image, _unitOfWork);
 
-            var projectAddModelresult = new Project
+            if (imageResultID < 1)
             {
-                NameAz = projectAddModel.NameAz,
-                NameRu = projectAddModel.NameRu,
-                NameEn = projectAddModel.NameEn,
-                ContentAz = projectAddModel.ContentAz,
-                ContentRu = projectAddModel.ContentRu,
-                ContentEn = projectAddModel.ContentEn,
-                PortfolioId = projectAddModel.PortfolioId,
-            };
-            var projectResult = await _unitOfWork.projectRepository.AddAsync(projectAddModelresult);
-            if (projectResult.IsDone)
+                ModelState.AddModelError("", "Data didn't save");
+            }
+            projectImage.ImageId = image.Id;
+            var projectAddResult = await _unitOfWork.projectRepository
+                                                        .AddAsync(project);
+            if (!projectAddResult.IsDone)
             {
-                imageID = await file.SaveImage(_env, "project", img, _unitOfWork);
-                if (imageID < 1)
-                {
-                    ModelState.AddModelError("", "File is not saved.");
-                }
-                ProjectImage image = new ProjectImage
-                {
-                    ImageId = imageID,
-                    ProjectId = projectAddModelresult.Id
-                };
-                var imageResult = await _unitOfWork.projectImageRepository.AddAsync(image);
-                if (imageResult.IsDone)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "This is error");
-                }
+                ModelState.AddModelError("", "Data didn't save");
+            }
+            projectImage.ProjectId = project.Id;
+            var projectImageResult = await _unitOfWork.projectImageRepository
+                                                        .AddAsync(projectImage);
+            if (!projectImageResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "Errors occured while adding SubService");
             }
             _unitOfWork.Dispose();
-            return View();
+            return RedirectToAction("Index", "Project", new { Areas = "ConstructionAdmin" });
         }
 
         #endregion
