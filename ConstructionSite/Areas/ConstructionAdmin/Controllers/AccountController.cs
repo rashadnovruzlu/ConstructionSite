@@ -62,7 +62,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region CREATE
 
         [HttpGet]
-        //[Route("Create")]
+        [Route("Create")]
         [AllowAnonymous]
         public IActionResult Create()
         {
@@ -70,8 +70,9 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-       // [Route("Create")]
+        [Route("Create")]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -106,6 +107,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
        
         [AllowAnonymous]
+       
         public IActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl= returnUrl;
@@ -115,7 +117,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        
+        [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel, string returnUrl)
         {
             if (!ModelState.IsValid)
