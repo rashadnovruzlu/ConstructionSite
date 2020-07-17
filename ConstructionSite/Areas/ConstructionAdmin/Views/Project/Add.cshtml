@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="col-lg-10">
                             <select class="form-control m-bot15" asp-for="PortfolioId">
-                                @foreach (PortfolioViewModel item in ViewBag.items)
+                                @foreach (PortfolioViewModel item in ViewBag.data)
                                 {
                                     <option value="@item.Id">@item.Name</option>
                                 }

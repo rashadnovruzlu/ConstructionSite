@@ -126,7 +126,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!SubServiceAddResult.IsDone)
             {
                 ModelState.AddModelError("", "Data didn't save");
-
             }
             subServiceImageResult.SubServiceId = subService.Id;
             var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
