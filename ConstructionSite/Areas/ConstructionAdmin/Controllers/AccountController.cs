@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
+using ConstructionSite.Helpers.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.Admin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class AccountController : Controller
     {
         #region Fields
@@ -117,7 +118,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel loginModel, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -161,7 +161,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
       //  [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
-        
+
+            if (string.IsNullOrEmpty(id))
+            {
+              return RedirectToAction("Index");
+            }
             var userResult=await _userManager.FindByIdAsync(id);
             if (userResult!=null)
             {
@@ -185,29 +189,33 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[Route("Edit")]
+      
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, UserEditModel userEditModel)
         {
-           
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction("Index");
+            }
             if (!ModelState.IsValid)
             {
-                
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
             }
-            var user=await    _userManager.FindByIdAsync(id);
-            if (user!=null)
+            var userDataResult=await    _userManager.FindByIdAsync(id);
+            if (userDataResult!=null)
             {
                 if (!string.IsNullOrEmpty(userEditModel.Password))
                 {
-              var   validpass=  await  _passwordValidator.ValidateAsync(_userManager,user,userEditModel.Password);
-                    if (validpass.Succeeded)
+              var   valideterpasswor=  await  _passwordValidator.ValidateAsync(_userManager,userDataResult,userEditModel.Password);
+                    if (valideterpasswor.Succeeded)
                     {
-                      user.PasswordHash=  _passwordHasher.HashPassword(user,userEditModel.Password);
+                      userDataResult.PasswordHash=  _passwordHasher.HashPassword(userDataResult,userEditModel.Password);
                     }
                     else
                     {
 
-                        foreach (var item in validpass.Errors)
+                        foreach (var item in valideterpasswor.Errors)
                         {
                             ModelState.AddModelError("",item.Description.ToString());
                         }
@@ -218,16 +226,27 @@ namespace ConstructionSite.Areas.Admin.Controllers
                
 
             }
-           ApplicationUser applicationUser = new ApplicationUser
-                {
-                    Email = userEditModel.Email,
-                    UserName = userEditModel.Username
-                };
-           user.Email=userEditModel.Email;
-            user.Name=userEditModel.Name;
-            user.UserName=userEditModel.Username;
-          var result=await  _userManager.UpdateAsync(user);
-            foreach (var item in result.Errors)
+            if (!string.IsNullOrEmpty(userEditModel.Email))
+            {
+                userDataResult.Email = userEditModel.Email;
+            }
+            if (!string.IsNullOrEmpty(userEditModel.Name))
+            {
+                userDataResult.Name = userEditModel.Name;
+            }
+            if (!string.IsNullOrEmpty(userEditModel.Username))
+            {
+                userDataResult.UserName = userEditModel.Username;
+            }
+
+
+          
+          var userUpdateresult=await  _userManager.UpdateAsync(userDataResult);
+            if (userUpdateresult.Succeeded)
+            {
+               return RedirectToAction("Index");
+            }
+            foreach (var item in userUpdateresult.Errors)
             {
                 ModelState.AddModelError("",item.Description.ToString());
             }
