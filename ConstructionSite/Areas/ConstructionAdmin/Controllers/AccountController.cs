@@ -258,46 +258,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
-            if (ModelState.IsValid)
-            {
-                IDbContextTransaction transaction = null;
-                try
-                {
-                    var currentUser = await userManager.GetUserAsync(HttpContext.User);
-
-                    if (currentUser.Id == id)
-                        throw new Exception("You can not delete own");
-
-                    ApplicationUser user = await userManager.FindByIdAsync(id);
-
-                    if (user == null)
-                        throw new NullReferenceException();
-
-                    IdentityResult result = await userManager.DeleteAsync(user);
-
-                    if (!result.Succeeded)
-                        throw new Exception();
-                    transaction.Commit();
-                    return Json(new
-                    {
-                        status = HttpStatusCode.OK
-                    });
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
-                finally
-                {
-                    if (transaction != null)
-                        transaction.Dispose();
-                }
-            }
-
-            return Json(new
-            {
-                status = HttpStatusCode.NotFound
-            });
+     
         }
 
         #endregion
