@@ -36,6 +36,7 @@ namespace ConstructionSite
             });
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
+            services.ConfigureApplicationCookie(ops=>ops.LoginPath= "/ConstructionAdmin/Account/Login");
             //services.ConfigureApplicationCookie(options =>
             //{
             //    options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");

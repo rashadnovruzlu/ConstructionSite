@@ -107,12 +107,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (FileData == null)
             {
                 ModelState.AddModelError("", "File not exists");
+                return RedirectToAction("Index");
             }
             int imageresultID = await FileData.SaveImage(_env, "about", image, _unitOfWork);
             if (imageresultID < 1)
             {
-                ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-                _unitOfWork.Rollback();
+                //ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+              
                 ModelState.AddModelError("", "File is not saved.");
             }
             

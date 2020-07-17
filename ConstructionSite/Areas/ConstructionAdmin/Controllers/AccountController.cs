@@ -62,7 +62,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region CREATE
 
         [HttpGet]
-        [Route("Create")]
+        
         [AllowAnonymous]
         public IActionResult Create()
         {
@@ -72,14 +72,14 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [Route("Create")]
+       
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
 
             }
-         
+            
             ApplicationUser user=new ApplicationUser();
             user.UserName=viewModel.Username;
             user.Email=viewModel.Email;
@@ -128,35 +128,29 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                try
-                {
+                
                     ApplicationUser appUser = await _userManager.FindByEmailAsync(loginModel.Email);
 
                     if (appUser != null)
                     {
-                        await _signInManager.SignOutAsync();
-                        var result = await _signInManager.PasswordSignInAsync(appUser, loginModel.Password, true, true);
+                      await _signInManager.SignOutAsync();
+                    var result=  await  _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
                         if (result.Succeeded)
                         {
                             return Redirect(returnUrl ?? "/");
+
                         }
-                        else
-                        {
-                            ModelState.AddModelError("password", "Password is not correct.");
-                        }
-                       
                     }
+
                     else
                     {
                         ModelState.AddModelError("email", "This email does not exist.");
                     }
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Some error occured. Please try again.");
-                }
+               
+               
             }
-            return View(loginModel);
+            ViewBag.returnUrl= returnUrl;
+            return View();
         }
 
         #endregion
@@ -288,5 +282,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         #endregion
+     
     }
 }
