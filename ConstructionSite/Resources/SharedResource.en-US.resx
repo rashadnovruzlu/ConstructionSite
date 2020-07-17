@@ -262,19 +262,19 @@
     <value>PORTFOLIO</value>
   </data>
   <data name="Preconstruction" xml:space="preserve">
-    <value />
+    <value>PRECONSTRUCTION</value>
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
-    <value />
+    <value>Quality construction continues after the project</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
-    <value />
+    <value>READ MORE</value>
   </data>
   <data name="Renovation" xml:space="preserve">
-    <value />
+    <value>Renovation</value>
   </data>
   <data name="ResconstructionServices" xml:space="preserve">
-    <value />
+    <value>Resconstruction Services</value>
   </data>
   <data name="RoofingAndFlooringServices" xml:space="preserve">
     <value />
