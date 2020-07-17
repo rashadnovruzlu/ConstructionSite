@@ -3,6 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
+    <style type="text/css">
+        .button-create {
+            margin-bottom: 10px;
+        }
+    </style>
+
     <div class="text-danger" asp-validation-summary="All"></div>
 
     <section class="panel">
@@ -11,7 +17,7 @@
         </header>
         <div class="panel-body">
             <div class="button-create">
-                <a asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" class="btn btn-primary">Create New About Element</a>
+                <a asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" class="btn btn-primary">Create New Project Element</a>
             </div>
             <div class="adv-table editable-table ">
 
@@ -33,8 +39,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-
-                                    <td class="sorting_1">@item</td>
+                                    <td class="sorting_1">@item.Name</td>
                                     <td class=" ">@item.Content</td>
                                     <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
                                     <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
