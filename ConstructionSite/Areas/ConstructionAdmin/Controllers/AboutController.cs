@@ -273,13 +273,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 var imageDeleteResult = ImageExtensions.DeleteAsyc(_env, imageResult, "about", _unitOfWork);
                 if (aboutDeleteResult.IsDone&&imageDeleteResult)
                 {
-                  var result=  _unitOfWork.AboutImageRepository.Delete(AboutImageResult);
-                    if (result.IsDone)
-                    {
+                 
                         _unitOfWork.Dispose();
                         return RedirectToAction("Index");
-                    }
+                   
 
+                }
+                else
+                {
+                    ModelState.AddModelError("","delete has been error");
+                    RedirectToAction("Index");
                 }
             }
            

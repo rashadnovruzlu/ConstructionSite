@@ -272,20 +272,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is NULL");
+                return RedirectToAction("Index");
 
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
-            if (newsResult == null)
-            {
-                ModelState.AddModelError("", "News is Null");
-            }
+            
             var newsDeleteResult = await _unitOfWork.newsRepository
                                                     .DeleteAsync(newsResult);
-            if (!newsDeleteResult.IsDone)
-            {
-                ModelState.AddModelError("", "The News could not be deleted");
-            }
+            
             var image = await _unitOfWork.imageRepository
                                             .GetByIdAsync(newsImageResult.ImageId);
             if (image == null)
