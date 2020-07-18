@@ -105,9 +105,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         #region LOGIN
 
-       
         [AllowAnonymous]
-       
         public IActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl= returnUrl;
@@ -128,26 +126,21 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                
-                    ApplicationUser appUser = await _userManager.FindByEmailAsync(loginModel.Email);
+                ApplicationUser appUser = await _userManager.FindByEmailAsync(loginModel.Email);
 
-                    if (appUser != null)
-                    {
-                      await _signInManager.SignOutAsync();
+                if (appUser != null)
+                {
+                    await _signInManager.SignOutAsync();
                     var result=  await  _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
-                        if (result.Succeeded)
-                        {
-                            return Redirect(returnUrl ?? "/");
-
-                        }
-                    }
-
-                    else
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError("email", "This email does not exist.");
+                        return Redirect(returnUrl ?? "/");
                     }
-               
-               
+                }
+                else
+                {
+                    ModelState.AddModelError("email", "This email does not exist.");
+                }
             }
             ViewBag.returnUrl= returnUrl;
             return View();
