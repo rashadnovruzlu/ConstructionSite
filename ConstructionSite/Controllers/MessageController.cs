@@ -30,7 +30,7 @@ namespace ConstructionSite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Message", new { area = "area" });
         }
 
         [HttpGet]
@@ -68,29 +68,9 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", "data is");
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("");
-        }
-
-        public async Task<IActionResult> Delte(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
-            }
-            var messageSelectedForDeleteResult = await _unitOfWork.messageRepository.GetByIdAsync(id);
-            if (messageSelectedForDeleteResult == null)
-            {
-                ModelState.AddModelError("", "message not exists");
-            }
-            var messageAfterDeleteResult = await _unitOfWork.messageRepository.DeleteAsync(messageSelectedForDeleteResult);
-            if (!messageAfterDeleteResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Bad Request");
-            }
-            _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+
+       
     }
 }
