@@ -28,6 +28,18 @@
       <script src="js/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+        .nav-sidebar{
+            margin-top: 7.5em !important;
+        }
+        li.active {
+            color: #ffc925;
+        }
+        #sidebar .nav-sidebar list-navbar:hover a {
+            color: #ffc925;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -46,9 +58,9 @@
         <!--header end-->
         <!--sidebar start-->
         <aside>
-            <div id="sidebar" class="nav-collapse" style="background-color: RGB(49,49,49); opacity: .8; color: #fff;">
+            <div id="sidebar" class="nav-collapse" style="background-color: RGB(49,49,49); opacity: .8; color: #fff; width: 230px; padding-left: 20px;">
                 <!-- sidebar menu start-->
-                <ul class="sidebar-menu" id="nav-accordion">
+                <ul class="sidebar-menu nav-sidebar" id="nav-accordion">
 
                         <partial name="_MenuView" />
                 
