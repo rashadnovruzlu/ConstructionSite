@@ -7,6 +7,7 @@
     .button-create {
         margin-bottom: 10px;
     }
+
     .text-style {
         text-align: center;
         font-size: 1.2em;
@@ -66,3 +67,11 @@
         </div>
     </div>
 </section>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        })
+    </script>
+}
