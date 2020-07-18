@@ -4,6 +4,10 @@
     .button-create {
         margin-bottom: 10px;
     }
+    .text-style {
+        text-align: center;
+        font-size: 1.2em;
+    }
 </style>
 
 <div class="text-danger" asp-validation-summary="All"></div>
@@ -35,20 +39,23 @@
 
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
 
-                        @foreach (var item in Model)
+                        @if (Model.Any())
                         {
-                        <tr class="odd">
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd">
 
-                            <td class="sorting_1">@item.Tittle</td>
-                            <td class=" ">@item.Content</td>
-                            <td class="sorting_1">@item.Address</td>
-                            <td class="sorting_1">@item.PhoneNumber</td>
-                            <td class="sorting_1">@item.Email</td>
-                            <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update">Edit</a></td>
-                            <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
-                        </tr>
+                                    <td class="sorting_1">@item.Tittle</td>
+                                    <td class=" ">@item.Content</td>
+                                    <td class="sorting_1">@item.Address</td>
+                                    <td class="sorting_1">@item.PhoneNumber</td>
+                                    <td class="sorting_1">@item.Email</td>
+                                    <td class="btn btn-primary"><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update">Edit</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                                </tr>
+                            }
                         }
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </div>

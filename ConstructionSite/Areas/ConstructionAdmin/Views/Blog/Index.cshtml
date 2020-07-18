@@ -8,6 +8,10 @@
     .button-create {
         margin-bottom: 10px;
     }
+    .text-style {
+        text-align: center;
+        font-size: 1.2em;
+    }
 </style>
 
 <div class="text-danger" asp-validation-summary="All"></div>
@@ -36,19 +40,21 @@
                     </thead>
 
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-
-                        @foreach (var item in Model)
+                        @if (Model.Any())
                         {
-                            <tr class="odd">
-                                <td class=" ">@item.Title</td>
-                                <td class=" ">@item.Content</td>
-                                <td class=" "><img width="50" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
-                                <td class=" ">@item.CreateDate</td>
-                                <td><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Edit</a></td>
-                                <td class=" "><a class="btn btn-danger delete delete-blog" data-id="@item.Id">Delete</a></td>
-                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd">
+                                    <td class=" ">@item.Title</td>
+                                    <td class=" ">@item.Content</td>
+                                    <td class=" "><img width="50" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
+                                    <td class=" ">@item.CreateDate</td>
+                                    <td><a class="edit btn btn-primary" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Edit</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-blog" data-id="@item.Id">Delete</a></td>
+                                </tr>
+                            }
                         }
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </div>
