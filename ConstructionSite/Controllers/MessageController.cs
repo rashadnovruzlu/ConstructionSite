@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using ConstructionSite.DTO.FrontViewModels.Message;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
     public class MessageController : Controller
     {
-        string _lang;
+        private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
@@ -28,38 +27,50 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Message message)
+        public async Task<IActionResult> Add(MessageAddViewModel messageAddViewModel)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-            if (message==null)
+            if (messageAddViewModel == null)
             {
                 ModelState.AddModelError("", "data is null");
             }
-
-     var messageDataResult= await  _unitOfWork.messageRepository.AddAsync(message);
-            if (messageDataResult.IsDone)
+            messageAddViewModel.SendDate = DateTime.Now;
+            messageAddViewModel.IsAnswerd = false;
+            var messageAddViewModelResult = new Message
             {
-                ModelState.AddModelError("","data is");
+                Name = messageAddViewModel.Name,
+                Email = messageAddViewModel.Email,
+                Subject = messageAddViewModel.Subject,
+                SendDate = messageAddViewModel.SendDate,
+                IsAnswerd = messageAddViewModel.IsAnswerd
+            };
+            var messageDataResult = await _unitOfWork.messageRepository.AddAsync(messageAddViewModelResult);
+            if (!messageDataResult.IsDone)
+            {
+                ModelState.AddModelError("", "data is");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("");
-           
         }
+
         public async Task<IActionResult> Delte(int id)
         {
             if (!ModelState.IsValid)
@@ -67,20 +78,19 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-          var messageGetByIDResult= await _unitOfWork.messageRepository.GetByIdAsync(id);
-            if (messageGetByIDResult==null)
+            var messageSelectedForDeleteResult = await _unitOfWork.messageRepository.GetByIdAsync(id);
+            if (messageSelectedForDeleteResult == null)
             {
-
+                ModelState.AddModelError("", "message not exists");
             }
-        var messageResult=  await  _unitOfWork.messageRepository.DeleteAsync(messageGetByIDResult);
-            if (!messageResult.IsDone)
+            var messageAfterDeleteResult = await _unitOfWork.messageRepository.DeleteAsync(messageSelectedForDeleteResult);
+            if (!messageAfterDeleteResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "Bad Request");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
-            
         }
     }
 }
