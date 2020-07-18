@@ -12,14 +12,17 @@
         text-align: center;
         font-size: 1.2em;
     }
+    .common {
+        margin-top: 45px !important;
+        background-color: RGB(241, 242, 247) !important;
+    }
 </style>
 
-<div class="text-danger" asp-validation-summary="All"></div>
-
-<section class="panel">
+<section class="panel common">
     <header class="panel-heading">
         SubService Table
     </header>
+    <hr />
     <div class="panel-body">
         <div class="button-create">
             <a asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" class="btn" style="color: #fff; background-color: #ffc925;">Create New SubService Element</a>
