@@ -8,7 +8,7 @@ namespace ConstructionSite.Repository.Abstract
     public interface IUnitOfWork:IDisposable
     {
         IAboutImageRepository AboutImageRepository { get;}
-        IDescriptionRepstory descriptionRepstory { get;}
+      
         IAboutRepository AboutRepository { get;}
         IContactRepository ContactRepository { get;}
         ICustomerFeedbackRepository customerFeedbackRepository { get;}

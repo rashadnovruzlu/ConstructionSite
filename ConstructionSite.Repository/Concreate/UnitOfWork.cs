@@ -25,7 +25,7 @@ namespace ConstructionSite.Repository.Concreate
         private IStaticFieldRepository _staticFieldRepository;
         private ISubServiceImageRepository _subServiceImageRepository;
         private ISubServiceRepository _SubServiceRepository;
-        private  IDescriptionRepstory _descriptionRepstory;
+       
         private readonly ConstructionDbContext _context;
         public UnitOfWork(ConstructionDbContext context)
         {
@@ -159,13 +159,7 @@ namespace ConstructionSite.Repository.Concreate
             }
         }
 
-        public IDescriptionRepstory descriptionRepstory
-        {
-            get
-            {
-                return _descriptionRepstory??(_descriptionRepstory=new DescriptionRepstory(_context));
-            }
-        }
+       
 
         public  int Commit()
         {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
@@ -26,27 +27,20 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
-        public async  Task<IActionResult> Index(int id)
-        {
-           
-
-           
-            return View();
-        }
+       
         public IActionResult Inner(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
             if (id<1)
             {
                 return RedirectToAction("Index");
             }
 
-            //var result=_unitOfWork.ServiceRepository.GetAll()
-            //    .Include(x=>x.SubServices)
-            //    .Select(x=>new ServiceSubServiceImage
-            //    {
-            //        id=x.Id,
-            //        Content=x.SubServices.
-            //    })
+
             var result = _unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
                .Include(x => x.Image)
@@ -59,9 +53,9 @@ namespace ConstructionSite.Controllers
                    Content = x.SubService.FindContent(_lang),
                    SubName = x.SubService.FindName(_lang)
                }).FirstOrDefault();
+        
 
-
-            return View(result);
+            return View();
 
         }
         public IActionResult subservice(int id)
