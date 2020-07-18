@@ -21,14 +21,14 @@ namespace ConstructionSite
         public Startup(IConfiguration Configuration)
         {
             this.Configuration = Configuration;
-        } 
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddMvc();
-           services.AddLocalizationInjection();
-           
+            services.AddLocalizationInjection();
+
             services.IdentityLoad(Configuration);
             services.Configure<IISServerOptions>(options =>
             {
@@ -36,7 +36,7 @@ namespace ConstructionSite
             });
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
-            services.ConfigureApplicationCookie(ops=>ops.LoginPath= "/ConstructionAdmin/Account/Login");
+            services.ConfigureApplicationCookie(ops => ops.LoginPath = "/ConstructionAdmin/Account/Login");
             //services.ConfigureApplicationCookie(options =>
             //{
             //    options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
@@ -56,11 +56,11 @@ namespace ConstructionSite
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-               
+
                 app.UseHsts();
             }
             app.SeedRole();
-            
+
             app.UseStaticFiles();
             app.UseRequestLocalization();
             app.UseRouting();
@@ -77,7 +77,7 @@ namespace ConstructionSite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-          
+
         }
     }
 }
