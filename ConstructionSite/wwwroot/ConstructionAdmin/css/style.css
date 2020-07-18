@@ -26,7 +26,6 @@ a, a:hover, a:focus {
     outline: none;
 }
 ::selection {
-
     background: #FF6C60;
     color: #fff;
 }
@@ -41,7 +40,6 @@ a, a:hover, a:focus {
 }
 
 /*login page*/
-
 .login-body {
     background-color: #f1f2f7;
 }
@@ -168,7 +166,6 @@ a, a:hover, a:focus {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #2a3542;
 }
 
 #sidebar ul li {
@@ -342,7 +339,6 @@ ul.sidebar-menu li a.active i {
 }
 
 .white-bg {
-    background: #fff;
     border-bottom: 1px solid #f1f2f7;
 }
 

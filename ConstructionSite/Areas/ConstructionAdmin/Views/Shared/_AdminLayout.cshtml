@@ -32,12 +32,11 @@
 
     <section id="container">
         <!--header start-->
-        <header class="header white-bg">
-            <div class="sidebar-toggle-box">
-                <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
-            </div>
+        <header class="header white-bg my-Header" style="background-color: RGB(49,49,49); opacity: .8; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
             <!--logo start-->
-            <a href="index.html" class="logo">Flat<span>lab</span></a>
+            <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="construction-logo">
+                <img src="~/assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light@2x.png" data-width="204" data-height="30" style="width: 12.6em; margin-top: 17px; margin-bottom: -34px">
+            </a>
             <!--logo end-->
 
             @await Component.InvokeAsync("UserClaims") 
@@ -45,41 +44,12 @@
         <!--header end-->
         <!--sidebar start-->
         <aside>
-            <div id="sidebar" class="nav-collapse ">
+            <div id="sidebar" class="nav-collapse" style="background-color: RGB(49,49,49); opacity: .8; color: #fff;">
                 <!-- sidebar menu start-->
                 <ul class="sidebar-menu" id="nav-accordion">
-                    <li>
-                        <a class="active" asp-area="ConstructionAdmin" asp-controller="Dashboard" asp-action="Index">
-                            <i class="icon-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
+                    <li class="sub">
+                        <partial name="_MenuView" />
                     </li>
-                    <li class="sub-menu">
-                        <a href="javascript:void(0);">
-                            <i class="icon-book"></i>
-                            <span>Pages</span>
-                        </a>
-                        <ul class="sub">
-                            <partial name="_MenuView" />
-                        </ul>
-                    </li>
-
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="icon-tasks"></i>
-                            <span>Form Stuff</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="form_component.html">Form Components</a></li>
-                            <li><a href="advanced_form_components.html">Advanced Components</a></li>
-                            <li><a href="form_wizard.html">Form Wizard</a></li>
-                            <li><a href="form_validation.html">Form Validation</a></li>
-                            <li><a href="dropzone.html">Dropzone File Upload</a></li>
-                            <li><a href="inline_editor.html">Inline Editor</a></li>
-                            <li><a href="image_cropping.html">Image Cropping</a></li>
-                        </ul>
-                    </li>
-
                     <!--multi level menu end-->
                 </ul>
                 <!-- sidebar menu end-->
