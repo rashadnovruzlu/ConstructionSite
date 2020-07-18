@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConstructionSite.DTO.AdminViewModels.Testimonial
 {
-   public class CustomerUpdateModel
+   public class CustomerViewUpdateModel
     {
         public int Id { get; set; }
 
