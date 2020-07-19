@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AdminRoleController(RoleManager<IdentityRole> roleManager)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public AdminRoleController(RoleManager<IdentityRole> roleManager,
+                                   UserManager<ApplicationUser> userManager)
         {
-            _roleManager=roleManager;
+            this._roleManager=roleManager;
+            this._userManager=userManager;
 
         }
         [HttpGet]
@@ -60,7 +64,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             return View();
         }
-        public async IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             var role=await _roleManager.FindByIdAsync(id);
             if (role!=null)
