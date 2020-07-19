@@ -178,34 +178,34 @@
     <value />
   </data>
   <data name="Electrical" xml:space="preserve">
-    <value />
+    <value>Elektrik</value>
   </data>
   <data name="Electricians" xml:space="preserve">
-    <value />
+    <value>Elektrikçilər</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value />
+    <value>Elektron poçt</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value />
+    <value>Elektron poçt ünvanı</value>
   </data>
   <data name="EmployeesAreContinuallyTrainedOnSafetyIssues" xml:space="preserve">
-    <value />
+    <value>İşçilər daim təhlükəsizlik mövzusunda təlim alırlar</value>
   </data>
   <data name="FormIsNotValid" xml:space="preserve">
     <value />
   </data>
   <data name="GalleryProject" xml:space="preserve">
-    <value />
+    <value>QALEREYA LAYİHƏSİ</value>
   </data>
   <data name="Garden" xml:space="preserve">
-    <value />
+    <value>Bağça</value>
   </data>
   <data name="GreenBuilding" xml:space="preserve">
-    <value />
+    <value>Yaşıl bina</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value />
+    <value>Ana səhifə</value>
   </data>
   <data name="InstructionsForResettingYourPasswordHaveBeenSentToYourEmailAddress" xml:space="preserve">
     <value />
@@ -220,25 +220,25 @@
     <value />
   </data>
   <data name="JuniorArchitect" xml:space="preserve">
-    <value />
+    <value>Gənc Memar</value>
   </data>
   <data name="LanguageRequired" xml:space="preserve">
     <value />
   </data>
   <data name="LuxuryBuildings" xml:space="preserve">
-    <value />
+    <value>DƏBDƏBƏLİ BİNALAR</value>
   </data>
   <data name="MeetOurTeam" xml:space="preserve">
-    <value />
+    <value>KOMANDAMIZ İLƏ GÖRÜŞ</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value />
+    <value>Mesaj</value>
   </data>
   <data name="ModelNotValid" xml:space="preserve">
     <value />
   </data>
   <data name="Name" xml:space="preserve">
-    <value />
+    <value>Ad</value>
   </data>
   <data name="News" xml:space="preserve">
     <value />
