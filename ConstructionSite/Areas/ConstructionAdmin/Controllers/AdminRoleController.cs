@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ConstructionSite.DTO.AdminViewModels.Role;
 using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -60,9 +61,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
            
             return View(Name);
         }
-        public IActionResult Update(string id)
+        public async Task<IActionResult> Update(string id)
         {
-            return View();
+            var identityRoleResult=await _roleManager.FindByIdAsync(id);
+            var memmbers=new List<ApplicationUser>();
+            var nomemmbers=new List<ApplicationUser>();
+            foreach (var User in _userManager.Users)
+            {
+               var list=await _userManager.IsInRoleAsync(User, identityRoleResult.Name)?memmbers:nomemmbers;
+                list.Add(User);
+            }
+            var modelResult=new RoleDetailsViewModel
+            {
+                Role=identityRoleResult,
+                Members=memmbers,
+                NoMembers=nomemmbers
+            };
+            return View(modelResult);
         }
         public async Task<IActionResult> Delete(string id)
         {
