@@ -27,6 +27,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string Name)
         {
             if (!ModelState.IsValid)
@@ -54,6 +55,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
            
             return View(Name);
+        }
+        public IActionResult Update(string id)
+        {
+            return View();
+        }
+        public async IActionResult Delete(string id)
+        {
+            var role=await _roleManager.FindByIdAsync(id);
+            if (role!=null)
+            {
+             var deleteRoleResult= await  _roleManager.DeleteAsync(role);
+                if (deleteRoleResult.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var item in deleteRoleResult.Errors)
+                    {
+                        ModelState.AddModelError("",item.Description.ToString());
+                    }
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }
