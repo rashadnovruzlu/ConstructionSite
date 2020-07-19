@@ -21,14 +21,14 @@ namespace ConstructionSite
         public Startup(IConfiguration Configuration)
         {
             this.Configuration = Configuration;
-        } 
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddMvc();
-           services.AddLocalizationInjection();
-           
+            services.AddLocalizationInjection();
+
             services.IdentityLoad(Configuration);
             services.Configure<IISServerOptions>(options =>
             {
@@ -36,12 +36,11 @@ namespace ConstructionSite
             });
             services.ServiceDataBaseWithInjection(Configuration);
             services.AddControllersWithViews();
-            services.ConfigureApplicationCookie(ops=>ops.LoginPath= "/ConstructionAdmin/Account/Login");
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
-            //    options.AccessDeniedPath = new PathString("/ConstructionAdmin/Dashboard/Index");
-            //});
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
+                options.AccessDeniedPath = new PathString("/ConstructionAdmin/Account/Index");
+            });
             services.AddAuthentication(CookieAuthenticationDefaults
                         .AuthenticationScheme)
                             .AddCookie();
@@ -56,11 +55,11 @@ namespace ConstructionSite
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-               
+
                 app.UseHsts();
             }
             app.SeedRole();
-            
+
             app.UseStaticFiles();
             app.UseRequestLocalization();
             app.UseRouting();
@@ -71,13 +70,13 @@ namespace ConstructionSite
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Account}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-          
+
         }
     }
 }

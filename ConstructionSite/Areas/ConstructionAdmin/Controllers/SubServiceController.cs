@@ -88,15 +88,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id = x.Id,
                     Name = x.FindName(_lang)
                 }).ToList();
-            if (result.Count < 1)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-            _unitOfWork.Dispose();
-            ViewBag.data = result;
-            return View();
+                _unitOfWork.Dispose();
+                ViewBag.data = result;
+                return View();
         }
 
         [HttpPost]

@@ -3,6 +3,7 @@ using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -53,7 +54,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-          
             return View();
         }
 
@@ -105,9 +105,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
         #region LOGIN
 
-       
         [AllowAnonymous]
-       
         public IActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl= returnUrl;
@@ -128,26 +126,21 @@ namespace ConstructionSite.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                
-                    ApplicationUser appUser = await _userManager.FindByEmailAsync(loginModel.Email);
+                ApplicationUser appUser = await _userManager.FindByEmailAsync(loginModel.Email);
 
-                    if (appUser != null)
-                    {
-                      await _signInManager.SignOutAsync();
+                if (appUser != null)
+                {
+                    await _signInManager.SignOutAsync();
                     var result=  await  _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
-                        if (result.Succeeded)
-                        {
-                            return Redirect(returnUrl ?? "/");
-
-                        }
-                    }
-
-                    else
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError("email", "This email does not exist.");
+                        return Redirect(returnUrl ?? "/");
                     }
-               
-               
+                }
+                else
+                {
+                    ModelState.AddModelError("email", "This email does not exist.");
+                }
             }
             ViewBag.returnUrl= returnUrl;
             return View();
@@ -158,10 +151,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #region EDIT
 
         [HttpGet]
-      //  [Route("Edit")]
         public async Task<IActionResult> Edit(string id)
         {
-        
             var userResult=await _userManager.FindByIdAsync(id);
             if (userResult!=null)
             {
@@ -173,23 +164,18 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     Name=userResult.Name,
                     Password=userResult.PasswordHash,
                 };
-
-
                 return View(userEditModel);
             }
             else
             {
-
                 return RedirectToAction("Index");
             }
         }
 
         [HttpPost]
-        //[Route("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, UserEditModel userEditModel)
         {
-           
             if (!ModelState.IsValid)
             {
                 
@@ -199,40 +185,33 @@ namespace ConstructionSite.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(userEditModel.Password))
                 {
-              var   validpass=  await  _passwordValidator.ValidateAsync(_userManager,user,userEditModel.Password);
+                var validpass=  await  _passwordValidator.ValidateAsync(_userManager,user,userEditModel.Password);
                     if (validpass.Succeeded)
                     {
-                      user.PasswordHash=  _passwordHasher.HashPassword(user,userEditModel.Password);
+                        user.PasswordHash=  _passwordHasher.HashPassword(user,userEditModel.Password);
                     }
                     else
                     {
-
                         foreach (var item in validpass.Errors)
                         {
                             ModelState.AddModelError("",item.Description.ToString());
                         }
                     }
-                   
                 }
-               
-               
-
             }
-           ApplicationUser applicationUser = new ApplicationUser
-                {
-                    Email = userEditModel.Email,
-                    UserName = userEditModel.Username
-                };
-           user.Email=userEditModel.Email;
+            ApplicationUser applicationUser = new ApplicationUser
+            {
+                Email = userEditModel.Email,
+                UserName = userEditModel.Username
+            };
+            user.Email=userEditModel.Email;
             user.Name=userEditModel.Name;
             user.UserName=userEditModel.Username;
-          var result=await  _userManager.UpdateAsync(user);
+            var result=await  _userManager.UpdateAsync(user);
             foreach (var item in result.Errors)
             {
                 ModelState.AddModelError("",item.Description.ToString());
             }
-            
-           
             return RedirectToAction("Index");
         }
 
@@ -258,11 +237,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
       //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
-        
             var userResult=await _userManager.FindByIdAsync(id);
             if (userResult!=null)
             {
-          var identityResult=   await   _userManager.DeleteAsync(userResult);
+                var identityResult=   await   _userManager.DeleteAsync(userResult);
                 if (!identityResult.Succeeded)
                 {
                     foreach (var item in identityResult.Errors)
@@ -272,13 +250,10 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 }
                 else
                 {
-
-                    return View("Index", _userManager.Users);
+                    return RedirectToAction("Index");
                 }
             }
-           
-            return View("Index",_userManager.Users);
-
+            return RedirectToAction("Index");
         }
 
         #endregion

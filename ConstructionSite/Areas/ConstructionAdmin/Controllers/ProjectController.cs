@@ -80,17 +80,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
             var portfolioResult = _unitOfWork.portfolioRepository.GetAll()
-                .Select(x => new PortfolioViewModel
-                {
-                    Id = x.Id,
-                    Name = x.FindName(_lang)
-                }).ToList();
-            if (portfolioResult.Count < 1)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
+                                                .Select(x => new PortfolioViewModel
+                                                {
+                                                    Id = x.Id,
+                                                    Name = x.FindName(_lang)
+                                                }).ToList();
             _unitOfWork.Dispose();
             ViewBag.data = portfolioResult;
             return View();

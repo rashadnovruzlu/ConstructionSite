@@ -1,16 +1,30 @@
 ﻿@model DescriptionAddViewModel
 
-<div class="text-danger" asp-validation-summary="All"></div>
+    <style>
+        .add-model {
+            margin-left: 20px;
+            background-color: rgb(241,242, 247);
+        }
+
+            .add-model header {
+                height: 30px;
+                margin-top: 15px;
+            }
+
+        .add-body {
+            margin-top: -10px;
+        }
+    </style>
 
 <div class="row">
     <div class="col-lg-12">
-        <section class="panel">
+        <section class="panel add-model">
             <header class="panel-heading">
                 Descripion Add
             </header>
-            <div class="panel-body">
+            <hr />
+            <div class="panel-body add-body">
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Description" asp-action="Add" method="post">
-
                     <div class="form-group">
                         <div class="col-lg-10">
                             <input asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
@@ -43,8 +57,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <select asp-for="SubServiceID">
-                                @foreach (var item in ViewBag.items)
+                            <select class="form-control m-bot15" asp-for="SubServiceID">
+                                @foreach (var item in ViewBag.data)
                                 {
                                     <option value="@item.Id">@item.Name</option>
                                 }
@@ -62,6 +76,7 @@
         </section>
     </div>
 </div>
+
 
 @section scripts{
     <script>
