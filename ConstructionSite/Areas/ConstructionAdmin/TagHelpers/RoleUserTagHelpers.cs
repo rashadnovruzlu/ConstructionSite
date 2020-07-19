@@ -14,7 +14,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.TagHelpers
     public class RoleUserTagHelpers:TagHelper
     {
         private UserManager<ApplicationUser> _UserManager;
-        private RoleManager<IdentityRole> _RoleManager;
+        private RoleManager<IdentityRole>    _RoleManager;
         public RoleUserTagHelpers(UserManager<ApplicationUser> UserManager,                                              RoleManager<IdentityRole> RoleManager)
         {
             this._UserManager=UserManager;
