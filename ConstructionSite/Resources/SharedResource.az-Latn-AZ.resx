@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value />
+    <value>Haqqımızda</value>
   </data>
   <data name="AboutUs" xml:space="preserve">
-    <value />
+    <value>Haqqımızda</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value />
+    <value>Ünvan</value>
   </data>
   <data name="AfterTheProject" xml:space="preserve">
-    <value />
+    <value>LAYİHƏDƏN SONRA</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value />
+    <value>Hamısı</value>
   </data>
   <data name="AnErrorOccurred" xml:space="preserve">
     <value />
@@ -139,40 +139,40 @@
     <value />
   </data>
   <data name="Architecture" xml:space="preserve">
-    <value />
+    <value>Memarlıq</value>
   </data>
   <data name="BadRequest" xml:space="preserve">
     <value />
   </data>
   <data name="Blog" xml:space="preserve">
-    <value />
+    <value>Xəbər</value>
   </data>
   <data name="BuilderManager" xml:space="preserve">
-    <value />
+    <value>İnşaat meneceri</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value />
+    <value>Bina</value>
   </data>
   <data name="CivilEngineer" xml:space="preserve">
-    <value />
+    <value>Mülki mühəndis</value>
   </data>
   <data name="Conditions" xml:space="preserve">
-    <value />
+    <value>Şərtlər</value>
   </data>
   <data name="Construction" xml:space="preserve">
-    <value />
+    <value>Tikinti</value>
   </data>
   <data name="ConstructionAssistant" xml:space="preserve">
-    <value />
+    <value>Tikinti köməkçisi</value>
   </data>
   <data name="ConstructionManager" xml:space="preserve">
-    <value />
+    <value>Tikinti meneceri</value>
   </data>
   <data name="Consulting" xml:space="preserve">
-    <value />
+    <value>Məsləhət</value>
   </data>
   <data name="Contact" xml:space="preserve">
-    <value />
+    <value>Əlaqə</value>
   </data>
   <data name="DataNotExists" xml:space="preserve">
     <value />
