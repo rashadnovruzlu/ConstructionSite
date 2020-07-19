@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using ConstructionSite.DTO.AdminViewModels.Role;
 using ConstructionSite.Entity.Identity;
+using ConstructionSite.Helpers.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
             return View(_roleManager.Roles);
         }
         [HttpGet]
@@ -61,11 +67,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
            
             return View(Name);
         }
+        [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
+            var memmbers = new List<ApplicationUser>();
+            var nomemmbers = new List<ApplicationUser>();
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+
+            if (string.IsNullOrEmpty(id))
+            {
+               return RedirectToAction("Index");
+            }
             var identityRoleResult=await _roleManager.FindByIdAsync(id);
-            var memmbers=new List<ApplicationUser>();
-            var nomemmbers=new List<ApplicationUser>();
+            if (identityRoleResult==null)
+            {
+                ModelState.AddModelError("","role not exists");
+            }
             foreach (var User in _userManager.Users)
             {
                var list=await _userManager.IsInRoleAsync(User, identityRoleResult.Name)?memmbers:nomemmbers;
@@ -79,6 +100,57 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             };
             return View(modelResult);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(RoleEditViewModel roleEditViewModel)
+        {
+            if (roleEditViewModel!=null)
+            {
+             foreach (var item in roleEditViewModel.IDsToAdd??new string[] { })
+            {
+                var user=await _userManager.FindByIdAsync(item);
+                if (user!=null)
+                {
+                 var  userRoleResult=await _userManager.AddToRoleAsync(user,roleEditViewModel.RoleName);
+                    if (userRoleResult.Succeeded)
+                    {
+                        foreach (var erro in userRoleResult.Errors)
+                        {
+                            ModelState.AddModelError("",erro.Description.ToString());
+                        }
+                    }
+                        else
+                        {
+
+                            return RedirectToAction("Index");
+                        }
+                }
+            }
+             foreach (var item in roleEditViewModel.IDsToDelete ?? new string[] { })
+                {
+                    var user = await _userManager.FindByIdAsync(item);
+                    if (user != null)
+                    {
+                        var userRoleResult = await _userManager.RemoveFromRoleAsync(user, roleEditViewModel.RoleName);
+                        if (userRoleResult.Succeeded)
+                        {
+                            foreach (var erro in userRoleResult.Errors)
+                            {
+                                ModelState.AddModelError("", erro.Description.ToString());
+                            }
+                        }
+                        else
+                        {
+
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
+            }
+            return View(roleEditViewModel.RoleID);
+           
+        }
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             var role=await _roleManager.FindByIdAsync(id);
