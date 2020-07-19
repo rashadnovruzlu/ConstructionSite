@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value />
+    <value>Haqqımızda</value>
   </data>
   <data name="AboutUs" xml:space="preserve">
-    <value />
+    <value>Haqqımızda</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value />
+    <value>Ünvan</value>
   </data>
   <data name="AfterTheProject" xml:space="preserve">
-    <value />
+    <value>LAYİHƏDƏN SONRA</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value />
+    <value>Hamısı</value>
   </data>
   <data name="AnErrorOccurred" xml:space="preserve">
     <value />
@@ -139,73 +139,73 @@
     <value />
   </data>
   <data name="Architecture" xml:space="preserve">
-    <value />
+    <value>Memarlıq</value>
   </data>
   <data name="BadRequest" xml:space="preserve">
     <value />
   </data>
   <data name="Blog" xml:space="preserve">
-    <value />
+    <value>Xəbər</value>
   </data>
   <data name="BuilderManager" xml:space="preserve">
-    <value />
+    <value>İnşaat meneceri</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value />
+    <value>Bina</value>
   </data>
   <data name="CivilEngineer" xml:space="preserve">
-    <value />
+    <value>Mülki mühəndis</value>
   </data>
   <data name="Conditions" xml:space="preserve">
-    <value />
+    <value>Şərtlər</value>
   </data>
   <data name="Construction" xml:space="preserve">
-    <value />
+    <value>Tikinti</value>
   </data>
   <data name="ConstructionAssistant" xml:space="preserve">
-    <value />
+    <value>Tikinti köməkçisi</value>
   </data>
   <data name="ConstructionManager" xml:space="preserve">
-    <value />
+    <value>Tikinti meneceri</value>
   </data>
   <data name="Consulting" xml:space="preserve">
-    <value />
+    <value>Məsləhət</value>
   </data>
   <data name="Contact" xml:space="preserve">
-    <value />
+    <value>Əlaqə</value>
   </data>
   <data name="DataNotExists" xml:space="preserve">
     <value />
   </data>
   <data name="Electrical" xml:space="preserve">
-    <value />
+    <value>Elektrik</value>
   </data>
   <data name="Electricians" xml:space="preserve">
-    <value />
+    <value>Elektrikçilər</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value />
+    <value>Elektron poçt</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value />
+    <value>Elektron poçt ünvanı</value>
   </data>
   <data name="EmployeesAreContinuallyTrainedOnSafetyIssues" xml:space="preserve">
-    <value />
+    <value>İşçilər daim təhlükəsizlik mövzusunda təlim alırlar</value>
   </data>
   <data name="FormIsNotValid" xml:space="preserve">
     <value />
   </data>
   <data name="GalleryProject" xml:space="preserve">
-    <value />
+    <value>QALEREYA LAYİHƏSİ</value>
   </data>
   <data name="Garden" xml:space="preserve">
-    <value />
+    <value>Bağça</value>
   </data>
   <data name="GreenBuilding" xml:space="preserve">
-    <value />
+    <value>Yaşıl bina</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value />
+    <value>Ana səhifə</value>
   </data>
   <data name="InstructionsForResettingYourPasswordHaveBeenSentToYourEmailAddress" xml:space="preserve">
     <value />
@@ -220,28 +220,28 @@
     <value />
   </data>
   <data name="JuniorArchitect" xml:space="preserve">
-    <value />
+    <value>Gənc Memar</value>
   </data>
   <data name="LanguageRequired" xml:space="preserve">
     <value />
   </data>
   <data name="LuxuryBuildings" xml:space="preserve">
-    <value />
+    <value>DƏBDƏBƏLİ BİNALAR</value>
   </data>
   <data name="MeetOurTeam" xml:space="preserve">
-    <value />
+    <value>KOMANDAMIZ İLƏ GÖRÜŞ</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value />
+    <value>Mesaj</value>
   </data>
   <data name="ModelNotValid" xml:space="preserve">
     <value />
   </data>
   <data name="Name" xml:space="preserve">
-    <value />
+    <value>Ad</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value />
+    <value>Xəbər</value>
   </data>
   <data name="NoEmailsWereFound" xml:space="preserve">
     <value />
@@ -250,58 +250,58 @@
     <value />
   </data>
   <data name="OurHistoryAndFacts" xml:space="preserve">
-    <value />
+    <value>Tariximiz və faktlarımız</value>
   </data>
   <data name="PasswordAndConfirmPasswordNotMatched" xml:space="preserve">
     <value />
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value />
+    <value>Telefon nömrəsi</value>
   </data>
   <data name="Portfolio" xml:space="preserve">
-    <value />
+    <value>Portfolio</value>
   </data>
   <data name="Preconstruction" xml:space="preserve">
-    <value />
+    <value>TƏKLİF</value>
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
-    <value />
+    <value>Layihədən sonra keyfiyyətli tikinti davam edir</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
-    <value />
+    <value>DAHA ÇOX OXU</value>
   </data>
   <data name="Renovation" xml:space="preserve">
-    <value />
+    <value>Yeniləmə</value>
   </data>
   <data name="ResconstructionServices" xml:space="preserve">
-    <value />
+    <value>Yenidənqurma xidmətləri</value>
   </data>
   <data name="RoofingAndFlooringServices" xml:space="preserve">
-    <value />
+    <value>Dam və döşəmə xidmətləri</value>
   </data>
   <data name="SelectedAnswerValueFake" xml:space="preserve">
     <value />
   </data>
   <data name="SendMessage" xml:space="preserve">
-    <value />
+    <value>Mesaj göndər</value>
   </data>
   <data name="Service" xml:space="preserve">
-    <value />
+    <value>Xidmət</value>
   </data>
   <data name="SomethingIsWrong" xml:space="preserve">
     <value />
   </data>
   <data name="Subject" xml:space="preserve">
-    <value />
+    <value>Mövzu</value>
   </data>
   <data name="TermOfUse" xml:space="preserve">
-    <value />
+    <value>İstifadə müddəti</value>
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
-    <value />
+    <value>ŞƏRTLƏR VƏ QAYDALAR</value>
   </data>
   <data name="Testimonials" xml:space="preserve">
-    <value />
+    <value>RƏSMİ RƏYLƏR</value>
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
     <value />
@@ -325,16 +325,10 @@
     <value />
   </data>
   <data name="Top" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TotalPriceFake" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TouristNotExist" xml:space="preserve">
-    <value />
+    <value>YUXARI</value>
   </data>
   <data name="UsefulLinks" xml:space="preserve">
-    <value />
+    <value>Faydalı bağlantılar</value>
   </data>
   <data name="UsernameOrEmailHasAlreadyBeenUsed" xml:space="preserve">
     <value />
@@ -349,16 +343,13 @@
     <value />
   </data>
   <data name="WeUseTechnologyToDoTheJobMoreQuickly" xml:space="preserve">
-    <value />
+    <value>İşi daha tez yerinə yetirmək üçün texnologiyadan istifadə edirik</value>
   </data>
   <data name="WhatIsIncluded" xml:space="preserve">
-    <value />
+    <value>NƏDİR</value>
   </data>
   <data name="WhyChooseUs" xml:space="preserve">
-    <value />
-  </data>
-  <data name="YouHaveSubscribedToTheSiteInformation" xml:space="preserve">
-    <value />
+    <value>NİYƏ BİZİ SEÇMƏLİSİZ</value>
   </data>
   <data name="YourPasswordHasBeenSuccessfullyReset" xml:space="preserve">
     <value />
