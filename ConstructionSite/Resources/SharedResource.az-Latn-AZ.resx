@@ -301,7 +301,7 @@
     <value>ŞƏRTLƏR VƏ QAYDALAR</value>
   </data>
   <data name="Testimonials" xml:space="preserve">
-    <value />
+    <value>RƏSMİ RƏYLƏR</value>
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
     <value />
@@ -325,13 +325,10 @@
     <value />
   </data>
   <data name="Top" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TouristNotExist" xml:space="preserve">
-    <value />
+    <value>YUXARI</value>
   </data>
   <data name="UsefulLinks" xml:space="preserve">
-    <value />
+    <value>Faydalı bağlantılar</value>
   </data>
   <data name="UsernameOrEmailHasAlreadyBeenUsed" xml:space="preserve">
     <value />
@@ -346,16 +343,13 @@
     <value />
   </data>
   <data name="WeUseTechnologyToDoTheJobMoreQuickly" xml:space="preserve">
-    <value />
+    <value>İşi daha tez yerinə yetirmək üçün texnologiyadan istifadə edirik</value>
   </data>
   <data name="WhatIsIncluded" xml:space="preserve">
-    <value />
+    <value>NƏDİR</value>
   </data>
   <data name="WhyChooseUs" xml:space="preserve">
-    <value />
-  </data>
-  <data name="YouHaveSubscribedToTheSiteInformation" xml:space="preserve">
-    <value />
+    <value>NİYƏ BİZİ SEÇMƏLİSİZ</value>
   </data>
   <data name="YourPasswordHasBeenSuccessfullyReset" xml:space="preserve">
     <value />

@@ -327,9 +327,6 @@
   <data name="Top" xml:space="preserve">
     <value>TOP</value>
   </data>
-  <data name="TouristNotExist" xml:space="preserve">
-    <value>Tourist does not exist</value>
-  </data>
   <data name="UsefulLinks" xml:space="preserve">
     <value>Useful links</value>
   </data>
@@ -353,9 +350,6 @@
   </data>
   <data name="WhyChooseUs" xml:space="preserve">
     <value>WHY CHOOSE US</value>
-  </data>
-  <data name="YouHaveSubscribedToTheSiteInformation" xml:space="preserve">
-    <value>You have subscribed to the site information</value>
   </data>
   <data name="YourPasswordHasBeenSuccessfullyReset" xml:space="preserve">
     <value>Your password has been successfully reset</value>
