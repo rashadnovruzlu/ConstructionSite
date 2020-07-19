@@ -241,7 +241,7 @@
     <value>Ad</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value />
+    <value>Xəbər</value>
   </data>
   <data name="NoEmailsWereFound" xml:space="preserve">
     <value />
@@ -250,55 +250,55 @@
     <value />
   </data>
   <data name="OurHistoryAndFacts" xml:space="preserve">
-    <value />
+    <value>Tariximiz və faktlarımız</value>
   </data>
   <data name="PasswordAndConfirmPasswordNotMatched" xml:space="preserve">
     <value />
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value />
+    <value>Telefon nömrəsi</value>
   </data>
   <data name="Portfolio" xml:space="preserve">
-    <value />
+    <value>Portfolio</value>
   </data>
   <data name="Preconstruction" xml:space="preserve">
-    <value />
+    <value>TƏKLİF</value>
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
-    <value />
+    <value>Layihədən sonra keyfiyyətli tikinti davam edir</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
-    <value />
+    <value>DAHA ÇOX OXU</value>
   </data>
   <data name="Renovation" xml:space="preserve">
-    <value />
+    <value>Yeniləmə</value>
   </data>
   <data name="ResconstructionServices" xml:space="preserve">
-    <value />
+    <value>Yenidənqurma xidmətləri</value>
   </data>
   <data name="RoofingAndFlooringServices" xml:space="preserve">
-    <value />
+    <value>Dam və döşəmə xidmətləri</value>
   </data>
   <data name="SelectedAnswerValueFake" xml:space="preserve">
     <value />
   </data>
   <data name="SendMessage" xml:space="preserve">
-    <value />
+    <value>Mesaj göndər</value>
   </data>
   <data name="Service" xml:space="preserve">
-    <value />
+    <value>Xidmət</value>
   </data>
   <data name="SomethingIsWrong" xml:space="preserve">
     <value />
   </data>
   <data name="Subject" xml:space="preserve">
-    <value />
+    <value>Mövzu</value>
   </data>
   <data name="TermOfUse" xml:space="preserve">
-    <value />
+    <value>İstifadə müddəti</value>
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
-    <value />
+    <value>ŞƏRTLƏR VƏ QAYDALAR</value>
   </data>
   <data name="Testimonials" xml:space="preserve">
     <value />
