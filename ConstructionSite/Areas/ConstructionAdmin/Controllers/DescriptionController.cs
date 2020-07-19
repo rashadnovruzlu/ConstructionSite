@@ -81,7 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Sub Service is empty.");
             }
-            ViewBag.items = result;
+            ViewBag.data = result;
             _unitOfWork.Dispose();
             return View();
         }
