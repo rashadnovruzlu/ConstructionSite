@@ -304,63 +304,60 @@
     <value>TESTIMONIALS</value>
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
-    <value />
+    <value>The Email field is required</value>
   </data>
   <data name="ThePasswordFieldisRequired" xml:space="preserve">
-    <value />
+    <value>The Password field is required</value>
   </data>
   <data name="TheUsernameFieldisRequired" xml:space="preserve">
-    <value />
+    <value>The Username field is required</value>
   </data>
   <data name="ThisEmailAddressIsAlreadySubscribed" xml:space="preserve">
-    <value />
+    <value>This Email address is already subscribed</value>
   </data>
   <data name="ThisModelDoesNotExist" xml:space="preserve">
-    <value />
+    <value>This Model does not exist</value>
   </data>
   <data name="ThisOrderNotExis" xml:space="preserve">
-    <value />
+    <value>This Order not exist</value>
   </data>
   <data name="ThisUserDeactivated" xml:space="preserve">
-    <value />
+    <value>This User deactivated</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TotalPriceFake" xml:space="preserve">
-    <value />
+    <value>TOP</value>
   </data>
   <data name="TouristNotExist" xml:space="preserve">
-    <value />
+    <value>Tourist does not exist</value>
   </data>
   <data name="UsefulLinks" xml:space="preserve">
-    <value />
+    <value>Useful links</value>
   </data>
   <data name="UsernameOrEmailHasAlreadyBeenUsed" xml:space="preserve">
-    <value />
+    <value>Username or Email has already been used</value>
   </data>
   <data name="UsernameOrPassWordwrong" xml:space="preserve">
-    <value />
+    <value>Username or password wrong</value>
   </data>
   <data name="UserNotAuthenticate" xml:space="preserve">
-    <value />
+    <value>User not authenticate</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
-    <value />
+    <value>User not found</value>
   </data>
   <data name="WeUseTechnologyToDoTheJobMoreQuickly" xml:space="preserve">
-    <value />
+    <value>We use technology to do the job more quickly</value>
   </data>
   <data name="WhatIsIncluded" xml:space="preserve">
-    <value />
+    <value>WHAT IS INCLUDED</value>
   </data>
   <data name="WhyChooseUs" xml:space="preserve">
-    <value />
+    <value>WHY CHOOSE US</value>
   </data>
   <data name="YouHaveSubscribedToTheSiteInformation" xml:space="preserve">
-    <value />
+    <value>You have subscribed to the site information</value>
   </data>
   <data name="YourPasswordHasBeenSuccessfullyReset" xml:space="preserve">
-    <value />
+    <value>Your password has been successfully reset</value>
   </data>
 </root>
