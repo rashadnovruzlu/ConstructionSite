@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ConstructionSite.DTO.AdminViewModels.message;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var messageAllResult=  _unitOfWork.messageRepository.GetAll()
                 .OrderByDescending(x=>x.Id)
+                .Select(x=>new MesageViewModel
+                {
+                    id=x.Id,
+                    Email=x.Email,
+                    Name=x.Name,
+                    IsAnswerd=x.IsAnswerd,
+                    SendDate=x.SendDate,
+                    Subject=x.Subject
+                })
                 .ToList();
             if (messageAllResult==null&&messageAllResult.Count<0)
             {

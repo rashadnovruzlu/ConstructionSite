@@ -60,7 +60,7 @@ namespace ConstructionSite.Controllers
                 Email = messageAddViewModel.Email,
                 Subject = messageAddViewModel.Subject,
                 SendDate = messageAddViewModel.SendDate,
-                IsAnswerd = messageAddViewModel.IsAnswerd
+                IsAnswerd = false
             };
             var messageDataResult = await _unitOfWork.messageRepository.AddAsync(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
