@@ -40,14 +40,9 @@ namespace ConstructionSite.Controllers
             {
                 return RedirectToAction("Index");
             }
-        
-                
-                
-           
-
             var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
-                .Include(x => x.SubService)
+               .Include(x => x.SubService)
                .Include(x => x.SubService.SubServiceImages)
                .Where(y => y.SubService.ServiceId == id)
                .Select(x => new ServiceSubServiceImage
@@ -63,14 +58,25 @@ namespace ConstructionSite.Controllers
                }).OrderByDescending(x => x.id)
                .FirstOrDefault();
             if (ServiceSubServiceresult==null)
-                return RedirectToAction("servicewo", id);
+                return RedirectToAction("withSubService","Services",new { id = id });
 
             return View(ServiceSubServiceresult);
 
         }
         public IActionResult withSubService(int id)
    {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+            if (id < 1)
+            {
+                return RedirectToAction("Index");
+            }
+
             var ifNotExistSubService = _unitOfWork.ServiceRepository.GetAll()
+               
                    .Include(x => x.Image)
                    .Select(x => new ServiceViewModel
                    {
@@ -78,7 +84,7 @@ namespace ConstructionSite.Controllers
                        Name = x.FindName(_lang),
                        Tittle = x.FindTitle(_lang),
                        image = x.Image.Path
-                   }).FirstOrDefault();
+                   }).FirstOrDefault(x=>x.Id==id);
             if (ifNotExistSubService==null)
              return RedirectToAction("Index");
              return View(ifNotExistSubService);
@@ -89,6 +95,12 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+            
             var resultServiceViewModel = _unitOfWork.ServiceRepository.GetAll()
                .Include(x => x.Image)
                .Select(x => new ServiceViewModel
