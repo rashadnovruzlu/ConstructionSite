@@ -1,4 +1,4 @@
-﻿@model ServiceViewModel
+﻿@model ServiceSubServiceImage
 @{
     ViewData["Title"] = "withSubService";
 }
@@ -29,7 +29,7 @@
 
                             <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25" style="height:25px"></div>
 
-                            <p class="margin-bottom-0">@Model.Tittle</p>
+                            <p class="margin-bottom-0">@Model.Content</p>
 
                             <div class="wprt-spacer" data-desktop="35" data-mobi="35" data-smobi="35" style="height:35px"></div>
 
@@ -59,10 +59,16 @@
 
                                                 <div class="cbp-item" style="width: 404px; left: 1242px; top: 0px;">
                                                     <div class="cbp-item-wrapper">
-                                                        <div class="item-wrap">
-                                                            <a class="zoom" href=""><i class="fa fa-arrows-alt"></i></a>
-                                                            <img src="@Model.image" alt="image">
-                                                        </div>
+                                                        @foreach (var item in Model.Images)
+                                                        {
+
+                                                            <div class="item-wrap">
+                                                                <a class="zoom" href=""><i class="fa fa-arrows-alt"></i></a>
+                                                                <img src="@item" alt="image">
+                                                            </div>
+
+                                                        }
+
                                                     </div>
                                                 </div>
                                             
