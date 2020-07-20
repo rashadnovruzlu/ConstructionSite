@@ -48,7 +48,7 @@ namespace ConstructionSite.Repository.Concreate
 
         #region --Added--
 
-        public Task<RESULT<T>> Add(T entity)
+        public RESULT<T> Add(T entity)
         {
             RESULT<T> result = new RESULT<T> { IsDone = true };
             if (entity == null)
@@ -66,7 +66,7 @@ namespace ConstructionSite.Repository.Concreate
                 string erro=ex.Message;
                 result.IsDone=false;
             }
-            return Task.FromResult(result);
+            return result;
            
         }
 

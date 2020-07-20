@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    public class MessageController : Controller
+    public class MessagesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public MessageController(IUnitOfWork unitOfWork)
+        public MessagesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork=unitOfWork;
         }

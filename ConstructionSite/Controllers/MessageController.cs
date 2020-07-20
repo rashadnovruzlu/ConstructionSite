@@ -30,18 +30,12 @@ namespace ConstructionSite.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Message", new { area = "area" });
-        }
-
-        [HttpGet]
-        public IActionResult Add()
-        {
-            return View();
+           return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(MessageAddViewModel messageAddViewModel)
+        public  void Add(MessageAddViewModel messageAddViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -59,16 +53,18 @@ namespace ConstructionSite.Controllers
                 Name = messageAddViewModel.Name,
                 Email = messageAddViewModel.Email,
                 Subject = messageAddViewModel.Subject,
+                UserMessage=messageAddViewModel.UserMessage,
                 SendDate = messageAddViewModel.SendDate,
                 IsAnswerd = messageAddViewModel.IsAnswerd
             };
-            var messageDataResult = await _unitOfWork.messageRepository.AddAsync(messageAddViewModelResult);
+            var messageDataResult = _unitOfWork.messageRepository.Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
                 ModelState.AddModelError("", "data is");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
+            
         }
 
        
