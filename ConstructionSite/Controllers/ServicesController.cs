@@ -30,6 +30,11 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Index()
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Bad Request");
+            }
             var allServiceResult=_unitOfWork.ServiceRepository.GetAll()
                .Select(x=>new ServiceViewModel
                {
@@ -46,6 +51,11 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Single(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Bad Request");
+            }
             var resultOnlySingleServcie=_unitOfWork.ServiceRepository.GetAll()
                 .Select(x=>new ServiceViewModel
                 {
@@ -61,13 +71,14 @@ namespace ConstructionSite.Controllers
             }
             return View(resultOnlySingleServcie);
         }
-        public IActionResult Inner(int id)
+        public IActionResult Services(int id)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
+                ModelState.AddModelError("", "Bad Request");
             }
+           
             if (id < 1)
             {
                 return RedirectToAction("Index");
@@ -91,15 +102,24 @@ namespace ConstructionSite.Controllers
 
                }).OrderByDescending(x => x.id)
                .FirstOrDefault();
-
+            if (ServiceSubServiceresult==null)
+            {
+              return RedirectToAction("Single",new { id=id});
+            }
 
             return View(ServiceSubServiceresult);
 
         }
-        public IActionResult subservice(int id)
+        public IActionResult SubService(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Bad Request");
+            }
             return View();
         }
+       
 
     }
 }

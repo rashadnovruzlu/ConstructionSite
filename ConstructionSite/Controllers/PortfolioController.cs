@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 
 namespace ConstructionSite.Controllers
 {
@@ -27,7 +28,11 @@ namespace ConstructionSite.Controllers
         }
         public IActionResult Index()
         {
-            
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Bad Request");
+            }
             var result=_unitOfWork.portfolioRepository.GetAll()
                 .Select(x=>new PortfolioViewModel
                 {
