@@ -283,6 +283,10 @@ ul.sidebar-menu li a{
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+.btn-primary:hover {
+    background-color: black;
+    color: white;
+}
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
     background: #35404d;
