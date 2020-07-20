@@ -13,8 +13,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class AdminRoleController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole>       _roleManager;
+        private readonly UserManager<ApplicationUser>    _userManager;
         public AdminRoleController(RoleManager<IdentityRole> roleManager,
                                    UserManager<ApplicationUser> userManager)
         {
