@@ -117,7 +117,12 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-            return View();
+          var imageResultData=  _unitOfWork.SubServiceImageRepository.GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.SubService)
+                .FirstOrDefault(x=>x.SubServiceId==id);
+
+            return View(imageResultData);
         }
        
 

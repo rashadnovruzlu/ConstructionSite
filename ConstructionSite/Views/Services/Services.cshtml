@@ -1,6 +1,6 @@
 ﻿@model ServiceSubServiceImage
 @{
-    Layout = null;
+    ViewData["Title"] = "Services";
 }
 
 <div id="featured-title" class="clearfix featured-title-left">
@@ -63,11 +63,11 @@
                                                 @foreach (var item in Model.Images)
                                                 {
 
-                                               
-                                                <div class="item-wrap">
-                                                    <a class="zoom" href=""><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="@item" alt="image">
-                                                </div>
+
+                                                    <div class="item-wrap">
+                                                        <a class="zoom" href=""><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="@item" alt="image">
+                                                    </div>
 
                                                 }
                                             </div>
@@ -125,6 +125,6 @@
             </div><!-- /.inner-content-wrap -->
         </div><!-- /#site-content -->
 
-     
+
     </div><!-- /#content-wrap -->
 </div>
