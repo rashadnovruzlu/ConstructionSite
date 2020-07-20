@@ -1,4 +1,5 @@
-﻿<div id="main-content" class="site-main clearfix">
+﻿@model ServiceSubServiceImage
+<div id="main-content" class="site-main clearfix">
     <div id="content-wrap" class="container">
         <div id="site-content" class="site-content clearfix">
             <div id="inner-content" class="inner-content-wrap">
@@ -15,24 +16,11 @@
 
                         <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25" style="height:25px"></div>
 
-                        <p class="margin-bottom-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui. Cras id justo eget sapien scelerisque lacinia non a eros.</p>
+                        <p class="margin-bottom-0">@Model.Content</p>
 
                         <div class="wprt-spacer" data-desktop="35" data-mobi="35" data-smobi="35" style="height:35px"></div>
 
-                        <div class="wprt-toggle style-1">
-                            <h3 class="toggle-title">We use technology to do the job more quickly</h3>
-                            <div class="toggle-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a metus pellentesque, scelerisque ex sed, volutpat nisi. Curabitur tortor mi, eleifend ornare lobortis non. Nulla porta purus quis iaculis ultrices. Proin aliquam sem at nibh hendrerit sagittis. Nullam ornare odio eu lacus tincidunt malesuada. Sed eu vestibulum elit. Curabitur tortor mi, eleifend ornare.</div>
-                        </div>
-
-                        <div class="wprt-toggle active style-1">
-                            <h3 class="toggle-title">Quality construction continues after the project</h3>
-                            <div class="toggle-content" style="display: block;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a metus pellentesque, scelerisque ex sed, volutpat nisi. Curabitur tortor mi, eleifend ornare lobortis non. Nulla porta purus quis iaculis ultrices. Proin aliquam sem at nibh hendrerit sagittis. Nullam ornare odio eu lacus tincidunt malesuada. Sed eu vestibulum elit. Curabitur tortor mi, eleifend ornare.</div>
-                        </div>
-
-                        <div class="wprt-toggle style-1">
-                            <h3 class="toggle-title">Employees are continually trained on safety issues</h3>
-                            <div class="toggle-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a metus pellentesque, scelerisque ex sed, volutpat nisi. Curabitur tortor mi, eleifend ornare lobortis non. Nulla porta purus quis iaculis ultrices. Proin aliquam sem at nibh hendrerit sagittis. Nullam ornare odio eu lacus tincidunt malesuada. Sed eu vestibulum elit. Curabitur tortor mi, eleifend ornare.</div>
-                        </div>
+                      
 
                         <div class="wprt-spacer" data-desktop="50" data-mobi="40" data-smobi="40" style="height:50px"></div>
                     </div><!-- /.col-md-12 -->
@@ -54,41 +42,20 @@
                             <div id="images-wrap" class="cbp cbp-caption-active cbp-caption- cbp-ready cbp-mode-slider" style="height: 278px;">
                                 <div class="cbp-wrapper-outer">
                                     <div class="cbp-wrapper" style="width: 1646px; transform: translate3d(-828px, 0px, 0px);">
-                                        <div class="cbp-item" style="width: 404px; left: 0px; top: 0px;">
-                                            <div class="cbp-item-wrapper">
-                                                <div class="item-wrap">
-                                                    <a class="zoom" href="assets/img/projects/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="assets/img/projects/1.jpg" alt="image">
-                                                </div>
-                                            </div>
-                                        </div><!--/.cbp-item -->
+                                        @foreach (var item in Model.Images)
+                                        {
 
-                                        <div class="cbp-item" style="width: 404px; left: 414px; top: 0px;">
-                                            <div class="cbp-item-wrapper">
-                                                <div class="item-wrap">
-                                                    <a class="zoom" href="assets/img/projects/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="assets/img/projects/2.jpg" alt="image">
+                                            <div class="cbp-item" style="width: 404px; left: 1242px; top: 0px;">
+                                                <div class="cbp-item-wrapper">
+                                                    <div class="item-wrap">
+                                                        <a class="zoom" href=""><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="@item" alt="image">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div><!--/.cbp-item -->
+                                        }
 
-                                        <div class="cbp-item" style="width: 404px; left: 828px; top: 0px;">
-                                            <div class="cbp-item-wrapper">
-                                                <div class="item-wrap">
-                                                    <a class="zoom" href="assets/img/projects/3.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="assets/img/projects/3.jpg" alt="image">
-                                                </div>
-                                            </div>
-                                        </div><!--/.cbp-item -->
 
-                                        <div class="cbp-item" style="width: 404px; left: 1242px; top: 0px;">
-                                            <div class="cbp-item-wrapper">
-                                                <div class="item-wrap">
-                                                    <a class="zoom" href="assets/img/projects/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="assets/img/projects/1.jpg" alt="image">
-                                                </div>
-                                            </div>
-                                        </div><!--/.cbp-item -->
                                     </div>
                                 </div><div class="cbp-nav"><div class="cbp-nav-controls"><div class="cbp-nav-prev" data-slider-action="prev"></div><div class="cbp-nav-next cbp-nav-stop" data-slider-action="next"></div></div><div class="cbp-nav-pagination"><div class="cbp-nav-pagination-item" data-slider-action="jumpTo"></div><div class="cbp-nav-pagination-item cbp-nav-pagination-active" data-slider-action="jumpTo"></div></div></div>
                             </div><!-- /#images-wrap -->
