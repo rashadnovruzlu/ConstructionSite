@@ -20,24 +20,37 @@
     <!-- Custom styles for this template -->
     <link href="~/ConstructionAdmin/css/style.css" rel="stylesheet">
     <link href="~/ConstructionAdmin/css/style-responsive.css" rel="stylesheet" />
-
+    <link href="~/lib/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/assets/icon/favicon.png" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
       <script src="js/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        .nav-sidebar{
+            margin-top: 7.5em !important;
+        }
+        li.active {
+            color: #ffc925;
+        }
+        #sidebar .nav-sidebar list-navbar:hover a {
+            color: #ffc925;
+        }
+    </style>
+
 </head>
 
 <body>
 
     <section id="container">
         <!--header start-->
-        <header class="header white-bg">
-            <div class="sidebar-toggle-box">
-                <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
-            </div>
+        <header class="header white-bg my-Header" style="background-color: RGB(49,49,49); opacity: .8; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
             <!--logo start-->
-            <a href="index.html" class="logo">Flat<span>lab</span></a>
+            <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="construction-logo">
+                <img src="~/assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light@2x.png" data-width="204" data-height="30" style="width: 12.6em; margin-top: 17px; margin-bottom: -34px">
+            </a>
             <!--logo end-->
 
             @await Component.InvokeAsync("UserClaims") 
@@ -45,41 +58,12 @@
         <!--header end-->
         <!--sidebar start-->
         <aside>
-            <div id="sidebar" class="nav-collapse ">
+            <div id="sidebar" class="nav-collapse" style="background-color: RGB(49,49,49); opacity: .8; color: #fff; width: 230px; padding-left: 20px;">
                 <!-- sidebar menu start-->
-                <ul class="sidebar-menu" id="nav-accordion">
-                    <li>
-                        <a class="active" asp-area="ConstructionAdmin" asp-controller="Dashboard" asp-action="Index">
-                            <i class="icon-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:void(0);">
-                            <i class="icon-book"></i>
-                            <span>Pages</span>
-                        </a>
-                        <ul class="sub">
-                            <partial name="_MenuView" />
-                        </ul>
-                    </li>
+                <ul class="sidebar-menu nav-sidebar" id="nav-accordion">
 
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="icon-tasks"></i>
-                            <span>Form Stuff</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a href="form_component.html">Form Components</a></li>
-                            <li><a href="advanced_form_components.html">Advanced Components</a></li>
-                            <li><a href="form_wizard.html">Form Wizard</a></li>
-                            <li><a href="form_validation.html">Form Validation</a></li>
-                            <li><a href="dropzone.html">Dropzone File Upload</a></li>
-                            <li><a href="inline_editor.html">Inline Editor</a></li>
-                            <li><a href="image_cropping.html">Image Cropping</a></li>
-                        </ul>
-                    </li>
-
+                        <partial name="_MenuView" />
+                
                     <!--multi level menu end-->
                 </ul>
                 <!-- sidebar menu end-->
@@ -115,6 +99,8 @@
     <script src="~/ConstructionAdmin/js/sparkline-chart.js"></script>
     <script src="~/ConstructionAdmin/js/easy-pie-chart.js"></script>
     <script src="~/ConstructionAdmin/js/count.js"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
     @RenderSection("scripts",false)
     <script>
 

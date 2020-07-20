@@ -7,22 +7,29 @@
     .button-create {
         margin-bottom: 10px;
     }
+    .text-style {
+        text-align: center;
+        font-size: 1.2em;
+    }
+    .common {
+        margin-top: 45px !important;
+        background-color: RGB(241, 242, 247) !important;
+    }
 </style>
 
-<div class="text-danger" asp-validation-summary="All"></div>
-
-<section class="panel">
+<section class="panel common">
     <header class="panel-heading">
         Portfolio Elements Table
     </header>
+    <hr />
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" class="btn btn-primary">Create New Portfolio Element</a>
+            <a asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" class="btn" style="color: #fff; background-color: #ffc925;">Create New Portfolio Element</a>
         </div>
         <div class="adv-table editable-table ">
             <div class="space15"></div>
             <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                <table class="table table-striped table-hover table-bordered dataTable" id="editable-sample" aria-describedby="editable-sample_info">
+                <table class="table table-striped table-hover table-bordered dataTable" id="myTable editable-sample" aria-describedby="editable-sample_info">
                     <thead>
                         <tr role="row">
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Name</th>
@@ -33,14 +40,23 @@
                     </thead>
 
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        @if (Model.Any())
+                        {
 
-                        @foreach (var item in Model)
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd">
+
+                                    <td class=" ">@item.Name</td>
+                                    <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr class="odd">
-
-                                <td class=" ">@item.Name</td>
-                                <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
-                                <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                                <td class="text-style text-danger" colspan="5" asp-validation-summary="All">Hec bir Data yoxdur</td>
                             </tr>
                         }
                     </tbody>
@@ -49,3 +65,11 @@
         </div>
     </div>
 </section>
+
+@section scripts{ 
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        })
+    </script>
+}
