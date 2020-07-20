@@ -1,29 +1,17 @@
 ﻿@model ProjectAddModel
+@{
+    ViewData["Title"] = "Add";
+}
 
-    <style>
-        .add-model {
-            margin-left: 20px;
-            background-color: rgb(241,242, 247);
-        }
-
-            .add-model header {
-                height: 30px;
-                margin-top: 15px;
-            }
-
-        .add-body {
-            margin-top: -10px;
-        }
-    </style>
+<div class="text-danger" asp-validation-summary="All"></div>
 
 <div class="row">
     <div class="col-lg-12">
-        <section class="panel add-model">
+        <section class="panel">
             <header class="panel-heading">
                 Project  Add
             </header>
-            <hr />
-            <div class="panel-body add-body">
+            <div class="panel-body">
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" method="post" enctype="multipart/form-data">
                     <div class="form-group">
 

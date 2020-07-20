@@ -4,10 +4,8 @@
 <head>
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
-
+   
     <title>Construction - @ViewData["Title"]</title>
-
-
     <meta name="description" content="Template built for Construction Company, Building Services, Architecture, Engineering, Cleaning Service and other Construction related services">
     <meta name="keywords" content=" architecture, builder, building, building company, cleaning services, construction, construction business, construction company">
     <meta name="author" content="blogwp.com">
@@ -17,7 +15,7 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
-   
+
     @RenderSection("head", false)
 
     <!-- Favicon and touch icons  -->
@@ -117,7 +115,14 @@
                             <div class="widget widget_links">
                                 <h2 class="widget-title">Useful links</h2>
                                 <ul class="links col2">
-                                   <partial name="_footerMenu"/>
+                                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
+                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Term of Use</a></li>
+                                    <li class="last"><a asp-controller="About" asp-action="Index">About Us</a></li>
+                                    <li><a asp-controller="Blog" asp-action="Index">News</a></li>
+                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Conditions</a></li>
+                                    <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Conditions</a></li>
                                 </ul>
                             </div>
                         </div>

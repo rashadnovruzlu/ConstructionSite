@@ -7,30 +7,23 @@
     .button-create {
         margin-bottom: 10px;
     }
-    .text-style{
-        text-align: center;
-        font-size: 1.2em;
-    }
-    .common {
-        margin-top: 45px !important;
-        background-color: RGB(241, 242, 247) !important;
-    }
 </style>
 
-<section class="panel common">
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<section class="panel">
     <header class="panel-heading">
         About Elements Table
     </header>
-    <hr />
 
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="About" asp-action="Add" class="btn" style="color: #fff; background-color: #ffc925;">Create New About Element</a>
+            <a asp-area="ConstructionAdmin" asp-controller="About" asp-action="Add" class="btn btn-primary">Create New About Element</a>
         </div>
         <div class="adv-table editable-table ">
             <div class="space15"></div>
             <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                <table id="editable-sample myTable" class="table table-striped table-hover table-bordered dataTable" aria-describedby="editable-sample_info">
+                <table class="table table-striped table-hover table-bordered dataTable" id="editable-sample" aria-describedby="editable-sample_info">
                     <thead>
                         <tr role="row">
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Title</th>
@@ -42,50 +35,21 @@
                     </thead>
 
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                        @if (Model.Any())
+
+                        @foreach (var item in Model)
                         {
-                            @foreach (var item in Model)
-                            {
-                                <tr class="odd">
+                        <tr class="odd">
 
-                                    <td class="sorting_1">@item.Tittle</td>
-                                    <td class=" ">@item.Content</td>
-                                    <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
-                                    <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
-                                    <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
-                                </tr>
-                            }
+                            <td class="sorting_1">@item.Tittle</td>
+                            <td class=" ">@item.Content</td>
+                            <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
+                            <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                            <td class=" "><a class="btn btn-danger delete delete-about"asp-area="ConstructionAdmin" asp-controller="About" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                        </tr>
                         }
-                        else
-                        {
-                            <tr class="odd">
-                                <td class="text-style text-danger" colspan="5" asp-validation-summary="All">Hec bir Data yoxdur</td>
-                            </tr>
-                        }
-
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </section>
-@section scripts{
-    <script>
-        $(".delete-about").click(function () {
-            var id = $(this).data("id");
-
-        $.ajax({
-            type: 'GET',
-            url: '/ConstructionAdmin/About/Delete/' + id
-
-        })
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-        })
-    </script>
-}

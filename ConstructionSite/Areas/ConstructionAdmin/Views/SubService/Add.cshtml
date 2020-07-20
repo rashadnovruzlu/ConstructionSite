@@ -1,29 +1,19 @@
 ﻿@model SubServiceAddModel
+@{
+    ViewData["Title"] = "Add";
+}
 
-    <style>
-        .add-model {
-            margin-left: 20px;
-            background-color: rgb(241,242, 247);
-        }
+<div class="text-danger" asp-validation-summary="All"></div>
 
-            .add-model header {
-                height: 30px;
-                margin-top: 15px;
-            }
-
-        .add-body {
-            margin-top: -10px;
-        }
-    </style>
-
+<section id="main-content">
+    <div class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <section class="panel add-model">
+                <section class="panel">
                     <header class="panel-heading">
                         SubService Add
                     </header>
-                    <hr />
-                    <div class="panel-body add-body">
+                    <div class="panel-body">
                         <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="col-lg-10">
@@ -66,6 +56,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
+
                                 <div class="col-lg-10">
                                     <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
                                 </div>
@@ -81,7 +72,8 @@
                 </section>
             </div>
         </div>
-    
+    </div>
+</section>
 
 @section scripts{
     <script>

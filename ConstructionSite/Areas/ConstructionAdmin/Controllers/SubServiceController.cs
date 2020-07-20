@@ -88,9 +88,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id = x.Id,
                     Name = x.FindName(_lang)
                 }).ToList();
-                _unitOfWork.Dispose();
-                ViewBag.data = result;
-                return View();
+            if (result.Count < 1)
+            {
+               _unitOfWork.Dispose();
+                ModelState.AddModelError("", "This is empty");
+                return RedirectToAction("Index");
+            }
+            _unitOfWork.Dispose();
+            ViewBag.data = result;
+            return View();
         }
 
         [HttpPost]
@@ -198,7 +204,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ContentRu = subServiceUpdateViewModel.ContentRu,
                 ContentEn = subServiceUpdateViewModel.ContentEn,
                 ContentAz = subServiceUpdateViewModel.ContentAz,
-                
             };
             if (resultSubServiceModel == null)
             {

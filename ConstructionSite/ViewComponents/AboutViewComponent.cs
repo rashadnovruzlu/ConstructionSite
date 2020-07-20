@@ -14,9 +14,9 @@ namespace ConstructionSite.ViewComponents
 {
     public class AboutViewComponent:ViewComponent
     {
-        string                                       _lang;
-        private readonly   IUnitOfWork               _unitOfWork;
-        private readonly   IHttpContextAccessor      _httpContextAccessor;
+        string                                  _lang;
+        private readonly   IUnitOfWork          _unitOfWork;
+        private readonly   IHttpContextAccessor _httpContextAccessor;
         private readonly   SharedLocalizationService _localizationHandle;
 
         public AboutViewComponent(IUnitOfWork unitOfWork, 

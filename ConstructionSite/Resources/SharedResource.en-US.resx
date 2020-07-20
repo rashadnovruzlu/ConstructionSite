@@ -118,190 +118,190 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value />
   </data>
   <data name="AboutUs" xml:space="preserve">
-    <value>About us</value>
+    <value />
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Address</value>
+    <value />
   </data>
   <data name="AfterTheProject" xml:space="preserve">
-    <value>AFTER THE PROJECT</value>
+    <value />
   </data>
   <data name="All" xml:space="preserve">
-    <value>All</value>
+    <value />
   </data>
   <data name="AnErrorOccurred" xml:space="preserve">
-    <value>An Error Occurred</value>
+    <value />
   </data>
   <data name="AnErrorOccurredWhileResettingYourPassword" xml:space="preserve">
-    <value>An Error Occurred while resetting your password</value>
+    <value />
   </data>
   <data name="Architecture" xml:space="preserve">
-    <value>Architecture</value>
+    <value />
   </data>
   <data name="BadRequest" xml:space="preserve">
-    <value>Bad Request</value>
+    <value />
   </data>
   <data name="Blog" xml:space="preserve">
-    <value>Blog</value>
+    <value />
   </data>
   <data name="BuilderManager" xml:space="preserve">
-    <value>Builder manager</value>
+    <value />
   </data>
   <data name="Building" xml:space="preserve">
-    <value>Building</value>
+    <value />
   </data>
   <data name="CivilEngineer" xml:space="preserve">
-    <value>Civil Engineer</value>
+    <value />
   </data>
   <data name="Conditions" xml:space="preserve">
-    <value>Conditions</value>
+    <value />
   </data>
   <data name="Construction" xml:space="preserve">
-    <value>Construction</value>
+    <value />
   </data>
   <data name="ConstructionAssistant" xml:space="preserve">
-    <value>Construction Assistant</value>
+    <value />
   </data>
   <data name="ConstructionManager" xml:space="preserve">
-    <value>ConstructionManager</value>
+    <value />
   </data>
   <data name="Consulting" xml:space="preserve">
-    <value>Consulting</value>
+    <value />
   </data>
   <data name="Contact" xml:space="preserve">
-    <value>Contact</value>
+    <value />
   </data>
   <data name="DataNotExists" xml:space="preserve">
-    <value>Data not exists</value>
+    <value />
   </data>
   <data name="Electrical" xml:space="preserve">
-    <value>Electrical</value>
+    <value />
   </data>
   <data name="Electricians" xml:space="preserve">
-    <value>Electricians</value>
+    <value />
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value />
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value>E-mail address</value>
+    <value />
   </data>
   <data name="EmployeesAreContinuallyTrainedOnSafetyIssues" xml:space="preserve">
-    <value>Employees are continually trained on safety issues</value>
+    <value />
   </data>
   <data name="FormIsNotValid" xml:space="preserve">
-    <value>Form is not valid</value>
+    <value />
   </data>
   <data name="GalleryProject" xml:space="preserve">
-    <value>GALLERY PROJECT</value>
+    <value />
   </data>
   <data name="Garden" xml:space="preserve">
-    <value>Garden</value>
+    <value />
   </data>
   <data name="GreenBuilding" xml:space="preserve">
-    <value>Green building</value>
+    <value />
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value />
   </data>
   <data name="InstructionsForResettingYourPasswordHaveBeenSentToYourEmailAddress" xml:space="preserve">
-    <value>Instructions for resetting your password have been sent to your Email address</value>
+    <value />
   </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
-    <value>Invalid login attempt</value>
+    <value />
   </data>
   <data name="InvalidPasswordResetToken" xml:space="preserve">
-    <value>Invalid password reset token</value>
+    <value />
   </data>
   <data name="IsLockedOut5Minutes" xml:space="preserve">
-    <value>Is Locked out 5 minutes</value>
+    <value />
   </data>
   <data name="JuniorArchitect" xml:space="preserve">
-    <value>Junior Architect</value>
+    <value />
   </data>
   <data name="LanguageRequired" xml:space="preserve">
-    <value>Language is required</value>
+    <value />
   </data>
   <data name="LuxuryBuildings" xml:space="preserve">
-    <value>LUXURY BUILDINGS</value>
+    <value />
   </data>
   <data name="MeetOurTeam" xml:space="preserve">
-    <value>MEET OUR TEAM</value>
+    <value />
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Message</value>
+    <value />
   </data>
   <data name="ModelNotValid" xml:space="preserve">
-    <value>Model is not valid</value>
+    <value />
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value />
   </data>
   <data name="News" xml:space="preserve">
-    <value>News</value>
+    <value />
   </data>
   <data name="NoEmailsWereFound" xml:space="preserve">
-    <value>No Emails were found</value>
+    <value />
   </data>
   <data name="NoUsersFound" xml:space="preserve">
-    <value>No users found</value>
+    <value />
   </data>
   <data name="OurHistoryAndFacts" xml:space="preserve">
-    <value>Our history and facts</value>
+    <value />
   </data>
   <data name="PasswordAndConfirmPasswordNotMatched" xml:space="preserve">
-    <value>Password and confirm password not matched</value>
+    <value />
   </data>
   <data name="PhoneNumber" xml:space="preserve">
-    <value>Phone number</value>
+    <value />
   </data>
   <data name="Portfolio" xml:space="preserve">
-    <value>PORTFOLIO</value>
+    <value />
   </data>
   <data name="Preconstruction" xml:space="preserve">
-    <value>PRECONSTRUCTION</value>
+    <value />
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
-    <value>Quality construction continues after the project</value>
+    <value />
   </data>
   <data name="ReadMore" xml:space="preserve">
-    <value>READ MORE</value>
+    <value />
   </data>
   <data name="Renovation" xml:space="preserve">
-    <value>Renovation</value>
+    <value />
   </data>
   <data name="ResconstructionServices" xml:space="preserve">
-    <value>Resconstruction Services</value>
+    <value />
   </data>
   <data name="RoofingAndFlooringServices" xml:space="preserve">
-    <value>Roofing and flooring services</value>
+    <value />
   </data>
   <data name="SelectedAnswerValueFake" xml:space="preserve">
-    <value>Selected answer value fake</value>
+    <value />
   </data>
   <data name="SendMessage" xml:space="preserve">
-    <value>SEND MESSAGE</value>
+    <value />
   </data>
   <data name="Service" xml:space="preserve">
-    <value>Service</value>
+    <value />
   </data>
   <data name="SomethingIsWrong" xml:space="preserve">
-    <value>Something is Wrong</value>
+    <value />
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value />
   </data>
   <data name="TermOfUse" xml:space="preserve">
-    <value>Term of Use</value>
+    <value />
   </data>
   <data name="TermsAndConditions" xml:space="preserve">
-    <value>TERMS AND CONDITIONS</value>
+    <value />
   </data>
   <data name="Testimonials" xml:space="preserve">
-    <value>TESTIMONIALS</value>
+    <value />
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
     <value />

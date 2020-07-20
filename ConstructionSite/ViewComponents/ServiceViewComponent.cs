@@ -42,7 +42,8 @@ namespace ConstructionSite.ViewComponents
                
                
 
-            var resultServiceViewModel =  _unitOfWork.ServiceRepository.GetAll()
+            var result =  _unitOfWork.ServiceRepository.GetAll()
+                .Include(x=>x.SubServices)
                 .Include(x=>x.Image)
                 .Select(x=>new ServiceViewModel
                 {
@@ -52,11 +53,11 @@ namespace ConstructionSite.ViewComponents
                     image=x.Image.Path    
                 }).ToList();
 
-            if (resultServiceViewModel.Count == 0 | resultServiceViewModel == null)
+            if (result.Count == 0 | result == null)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataNotExists));
             }
-            return View(resultServiceViewModel);
+            return View(result);
                 
                 
         }
