@@ -117,7 +117,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 TittleAz = serviceAddViewModel.TittleAz,
                 TittleEn = serviceAddViewModel.TittleEn,
                 TittleRu = serviceAddViewModel.TittleRu,
-                ImageId = serviceAddViewModel.ImageId
+                ImageId = image.Id
             };
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(serviceAddViewModelResult);
             if (!serviceResult.IsDone)
