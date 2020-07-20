@@ -27,7 +27,7 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
-
+       
         public IActionResult Inner(int id)
         {
             if (!ModelState.IsValid)
@@ -35,7 +35,7 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (id < 1)
+            if (id<1)
             {
                 return RedirectToAction("Index");
             }
@@ -43,22 +43,18 @@ namespace ConstructionSite.Controllers
 
             var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
-
+               .Include(x => x.Image)
                .Include(x => x.SubService)
-               .Include(x => x.SubService.SubServiceImages)
                .Where(y => y.SubService.ServiceId == id)
                .Select(x => new ServiceSubServiceImage
                {
                    id = x.Id,
-
                    SubServiceID = x.SubServiceId,
                    Content = x.SubService.FindContent(_lang),
-                   SubName = x.SubService.FindName(_lang),
-                   Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
-
-               }).OrderByDescending(x => x.id)
+                   SubName = x.SubService.FindName(_lang)
+               }).OrderByDescending(x=>x.id)
                .FirstOrDefault();
-
+        
 
             return View(ServiceSubServiceresult);
 
