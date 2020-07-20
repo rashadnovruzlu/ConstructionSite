@@ -1,12 +1,10 @@
 ﻿<!DOCTYPE html>
-<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<!--<![endif]-->
+
 <head>
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+   
     <title>Construction - @ViewData["Title"]</title>
     <meta name="description" content="Template built for Construction Company, Building Services, Architecture, Engineering, Cleaning Service and other Construction related services">
     <meta name="keywords" content=" architecture, builder, building, building company, cleaning services, construction, construction business, construction company">
@@ -52,20 +50,7 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                            <nav id="main-nav" class="main-nav">
-                                <ul class="menu">
-                                    <li class="current-menu-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                                    <li><a asp-controller="About" asp-action="Index">About</a></li>
-                                    <li class="menu-item menu-item-has-children">
-                                        <a href="#team">Services</a>
-                                        @await Component.InvokeAsync("ServiceMenu")
-                                    </li>
-                                   
-                                    <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
-                                    <li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
-                                    <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
-                                </ul>
-                            </nav>
+                        <partial name="_mainnav"/>
                             <!-- /#main-nav -->
 
                             <div class="nav-top-cart-wrapper">
@@ -103,7 +88,7 @@
                 <!-- /#site-header -->
 
             </div>
-            <!-- /#site-header-wrap -->
+           
 
             @RenderBody()
 
@@ -171,33 +156,13 @@
     <a id="scroll-top">TOP</a>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="~/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="~/lib/bootstrap-v4-rtl/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/assets/js/animsition.js"></script>
-    <script type="text/javascript" src="~/assets/js/plugins.js"></script>
-    <script type="text/javascript" src="~/assets/js/countTo.js"></script>
-    <script type="text/javascript" src="~/assets/js/fitText.js"></script>
-    <script type="text/javascript" src="~/assets/js/flexslider.js"></script>
-    <script type="text/javascript" src="~/lib/vegas/vegas.min.js"></script>
-    <script type="text/javascript" src="~/assets/js/owlCarousel.js"></script>
-    <script type="text/javascript" src="~/assets/js/cube.portfolio.js"></script>
-    <script type="text/javascript" src="~/assets/js/main.js"></script>
+    <partial name="Javascript" />
 
     <!-- Revolution Slider -->
-    <script type="text/javascript" src="~/includes/rev-slider/js/jquery.themepunch.tools.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
-    <script type="text/javascript" src="~/assets/js/rev-slider.js"></script>
+    <partial name="Revolution" />
 
     <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.migration.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.navigation.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
-    <script type="text/javascript" src="~/includes/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
+    <partial name="Loading" />
 </body>
 </html>
 

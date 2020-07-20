@@ -1,13 +1,8 @@
 ﻿@model AboutViewModel
-
-@section head{ 
-    <style>
-        .image-style{
-            width: 1170px;
-            height: 780px;
-        }
-    </style>
+@{
+    Layout = null;
 }
+
 
 <section id="about" class="wprt-section clearfix text-center">
     <div class="container">
@@ -23,7 +18,7 @@
                 <div class="link"><a asp-controller="About" asp-action="Index" class="wprt-button small rounded-3px">READ MORE</a></div>
                 <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
                 <div class="text-center">
-                    <img src="@Model.Image" alt="image" class="image-style"/>
+                    <img src="@Model.Image"  height="500" alt="image" class="image-style" />
                 </div>
             </div>
             <!-- /.col-md-12 -->

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -61,7 +60,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var aboutImageResult=await _unitOfWork.AboutRepository.GetByIdAsync(id);
             Image image = new Image();
             var result =await file.SaveImage(_env, "about", image, _unitOfWork);
-            if (result<1)
+            if (!result)
             {
                 ModelState.AddModelError("","this is errors");
             }

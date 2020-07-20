@@ -70,22 +70,3 @@
         </div>
     </div>
 </section>
-@section scripts{
-    <script>
-        $(".delete-about").click(function () {
-            var id = $(this).data("id");
-
-        $.ajax({
-            type: 'GET',
-            url: '/ConstructionAdmin/About/Delete/' + id
-
-        })
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-        })
-    </script>
-}

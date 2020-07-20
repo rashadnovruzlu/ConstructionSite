@@ -25,17 +25,17 @@
                 <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Add" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input asp-for="TittleAz" id="f-name" class="form-control" placeholder="Tittle AZE">
+                            <input asp-for="TittleAz" id="f-name" class="form-control" placeholder="Tittle AZE" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input asp-for="TittleEn" id="f-name" class="form-control" placeholder="Tittle Eng">
+                            <input asp-for="TittleEn" id="f-name" class="form-control" placeholder="Tittle Eng" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Tittle RU">
+                            <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Tittle RU" required>
                         </div>
                     </div>
                     <div class="form-group ">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-10">
-                            <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control">
+                            <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">

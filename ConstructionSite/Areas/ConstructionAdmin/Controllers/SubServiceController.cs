@@ -88,9 +88,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Id = x.Id,
                     Name = x.FindName(_lang)
                 }).ToList();
-                _unitOfWork.Dispose();
-                ViewBag.data = result;
-                return View();
+            if (result.Count < 1)
+            {
+               _unitOfWork.Dispose();
+                ModelState.AddModelError("", "This is empty");
+                return RedirectToAction("Index");
+            }
+            _unitOfWork.Dispose();
+            ViewBag.data = result;
+            return View();
         }
 
         [HttpPost]
@@ -111,17 +117,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
 
             var imageResultID = await file.SaveImage(_env, "subserver", imageSubService, _unitOfWork);
-            if (imageResultID < 1)
+            if (!imageResultID)
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
-            subServiceImageResult.ImageId = imageSubService.Id;
+           
             var SubServiceAddResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
             if (!SubServiceAddResult.IsDone)
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
             subServiceImageResult.SubServiceId = subService.Id;
+            subServiceImageResult.ImageId = imageSubService.Id;
             var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
             if (!SubServiceImageResult.IsDone)
             {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -17,10 +18,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class TestimonialController : Controller
     {
         #region Fields
-        private string _lang;
+        private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IWebHostEnvironment  _env;
         #endregion
 
         #region CTOR
@@ -45,7 +46,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Model State is not Valid.");
             }
-            return View();
+        var  CustomerFeedbackViewModelResult=  _unitOfWork.customerFeedbackRepository.GetAll()
+                .Select(x=>new CustomerViewModel
+                {
+                    id=x.Id,
+                    Content=x.FindContent(_lang),
+                    FullName=x.FullName,
+                    Position=x.Position
+                });
+            return View(CustomerFeedbackViewModelResult);
         }
 
         #endregion
@@ -65,20 +74,28 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(CustomerFeedback customerFeedback)
+        public async Task<IActionResult> Add(CustomerAddViewModel customerAddViewModel)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Model State is not Valid.");
             }
-            if (customerFeedback == null)
+            if (customerAddViewModel == null)
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerFeedback);
+            var customerAddViewModelResult=new CustomerFeedback
+            {
+                ContentAz=customerAddViewModel.ContentAz,
+                ContentEn=customerAddViewModel.ContentEn,
+                ContentRu=customerAddViewModel.ContentRu,
+                FullName=customerAddViewModel.FullName,
+                Position=customerAddViewModel.Position
+            };
+            var customerFeedbackAddedResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerAddViewModelResult);
 
-            if (!customerFeedbackResult.IsDone)
+            if (!customerFeedbackAddedResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "This data is not added");
@@ -104,7 +121,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerFeedbackUpdate = new CustomerUpdateModel
+            var customerFeedbackUpdate = new CustomerViewUpdateModel
             {
                 Id = customerFeedbackUpdateResult.Id,
                 ContentAz = customerFeedbackUpdateResult.ContentAz,
@@ -124,22 +141,33 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(CustomerFeedback customerFeedback)
+        public async Task<IActionResult> Update(CustomerViewUpdateModel customerViewUpdateModel)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Model State is not Valid.");
             }
-            if (customerFeedback == null)
+            if (customerViewUpdateModel == null)
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerFeedback);
+            var customerViewUpdateModelResult=new CustomerFeedback
+            {
+                Id=customerViewUpdateModel.Id,
+                ContentAz=customerViewUpdateModel.ContentAz,
+                ContentEn=customerViewUpdateModel.ContentEn,
+                ContentRu=customerViewUpdateModel.ContentRu,
+                FullName=customerViewUpdateModel.FullName,
+                Position=customerViewUpdateModel.Position
+            };
+            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerViewUpdateModelResult);
             if (!customerFeedbackUpdateResult.IsDone)
             {
+                _unitOfWork.Rollback();
                 ModelState.AddModelError("", "This data is null or empty");
             }
+            _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 

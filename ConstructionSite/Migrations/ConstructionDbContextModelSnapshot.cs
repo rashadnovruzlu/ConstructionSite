@@ -163,49 +163,6 @@ namespace ConstructionSite.Migrations
                     b.ToTable("CustomerFeedbacks");
                 });
 
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Description", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("ContentEn")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("ContentRu")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<int>("SubServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TittleAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("TittleEn")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("TittleRu")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubServiceId");
-
-                    b.ToTable("Descriptions");
-                });
-
             modelBuilder.Entity("ConstructionSite.Entity.Models.HomePage", b =>
                 {
                     b.Property<int>("Id")
@@ -572,15 +529,6 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
                         .WithMany("AboutImages")
                         .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Description", b =>
-                {
-                    b.HasOne("ConstructionSite.Entity.Models.SubService", "SubService")
-                        .WithMany("Descriptions")
-                        .HasForeignKey("SubServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

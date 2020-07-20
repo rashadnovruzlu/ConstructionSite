@@ -19,7 +19,7 @@ namespace ConstructionSite.Repository.Abstract
 
         #region --Added--
 
-        Task<RESULT<T>> Add(T entity);
+        RESULT<T> Add(T entity);
 
         Task<RESULT<T>> AddAsync(T entity);
 

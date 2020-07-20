@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MesageViewModel> 
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
+        <div class="row"><div class="col-lg-6"><div id="editable-sample_length" class="dataTables_length"><label><select size="1" name="editable-sample_length" aria-controls="editable-sample" class="form-control xsmall"><option value="5" selected="selected">5</option><option value="15">15</option><option value="20">20</option><option value="-1">All</option></select> records per page</label></div></div><div class="col-lg-6"><div class="dataTables_filter" id="editable-sample_filter"><label>Search: <input type="text" aria-controls="editable-sample" class="form-control medium"></label></div></div></div><table class="table table-striped table-hover table-bordered dataTable" id="editable-sample" aria-describedby="editable-sample_info">
+            <thead>
+                <tr role="row"><th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 184px;">Username</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending" style="width: 271px;">Email</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Points: activate to sort column ascending" style="width: 122px;">Points</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 175px;">SendDate</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">Edit</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Delete: activate to sort column ascending" style="width: 124px;">Delete</th></tr>
+            </thead>
+
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                @foreach (var item in Model)
+                {
+                    <tr class="odd">
+                        <td class="  sorting_1">@item.Name</td>
+                        <td class=" "> @item.Email</td>
+                        <td class=" ">@item.SendDate</td>
+                        <td class="center ">@item.Subject</td>
+                        <td class=" "><a class="edit" href="javascript:;">Edit</a></td>
+                        <td class=" "><a class="delete" href="javascript:;">Delete</a></td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table><div class="row"><div class="col-lg-6"><div class="dataTables_info" id="editable-sample_info">Showing 1 to 5 of 12 entries</div></div><div class="col-lg-6"><div class="dataTables_paginate paging_bootstrap pagination"><ul><li class="prev disabled"><a href="#">← Prev</a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#">Next → </a></li></ul></div></div></div>
+    </div>

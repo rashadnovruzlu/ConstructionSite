@@ -1,7 +1,9 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     [Area(nameof(ConstructionAdmin))]
+    [Authorize(Roles = ROLESNAME.Admin)]
     public class PortfolioController : Controller
     {
         #region Fields
@@ -92,7 +95,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "Data is Not Saved.");
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -101,9 +104,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Update(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
             var portfoliUpdateViewModel = _unitOfWork.portfolioRepository.GetById(id);
             if (portfoliUpdateViewModel == null)
             {
+                ModelState.AddModelError("", "Data Is Null");
             }
             var portfoliUpdateViewModelResult = new PortfoliUpdateViewModel
             {
@@ -118,12 +127,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public IActionResult Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
             if (portfoliUpdateViewModel == null)
             {
             }
             var portfoliUpdateViewModelresult = new Portfolio
             {
-                Id = portfoliUpdateViewModel.id,
+                Id     = portfoliUpdateViewModel.id,
                 NameAz = portfoliUpdateViewModel.NameAz,
                 NameEn = portfoliUpdateViewModel.NameEn,
                 NameRu = portfoliUpdateViewModel.NameRu
@@ -132,15 +146,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
-                _unitOfWork.Dispose();
-                ModelState.AddModelError("", "This is not successfull");
+              
+                ModelState.AddModelError("", "This is not successfull update");
             }
             else
             {
                 _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
-            return View(portfoliUpdateViewModel.id);
+            return View(portfoliUpdateViewModel);
         }
 
         #endregion
@@ -148,28 +162,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region DELETE
         public async Task<IActionResult> Delete(int id)
         {
-            Portfolio portfolio = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
-            if (portfolio == null)
-            {
-                return RedirectToAction("Index");
-            }
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = await _unitOfWork.portfolioRepository.DeleteAsync(portfolio);
-            if (!result.IsDone)
+            Portfolio portfolioResult = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
+            if (portfolioResult == null)
             {
-                ModelState.AddModelError("", "This portfolio was not delete");
-            }
-            else
-            {
-                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
-            _unitOfWork.Dispose();
-            return View(id);
+           
+            var portfolioDeleteResult = await _unitOfWork.portfolioRepository.DeleteAsync(portfolioResult);
+            if (!portfolioDeleteResult.IsDone)
+            {
+                _unitOfWork.Rollback();
+                ModelState.AddModelError("", "This portfolio was not delete");
+            }
+             _unitOfWork.Dispose();
+                return RedirectToAction("Index");
+            
+          
         }
 
         #endregion
