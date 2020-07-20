@@ -10,10 +10,10 @@ namespace ConstructionSite.Controllers
 {
     public class AboutController : Controller
     {
-        private string _lang;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private SharedLocalizationService _localizationHandle;
-        private readonly IUnitOfWork _unitOfWork;
+        private string                           _lang;
+        private readonly IHttpContextAccessor    _httpContextAccessor;
+        private SharedLocalizationService        _localizationHandle;
+        private readonly IUnitOfWork             _unitOfWork;
 
         public AboutController(IUnitOfWork unitOfWork,
             SharedLocalizationService localizationHandle,
