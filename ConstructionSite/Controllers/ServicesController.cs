@@ -97,7 +97,7 @@ namespace ConstructionSite.Controllers
 
                    SubServiceID = x.SubServiceId,
                    Content = x.SubService.FindContent(_lang),
-                   SubName = x.SubService.FindName(_lang),
+                   Name = x.SubService.FindName(_lang),
                    Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
 
                }).OrderByDescending(x => x.id)
