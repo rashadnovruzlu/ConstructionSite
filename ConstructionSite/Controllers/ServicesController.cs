@@ -1,4 +1,4 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Service;
+﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.DTO.FrontViewModels.SubService;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
@@ -28,6 +28,22 @@ namespace ConstructionSite.Controllers
             _lang = httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
+        public IActionResult Index()
+        {
+            var allServiceResult=_unitOfWork.ServiceRepository.GetAll()
+               .Select(x=>new ServiceViewModel
+               {
+                   Id=x.Id,
+                   Name=x.FindName(_lang),
+                   Tittle=x.FindName(_lang),
+                   image=x.Image.Path
+               }).ToList();
+            if (allServiceResult==null)
+            {
+
+            }
+            return View(allServiceResult);
+        }
         public IActionResult Single(int id)
         {
             var resultOnlySingleServcie=_unitOfWork.ServiceRepository.GetAll()
@@ -36,7 +52,8 @@ namespace ConstructionSite.Controllers
                     Id=x.Id,
                     Name=x.FindName(_lang),
                     Tittle=x.FindTitle(_lang),
-                    Image=x.Image.Path
+                    image=x.Image.Path
+
                 }).FirstOrDefault(x=>x.Id==id);
             if (resultOnlySingleServcie==null)
             {
