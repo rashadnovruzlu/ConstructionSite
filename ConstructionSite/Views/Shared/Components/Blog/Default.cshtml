@@ -1,0 +1,95 @@
+﻿@model IEnumerable<BlogViewModel>
+
+<section id="blog" class="wprt-section offer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60"></div>
+                <h2>BLOG</h2>
+                <div class="wprt-lines style-1 custom-2">
+                    <div class="line-1"></div>
+                </div>
+                <div class="wprt-spacer" data-desktop="50" data-mobi="30" data-smobi="30"></div>
+            </div>
+            <!-- /.col-md-12 -->
+
+            <div class="col-md-12">
+                <div class="wprt-service arrow-style-2 has-arrows arrow60 arrow-light" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
+                    <div id="service-wrap" class="cbp">
+                        @foreach (BlogViewModel item in Model)
+                        {
+                            <div class="cbp-item">
+                                <div class="service-item clearfix">
+
+                                    <div class="thumb"><img  imgwidth="780"   height="370" src="@item.Image" alt="image" /></div>
+                                    <div class="service-item-wrap">
+                                        <h3 class="title font-size-18"><a asp-controller="Blog" asp-action="Detalye" asp-route-id="@item.Id">@item.Tittle</a></h3>
+                                        <p blogtext="@item.Content"></p>
+                                        <a asp-controller="Blog" asp-action="Detalye" asp-route-id="@item.Id" class="wprt-button small rounded-3px">READ MORE</a>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- /.cbp-item -->
+
+                        }
+                    </div>
+                    <!-- /.wprt-service -->
+
+                </div>
+                <!-- /.col-md-12 -->
+
+                <div class="col-md-12">
+                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                </div>
+                <!-- /.col-md-12 -->
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+</section>
+
+@*   <div class="cbp-item">
+            <div class="service-item clearfix">
+                <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
+                <div class="service-item-wrap">
+                    <h3 class="title font-size-18"><a href="#">Green Building</a></h3>
+                    <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                    <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.cbp-item -->
+
+        <div class="cbp-item">
+            <div class="service-item clearfix">
+                <div class="thumb"><img src="~/assets/img/services/12.jpg" alt="image" /></div>
+                <div class="service-item-wrap">
+                    <h3 class="title font-size-18"><a href="#">Resconstruction Services</a></h3>
+                    <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                    <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.cbp-item -->
+
+        <div class="cbp-item">
+            <div class="service-item clearfix">
+                <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
+                <div class="service-item-wrap">
+                    <h3 class="title font-size-18"><a href="#">Roofing & Flooring Services</a></h3>
+                    <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
+                    <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.cbp-item -->
+
+    </div>
+    <!-- /#service-wrap -->
+*@

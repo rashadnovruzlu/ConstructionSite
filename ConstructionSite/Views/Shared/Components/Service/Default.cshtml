@@ -1,0 +1,85 @@
+﻿@model IEnumerable<ServiceViewModel>
+<section id="team" class="wprt-section clearfix text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                <h2 class="text-center margin-bottom-20">SERVICES</h2>
+                <div class="wprt-lines style-2 custom-1">
+                    <div class="line-1"></div>
+                </div>
+                <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
+                <p class="wprt-subtitle">
+                    Lorem ipsum dolor
+                    sit amet, consectetur adipiscing elit.
+                    Phasellus sit amet iaculis elit. Nam
+                    semper ut arcu non placerat. Praesent nibh
+                    massa varius.
+                </p> <div class="link">
+                    <a asp-controller="Services" asp-action="Index" class="wprt-button small rounded-3px">
+                        SEE
+                        ALL
+                    </a>
+                </div>
+                <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
+                <div class="wprt-team has-bullets bullet-style-1" data-layout="slider" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
+                    <div id="team-wrap" class="cbp">
+                        <div class="cbp-item">
+                            <div class="member">
+                                <div class="inner">
+                                    <div class="image">
+                                        <div class="thumb"><img src="~/assets/img/services/3.jpg" alt="image" /></div>
+                                        <ul class="socials clearfix">
+                                            <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            <li class="linkedin"><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="service-item-wrap">
+                                        <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Construction">Construction </a></h3>
+                                        <p class="desc">Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam, tincidunt vel blandit eu, molestie eget.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @foreach (ServiceViewModel item in Model)
+                        {
+                            <div class="cbp-item">
+                                <div class="member">
+                                    <div class="inner">
+                                        <div class="image">
+                                            <div class="thumb"><img src="@item.image" /></div>
+                                            <ul class="socials clearfix">
+                                                <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li class="linkedin"><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="service-item-wrap">
+                                            <h3 class="title font-size-18"><a asp-controller="Services" asp-action="Index" asp-route-id="@item.Id">@item.Name</a></h3>
+                                            <p class="desc" text="@item.Tittle"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+                      
+                    </div>
+                    <!-- /#team-wrap -->
+
+                </div>
+                <!-- /.wprt-team -->
+
+                <div class="wprt-spacer" data-desktop="70" data-mobi="50" data-smobi="40"></div>
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+</section>

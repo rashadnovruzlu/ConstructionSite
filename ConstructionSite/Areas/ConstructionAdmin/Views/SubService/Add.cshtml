@@ -1,0 +1,92 @@
+﻿@model SubServiceAddModel
+
+    <style>
+        .add-model {
+            margin-left: 20px;
+            background-color: rgb(241,242, 247);
+        }
+
+            .add-model header {
+                height: 30px;
+                margin-top: 15px;
+            }
+
+        .add-body {
+            margin-top: -10px;
+        }
+    </style>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel add-model">
+                    <header class="panel-heading">
+                        SubService Add
+                    </header>
+                    <hr />
+                    <div class="panel-body add-body">
+                        <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <input type="text" asp-for="NameAz" id="f-name" class="form-control" required="" placeholder="Name AZE">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <input type="text" asp-for="NameEn" id="f-name" class="form-control" placeholder="Name ENG">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <input type="text" asp-for="NameRu" id="f-name" class="form-control" placeholder="Name RU">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-10">
+                                    <textarea class="form-control " id="ccomment" asp-for="ContentAz" required="" placeholder="Content AZE"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-10">
+                                    <textarea class="form-control " id="ccomment" asp-for="ContentEn" required="" placeholder="Content ENG"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="col-lg-10">
+                                    <textarea class="form-control " id="ccomment" asp-for="ContentRu" required="" placeholder="Content RU"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <select class="form-control m-bot15" asp-for="ServiceId">
+                                        @foreach (ServiceSubServiceAddView item in ViewBag.data)
+                                        {
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/SubService/Index";
+        })
+    </script>
+}

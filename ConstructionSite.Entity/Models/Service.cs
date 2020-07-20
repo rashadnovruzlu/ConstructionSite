@@ -1,14 +1,20 @@
-﻿using System;
+﻿using ConstructionSite.Entity.Core;
+using ConstructionSite.Helpers.Constants;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-	public class Service
+	public class Service:NameTitle
 	{
-		public int Id { get; set; }
-		public string Title { get; set; }
+	
+		public int Id { get; set; }		
+		public virtual Image Image { get; set; }
+		public int ImageId { get; set; }
 
-		public ICollection<Description> Descriptions { get; set; }
+		public virtual ICollection<SubService> SubServices { get; set; }
+		
 	}
 }

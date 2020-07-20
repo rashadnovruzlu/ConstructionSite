@@ -1,0 +1,48 @@
+﻿@model IEnumerable<PortfolioViewModel>
+<section id="works" class="wprt-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                <h2 class="text-center margin-bottom-20">PORTFOLIO</h2>
+                <div class="wprt-lines style-2 custom-1">
+                    <div class="line-1"></div>
+                </div>
+                <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
+            </div>
+            <!-- /.col-md-12 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
+        <div id="project-filter">
+            <div data-filter="*" class="cbp-filter-item">
+                <span>All</span>
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="cbp-filter-item">
+                    
+                    <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@item.Id"><span>@item.Name</span></a>
+                </div>
+            }
+
+         
+
+        </div>
+        <!-- /#project-filter -->
+
+        
+        <!-- /#projects -->
+
+    </div>
+    <!--/.wprt-project -->
+
+</section>
+<div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+<!--/.space-->

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<UserDTO>
+<div class="panel-body bio-graph-info">
+    @foreach (var admin in Model)
+    {
+        <div class="row">
+            <div class="bio-row">
+                <p><span>Name </span>: @admin.Name</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Username </span>: @admin.UserName</p>
+            </div>
+            <div class="bio-row">
+                <p><span>Email </span>: @admin.Email</p>
+            </div>
+
+            <a class="btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id">Edit Admin Profile</a>
+            <a class="btn btn-danger delete-btn" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Delete" asp-route-id="@admin.Id">Delete Profile</a>
+
+            <hr />
+        </div>
+    }
+</div>
+@*@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".delete-btn").click(function () {
+                alert("Salam");
+            });
+        });
+    </script>
+
+}*@

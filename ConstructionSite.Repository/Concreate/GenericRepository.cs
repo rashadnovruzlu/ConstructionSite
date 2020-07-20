@@ -1,7 +1,11 @@
-﻿using ConstructionSite.Helpers.Core;
+﻿using ConstructionSite.Entity.Data;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -9,104 +13,341 @@ namespace ConstructionSite.Repository.Concreate
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public Result<T> Add(T entity)
+        #region --Fild--
+
+        private readonly ConstructionDbContext _context;
+      
+        private string _errorMessage = string.Empty;
+
+        #endregion --Fild--
+
+        #region --Ctor--
+
+        public GenericRepository(ConstructionDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+           
         }
 
-        public Task<Result<T>> AddAsync(T entity)
+        #endregion --Ctor--
+
+        #region --GetAll--
+
+        public IQueryable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().AsQueryable();
         }
 
-        public Result<T> AddRange(ICollection<T> entity)
+        public async Task<ICollection<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+          return await _context.Set<T>().ToListAsync();
+            
         }
 
-        public Task<Result<T>> AddRangeAsync(ICollection<T> entity)
+        #endregion --GetAll--
+
+        #region --Added--
+
+        public Task<RESULT<T>> Add(T entity)
         {
-            throw new NotImplementedException();
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Add(entity);
+               _context.SaveChanges();
+                result.Data = entity;
+            }
+            catch (Exception ex)
+            {
+                string erro=ex.Message;
+                result.IsDone=false;
+            }
+            return Task.FromResult(result);
+           
         }
 
-        public Result<T> Delete(T entity)
+        public async Task<RESULT<T>> AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            RESULT<T>  result=new RESULT<T> { IsDone=true};
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                await _context.Set<T>().AddAsync(entity);
+                await _context.SaveChangesAsync();
+                result.Data = entity;
+
+            }
+            catch (Exception ex)
+            {
+               string mesage=ex.Message;
+                result.IsDone=false;
+            }
+            return await  Task.FromResult(result);
+          
         }
 
-        public Task<Result<T>> DeleteAsync(T entity)
+        public RESULT<T> AddRange(ICollection<T> entity)
         {
-            throw new NotImplementedException();
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().AddRange(entity);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
         }
 
-        public Result<T> DeleteRange(ICollection<T> entity)
+        public async Task<RESULT<T>> AddRangeAsync(ICollection<T> entity)
         {
-            throw new NotImplementedException();
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                await _context.Set<T>().AddRangeAsync(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
         }
 
-        public Task<Result<T>> DeleteRangeAsync(ICollection<T> entity)
+        #endregion --Added--
+
+        #region --Update--
+
+        public RESULT<T> Update(T entity)
         {
-            throw new NotImplementedException();
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                result.IsDone = false;
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
         }
+
+        public async Task<RESULT<T>> UpdateAsync(T entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                _errorMessage += Tools.WriteEntityValidationException(ex);
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        public RESULT<T> UpdateRange(ICollection<T> entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                foreach (var item in entity)
+                {
+                    _context.Set<T>().Attach(item);
+                    _context.Entry(item).State = EntityState.Modified;
+                }
+                _context.SaveChangesAsync();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        public async Task<RESULT<T>> UpdateRangeAsync(ICollection<T> entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                foreach (var item in entity)
+                {
+                    _context.Set<T>().Attach(item);
+                    _context.Entry(item).State = EntityState.Modified;
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        #endregion --Update--
+
+        #region --Delete--
+
+        public RESULT<T> Delete(T entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Remove(entity);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        public async Task<RESULT<T>> DeleteAsync(T entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        public RESULT<T> DeleteRange(ICollection<T> entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().RemoveRange(entity);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        public async Task<RESULT<T>> DeleteRangeAsync(ICollection<T> entity)
+        {
+            RESULT<T> result = new RESULT<T> { IsDone = true };
+            if (entity == null)
+            {
+                throw new ArgumentNullException();
+            }
+            try
+            {
+                _context.Set<T>().RemoveRange(entity);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                result.IsDone = false;
+            }
+            return result;
+        }
+
+        #endregion --Delete--
+
+        #region --Search--
 
         public T Find(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().SingleOrDefault(predecat);
         }
 
         public ICollection<T> FindAll(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Where(predecat).ToList();
         }
 
-        public Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat)
+        public async Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().Where(predecat).ToListAsync();
         }
 
-        public Task<T> FindAsync(Expression<Func<T, bool>> predecat)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> predecat)
         {
-            throw new NotImplementedException();
-        }
-
-        public ICollection<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ICollection<T>> GetAllAsync()
-        {
-            throw new NotImplementedException();
+            return await _context.Set<T>().SingleOrDefaultAsync(predecat);
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Find(id);
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public Result<T> Update(T entity)
+        public void Rollback()
         {
-            throw new NotImplementedException();
+            _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
         }
 
-        public Task<Result<T>> UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Result<T> UpdateRange(ICollection<T> entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<Result<T>> UpdateRangeAsync(ICollection<T> entity)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion --Search--
     }
 }

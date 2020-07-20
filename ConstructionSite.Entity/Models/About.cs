@@ -1,13 +1,13 @@
-﻿using System;
+﻿using ConstructionSite.Entity.Core;
+using DocumentFormat.OpenXml.Office2010.Drawing;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-	public class About
-	{
+    public class About: TitleContent
+	   {
 		public int Id { get; set; }
-		public string Title { get; set; }
-		public string Content { get; set; }
-	}
+        
+        public virtual ICollection<AboutImage> AboutImages { get; set; }
+	   }
 }

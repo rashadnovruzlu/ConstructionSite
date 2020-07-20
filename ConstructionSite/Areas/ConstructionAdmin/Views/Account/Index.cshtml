@@ -1,0 +1,46 @@
+﻿@model IEnumerable<UserDTO>
+
+<style>
+    .user-profile {
+        width: 37%;
+        float: left;
+        margin-left: -20%;
+    }
+    .user-bio {
+        float: right;
+        width: 80%;
+        margin-right: 3%;
+    }
+    .common {
+        margin-top: 45px !important;
+    }
+</style>
+
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper common">
+
+        <!-- page start-->
+        <div class="row">
+            <aside class="profile-nav col-lg-3 user-profile">
+                <section class="panel">
+
+                    @await Component.InvokeAsync("UserProfile")
+
+                </section>
+            </aside>
+            <aside class="profile-info col-lg-9 user-bio">
+                <section class="panel">
+                    <div class="bio-graph-heading">
+                        <h1>Bio Graph</h1>
+                    </div>
+                    
+                    @await Component.InvokeAsync("AdminComponents") 
+
+                </section>
+            </aside>
+        </div>
+        <!-- page end-->
+    </section>
+</section>
+<!--main content end-->
