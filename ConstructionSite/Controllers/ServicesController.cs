@@ -117,7 +117,7 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-            var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
+            var serviceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
                  .Include(x => x.SubService.Service)
 
                  .Include(x => x.SubService)
@@ -134,8 +134,11 @@ namespace ConstructionSite.Controllers
 
                  }).OrderByDescending(x => x.id)
                  .FirstOrDefault();
-
-            return View(imageResultData);
+            if (serviceSubServiceresult==null)
+            {
+                ModelState.AddModelError("","data is null");
+            }
+            return View(serviceSubServiceresult);
         }
        
 
