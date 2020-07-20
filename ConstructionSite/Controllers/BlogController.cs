@@ -13,9 +13,9 @@ namespace ConstructionSite.Controllers
 {
     public class BlogController : Controller
     {
-        private string _lang;
+        private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork          _unitOfWork;
 
         public BlogController(IUnitOfWork unitOfWork,
                               IHttpContextAccessor httpContextAccessor)
@@ -68,9 +68,6 @@ namespace ConstructionSite.Controllers
             return View(blogDetalyeViewModel);
         }
 
-        public IActionResult Deaty()
-        {
-            return View();
-        }
+       
     }
 }

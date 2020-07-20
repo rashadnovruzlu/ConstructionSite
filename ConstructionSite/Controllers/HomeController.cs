@@ -10,7 +10,7 @@ namespace ConstructionSite.Controllers
 {
     public class HomeController : Controller
     {
-        string _lang;
+        string                       _lang;
         private readonly IUnitOfWork _unitOfWork;
         
 
@@ -27,20 +27,6 @@ namespace ConstructionSite.Controllers
             return View();
         }
       
-        //public IActionResult Blog()
-        //{
-        //    var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()
-        //       .Select(x => new AboutViewModel
-        //       {
-        //           Id = x.Id,
-        //           AboutID = x.AboutId,
-        //           Content = x.About.FindContent(_lang),
-        //           Tittle = x.About.FindTitle(_lang),
-        //           Image = x.Image.Path,
-        //           imageId = x.ImageId
-        //       }).ToList()
-        //       .FirstOrDefault();
-        //    return View();
-        //}
+       
     }
 }

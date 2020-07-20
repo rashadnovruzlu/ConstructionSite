@@ -13,9 +13,9 @@ namespace ConstructionSite.Controllers
 {
     public class MessageController : Controller
     {
-        private string _lang;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private string                             _lang;
+        private readonly IUnitOfWork               _unitOfWork;
+        private readonly IHttpContextAccessor      _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
 
         public MessageController(IUnitOfWork unitOfWork,
@@ -60,7 +60,7 @@ namespace ConstructionSite.Controllers
             var messageDataResult = _unitOfWork.messageRepository.Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
-                ModelState.AddModelError("", "data is");
+                ModelState.AddModelError("", "data is not exists");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
