@@ -148,14 +148,11 @@
             <div id="inner-content" class="inner-content-wrap">
                 <div class="page-content">
 
-                    <div style="width:500px;height:500px">
+                   
                         @await Component.InvokeAsync("About")
-                    </div>
-
-                    @await Component.InvokeAsync("Service")
-                    @await Component.InvokeAsync("Portfolio")
-
-                    @await Component.InvokeAsync("Testimonial")
+                        @await Component.InvokeAsync("Service")
+                        @await Component.InvokeAsync("Portfolio")
+                        @await Component.InvokeAsync("Testimonial")
 
                 </div>
                 <!-- /.col-md-12 -->
@@ -169,11 +166,11 @@
         <section id="contact" class="wprt-section">
             <div class="container">
                 <div class="row">
-                    @*@await Component.InvokeAsync("Contact")*@
+                    @await Component.InvokeAsync("Messages")
                     <!-- /.col-md-12 -->
                     <!-- contact /.col-md-4 -->
 
-                    <div class="col-md-8">
+                    <!--<div class="col-md-8">
                         <form class="wprt-contact-form" method="post" action="./includes/contact/contact-process.php">
                             <div class="inner">
                                 <div class="left-side">
@@ -194,11 +191,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form>-->
                         <!-- /.wprt-contact-form -->
 
-                        <div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
-                    </div>
+                        <!--<div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
+                    </div>-->
                     <!-- /.col-md-8 -->
 
                 </div>
