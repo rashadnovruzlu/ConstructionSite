@@ -52,7 +52,8 @@ namespace ConstructionSite.ViewComponents
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataNotExists));
             }
-                   
+             ViewBag.with=500      ;
+            ViewBag.hid=500;
             return View(aboutImageResult);
         }
         }
