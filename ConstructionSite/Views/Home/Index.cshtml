@@ -149,13 +149,14 @@
             <div id="inner-content" class="inner-content-wrap">
                 <div class="page-content">
                     
+                    <div style="width:500px;height:500px">
                     @await Component.InvokeAsync("About")
+                        </div>
 
-                    @*@await Component.InvokeAsync("Service")
-        @await Component.InvokeAsync("Portfolio")
-        @await Component.InvokeAsync("About")
-
-        @await Component.InvokeAsync("Testimonial")*@
+                    @await Component.InvokeAsync("Service")
+                    @await Component.InvokeAsync("Portfolio")
+                    @await Component.InvokeAsync("About")
+                    @await Component.InvokeAsync("Testimonial")
 
                 </div>
                 <!-- /.col-md-12 -->
