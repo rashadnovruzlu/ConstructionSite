@@ -1,4 +1,4 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Project;
+﻿using ConstructionSite.DTO.FrontViewModels.Project;
 using ConstructionSite.DTO.FrontViewModels.Portfoli;
 using ConstructionSite.DTO.FrontViewModels.Portfolio;
 using ConstructionSite.Injections;
@@ -30,11 +30,8 @@ namespace ConstructionSite.ViewComponents
                                         {
                                             Id = x.Id,
                                             Name = x.FindName(_lang),
-                                            Projects = x.Projects.Select(y => new ProjectMenuViewModel
-                                            {
-                                                Id = y.Id,
-                                                Name = y.FindName(_lang)
-                                            }).ToList()
+                                           
+                         
                                         }).ToList();
 
                 return View(result);

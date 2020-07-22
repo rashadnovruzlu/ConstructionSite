@@ -61,7 +61,7 @@ namespace ConstructionSite.Controllers
                         Imagepath=x.Image.Path
                     })
                     .ToList();
-            return View(result);
+            return View("_ProjectView", result);
         }
     }
 }
