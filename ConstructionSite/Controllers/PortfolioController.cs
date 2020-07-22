@@ -1,6 +1,5 @@
-﻿
-using ConstructionSite.DTO.FrontViewModels.Portfoli;
-using ConstructionSite.DTO.FrontViewModels.Portfolio;
+﻿using ConstructionSite.DTO.FrontViewModels.Portfoli;
+using ConstructionSite.DTO.FrontViewModels.Project;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -54,14 +53,14 @@ namespace ConstructionSite.Controllers
                     .Where(x=>x.ProjectId==id)
                     .Include(x=>x.Project)
                     .Include(x=>x.Image)
-                    .Select(x=>new PoftfiloProjectViewModel
+                    .Select(x => new ProjectViewModel
                     {
-                        id=x.Project.Id,
-                        Name=x.Project.FindName(_lang),
-                        Imagepath=x.Image.Path
+                        Id = x.Project.Id,
+                        Name = x.Project.FindName(_lang),
+                        Image = x.Image.Path
                     })
                     .ToList();
-            return View("_ProjectView", result);
+            return ViewComponent("Project",result);
         }
     }
 }
