@@ -1,6 +1,8 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Portfoli;
 using ConstructionSite.DTO.FrontViewModels.Project;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,21 +18,24 @@ namespace ConstructionSite.Controllers
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly SharedLocalizationService _sharedLocalizationService;
 
 
         public PortfolioController(IUnitOfWork unitOfWork,
-                              IHttpContextAccessor httpContextAccessor)
+                              IHttpContextAccessor httpContextAccessor,
+                              SharedLocalizationService sharedLocalizationService)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _lang = _httpContextAccessor.getLang();
+            _sharedLocalizationService=sharedLocalizationService;
         }
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("",_sharedLocalizationService.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             var result=_unitOfWork.portfolioRepository.GetAll()
                 .Select(x=>new PortfolioViewModel
@@ -60,7 +65,7 @@ namespace ConstructionSite.Controllers
                         Image = x.Image.Path
                     })
                     .ToList();
-            return ViewComponent("Project",result);
+            return Json(result);
         }
     }
 }

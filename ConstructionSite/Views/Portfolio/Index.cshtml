@@ -39,6 +39,9 @@
                                 $.ajax({
                                     method: "GET",
                                     url: "/Portfolio/Project/" + id,
+                                    success: function (result) {
+                                        alert(this);
+                                    }
 
                                 });
                             });
