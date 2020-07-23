@@ -26,39 +26,40 @@
             </div>
             @foreach (var item in Model)
             {
-                <div class="cbp-filter-item cbp-filter-item-active mains" data-id="@item.Id">
+                <div data-filter=".architecture" class="cbp-filter-item cbp-filter-item-active mains" data-id="@item.Id">
                     <span>@item.Name</span>
                 </div>
+
             }
-            
-            @section scrips{
-                        <script>
 
-                            $(".mains").click(function () {
-                                var id = $(this).data("id");
-                                $.ajax({
-                                    method: "GET",
-                                    url: "/Portfolio/Project/" + id,
-                                    success: function (result) {
-                                      
-                                    }
 
-                                });
-                            });
-                        </script>
-             }
-            
+
 
 
 
         </div>
-        <!-- /#project-filter -->
-      
+        <div id="projects" >
+          
+                </div>
+                @section scrips{
+                    <script>
+                        $(document).ready(function () {
+                            $(".mains").click(function () {
+                                var id = $(this).data("id");
+                                alert(id);
+                                $("#projects").load(`/Portfolio/Project/${id}`);
 
-        <!-- /#projects -->
+                            });
 
-    </div>
-    <!--/.wprt-project -->
+                        });
+
+                    </script>
+
+                }
+
+
+            </div>
+            <!--/.wprt-project -->
 
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>

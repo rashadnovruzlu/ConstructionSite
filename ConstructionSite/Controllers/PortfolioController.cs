@@ -52,12 +52,13 @@ namespace ConstructionSite.Controllers
         {
             return View();
         }
-        public IActionResult Project(int id)
+        public PartialViewResult Project(int id)
         {
             var result=  _unitOfWork.projectImageRepository.GetAll()
-                    .Where(x=>x.ProjectId==id)
+                   
                     .Include(x=>x.Project)
                     .Include(x=>x.Image)
+                    .Where(x=>x.Project.PortfolioId==id)
                     .Select(x => new ProjectViewModel
                     {
                         Id = x.Project.Id,
@@ -65,7 +66,7 @@ namespace ConstructionSite.Controllers
                         Image = x.Image.Path
                     })
                     .ToList();
-            return Json(result);
+            return PartialView(result);
         }
     }
 }
