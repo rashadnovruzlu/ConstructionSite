@@ -32,36 +32,26 @@
                     <span>@item.Name</span>
                 </div>
             }
-
-
-
-
-
-
         </div>
-        <div id="projects" >
-          
-                </div>
-                @section scrips{
-                    <script>
-                        $(document).ready(function () {
-                            $(".mains").click(function () {
-                                var id = $(this).data("id");
-                                alert(id);
-                                $("#projects").load(`/Portfolio/Project/${id}`);
-
-                            });
-
-                        });
-
-                    </script>
-
-                }
-
-
-            </div>
-            <!--/.wprt-project -->
+        <div id="projects"></div>
+    </div>
+    <!--/.wprt-project -->
 
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+
+@section scrips{
+    <script>
+        $(document).ready(function () {
+            $(".mains").click(function () {
+                var id = $(this).data("id");
+                alert(id);
+                $("#projects").load(`/Portfolio/Project/${id}`);
+            });
+        });
+    </script>
+}
+
+
+
 
