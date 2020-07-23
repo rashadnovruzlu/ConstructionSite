@@ -64,7 +64,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                                 Content = x.News.FindContent(_lang),
                                                 Imagepath = x.Image.Path,
                                                 CreateDate = x.News.CreateDate,
-                                            }).ToList();
+                                            }).OrderByDescending(x=>x.NewsId)
+                                            .ToList();
             if (newsImageResult.Count < 1 | newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");

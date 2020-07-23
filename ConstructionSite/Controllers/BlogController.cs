@@ -1,4 +1,5 @@
-﻿using ConstructionSite.DTO.AdminViewModels.News;
+﻿using Castle.Core.Internal;
+using ConstructionSite.DTO.AdminViewModels.News;
 using ConstructionSite.DTO.FrontViewModels.Blog;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
@@ -38,12 +39,14 @@ namespace ConstructionSite.Controllers
                  .ToList()
                  .Select(x => new NewsViewModel
                  {
-                     Id = x.Id,
+                     Id = x.NewsId,
                      Title = x.News.FindTitle(_lang),
                      Content = x.News.FindContent(_lang),
                      Imagepath = x.Image.Path,
                      CreateDate = x.News.CreateDate
-                 }).ToList();
+                 })
+                 .OrderByDescending(x=>x.Id)
+                 .ToList();
             return View(newsImageResult);
         }
 
