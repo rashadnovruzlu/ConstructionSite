@@ -1,11 +1,13 @@
 ﻿@model IEnumerable<PortfolioViewModel>
+@inject SharedLocalizationService Localizer
+
 <section id="works" class="wprt-section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
                 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                <h2 class="text-center margin-bottom-20">PORTFOLIO</h2>
+                <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</h2>
                 <div class="wprt-lines style-2 custom-1">
                     <div class="line-1"></div>
                 </div>
@@ -22,45 +24,34 @@
     <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
         <div id="project-filter">
             <div data-filter="*" class="cbp-filter-item">
-                <span>All</span>
+                <span>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
             </div>
             @foreach (var item in Model)
             {
                 <div data-filter=".architecture" class="cbp-filter-item cbp-filter-item-active mains" data-id="@item.Id">
                     <span>@item.Name</span>
                 </div>
-
             }
-
-
-
-
-
-
         </div>
-        <div id="projects" >
-          
-                </div>
-                @section scrips{
-                    <script>
-                        $(document).ready(function () {
-                            $(".mains").click(function () {
-                                var id = $(this).data("id");
-                                alert(id);
-                                $("#projects").load(`/Portfolio/Project/${id}`);
-
-                            });
-
-                        });
-
-                    </script>
-
-                }
-
-
-            </div>
-            <!--/.wprt-project -->
+        <div id="projects"></div>
+    </div>
+    <!--/.wprt-project -->
 
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+
+@section scrips{
+    <script>
+        $(document).ready(function () {
+            $(".mains").click(function () {
+                var id = $(this).data("id");
+                alert(id);
+                $("#projects").load(`/Portfolio/Project/${id}`);
+            });
+        });
+    </script>
+}
+
+
+
 

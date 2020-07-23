@@ -1,11 +1,12 @@
 ﻿@model ContactIndexViewModel
+@inject SharedLocalizationService Localizer
 
 <!-- Featured Title -->
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
             <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">Contact Us</h1>
+                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ContactUs)</h1>
             </div>
         </div>
     </div>
@@ -34,13 +35,13 @@
                                 <!-- /.col-md-12 -->
 
                                 <div class="col-md-4">
-                                    <h5>Address</h5>
+                                    <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Address)</h5>
                                     <p>@Model.Address</p>
                                     <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
-                                    <h5>Phone number</h5>
+                                    <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.PhoneNumber)</h5>
                                     <p>@Model.PhoneNumber</p>
                                     <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
-                                    <h5>E-mail address</h5>
+                                    <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.EmailAddress)</h5>
                                     <p>@Model.Email</p>
                                     <div class="wprt-spacer" data-desktop="0" data-mobi="10" data-smobi="10"></div>
                                 </div>

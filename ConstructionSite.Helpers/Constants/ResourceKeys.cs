@@ -94,6 +94,8 @@ namespace ConstructionSite.Helpers.Constants
         public const string GalleryProject = "GalleryProject";
         public const string Preconstruction = "Preconstruction";
         public const string AfterTheProject = "AfterTheProject";
+        public const string OurServices = "OurServices";
+        public const string Services = "Services";
         #endregion
 
         #region Region
@@ -105,6 +107,8 @@ namespace ConstructionSite.Helpers.Constants
         public const string Building = "Building";
         public const string Garden = "Garden";
         public const string LuxuryBuildings = "LuxuryBuildings";
+        public const string PortfolioDetail = "PortfolioDetail";
+        public const string ProjectDescription = "ProjectDescription";
         #endregion
 
         #region TESTIMONIALS
@@ -116,10 +120,11 @@ namespace ConstructionSite.Helpers.Constants
         public const string GreenBuilding = "GreenBuilding";
         public const string ResconstructionServices = "ResconstructionServices";
         public const string RoofingAndFlooringServices = "RoofingAndFlooringServices";
-        public const string News = "News"; 
+        public const string News = "News";
         #endregion
 
         #region CONTACT US
+        public const string ContactUs = "ContactUs";
         public const string Address = "Address";
         public const string PhoneNumber = "PhoneNumber";
         public const string EmailAddress = "EmailAddress";
@@ -137,6 +142,5 @@ namespace ConstructionSite.Helpers.Constants
         public const string Conditions = "Conditions";
         public const string Top = "Top";
         #endregion
-
     }
 }
