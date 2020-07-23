@@ -162,6 +162,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var result = _unitOfWork.newsImageRepository.GetAll()
                                     .Include(x => x.News)
                                         .Include(x => x.Image)
+                                        
                                             .Select(x => new BlogEditModel
                                             {
                                                 Id = x.Id,

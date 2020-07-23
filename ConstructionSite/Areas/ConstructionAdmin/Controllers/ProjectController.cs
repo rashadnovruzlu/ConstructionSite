@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -147,9 +148,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Id is not exists");
             }
-            ViewBag.items = _unitOfWork.projectRepository.GetAll();
-            _unitOfWork.Dispose();
-
+        var projectUpdateViewModel =  _unitOfWork.projectImageRepository
+                .GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.Project)
+                .FirstOrDefault(x=>x.ProjectId==id);
+       
             return View();
         }
 
