@@ -116,10 +116,11 @@ namespace ConstructionSite.Helpers.Constants
         public const string GreenBuilding = "GreenBuilding";
         public const string ResconstructionServices = "ResconstructionServices";
         public const string RoofingAndFlooringServices = "RoofingAndFlooringServices";
-        public const string News = "News"; 
+        public const string News = "News";
         #endregion
 
         #region CONTACT US
+        public const string ContactUs = "ContactUs";
         public const string Address = "Address";
         public const string PhoneNumber = "PhoneNumber";
         public const string EmailAddress = "EmailAddress";
