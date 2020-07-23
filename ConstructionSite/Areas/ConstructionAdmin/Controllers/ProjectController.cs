@@ -158,16 +158,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ContentAz=x.Project.ContentAz,
                     ContentEn=x.Project.ContentEn,
                     ContentRu=x.Project.ContentRu,
-                    ImageId=x.ImageId,
+                    NameAz = x.Project.NameAz,
+                    NameEn = x.Project.NameEn,
+                    NameRu = x.Project.NameRu,
+                    ImageId =x.ImageId,
                     ImagePath=x.Image.Path,
-                    NameAz=x.Project.NameAz,
-                    NameEn=x.Project.NameEn,
-                    NameRu=x.Project.NameRu,
+                   
                     PortfolioId=x.Project.PortfolioId,
                     ProjectId=x.ProjectId
                 })
                 .FirstOrDefault(x=>x.ProjectId==id);
-       
+       ViewBag.items=_unitOfWork.portfolioRepository.GetAll()
+                .Select(x=>new PortfolioViewModel
+                {
+                    Id=x.Id,
+                    Name=x.FindName(_lang)
+                }).ToList();
             return View(projectUpdateViewModel);
         }
 
