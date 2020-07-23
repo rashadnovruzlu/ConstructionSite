@@ -1,9 +1,11 @@
 ﻿@model BlogDetalyeViewModel
+@inject SharedLocalizationService Localizer
+
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
             <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">News</h1>
+                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</h1>
             </div>
         </div>
     </div>
@@ -32,15 +34,15 @@
                             <div class="post-meta-content">
                                 <div class="post-meta-content-inner">
                                     <span class="post-date item">
-                                        <span class="inner"><span class="entry-date">@Model.dateTime</span></span>
+                                        <span class="inner">
+                                            <span class="entry-date">@Model.dateTime</span>
+                                        </span>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                      
-
                         <div class="post-content post-excerpt">
-                            <p>@Model.Content.</p>
+                            <p>@Model.Content</p>
                         </div>
                         <!-- /.post-excerpt -->
 
