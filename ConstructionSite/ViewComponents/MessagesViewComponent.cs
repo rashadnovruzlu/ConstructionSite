@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class MessageViewComponent:ViewComponent
+    public class MessagesViewComponent:ViewComponent
     {
         string _lang;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUnitOfWork               _unitOfWork;
+        private readonly IHttpContextAccessor      _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
 
-        public MessageViewComponent(IUnitOfWork unitOfWork,
+        public MessagesViewComponent(IUnitOfWork unitOfWork,
                                   IHttpContextAccessor httpContextAccessor,
                                   SharedLocalizationService localizationHandle)
         {

@@ -60,7 +60,7 @@ button,
 input,
 select,
 textarea { font-family: "Lato", sans-serif; color: #777; font-size: 14px; line-height: 1.875; background-color: #fff; -webkit-font-smoothing: antialiased; }
-img { height: auto; max-width: 100%; vertical-align: middle; -ms-interpolation-mode: bicubic }
+img { height: auto; max-width: 100%;vertical-align: middle; -ms-interpolation-mode: bicubic }
 p { margin: 0 0 20px; }
 strong,
 b { font-weight: bold; }

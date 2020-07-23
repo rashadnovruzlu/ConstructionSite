@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
     public class BlogController : Controller
     {
-        private string _lang;
+        private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork          _unitOfWork;
 
         public BlogController(IUnitOfWork unitOfWork,
                               IHttpContextAccessor httpContextAccessor)
@@ -26,7 +27,12 @@ namespace ConstructionSite.Controllers
 
         public IActionResult Index()
         {
-            var data = _unitOfWork.newsImageRepository.GetAll()
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Bad Request");
+            }
+            var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                  .Include(x => x.Image)
                  .Include(x => x.News)
                  .ToList()
@@ -38,11 +44,16 @@ namespace ConstructionSite.Controllers
                      Imagepath = x.Image.Path,
                      CreateDate = x.News.CreateDate
                  }).ToList();
-            return View(data);
+            return View(newsImageResult);
         }
 
         public async Task<IActionResult> Detalye(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Bad Request");
+            }
             var newsImageResult = await _unitOfWork.newsImageRepository.GetByIdAsync(id);
 
             var blogDetalyeViewModel = new BlogDetalyeViewModel
@@ -57,9 +68,6 @@ namespace ConstructionSite.Controllers
             return View(blogDetalyeViewModel);
         }
 
-        public IActionResult Deaty()
-        {
-            return View();
-        }
+       
     }
 }

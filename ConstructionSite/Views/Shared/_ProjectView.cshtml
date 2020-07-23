@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<ProjectViewModel>
 
+@foreach (var item in Model)
+	{
     <div id="projects" class="cbp cbp-caption-active cbp-caption- cbp-ready" style="height: 464px;">
         <div class="cbp-wrapper-outer">
             <div class="cbp-wrapper">
-@foreach (var item in Model)
-{
-                <div class="cbp-item" style="width: 337px; left: 0px; top: 0px;">
+                <div class="cbp-item architecture interior workspace" style="width: 337px; left: 0px; top: 0px;">
                     <div class="cbp-item-wrapper">
                         <div class="project-item">
                             <div class="inner">
@@ -14,14 +14,14 @@
                                         <img src="@item.Image" alt="image">
                                         <figcaption>
                                             <div>
-                                                <h2><a target="_blank" href="portfolio-main.html">@item.Name</a></h2>
-
+                                                <h2><a target="_blank" href="portfolio.html">@item.Name</a></h2>
+                                               
                                             </div>
                                         </figcaption>
                                     </figure>
                                 </div>
 
-                                <a class="project-zoom cbp-lightbox" href="assets/img/projects/1-full.jpg" data-title="@item.Name">
+                                <a class="project-zoom cbp-lightbox" href="assets/img/projects/1-full.jpg" data-title="LUXURY BUILDINGS">
                                     <i class="fa fa-arrows-alt"></i>
                                 </a>
                             </div>
@@ -30,7 +30,8 @@
                 </div>
 
 
-}
             </div>
         </div>
     </div>
+	}
+    

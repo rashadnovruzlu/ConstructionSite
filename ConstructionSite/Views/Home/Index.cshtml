@@ -1,4 +1,4 @@
-﻿<!-- Slider -->
+﻿
 <div class="rev_slider_wrapper fullwidthbanner-container">
     <div id="rev-slider1" class="rev_slider fullwidthabanner">
         <ul>
@@ -8,7 +8,7 @@
 
                 <!-- Main Image -->
                 <img src="~/assets/img/slider/1.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-no-retina>
-                
+
                 <!-- Layers -->
                 <div class="tp-caption tp-resizeme text-white font-family-heading text-shadow font-weight-500"
                      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
@@ -70,13 +70,12 @@
                 </div>
             </li>
             <!-- End Slide -->
-
             <!-- Slide -->
             <li data-transition="boxfade" data-slotamount="7" data-easein="Expo.easeOut" data-easeout="Expo.easeOut" data-masterspeed="2000" data-thumb="assets/img/slider/2.jpg" data-rotate="0" data-saveperformance="off" data-title="BEST COMPANY">
-                
+
                 <!-- Main Image -->
                 <img src="~/assets/img/slider/2.jpg" alt="" data-bgposition="center center" data-no-retina>
-                
+
                 <!-- Layers -->
                 <div class="tp-caption tp-resizeme text-white font-family-heading text-shadow font-weight-500"
                      data-x="['left','left','left','left']" data-hoffset="['50','30','30','30']"
@@ -148,14 +147,12 @@
         <div id="site-content" class="site-content clearfix">
             <div id="inner-content" class="inner-content-wrap">
                 <div class="page-content">
-                    
-                    @await Component.InvokeAsync("About")
 
-                    @*@await Component.InvokeAsync("Service")
-        @await Component.InvokeAsync("Portfolio")
-        @await Component.InvokeAsync("About")
-
-        @await Component.InvokeAsync("Testimonial")*@
+                   
+                        @await Component.InvokeAsync("About")
+                        @await Component.InvokeAsync("Service")
+                        @await Component.InvokeAsync("Portfolio")
+                        @await Component.InvokeAsync("Testimonial")
 
                 </div>
                 <!-- /.col-md-12 -->
@@ -165,17 +162,15 @@
 
         </div>
         <!-- /.container -->
-       @(await Component.InvokeAsync("Blog"))
+        @(await Component.InvokeAsync("Blog"))
         <section id="contact" class="wprt-section">
             <div class="container">
                 <div class="row">
-                    @*@await Component.InvokeAsync("Contact")*@
+                    @await Component.InvokeAsync("Messages")
                     <!-- /.col-md-12 -->
-
-                    
                     <!-- contact /.col-md-4 -->
 
-                    <div class="col-md-8">
+                    <!--<div class="col-md-8">
                         <form class="wprt-contact-form" method="post" action="./includes/contact/contact-process.php">
                             <div class="inner">
                                 <div class="left-side">
@@ -196,11 +191,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form>-->
                         <!-- /.wprt-contact-form -->
 
-                        <div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
-                    </div>
+                        <!--<div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
+                    </div>-->
                     <!-- /.col-md-8 -->
 
                 </div>

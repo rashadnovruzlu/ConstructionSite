@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
-   
+
     <title>Construction - @ViewData["Title"]</title>
     <meta name="description" content="Template built for Construction Company, Building Services, Architecture, Engineering, Cleaning Service and other Construction related services">
     <meta name="keywords" content=" architecture, builder, building, building company, cleaning services, construction, construction business, construction company">
@@ -15,6 +15,8 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
+    <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
+   
 
     @RenderSection("head", false)
 
@@ -28,7 +30,7 @@
     <![endif]-->
 </head>
 
-<!-- <body class="front-page no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5"> -->
+
 <body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
     <div id="top"></div>
     <div id="wrapper" class="animsition">
@@ -161,8 +163,7 @@
     <!-- Revolution Slider -->
     <partial name="Revolution" />
 
-    <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
-    <partial name="Loading" />
+  @RenderSection("Scrips",false)
 </body>
 </html>
 

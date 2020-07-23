@@ -10,6 +10,6 @@ namespace ConstructionSite.DTO.FrontViewModels.Portfoli
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<ProjectMenuViewModel> Projects { get; set; }
+        public int PortfoliID { get; set; }
     }
 }

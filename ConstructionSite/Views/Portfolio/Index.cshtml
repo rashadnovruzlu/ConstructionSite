@@ -26,23 +26,41 @@
             </div>
             @foreach (var item in Model)
             {
-                <div class="cbp-filter-item">
-                    
-                    <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@item.Id"><span>@item.Name</span></a>
+                <div data-filter=".architecture" class="cbp-filter-item cbp-filter-item-active mains" data-id="@item.Id">
+                    <span>@item.Name</span>
                 </div>
+
             }
 
-         
+
+
+
+
 
         </div>
-        <!-- /#project-filter -->
+        <div id="projects" >
+          
+                </div>
+                @section scrips{
+                    <script>
+                        $(document).ready(function () {
+                            $(".mains").click(function () {
+                                var id = $(this).data("id");
+                                alert(id);
+                                $("#projects").load(`/Portfolio/Project/${id}`);
 
-        
-        <!-- /#projects -->
+                            });
 
-    </div>
-    <!--/.wprt-project -->
+                        });
+
+                    </script>
+
+                }
+
+
+            </div>
+            <!--/.wprt-project -->
 
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-<!--/.space-->
+
