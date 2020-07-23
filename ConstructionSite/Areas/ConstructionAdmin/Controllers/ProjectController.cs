@@ -181,7 +181,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel, IFormFile file)
         {
-            //Image image = new Image();
+           
 
             if (!ModelState.IsValid)
             {
