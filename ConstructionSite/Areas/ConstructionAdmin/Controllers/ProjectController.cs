@@ -195,13 +195,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             var projectViewModelUpdate = new Project
             {
-                Id = projectUpdateViewModel.ProjectId,
-                NameAz = projectUpdateViewModel.NameAz,
-                NameRu = projectUpdateViewModel.NameRu,
-                NameEn = projectUpdateViewModel.NameEn,
-                ContentAz = projectUpdateViewModel.ContentAz,
-                ContentRu = projectUpdateViewModel.ContentRu,
-                ContentEn = projectUpdateViewModel.ContentEn,
+                Id          = projectUpdateViewModel.ProjectId,
+                NameAz      = projectUpdateViewModel.NameAz,
+                NameRu      = projectUpdateViewModel.NameRu,
+                NameEn      = projectUpdateViewModel.NameEn,
+                ContentAz   = projectUpdateViewModel.ContentAz,
+                ContentRu   = projectUpdateViewModel.ContentRu,
+                ContentEn   = projectUpdateViewModel.ContentEn,
                 PortfolioId = projectUpdateViewModel.PortfolioId
             };
             var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
@@ -221,6 +221,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             ProjectImage projectImage = new ProjectImage
             {
+                Id = projectUpdateViewModel.Id,
                 ImageId = image.Id,
                 ProjectId = projectUpdateViewModel.Id
             };
