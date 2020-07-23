@@ -98,21 +98,8 @@
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="widget widget_about margin-bottom-25">
-                                <div class="margin-bottom-35">
-                                    <img src="~/assets/img/logo-light.png" width="204" height="30" alt="image" />
-                                </div>
-                                <p>Nullam vel enim risus. Integer rhoncus hendrerit sem egestas porttitor.</p>
-                                <section class="widget widget_information">
-                                    <ul class="info-wrap">
-                                        <li class="address item">1 Beverly Hills, Los Angeles, California, 90210, United States</li>
-                                        <li class="phone item">+1 (390) 379 3368, +1 (390) 379 6868</li>
-                                        <li class="email item">contact@construction.com</li>
-                                    </ul>
-                                </section>
-                            </div>
-                        </div>
+                        @Html.Partial("Adress")
+                        
                         <div class="col-md-3">
                             <div class="widget widget_links">
                                 <h2 class="widget-title">Useful links</h2>
