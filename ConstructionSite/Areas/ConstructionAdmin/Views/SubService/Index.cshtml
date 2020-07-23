@@ -16,6 +16,11 @@
         margin-top: 45px !important;
         background-color: RGB(241, 242, 247) !important;
     }
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
 </style>
 
 <section class="panel common">
@@ -25,7 +30,7 @@
     <hr />
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" class="btn wprt-button" style="color: #fff; background-color: #ffc925;">Create New SubService Element</a>
+            <a asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New SubService Element</a>
         </div>
         <div class="adv-table editable-table ">
 
@@ -55,7 +60,7 @@
                                         <img width="100" height="100" src="@item.ImagePath" alt="Alternate Text" />
                                     </td>
 
-                                    <td class=" "><a class="btn btn-primary edit" asp-controller="SubService" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                                    <td class=" "><a class="btn btn-primary edit about-button" asp-controller="SubService" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
                                     <td class=" "><a class="btn btn-danger delete" asp-controller="SubService" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                                 </tr>
                             }
