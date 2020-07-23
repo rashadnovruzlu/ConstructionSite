@@ -94,6 +94,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string GalleryProject = "GalleryProject";
         public const string Preconstruction = "Preconstruction";
         public const string AfterTheProject = "AfterTheProject";
+        public const string OurServices = "OurServices";
         #endregion
 
         #region Region
