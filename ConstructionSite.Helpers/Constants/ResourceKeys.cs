@@ -95,6 +95,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string Preconstruction = "Preconstruction";
         public const string AfterTheProject = "AfterTheProject";
         public const string OurServices = "OurServices";
+        public const string Services = "Services";
         #endregion
 
         #region Region

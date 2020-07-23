@@ -1,10 +1,11 @@
 ﻿@model ServiceSubServiceImage
+@inject SharedLocalizationService Localizer
 
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
             <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">Services</h1>
+                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</h1>
             </div>
         </div>
     </div>
@@ -16,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40" style="height:80px"></div>
-                        <h3 class="line-height-normal margin-bottom-10">WHAT IS INCLUDED</h3>
+                        <h3 class="line-height-normal margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.WhatIsIncluded)</h3>
                         <div class="wprt-lines style-1 custom-3">
                             <div class="line-1"></div>
                             <div class="line-2"></div>
@@ -116,6 +117,7 @@
         </div>
         <!-- /#site-content -->
 
+    </div>
+    <!-- /#content-wrap -->
 
-    </div><!-- /#content-wrap -->
 </div>

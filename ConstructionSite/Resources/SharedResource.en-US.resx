@@ -300,6 +300,9 @@
   <data name="Service" xml:space="preserve">
     <value>Service</value>
   </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
   <data name="SomethingIsWrong" xml:space="preserve">
     <value>Something is Wrong</value>
   </data>
