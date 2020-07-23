@@ -152,16 +152,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .GetAll()
                 .Include(x=>x.Image)
                 .Include(x=>x.Project)
+                .Select(x=>new ProjectUpdateViewModel
+                {
+                    Id=x.Id,
+                    ContentAz=x.Project.ContentAz,
+                    ContentEn=x.Project.ContentEn,
+                    ContentRu=x.Project.ContentRu,
+                    ImageId=x.ImageId,
+                    ImagePath=x.Image.Path,
+                    NameAz=x.Project.NameAz,
+                    NameEn=x.Project.NameEn,
+                    NameRu=x.Project.NameRu,
+                    PortfolioId=x.Project.PortfolioId,
+                    ProjectId=x.ProjectId
+                })
                 .FirstOrDefault(x=>x.ProjectId==id);
        
-            return View();
+            return View(projectUpdateViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel, IFormFile file)
         {
-            Image image = new Image();
+            //Image image = new Image();
 
             if (!ModelState.IsValid)
             {
@@ -175,7 +189,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             var projectViewModelUpdate = new Project
             {
-                Id = projectUpdateViewModel.Id,
+                Id = projectUpdateViewModel.ProjectId,
                 NameAz = projectUpdateViewModel.NameAz,
                 NameRu = projectUpdateViewModel.NameRu,
                 NameEn = projectUpdateViewModel.NameEn,
@@ -185,6 +199,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 PortfolioId = projectUpdateViewModel.PortfolioId
             };
             var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
+          var image=  _unitOfWork.imageRepository.GetById(projectUpdateViewModel.ImageId);
             if (!portfolioUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while editing Portfolio");
