@@ -15,6 +15,11 @@
             margin-top: 45px !important;
             background-color: RGB(241, 242, 247) !important;
         }
+        .about-button:hover {
+            background-color: black !important;
+            border-color: black;
+            color: #fff;
+        }
     </style>
 
     <section class="panel common">
@@ -24,7 +29,7 @@
         <hr />
         <div class="panel-body">
             <div class="button-create">
-                <a asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" class="btn" style="color: #fff; background-color: #ffc925;">Create New Project Element</a>
+                <a asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New Project Element</a>
             </div>
             <div class="adv-table editable-table ">
 
@@ -50,7 +55,7 @@
                                         <td class="sorting_1">@item.Name</td>
                                         <td class=" ">@item.Content</td>
                                         <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
-                                        <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                                        <td class=" "><a class="edit btn btn-primary about-button" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
                                         <td class=" "><a class="btn btn-danger" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                                     </tr>
                                 }
