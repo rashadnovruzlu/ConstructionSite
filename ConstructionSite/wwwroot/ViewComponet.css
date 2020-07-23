@@ -1,11 +1,14 @@
-﻿.image-style {
+﻿
+.serviceViewComponent {
+    width: 270px;
+    height: 180px
+}
+
+.image-style {
     width: 1170px;
     height: 780px;
 }
-.image-service {
-    height: 200px
-}
-
-.cbp img{
-    height:180px;
+.mage-style-blog {
+    width: 370px;
+    height: 300px;
 }
