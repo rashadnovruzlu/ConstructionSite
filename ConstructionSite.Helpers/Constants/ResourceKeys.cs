@@ -105,6 +105,8 @@ namespace ConstructionSite.Helpers.Constants
         public const string Building = "Building";
         public const string Garden = "Garden";
         public const string LuxuryBuildings = "LuxuryBuildings";
+        public const string PortfolioDetail = "PortfolioDetail";
+        public const string ProjectDescription = "ProjectDescription";
         #endregion
 
         #region TESTIMONIALS

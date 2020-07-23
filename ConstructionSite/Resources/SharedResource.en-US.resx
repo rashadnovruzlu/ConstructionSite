@@ -264,8 +264,14 @@
   <data name="Portfolio" xml:space="preserve">
     <value>PORTFOLIO</value>
   </data>
+  <data name="PortfolioDetail" xml:space="preserve">
+    <value>Portfolio Detail</value>
+  </data>
   <data name="Preconstruction" xml:space="preserve">
     <value>PRECONSTRUCTION</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>PROJECT DESCRIPTION</value>
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
     <value>Quality construction continues after the project</value>

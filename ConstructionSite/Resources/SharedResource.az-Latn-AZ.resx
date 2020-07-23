@@ -264,8 +264,14 @@
   <data name="Portfolio" xml:space="preserve">
     <value>Portfolio</value>
   </data>
+  <data name="PortfolioDetail" xml:space="preserve">
+    <value>Portfel detalı</value>
+  </data>
   <data name="Preconstruction" xml:space="preserve">
     <value>TƏKLİF</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>LAYİHƏNİN TƏSVİRİ</value>
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
     <value>Layihədən sonra keyfiyyətli tikinti davam edir</value>
