@@ -25,13 +25,15 @@ namespace ConstructionSite.Controllers
             _lang = _httpContextAccessor.getLang();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            int pageSize = 3;
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
+            int count=_unitOfWork.AboutRepository.GetAll().Count();
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                  .Include(x => x.Image)
                  .Include(x => x.News)
@@ -44,6 +46,11 @@ namespace ConstructionSite.Controllers
                      Imagepath = x.Image.Path,
                      CreateDate = x.News.CreateDate
                  }).ToList();
+            if (newsImageResult==null)
+            {
+
+            }
+            newsImageResult.Skip((count-1)*pageSize).Take(pageSize).ToList();
             return View(newsImageResult);
         }
 
