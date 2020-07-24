@@ -100,33 +100,9 @@
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="widget widget_about margin-bottom-25">
-                                <p>Nullam vel enim risus. Integer rhoncus hendrerit sem egestas porttitor.</p>
-                                <section class="widget widget_information">
-                                    <ul class="info-wrap">
-                                        <li class="address item">1 Beverly Hills, Los Angeles, California, 90210, United States</li>
-                                        <li class="phone item">+1 (390) 379 3368, +1 (390) 379 6868</li>
-                                        <li class="email item">contact@construction.com</li>
-                                    </ul>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="widget widget_links">
-                                <h2 class="widget-title">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.UsefulLinks)</h2>
-                                <ul class="links col2">
-                                    <li><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
-                                    <li><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
-                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.TermOfUse)</a></li>
-                                    <li class="last"><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.AboutUs)</a></li>
-                                    <li><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</a></li>
-                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Conditions)</a></li>
-                                    <li><a asp-controller="Contact" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
-                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Conditions)</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                       
+                        @*@await Component.InvokeAsync("Adress")*@ 
+                        <partial name="_UsefulLink"/>
                     </div>
                 </div>
             </footer>
