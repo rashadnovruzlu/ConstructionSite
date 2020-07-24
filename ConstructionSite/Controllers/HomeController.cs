@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.About;
 using ConstructionSite.Injections;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +11,21 @@ namespace ConstructionSite.Controllers
 {
     public class HomeController : Controller
     {
-        string                       _lang;
-        private readonly IUnitOfWork _unitOfWork;
-        
+        private string                        _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUnitOfWork          _unitOfWork;
+        private SharedLocalizationService     _localizationHandle;
 
-        public HomeController(IUnitOfWork unitOfWork
+
+        public HomeController(IUnitOfWork unitOfWork,
+                              IHttpContextAccessor httpContextAccessor,
+                              SharedLocalizationService localizationHandle
                                  )
         {
-            _unitOfWork = unitOfWork;
-         
-            //_lang = Response..getLang();
+            _unitOfWork          = unitOfWork;
+            _httpContextAccessor = httpContextAccessor;
+            _localizationHandle  = localizationHandle;
+            _lang                =_httpContextAccessor.getLang();
 
         }
         public IActionResult Index()

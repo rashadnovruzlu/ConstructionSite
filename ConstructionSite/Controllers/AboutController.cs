@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.About;
 using ConstructionSite.Extensions.Pageinations;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -34,7 +35,7 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()
                     .Include(x => x.Image)
@@ -48,7 +49,7 @@ namespace ConstructionSite.Controllers
                     }).OrderByDescending(x => x.Id).FirstOrDefault();
             if (aboutImageResult==null)
             {
-                ModelState.AddModelError("","data is null");
+                ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
                 return RedirectToAction("Index","Home");
             }
             return View(aboutImageResult);

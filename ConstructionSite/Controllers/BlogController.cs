@@ -1,6 +1,8 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.News;
 using ConstructionSite.DTO.FrontViewModels.Blog;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +18,16 @@ namespace ConstructionSite.Controllers
         private string                        _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork          _unitOfWork;
+        private SharedLocalizationService     _localizationHandle;
 
         public BlogController(IUnitOfWork unitOfWork,
-                              IHttpContextAccessor httpContextAccessor)
+                              IHttpContextAccessor httpContextAccessor,
+                              SharedLocalizationService localizationHandle)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _lang = _httpContextAccessor.getLang();
+            _localizationHandle=localizationHandle;
         }
 
         public async Task<IActionResult> Index()
@@ -31,7 +36,7 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             int count=_unitOfWork.AboutRepository.GetAll().Count();
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
@@ -48,9 +53,9 @@ namespace ConstructionSite.Controllers
                  }).ToList();
             if (newsImageResult==null)
             {
-
+                return RedirectToAction("Index","Home");
             }
-            newsImageResult.Skip((count-1)*pageSize).Take(pageSize).ToList();
+           
             return View(newsImageResult);
         }
 
@@ -59,7 +64,7 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             var newsImageResult = await _unitOfWork.newsImageRepository.GetByIdAsync(id);
 
