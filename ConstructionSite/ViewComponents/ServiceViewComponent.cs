@@ -55,7 +55,7 @@ namespace ConstructionSite.ViewComponents
 
             if (result.Count == 0 | result == null)
             {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataNotExists));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
             return View(result);
                 
