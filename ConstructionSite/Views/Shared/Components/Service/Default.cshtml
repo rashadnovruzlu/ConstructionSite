@@ -20,8 +20,7 @@
                 </p> 
                 <div class="link">
                     <a asp-controller="Services" asp-action="Index" class="wprt-button small rounded-3px">
-                        SEE
-                        ALL
+                        @Localizer.GetLocalizedHtmlString(RESOURCEKEYS.SeeAll)
                     </a>
                 </div>
                 <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
@@ -34,7 +33,7 @@
                                     <div class="member">
                                         <div class="inner">
                                             <div class="image">
-                                                <div class="thumb"><img src="@item.image" alt="image"  ></div>
+                                                <div class="thumb"><img src="@item.image" alt="image"></div>
                                                 <ul class="socials clearfix">
                                                     <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                     <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
