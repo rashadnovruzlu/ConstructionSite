@@ -59,17 +59,13 @@ namespace ConstructionSite.Extensions.Images
           
             if (file != null)
             {
-                var deleteFileFormHardDisks =  deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
-                if (deleteFileFormHardDisks)
-                {
-                    IsResult=true;
-                }
-                if (IsResult)
-                {
+                deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
+               
+                
                    
                     file.saveImageForDisk(filePathSaveFromHardDisk);
                     IsResult=true;
-                }
+                
                 if (IsResult)
                 {
                    
@@ -94,7 +90,8 @@ namespace ConstructionSite.Extensions.Images
            
             if (imageDbResult.IsDone)
             {
-               isResult= deleteFileFormHardDisk(imageDeleteFormHardDisk);
+                deleteFileFormHardDisk(imageDeleteFormHardDisk);
+                isResult = imageDbResult.IsDone;
             }
             return isResult;
              
@@ -105,8 +102,9 @@ namespace ConstructionSite.Extensions.Images
 
 
             var imageDeleteFormHardDisk = createfilePathSaveHardDisk(_env, subFolder, imageResult.Title);
-            _unitOfWork.imageRepository.Delete(imageResult);
-            return deleteFileFormHardDisk(imageDeleteFormHardDisk);
+            var result=  _unitOfWork.imageRepository.Delete(imageResult);
+            deleteFileFormHardDisk(imageDeleteFormHardDisk);
+            return result.IsDone;
         }
 
         private static bool IsImage(this IFormFile file)
@@ -151,15 +149,15 @@ namespace ConstructionSite.Extensions.Images
         {
             return "/" + Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
         }
-        private static bool deleteFileFormHardDisk(string PathForDeleteFile)
+        private static void deleteFileFormHardDisk(string PathForDeleteFile)
         {
-            bool isResult=false;
+           
             if (File.Exists(PathForDeleteFile))
             {
-                isResult = true;
+                
                 File.Delete(PathForDeleteFile);
             }
-            return isResult;
+           
         }
         private async static void saveImageForDisk(this IFormFile file, string path)
         {
