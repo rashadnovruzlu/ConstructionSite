@@ -36,20 +36,26 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-            var data = _unitOfWork.AboutImageRepository
-                    .GetAll()
-                    .Include(x => x.Image)
-                    .Include(x => x.About)
-                    .Select(x => new AboutIndexViewModel
-                    {
-                        Id = x.AboutId,
-                        Context = x.About.FindContent(_lang),
-                        Title = x.About.FindTitle(_lang),
-                        imagePath = x.Image.Path
-                    }).ToList().OrderByDescending(x => x.Id).
-                    FirstOrDefault();
+            var aboutImageIndexViewModel = _unitOfWork.AboutImageRepository.GetAll()
+                         .Include(x => x.Image)
+                         .Include(x => x.About)
 
-            return View(data);
+                         .Select(x => new AboutIndexViewModel
+                         {
+                             Id = x.Id,
+                             AboutID = x.AboutId,
+                             Context = x.About.FindContent(_lang),
+                             Title = x.About.FindTitle(_lang),
+                             imagePath = x.Image.Path,
+                             path = x.About.AboutImages.Select(y => y.Image.Path).ToList()
+                         }).ToList().OrderByDescending(x => x.Id)
+                         .FirstOrDefault();
+            if (aboutImageIndexViewModel==null)
+            {
+                ModelState.AddModelError("","data not exists");
+                return RedirectToAction("Index","Home");
+            }
+            return View(aboutImageIndexViewModel);
         }
         public IActionResult About(int id)
         {
@@ -61,7 +67,7 @@ namespace ConstructionSite.Controllers
             var data = _unitOfWork.AboutImageRepository.GetAll()
                          .Include(x => x.Image)
                          .Include(x => x.About)
-                         .Where(x=>x.AboutId==id)
+                         
                          .Select(x => new AboutIndexViewModel
                          {
                              Id = x.Id,
