@@ -45,7 +45,7 @@ namespace ConstructionSite.ViewComponents
                                                     NewsId = x.NewsId,
                                                     Image = x.Image.Path,
                                                     ImageId = x.ImageId
-                                                }).Take(3)
+                                                }).OrderByDescending(x=>x.Id).Take(3)
                                                 .ToList()
                                                     ;
             if (newsImageResult == null)
