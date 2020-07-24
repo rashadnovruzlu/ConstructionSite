@@ -177,8 +177,8 @@
   <data name="ContactUs" xml:space="preserve">
     <value>CONTACT US</value>
   </data>
-  <data name="DataNotExists" xml:space="preserve">
-    <value>Data not exists</value>
+  <data name="DataDoesNotExists" xml:space="preserve">
+    <value>Data does not exists</value>
   </data>
   <data name="Electrical" xml:space="preserve">
     <value>Electrical</value>
