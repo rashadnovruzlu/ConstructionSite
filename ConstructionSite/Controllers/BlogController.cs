@@ -47,7 +47,7 @@ namespace ConstructionSite.Controllers
             return View(newsImageResult);
         }
 
-        public async Task<IActionResult> Detalye(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -67,7 +67,5 @@ namespace ConstructionSite.Controllers
             };
             return View(blogDetalyeViewModel);
         }
-
-       
     }
 }
