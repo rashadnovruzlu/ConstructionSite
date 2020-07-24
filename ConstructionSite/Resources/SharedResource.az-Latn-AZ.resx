@@ -291,6 +291,9 @@
   <data name="RoofingAndFlooringServices" xml:space="preserve">
     <value>Dam və döşəmə xidmətləri</value>
   </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>HAMISINI GÖR</value>
+  </data>
   <data name="SelectedAnswerValueFake" xml:space="preserve">
     <value />
   </data>

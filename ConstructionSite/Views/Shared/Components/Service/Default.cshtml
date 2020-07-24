@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<ServiceViewModel>
+@inject SharedLocalizationService Localizer 
    
 <section id="team" class="wprt-section clearfix text-center">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                <h2 class="text-center margin-bottom-20">SERVICES</h2>
+                <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</h2>
                 <div class="wprt-lines style-2 custom-1">
                     <div class="line-1"></div>
                 </div>
@@ -34,7 +35,6 @@
                                         <div class="inner">
                                             <div class="image">
                                                 <div class="thumb"><img src="@item.image" alt="image"  ></div>
-
                                                 <ul class="socials clearfix">
                                                     <li class="twitter"><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
                                                     <li class="google-plus"><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -49,24 +49,21 @@
                                     </div>
                                 </div>
                             </div>
-                            }
-
-
-
-
-
-                        </div>
-                        <!-- /#team-wrap -->
-
+                         }
                     </div>
-                    <!-- /.wprt-team -->
+                    <!-- /#team-wrap -->
 
-                    <div class="wprt-spacer" data-desktop="70" data-mobi="50" data-smobi="40"></div>
                 </div>
-                <!-- /.col-md-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container -->
+                <!-- /.wprt-team -->
 
-    </section>
+                <div class="wprt-spacer" data-desktop="70" data-mobi="50" data-smobi="40"></div>
+            </div>
+            <!-- /.col-md-12 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+</section>
