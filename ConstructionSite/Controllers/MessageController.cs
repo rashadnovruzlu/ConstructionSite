@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Message;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -40,11 +41,11 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             if (messageAddViewModel == null)
             {
-                ModelState.AddModelError("", "data is null");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
             messageAddViewModel.SendDate = DateTime.Now;
             messageAddViewModel.IsAnswerd = false;
@@ -60,7 +61,8 @@ namespace ConstructionSite.Controllers
             var messageDataResult = _unitOfWork.messageRepository.Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
-                ModelState.AddModelError("", "data is not exists");
+               
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
