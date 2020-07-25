@@ -1,4 +1,6 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.About;
+using ConstructionSite.Extensions.Pageinations;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -19,14 +21,14 @@ namespace ConstructionSite.Controllers
         private readonly IUnitOfWork             _unitOfWork;
 
         public AboutController(IUnitOfWork unitOfWork,
-            SharedLocalizationService localizationHandle,
-             IHttpContextAccessor httpContextAccessor)
+                               SharedLocalizationService localizationHandle,
+                               IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            _unitOfWork = unitOfWork;
-            _lang=_httpContextAccessor.getLang();
-            _localizationHandle = localizationHandle;
-            //_localizationHandle.GetLocalizationByKey(RESOURCEKEYS.)
+            _unitOfWork          = unitOfWork;
+            _localizationHandle  = localizationHandle;
+            _lang                = _httpContextAccessor.getLang();
+          
         }
 
         public IActionResult Index()
@@ -34,53 +36,24 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var aboutImageIndexViewModel = _unitOfWork.AboutImageRepository.GetAll()
-                         .Include(x => x.Image)
-                         .Include(x => x.About)
-
-                         .Select(x => new AboutIndexViewModel
-                         {
-                             Id = x.Id,
-                             AboutID = x.AboutId,
-                             Context = x.About.FindContent(_lang),
-                             Title = x.About.FindTitle(_lang),
-                             imagePath = x.Image.Path,
-                             path = x.About.AboutImages.Select(y => y.Image.Path).ToList()
-                         }).ToList().OrderByDescending(x => x.Id)
-                         .FirstOrDefault();
-            if (aboutImageIndexViewModel==null)
+            var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()
+                    .Include(x => x.Image)
+                    .Include(x => x.About)
+                    .Select(x => new AboutIndexViewModel
+                    {
+                        Id = x.Id,
+                        Context = x.About.FindContent(_lang),
+                        Title = x.About.FindTitle(_lang),
+                        imagePath = x.Image.Path
+                    }).OrderByDescending(x => x.Id).FirstOrDefault();
+            if (aboutImageResult==null)
             {
-                ModelState.AddModelError("","data not exists");
+                ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
                 return RedirectToAction("Index","Home");
             }
-            return View(aboutImageIndexViewModel);
-        }
-        public IActionResult About(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
-            }
-            var data = _unitOfWork.AboutImageRepository.GetAll()
-                         .Include(x => x.Image)
-                         .Include(x => x.About)
-                         
-                         .Select(x => new AboutIndexViewModel
-                         {
-                             Id = x.Id,
-                             AboutID=x.AboutId,
-                             Context = x.About.FindContent(_lang),
-                             Title = x.About.FindTitle(_lang),
-                             imagePath = x.Image.Path,
-                             path=x.About.AboutImages.Select(y=>y.Image.Path).ToList()
-                         }).ToList().OrderByDescending(x => x.Id)
-                         .FirstOrDefault();
-                        
-
-            return View(data);
+            return View(aboutImageResult);
         }
     }
 }

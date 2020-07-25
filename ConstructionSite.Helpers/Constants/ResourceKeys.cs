@@ -57,7 +57,7 @@ namespace ConstructionSite.Helpers.Constants
         #endregion
 
         #region Data
-        public const string DataNotExists = "DataNotExists";
+        public const string DataDoesNotExists = "DataDoesNotExists";
         #endregion
 
         #region MENU
@@ -96,6 +96,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string AfterTheProject = "AfterTheProject";
         public const string OurServices = "OurServices";
         public const string Services = "Services";
+        public const string SeeAll = "SeeAll";
         #endregion
 
         #region Region
@@ -142,5 +143,6 @@ namespace ConstructionSite.Helpers.Constants
         public const string Conditions = "Conditions";
         public const string Top = "Top";
         #endregion
+      
     }
 }

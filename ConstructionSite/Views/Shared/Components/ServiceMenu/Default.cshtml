@@ -1,23 +1,16 @@
 ﻿@model IEnumerable<ServiceMenuViewModel>
 
-   
-       
-        <ul class="sub-menu">
-           
-            
-         @foreach (var item in Model)
-         {
-            <li class="menu-item">
-                <a asp-controller="Services" asp-action="Services" asp-route-id="@item.Id">@item.Name</a>
-                <ul class="sub-menu2">
-                    @foreach (var ite in item.SubServices)
-                    {
-
-
-                        <li class="menu-item"><a asp-controller="Services" asp-action="SubService" asp-route-id="@ite.id">@ite.Name</a></li>
-
-                    }
-                </ul>
-            </li>
-         }
-        </ul>
+<ul class="sub-menu">
+    @foreach (var item in Model)
+    {
+        <li class="menu-item">
+            <a asp-controller="Services" asp-action="Services" asp-route-id="@item.Id">@item.Name</a>
+            <ul class="sub-menu2">
+                @foreach (var ite in item.SubServices)
+                {
+                   <li class="menu-item"><a asp-controller="Services" asp-action="SubService" asp-route-id="@ite.id">@ite.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

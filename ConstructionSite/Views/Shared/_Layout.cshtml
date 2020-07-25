@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SharedLocalizationService Localizer
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 
 <head>
@@ -111,10 +113,10 @@
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
                             <ul class="bottom-nav">
-                                <li><a asp-controller="Home" asp-action="Index">HOME</a></li>
-                                <li><a asp-controller="About" asp-action="Index">ABOUT</a></li>
-                                <li><a asp-controller="Services" asp-action="Construction">SERVICES</a></li>
-                                <li><a asp-controller="Contact" asp-action="Index">CONTACT</a></li>
+                                <li><a asp-controller="Home" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
+                                <li><a asp-controller="About" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
+                                <li><a asp-controller="Services" asp-action="Construction" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a></li>
+                                <li><a asp-controller="Contact" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
                             </ul>
                         </div>
                         <!-- /.bottom-bar-menu -->
@@ -128,7 +130,7 @@
     </div>
     <!-- /#wrapper -->
 
-    <a id="scroll-top">TOP</a>
+    <a id="scroll-top">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Top)</a>
 
     <!-- Javascript -->
     <partial name="Javascript" />

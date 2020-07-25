@@ -27,7 +27,7 @@
                         <div class="post-content-wrap">
                             <h2 class="post-title">
                                 <span class="post-title-inner">
-                                    <a asp-controller="Blog" asp-action="Detalye" asp-route-id="@item.Id">@item.Title</a>
+                                    <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a>
                                 </span>
                             </h2>
                             <!-- /.post-title -->
@@ -36,7 +36,7 @@
                                 <div class="post-meta-content">
                                     <div class="post-meta-content-inner">
                                         <span class="post-date item">
-                                            <span class="inner"><span class="entry-date">@item.CreateDate</span></span>
+                                            <span class="inner"><span class="entry-date">@item.CreateDate.ToUniversalTime().ToString("MMMM dd, yyyy")</span></span>
                                         </span>
                                     </div>
                                 </div>
