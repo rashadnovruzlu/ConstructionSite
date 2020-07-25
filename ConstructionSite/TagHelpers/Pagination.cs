@@ -1,4 +1,4 @@
-﻿using ConstructionSite.Helpers.Paginations;
+﻿using ConstructionSite.Helpers.Paging;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -6,22 +6,22 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("div",Attributes ="page-model")]
-    public class PageLinkHelper:TagHelper
+    public class Pagination:TagHelper
     {
-        private    IUrlHelperFactory _urlHelperFactory;
-        public PageLinkHelper(IUrlHelperFactory urlHelperFactory)
+        public IUrlHelperFactory _urlHelperFactory;
+        public Pagination(IUrlHelperFactory urlHelperFactory)
         {
-            _urlHelperFactory=urlHelperFactory;
+            this._urlHelperFactory=urlHelperFactory;
         }
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
-        public PagingInfo PageMode { get; set; }
-        public string PageAction { get; set; }
+        public PagingInfo  PagingInfo { get; set; }
+        public string PagingAction { get; set; }
     }
 }

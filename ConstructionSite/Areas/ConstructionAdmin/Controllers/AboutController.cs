@@ -52,6 +52,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var result = _unitOfWork.AboutImageRepository.GetAll()
            .Include(x => x.About)
            .Include(x => x.Image)
+           
            .Select(x => new AboutViewModel
            {
                Id = x.Id,

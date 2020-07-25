@@ -10,23 +10,8 @@ namespace ConstructionSite.Extensions.Pageinations
 {
    public static class PageExtensions
     {
-        public static async Task<List<T>> PaginationAsyc<T>(this IQueryable<T> query,
-            int page, int pageSize) where T : class
-        {
-            var result = new PagedResult<T>
-            {
-                CurrentPage = page,
-                PageSize = pageSize,
-                RowCount = await query.CountAsync()
-            };
-
-            var pageCount = (double)result.RowCount / pageSize;
-            result.PageCount = (int)Math.Ceiling(pageCount);
-            var skip = (page - 1) * pageSize;
-            return await query.Skip(skip).Take(pageSize).ToListAsync();
-           
-        }
-        public static  List<T> Pagination<T>(this IQueryable<T> query,
+      
+        public static  PagedResult<T> Pagination<T>(this IQueryable<T> query,
             int page, int pageSize) where T : class
         {
             var result = new PagedResult<T>
@@ -39,7 +24,8 @@ namespace ConstructionSite.Extensions.Pageinations
             var pageCount = (double)result.RowCount / pageSize;
             result.PageCount = (int)Math.Ceiling(pageCount);
             var skip = (page - 1) * pageSize;
-            return query.Skip(skip).Take(pageSize).ToList();
+            result.Results= query.Skip(skip).Take(pageSize).ToList();
+            return result;
            
         }
     }
