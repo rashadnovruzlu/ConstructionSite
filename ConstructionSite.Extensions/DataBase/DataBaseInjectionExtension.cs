@@ -1,6 +1,8 @@
 ﻿using ConstructionSite.Entity.Data;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Concreate;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,8 @@ namespace ConstructionSite.Extensions.DataBase
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             return services;
         }
     }

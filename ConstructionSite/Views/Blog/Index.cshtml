@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ConstructionSite.DTO.AdminViewModels.News.NewsViewModel>
+﻿@model PagedResult<NewsViewModel>
 @inject SharedLocalizationService Localizer
 
 <div id="featured-title" class="clearfix featured-title-left">
@@ -16,7 +16,7 @@
     <div id="content-wrap" class="container">
         <div id="site-content" class="site-content clearfix" style="width: 100%">
             <div id="inner-content" class="inner-content-wrap">
-               @foreach (var item in Model)
+               @foreach (var item in Model.Results)
                {
                     <article class="hentry">
                         <div class="post-media clearfix">
@@ -60,13 +60,12 @@
 
                     </article>
                 }
-                <div class="wprt-pagination clearfix">
-                    <ul class="page-numbers">
-                        <li><span class="page-numbers current">1</span></li>
-                        <li><a class="page-numbers" href="#">2</a></li>
-                        <li><a class="next page-numbers" href="#"><span class="fa fa-angle-right"></span></a></li>
-                    </ul>
-                </div>
+            <div class="wprt-pagination clearfix">
+                <ul class="page-numbers">
+                
+                    <pager pager-model="@Model"></pager>
+                </ul>
+            </div>
             </div>
             <!-- /.inner-content-wrap -->
 

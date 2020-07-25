@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.News;
 using ConstructionSite.DTO.FrontViewModels.Blog;
+using ConstructionSite.Extensions.Pageinations;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
@@ -30,15 +31,15 @@ namespace ConstructionSite.Controllers
             _localizationHandle=localizationHandle;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int count=1)
         {
-            int pageSize = 3;
+           
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("",_localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            int count=_unitOfWork.AboutRepository.GetAll().Count();
+           
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                  .Include(x => x.Image)
                  .Include(x => x.News)
@@ -50,7 +51,10 @@ namespace ConstructionSite.Controllers
                      Content = x.News.FindContent(_lang),
                      Imagepath = x.Image.Path,
                      CreateDate = x.News.CreateDate
-                 }).ToList();
+                 })
+                 .AsQueryable()
+                 .Pagination(count,1);
+                
             if (newsImageResult==null)
             {
                 return RedirectToAction("Index","Home");
