@@ -231,7 +231,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion UPDATE
 
         #region DELETE
-
         public async Task<IActionResult> Delete(int id)
         {
             if (id < 1)
@@ -253,7 +252,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
-
         #endregion DELETE
     }
 }
