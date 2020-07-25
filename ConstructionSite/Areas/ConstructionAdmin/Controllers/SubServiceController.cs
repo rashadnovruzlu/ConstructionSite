@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -54,7 +56,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .Include(x => x.SubService)
                 .Select(x => new SubServiceViewModel
                 {
-                    Id = x.Id,
+                    Id = x.SubServiceId,
                     ImagePath = x.Image.Path,
                     Name = x.SubService.FindName(_lang),
                     Content = x.SubService.FindContent(_lang)
@@ -155,31 +157,34 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (id < 1)
             {
                 ModelState.AddModelError("", "This is empty");
+                return RedirectToAction("Index");
             }
-            var subServiceImageResult = _unitOfWork.SubServiceImageRepository.GetAll()
-                .Include(x => x.SubService)
-                .Include(x => x.Image)
-                .Select(x => new SubServiceUpdateViewModel
+       var   subserviceUpdateImageResult=_unitOfWork.SubServiceImageRepository
+                .GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.SubService)
+                .Select(x=>new SubServiceUpdateViewModel
                 {
-                    Id = x.Id,
-                    NameAz = x.SubService.NameAz,
-                    NameEn = x.SubService.NameEn,
-                    NameRu = x.SubService.NameRu,
-                    ContentAz = x.SubService.ContentAz,
-                    ContentEn = x.SubService.ContentEn,
-                    ContentRu = x.SubService.ContentRu,
-                    ServerId = x.SubService.Service.Id,
-                    imageId = x.Image.Id,
-                    ImagePath = x.Image.Path,
-                    SubServiceId = x.SubService.Id
-                }).FirstOrDefault(x => x.Id == id);
-
-            if (subServiceImageResult == null)
+                    Id=x.SubServiceId,
+                    imageId=x.ImageId,
+                    ImagePath=x.Image.Path,
+                    ContentAz=x.SubService.ContentAz,
+                    ContentEn=x.SubService.ContentEn,
+                    ContentRu=x.SubService.ContentRu,
+                    NameAz=x.SubService.NameAz,
+                    NameEn=x.SubService.NameEn,
+                    NameRu=x.SubService.NameRu,
+                    ServerId=x.SubService.ServiceId
+                    
+                })
+                .FirstOrDefault(x=>x.Id==id);
+            if (subserviceUpdateImageResult == null)
             {
                 ModelState.AddModelError("", "This is empty");
+                return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
-            return View(subServiceImageResult);
+            return View(subserviceUpdateImageResult);
         }
 
         [HttpPost]
@@ -194,10 +199,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (subServiceUpdateViewModel == null)
             {
             }
-            var resultSubServiceModel = new SubService
+            var subServiceViewUpdateModel = new SubService
             {
-                Id = subServiceUpdateViewModel.SubServiceId,
+                Id = subServiceUpdateViewModel.Id,
                 ServiceId = subServiceUpdateViewModel.ServerId,
+                
                 NameAz = subServiceUpdateViewModel.NameAz,
                 NameEn = subServiceUpdateViewModel.NameEn,
                 NameRu = subServiceUpdateViewModel.NameRu,
@@ -205,12 +211,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ContentEn = subServiceUpdateViewModel.ContentEn,
                 ContentAz = subServiceUpdateViewModel.ContentAz,
             };
-            if (resultSubServiceModel == null)
+            if (subServiceViewUpdateModel == null)
             {
                 ModelState.AddModelError("", "Sub Service is null");
             }
 
-            var subServiceUpdateResult = await _unitOfWork.SubServiceRepository.UpdateAsync(resultSubServiceModel);
+            var subServiceUpdateResult =  _unitOfWork.SubServiceRepository.Update(subServiceViewUpdateModel);
             if (!subServiceUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while editing Sub Service");
@@ -231,16 +237,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ModelState.AddModelError("", "Errors occured while editing Sub Service Images");
                 }
             }
-            SubServiceImage subServiceImage = new SubServiceImage
-            {
-                SubServiceId = subServiceUpdateViewModel.SubServiceId,
-                ImageId = subServiceUpdateViewModel.imageId
-            };
-            var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImage);
-            if (!subServiceImageResult.IsDone)
-            {
-                ModelState.AddModelError("", "File is not exists");
-            }
+            //SubServiceImage subServiceImage = new SubServiceImage
+            //{
+            //    Id= subServiceUpdateViewModel.Id,
+            //    SubServiceId = subServiceUpdateViewModel.SubServiceId,
+            //    ImageId = subServiceUpdateViewModel.imageId
+            //};
+            //var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImage);
+            //if (!subServiceImageResult.IsDone)
+            //{
+            //    ModelState.AddModelError("", "File is not exists");
+            //}
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
