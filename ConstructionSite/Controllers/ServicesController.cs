@@ -14,9 +14,9 @@ namespace ConstructionSite.Controllers
 {
     public class ServicesController : Controller
     {
-        string _lang;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        string                                    _lang;
+        private readonly IUnitOfWork               _unitOfWork;
+        private readonly IHttpContextAccessor      _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
 
         public ServicesController(IUnitOfWork unitOfWork,
