@@ -1,4 +1,4 @@
-﻿using ConstructionSite.Helpers.Paginations;
+﻿using ConstructionSite.Helpers.Page;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -7,10 +7,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.TagHelpers
 {
@@ -18,14 +15,16 @@ namespace ConstructionSite.TagHelpers
     public class PagerTagHelper : TagHelper
     {
         private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUrlHelper _urlHelper;
 
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
-        public PagerTagHelper(IHttpContextAccessor accessor, IActionContextAccessor actionContextAccessor, IUrlHelperFactory urlHelperFactory)
+        public PagerTagHelper(IHttpContextAccessor httpContextAccessor, IActionContextAccessor actionContextAccessor, IUrlHelperFactory urlHelperFactory)
         {
-            _httpContext = accessor.HttpContext;
+             _httpContextAccessor= httpContextAccessor;
+            _httpContext = _httpContextAccessor.HttpContext;
             _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
@@ -61,7 +60,7 @@ namespace ConstructionSite.TagHelpers
             var finishIndex = Math.Min(Model.CurrentPage + 5, Model.PageCount);
 
             output.TagName = "";
-            output.Content.AppendHtml("<ul class=\"pagination\">");
+            //output.Content.AppendHtml("<ul class=\"pagination\">");
             AddPageLink(output, string.Format(urlTemplate, 1), "&laquo;");
 
             for (var i = startIndex; i <= finishIndex; i++)
@@ -77,12 +76,12 @@ namespace ConstructionSite.TagHelpers
             }
 
             AddPageLink(output, string.Format(urlTemplate, Model.PageCount), "&raquo;");
-            output.Content.AppendHtml("</ul>");
+            //output.Content.AppendHtml("</ul>");
         }
 
         private void AddPageLink(TagHelperOutput output, string url, string text)
         {
-            output.Content.AppendHtml("<li><a href=\"");
+            output.Content.AppendHtml("<li><a class=\"page-numbers\" href=\"");
             output.Content.AppendHtml(url);
             output.Content.AppendHtml("\">");
             output.Content.AppendHtml(text);
@@ -92,8 +91,9 @@ namespace ConstructionSite.TagHelpers
 
         private void AddCurrentPageLink(TagHelperOutput output, int page)
         {
-            output.Content.AppendHtml("<li class=\"active\">");
-            output.Content.AppendHtml("<span>");
+           
+            output.Content.AppendHtml("<li>");
+            output.Content.AppendHtml("<span class=\"page-numbers current\">");
             output.Content.AppendHtml(page.ToString());
             output.Content.AppendHtml("</span>");
             output.Content.AppendHtml("</li>");
