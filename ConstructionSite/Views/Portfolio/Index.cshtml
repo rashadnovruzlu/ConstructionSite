@@ -1,6 +1,33 @@
 ﻿@model IEnumerable<PortfolioViewModel>
 @inject SharedLocalizationService Localizer
+@section head{ 
+<style>
 
+    .imagest {
+        width: 337px;
+        height: 223px;
+    }
+    .cbp-item{
+       
+        padding:0px;
+    }
+    #projectss{
+        width:400px;
+        height:370px;
+    }
+    .grid-container{
+        padding:0px;
+        margin:0px;
+    }
+    .datas{
+       margin:0px;
+    }
+
+    .imagest:hover {
+     visibility:visible;
+    }
+</style>
+   }
 <section id="works" class="wprt-section">
     <div class="container">
         <div class="row">
@@ -22,33 +49,47 @@
     <!-- /.container -->
 
     <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
-        <div id="project-filter">
+        <div id="project-filter" >
             <div data-filter="*" class="cbp-filter-item">
-                <span>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
+                <span class="All">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
             </div>
             @foreach (var item in Model)
             {
-                <div  class="cbp-filter-item cbp-filter-item-active mains" data-id="@item.Id">
+                <div class="cbp-filter-item mains" data-id="@item.Id">
                     <span>@item.Name</span>
                 </div>
             }
         </div>
-        <div id="projects" class="cbp cbp-caption-active cbp-caption- cbp-ready" style="height: 464px;">
+        <div id="grid-container">
+           
         </div>
-    </div>
-    <!--/.wprt-project -->
+        </div>
+        <!--/.wprt-project -->
 
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
 
 @section scrips{
+   
     <script>
+       
+       
         $(document).ready(function () {
-            $(".mains").click(function () {
-                var id = $(this).data("id");
-                alert(id);
-                $("#projects").load(`/Portfolio/Project/${id}`);
+            var id = 0;
+            $("#grid-container").load(`/Portfolio/Project/${id}`);
+            $(".All").click(function () {
+              
+
+                $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
+            $(".mains").click(function () {
+                id = $(this).data("id");
+                $("#grid-container").load(`/Portfolio/Project/${id}`);
+            });
+           
+           
+           
+
         });
     </script>
 }

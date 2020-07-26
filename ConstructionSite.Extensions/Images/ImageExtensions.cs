@@ -1,10 +1,9 @@
 ﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Core;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Extensions.Images
@@ -21,11 +20,12 @@ namespace ConstructionSite.Extensions.Images
             if (file!=null)
             {
               
-               string FileNameAfterReName  =reNameFileName(file);
-               string filePath             = createfilePathSaveHardDisk(_env,subFolder,FileNameAfterReName);
+               string FileNameAfterReName  = Helper.reNameFileName(file);
+               string filePath             = Paths
+                    .createfilePathSaveHardDisk(_env,subFolder,FileNameAfterReName,_IMAGE);
 
               
-                bool folderIsCreatedSuccess= createFolder(_env,subFolder);
+                bool folderIsCreatedSuccess= Folders.createFolder(_env,subFolder,_IMAGE);
                 if (!folderIsCreatedSuccess)
                 {
                     IsResult=false;
@@ -35,9 +35,9 @@ namespace ConstructionSite.Extensions.Images
                     await file.CopyToAsync(stream);
                 }
                 image.Title =FileNameAfterReName;
-                image.Path =createFilePathSaveDataBase(subFolder,FileNameAfterReName);
-                var imageSaveUpdate= await _unitOfWork.imageRepository.AddAsync(image);
-                if (!imageSaveUpdate.IsDone)
+                image.Path =Paths.createFilePathSaveDataBase(subFolder,FileNameAfterReName,_IMAGE);
+                var imageSaveFile= await _unitOfWork.imageRepository.AddAsync(image);
+                if (!imageSaveFile.IsDone)
                 {
                     IsResult=false;
                 }
@@ -47,19 +47,25 @@ namespace ConstructionSite.Extensions.Images
         }
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env,  Image image,string subFolder,  IUnitOfWork _unitOfWork)
         {
-            var imageGetById = _unitOfWork.imageRepository.GetById(image.Id);
-            string filePathForDeleteFromHardDisk = createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title);
-            string fileNameAfterReName   =getFileAndReName(file);
-            var filePathSaveFromHardDisk = createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName);
-            string filePathSaveDataBase  = createFilePathSaveDataBase(subFolder, fileNameAfterReName);
+            
             bool IsResult = false;
+            var imageGetById = _unitOfWork.imageRepository.GetById(image.Id);
+
+            string filePathForDeleteFromHardDisk =Paths.createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title,_IMAGE);
+
+            string fileNameAfterReName   =Helper.reNameFileName(file);
+
+            var filePathSaveFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName,_IMAGE);
+
+            string filePathSaveDataBase  = Paths.createFilePathSaveDataBase(subFolder, fileNameAfterReName,_IMAGE);
+           
 
 
           
           
             if (file != null)
             {
-                deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
+                Files.deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
                
                 
                    
@@ -81,29 +87,30 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
-        public static bool DeleteAsyc( IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
+        public static bool DeleteAsyc(IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
-           
+
+          
             bool isResult=false;
-            var imageDeleteFormHardDisk= createfilePathSaveHardDisk(_env,subFolder,image.Title);
+            var imageDeleteFormHardDisk= Paths.createfilePathSaveHardDisk(_env,subFolder,image.Title,_IMAGE);
             var imageDbResult= _unitOfWork.imageRepository.Delete(image);
            
             if (imageDbResult.IsDone)
             {
-                deleteFileFormHardDisk(imageDeleteFormHardDisk);
+                Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
                 isResult = imageDbResult.IsDone;
             }
             return isResult;
              
         }
-        public static bool DeleteAsyc(IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
+        public static bool Delete(IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
            Image imageResult= _unitOfWork.imageRepository.GetById(imageId);
 
-
-            var imageDeleteFormHardDisk = createfilePathSaveHardDisk(_env, subFolder, imageResult.Title);
+           
+            var imageDeleteFormHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageResult.Title,_IMAGE);
             var result=  _unitOfWork.imageRepository.Delete(imageResult);
-            deleteFileFormHardDisk(imageDeleteFormHardDisk);
+            Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
             return result.IsDone;
         }
 
@@ -116,56 +123,11 @@ namespace ConstructionSite.Extensions.Images
                    file.ContentType == "image/gif";
         }
 
-        private static bool createFolder(IWebHostEnvironment _env, string subFolder)
-        {
-           string folderPath= Path.Combine(_env.WebRootPath, _IMAGE, subFolder);
-            bool isResult=false;
-            if (!Directory.Exists(folderPath))
-            {
-                isResult=true;
-                Directory.CreateDirectory(folderPath);
-            }
-            return isResult;
-        }
-
-        private static string getFileAndReName(this IFormFile file)
-        {
-            string extension = Path.GetExtension(file.FileName);
-            string result = Guid.NewGuid().ToString() + extension;
-            return result.ToString();
-        }
-        private static string reNameFileName(IFormFile file)
-        {
-            string fileNameExtension = Path.GetExtension(file.FileName);
-            string FileNameAfterReName = Guid.NewGuid().ToString() + fileNameExtension;
-            return FileNameAfterReName;
-        }
-        private static string createfilePathSaveHardDisk(IWebHostEnvironment _env,string subFolder, string FileNameAfterReName)
-        {
-            string filePath = Path.Combine(_env.WebRootPath, _IMAGE, subFolder, FileNameAfterReName);
-            return filePath;
-        }
-        private static string createFilePathSaveDataBase(string subFolder,string FileNameAfterReName)
-        {
-            return "/" + Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
-        }
-        private static void deleteFileFormHardDisk(string PathForDeleteFile)
-        {
-           
-            if (File.Exists(PathForDeleteFile))
-            {
-                
-                File.Delete(PathForDeleteFile);
-            }
-           
-        }
-        private async static void saveImageForDisk(this IFormFile file, string path)
-        {
-
-            await using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-        }
+      
+       
+       
+       
+       
+       
     }
 }

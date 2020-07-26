@@ -18,8 +18,14 @@
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
     <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
+    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css"/>
+
+    
+
    
 
+    <!-- load cubeportfolio jQuery plugin -->
+    <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
     @RenderSection("head", false)
 
     <!-- Favicon and touch icons  -->
@@ -137,7 +143,8 @@
 
     <!-- Revolution Slider -->
     <partial name="Revolution" />
-
+ <script type="text/javascript" src="~/Component.js">
+    </script>
   @RenderSection("Scrips",false)
 </body>
 </html>

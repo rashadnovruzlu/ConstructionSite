@@ -190,7 +190,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (projectUpdateViewModel == null)
             {
+
                 ModelState.AddModelError("", "Data is null");
+                return RedirectToAction("Index");
             }
 
             var projectViewModelUpdate = new Project
@@ -205,24 +207,33 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 PortfolioId = projectUpdateViewModel.PortfolioId
             };
             var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
-          var image=  _unitOfWork.imageRepository.GetById(projectUpdateViewModel.ImageId);
+         
             if (!portfolioUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while editing Portfolio");
+                return RedirectToAction("Index");
             }
-            if (file is null)
+            if (file != null)
             {
-                ModelState.AddModelError("", "File is not exists");
+                var image = _unitOfWork.imageRepository.GetById(projectUpdateViewModel.ImageId);
+                if (image==null)
+                {
+                    ModelState.AddModelError("","fill is null");
+                }
+                var imageResult = await file.UpdateAsyc(_env, image, "project", _unitOfWork);
+                
+                if (!imageResult)
+                {
+                    ModelState.AddModelError("", "Errors occured while editing Images");
+                }
+
             }
-            var imageResult = await file.UpdateAsyc(_env, image, "project", _unitOfWork);
-            if (!imageResult)
-            {
-                ModelState.AddModelError("", "Errors occured while editing Images");
-            }
+           
+           
             ProjectImage projectImage = new ProjectImage
             {
                 Id = projectUpdateViewModel.Id,
-                ImageId = image.Id,
+                ImageId = projectUpdateViewModel.ImageId,
                 ProjectId = projectUpdateViewModel.Id
             };
             var projectImageUpdateResult = await _unitOfWork.projectImageRepository.UpdateAsync(projectImage);
@@ -230,6 +241,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "Updating is not valid");
+                return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
@@ -246,19 +258,25 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (projectImageResult == null)
             {
                 ModelState.AddModelError("", "Id is not exists");
+                return RedirectToAction("Index");
             }
             var projectResult = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
-            var ImageResult = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ImageId);
+            var ImageResult =  _env.Delete(projectImageResult.ImageId, "project", _unitOfWork);
 
-            if (ImageResult != null && projectImageResult != null)
+            if (ImageResult != false && projectImageResult != null)
             {
-                var projectUpdateResult = _unitOfWork.projectRepository.Delete(projectResult);
-
-                _unitOfWork.Dispose();
+                var projectDeleteResult = _unitOfWork.projectRepository.Delete(projectResult);
+                if (projectDeleteResult.IsDone)
+                {
+                    _unitOfWork.Dispose();
+                    return RedirectToAction("Index");
+                }
+                
             }
             else
             {
                 ModelState.AddModelError("", "Deleting is error");
+                return RedirectToAction("Index");
             }
             return View();
         }
