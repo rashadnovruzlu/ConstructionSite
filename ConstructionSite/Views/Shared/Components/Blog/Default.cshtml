@@ -24,9 +24,9 @@
 
                                     <div class="thumb"><img  class="image-style-blog"src="@item.Image" style="width:350px;height:350px" alt="image" /></div>
                                     <div class="service-item-wrap">
-                                        <h3 class="title font-size-18"><a asp-controller="Blog" asp-action="Detalye" asp-route-id="@item.Id" blogtitle="@item.Tittle"></a></h3>
+                                        <h3 class="title font-size-18"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" blogtitle="@item.Tittle"></a></h3>
                                         <p blogtext="@item.Content"></p>
-                                        <a asp-controller="Blog" asp-action="Detalye" asp-route-id="@item.Id" class="wprt-button small rounded-3px">READ MORE</a>
+                                        <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="wprt-button small rounded-3px">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a>
                                     </div>
 
 
@@ -55,42 +55,3 @@
     </div>
 </section>
 
-@*   <div class="cbp-item">
-            <div class="service-item clearfix">
-                <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
-                <div class="service-item-wrap">
-                    <h3 class="title font-size-18"><a href="#">Green Building</a></h3>
-                    <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                    <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <!-- /.cbp-item -->
-
-        <div class="cbp-item">
-            <div class="service-item clearfix">
-                <div class="thumb"><img src="~/assets/img/services/12.jpg" alt="image" /></div>
-                <div class="service-item-wrap">
-                    <h3 class="title font-size-18"><a href="#">Resconstruction Services</a></h3>
-                    <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                    <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <!-- /.cbp-item -->
-
-        <div class="cbp-item">
-            <div class="service-item clearfix">
-                <div class="thumb"><img src="~/assets/img/services/10.jpg" alt="image" /></div>
-                <div class="service-item-wrap">
-                    <h3 class="title font-size-18"><a href="#">Roofing & Flooring Services</a></h3>
-                    <p>Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. Nam blandit maximus tristique. Vivamus enim quam.</p>
-                    <a asp-controller="Blog" asp-action="Inner" class="wprt-button small rounded-3px">READ MORE</a>
-                </div>
-            </div>
-        </div>
-        <!-- /.cbp-item -->
-
-    </div>
-    <!-- /#service-wrap -->
-*@
