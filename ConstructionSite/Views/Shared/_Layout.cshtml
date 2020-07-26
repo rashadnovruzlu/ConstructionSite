@@ -18,11 +18,11 @@
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
     <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
-    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css"/>
+    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />
 
-    
 
-   
+
+
 
     <!-- load cubeportfolio jQuery plugin -->
     <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
@@ -60,7 +60,7 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                        <partial name="_mainnav"/>
+                            <partial name="_mainnav" />
                             <!-- /#main-nav -->
 
                             <div class="nav-top-cart-wrapper">
@@ -98,7 +98,7 @@
                 <!-- /#site-header -->
 
             </div>
-           
+
 
             @RenderBody()
 
@@ -106,9 +106,9 @@
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
                     <div class="row">
-                       
-                        @*@await Component.InvokeAsync("Adress")*@ 
-                        <partial name="_UsefulLink"/>
+
+                        @*@await Component.InvokeAsync("Adress")*@
+                        <partial name="_UsefulLink" />
                     </div>
                 </div>
             </footer>
@@ -143,9 +143,9 @@
 
     <!-- Revolution Slider -->
     <partial name="Revolution" />
- <script type="text/javascript" src="~/Component.js">
+    <script type="text/javascript" src="~/Component.js">
     </script>
-  @RenderSection("Scrips",false)
+    @RenderSection("Scrips", false)
 </body>
 </html>
 
