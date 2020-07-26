@@ -78,11 +78,45 @@ namespace ConstructionSite.Controllers
         {
             if (id==0)
             {
+
                 var Queryresult = _unitOfWork.projectImageRepository.GetAll()
+
+                      .Include(x => x.Project)
+                      .Include(x => x.Image)
+
+                      .Select(x => new ProjectViewModel
+                      {
+                          Id = x.Project.Id,
+                          Name = x.Project.FindName(_lang),
+                          Image = x.Image.Path
+                      })
+                      .ToList();
+                return PartialView(Queryresult);
+            }
+           
+                var result = _unitOfWork.projectImageRepository.GetAll()
 
                    .Include(x => x.Project)
                    .Include(x => x.Image)
-                  
+                   .Where(x => x.Project.PortfolioId == id)
+                   .Select(x => new ProjectViewModel
+                   {
+                       Id = x.Project.Id,
+                       Name = x.Project.FindName(_lang),
+                       Image = x.Image.Path
+                   })
+                   .ToList();
+                return PartialView(result);
+           
+           
+        }
+        public PartialViewResult All()
+        {
+             var Queryresult = _unitOfWork.projectImageRepository.GetAll()
+
+                   .Include(x => x.Project)
+                   .Include(x => x.Image)
+
                    .Select(x => new ProjectViewModel
                    {
                        Id = x.Project.Id,
@@ -91,24 +125,8 @@ namespace ConstructionSite.Controllers
                    })
                    .ToList();
                 return PartialView(Queryresult);
-            }
-            var result=  _unitOfWork.projectImageRepository.GetAll()
-                   
-                    .Include(x=>x.Project)
-                    .Include(x=>x.Image)
-                    .Where(x=>x.Project.PortfolioId==id)
-                    .Select(x => new ProjectViewModel
-                    {
-                        Id = x.Project.Id,
-                        Name = x.Project.FindName(_lang),
-                        Image = x.Image.Path
-                    })
-                    .ToList();
-            return PartialView(result);
-        }
-        public PartialViewResult All()
-        {
-            return PartialView();
+           
+          
         }
     }
 }

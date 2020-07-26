@@ -42,29 +42,26 @@
     </div>
     <!--/.wprt-project -->
    
-    @section scrips{
+    @*@section scrips{
 
         <script>
 
 
                 $(document).ready(function () {
-                    var id = 0;
-                    $("#grid-container").load(`/Portfolio/Project/${id}`);
+                   
+                    $("#grid-container").load(`/Portfolio/All`);
                     $(".All").click(function () {
                         id = $(this).data("id");
 
-                        $("#grid-container").load(`/Portfolio/Project/${id}`);
+                        $("#grid-container").load(`/Portfolio/All`);
                     });
-                    $(".mains").click(function () {
-                        id = $(this).data("id");
-                        $("#grid-container").load(`/Portfolio/Project/${id}`);
-                    });
+                  
 
 
 
 
                 });
         </script>
-    }
+    }*@
 </section>
 
