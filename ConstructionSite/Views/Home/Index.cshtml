@@ -147,13 +147,10 @@
         <div id="site-content" class="site-content clearfix">
             <div id="inner-content" class="inner-content-wrap">
                 <div class="page-content">
-
-                   
-                        @await Component.InvokeAsync("About")
-                        @await Component.InvokeAsync("Service")
-                        @await Component.InvokeAsync("Portfolio")
-                        @await Component.InvokeAsync("Testimonial")
-
+                    @await Component.InvokeAsync("About")
+                    @await Component.InvokeAsync("Service")
+                    @await Component.InvokeAsync("Portfolio")
+                    @await Component.InvokeAsync("Testimonial")
                 </div>
                 <!-- /.col-md-12 -->
 
@@ -162,42 +159,12 @@
 
         </div>
         <!-- /.container -->
+
         @(await Component.InvokeAsync("Blog"))
         <section id="contact" class="wprt-section">
             <div class="container">
                 <div class="row">
                     @await Component.InvokeAsync("Messages")
-                    <!-- /.col-md-12 -->
-                    <!-- contact /.col-md-4 -->
-
-                    <!--<div class="col-md-8">
-                        <form class="wprt-contact-form" method="post" action="./includes/contact/contact-process.php">
-                            <div class="inner">
-                                <div class="left-side">
-                                    <div class="input-wrap">
-                                        <input type="text" value="" tabindex="1" placeholder="Name *" name="name" id="name" required>
-                                    </div>
-                                    <div class="input-wrap">
-                                        <input type="email" value="" tabindex="2" placeholder="Email *" name="email" id="email" required>
-                                    </div>
-                                    <div class="input-wrap">
-                                        <input type="text" value="" tabindex="4" placeholder="Subject *" name="subject" id="subject" required>
-                                    </div>
-                                    <div class="message-wrap">
-                                        <textarea class="" tabindex="5" placeholder="Message *" name="message" id="message" required></textarea>
-                                    </div>
-                                    <div class="send-wrap">
-                                        <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>-->
-                        <!-- /.wprt-contact-form -->
-
-                        <!--<div class="wprt-spacer" data-desktop="110" data-mobi="60" data-smobi="60"></div>
-                    </div>-->
-                    <!-- /.col-md-8 -->
-
                 </div>
                 <!-- /.row -->
 
@@ -207,4 +174,5 @@
         </section>
     </div>
     <!-- /.page-content -->
+
 </div>

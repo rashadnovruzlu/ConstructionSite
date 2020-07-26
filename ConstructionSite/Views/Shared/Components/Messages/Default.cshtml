@@ -1,11 +1,12 @@
 ﻿@model MessageAddViewModel
+@inject SharedLocalizationService Localizer
+
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
             <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">Contact Us</h1>
+                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ContactUs)</h1>
             </div>
-
         </div>
     </div>
 </div>
@@ -15,9 +16,7 @@
             <div id="inner-content" class="inner-content-wrap">
                 <div class="page-content">
                     <section class="wprt-section">
-                       
                         <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60" style="height:100px"></div>
-
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
@@ -30,7 +29,8 @@
 
                                     <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30" style="height:40px"></div>
-                                </div><!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.col-md-12 -->
 
                                 @await Component.InvokeAsync("Contact")
 
@@ -57,14 +57,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form><!-- /.wprt-contact-form -->
-                                </div><!-- /.col-md-8 -->
+                                    </form>
+                                    <!-- /.wprt-contact-form -->
+
+                                </div>
+                                <!-- /.col-md-8 -->
 
                                 <div class="col-md-12">
                                     <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60" style="height:100px"></div>
-                                </div><!-- /.col-md-12 -->
-                            </div><!-- /.row -->
-                        </div><!-- /.container -->
+                                </div>
+                                <!-- /.col-md-12 -->
+
+                            </div>
+                            <!-- /.row -->
+
+                        </div>
+                        <!-- /.container -->
+
                     </section>
 
                     <!-- PARTNERS -->

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject SharedLocalizationService Localizer
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 
 <head>
@@ -98,36 +100,9 @@
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="widget widget_about margin-bottom-25">
-                                <div class="margin-bottom-35">
-                                    <img src="~/assets/img/logo-light.png" width="204" height="30" alt="image" />
-                                </div>
-                                <p>Nullam vel enim risus. Integer rhoncus hendrerit sem egestas porttitor.</p>
-                                <section class="widget widget_information">
-                                    <ul class="info-wrap">
-                                        <li class="address item">1 Beverly Hills, Los Angeles, California, 90210, United States</li>
-                                        <li class="phone item">+1 (390) 379 3368, +1 (390) 379 6868</li>
-                                        <li class="email item">contact@construction.com</li>
-                                    </ul>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="widget widget_links">
-                                <h2 class="widget-title">Useful links</h2>
-                                <ul class="links col2">
-                                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                                    <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
-                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Term of Use</a></li>
-                                    <li class="last"><a asp-controller="About" asp-action="Index">About Us</a></li>
-                                    <li><a asp-controller="Blog" asp-action="Index">News</a></li>
-                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Conditions</a></li>
-                                    <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
-                                    <li class="last"><a asp-controller="TermsAndConditions" asp-action="Index">Conditions</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                       
+                        @*@await Component.InvokeAsync("Adress")*@ 
+                        <partial name="_UsefulLink"/>
                     </div>
                 </div>
             </footer>
@@ -138,10 +113,10 @@
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
                             <ul class="bottom-nav">
-                                <li><a asp-controller="Home" asp-action="Index">HOME</a></li>
-                                <li><a asp-controller="About" asp-action="Index">ABOUT</a></li>
-                                <li><a asp-controller="Services" asp-action="Construction">SERVICES</a></li>
-                                <li><a asp-controller="Contact" asp-action="Index">CONTACT</a></li>
+                                <li><a asp-controller="Home" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
+                                <li><a asp-controller="About" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
+                                <li><a asp-controller="Services" asp-action="Construction" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a></li>
+                                <li><a asp-controller="Contact" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
                             </ul>
                         </div>
                         <!-- /.bottom-bar-menu -->
@@ -155,7 +130,7 @@
     </div>
     <!-- /#wrapper -->
 
-    <a id="scroll-top">TOP</a>
+    <a id="scroll-top">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Top)</a>
 
     <!-- Javascript -->
     <partial name="Javascript" />

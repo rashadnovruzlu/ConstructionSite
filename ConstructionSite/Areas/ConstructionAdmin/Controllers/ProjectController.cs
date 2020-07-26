@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -147,17 +148,40 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Id is not exists");
             }
-            ViewBag.items = _unitOfWork.projectRepository.GetAll();
-            _unitOfWork.Dispose();
-
-            return View();
+        var projectUpdateViewModel =  _unitOfWork.projectImageRepository
+                .GetAll()
+                .Include(x=>x.Image)
+                .Include(x=>x.Project)
+                .Select(x=>new ProjectUpdateViewModel
+                {
+                    Id=x.Id,
+                    ContentAz=x.Project.ContentAz,
+                    ContentEn=x.Project.ContentEn,
+                    ContentRu=x.Project.ContentRu,
+                    NameAz = x.Project.NameAz,
+                    NameEn = x.Project.NameEn,
+                    NameRu = x.Project.NameRu,
+                    ImageId =x.ImageId,
+                    ImagePath=x.Image.Path,
+                   
+                    PortfolioId=x.Project.PortfolioId,
+                    ProjectId=x.ProjectId
+                })
+                .FirstOrDefault(x=>x.ProjectId==id);
+       ViewBag.items=_unitOfWork.portfolioRepository.GetAll()
+                .Select(x=>new PortfolioViewModel
+                {
+                    Id=x.Id,
+                    Name=x.FindName(_lang)
+                }).ToList();
+            return View(projectUpdateViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel, IFormFile file)
         {
-            Image image = new Image();
+           
 
             if (!ModelState.IsValid)
             {
@@ -171,16 +195,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             var projectViewModelUpdate = new Project
             {
-                Id = projectUpdateViewModel.Id,
-                NameAz = projectUpdateViewModel.NameAz,
-                NameRu = projectUpdateViewModel.NameRu,
-                NameEn = projectUpdateViewModel.NameEn,
-                ContentAz = projectUpdateViewModel.ContentAz,
-                ContentRu = projectUpdateViewModel.ContentRu,
-                ContentEn = projectUpdateViewModel.ContentEn,
+                Id          = projectUpdateViewModel.ProjectId,
+                NameAz      = projectUpdateViewModel.NameAz,
+                NameRu      = projectUpdateViewModel.NameRu,
+                NameEn      = projectUpdateViewModel.NameEn,
+                ContentAz   = projectUpdateViewModel.ContentAz,
+                ContentRu   = projectUpdateViewModel.ContentRu,
+                ContentEn   = projectUpdateViewModel.ContentEn,
                 PortfolioId = projectUpdateViewModel.PortfolioId
             };
             var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
+          var image=  _unitOfWork.imageRepository.GetById(projectUpdateViewModel.ImageId);
             if (!portfolioUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while editing Portfolio");
@@ -196,6 +221,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             ProjectImage projectImage = new ProjectImage
             {
+                Id = projectUpdateViewModel.Id,
                 ImageId = image.Id,
                 ProjectId = projectUpdateViewModel.Id
             };

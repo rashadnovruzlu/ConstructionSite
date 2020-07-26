@@ -1,9 +1,11 @@
-﻿<!-- Featured Title -->
+﻿@inject SharedLocalizationService Localizer
+
+<!-- Featured Title -->
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
             <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">TERMS AND CONDITIONS</h1>
+                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.TermsAndConditions)</h1>
             </div>
         </div>
     </div>
@@ -12,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-ms-12">
-                <h1>TERMS AND CONDITIONS</h1>
+                <h1>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.TermsAndConditions)</h1>
                 <div class="page-entry" style="text-align: justify; margin-left: auto; width: 90%; margin-right: auto">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

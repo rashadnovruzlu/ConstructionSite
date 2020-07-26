@@ -1,85 +1,89 @@
 ﻿@model AboutIndexViewModel
-@inject SharedLocalizationService Localizer
-
-<!-- Featured Title -->
-<div id="featured-title" class="clearfix featured-title-left">
-    <div id="featured-title-inner" class="container clearfix">
-        <div class="featured-title-inner-wrap">
-            <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.AboutUs)</h1>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Main Content -->
-<div id="main-content" class="site-main clearfix">
-    <div id="content-wrap">
-        <div id="site-content" class="site-content clearfix">
-            <div id="inner-content" class="inner-content-wrap">
-                <div class="page-content">
-
-                    <!-- GALLERY -->
-                    <section class="wprt-section">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                                    <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.OurHistoryAndFacts)</h2>
-                                    <div class="wprt-lines style-2 custom-1">
-                                        <div class="line-1"></div>
-                                    </div>
-                                    <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
-                                    <p class="wprt-subtitle">@Model.Title</p>
-                                    <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
-                                </div>
-                                <!-- /.col-md-12 -->
-
-                                <div class="col-md-6">
-                                    <h3 class="line-height-normal margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.WhyChooseUs)</h3>
-                                    <div class="wprt-lines style-1 custom-3">
-                                        <div class="line-1"></div>
-                                    </div>
-                                    <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
-                                    <p class=" margin-bottom-25">@Model.Context</p>
-                                    <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
-                                </div>
-                                <!-- /.col-md-6 -->
-
-                                <div class="col-md-6">
-                                    <div class="wprt-galleries galleries w-570px" data-width="135" data-margin="10">
-                                        <div id="wprt-slider" class="flexslider">
-                                            <ul class="slides">
-                                                <li class="flex-active-slide">
-                                                    <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="@Model.imagePath" alt="image" width="570" height="380"/>
-                                                </li>
-                                            </ul>
+    <div id="main-content" class="site-main clearfix">
+        <div id="content-wrap">
+            <div id="site-content" class="site-content clearfix">
+                <div id="inner-content" class="inner-content-wrap">
+                    <div class="page-content">
+                        <!-- GALLERY -->
+                        <section class="wprt-section">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40" style="height:100px"></div>
+                                        <h2 class="text-center margin-bottom-20">OUR HISTORY &amp; FACTS</h2>
+                                        <div class="wprt-lines style-2 custom-1">
+                                            <div class="line-1"></div>
                                         </div>
-                                        <div id="wprt-carousel" class="flexslider">
-                                            <ul class="slides">
-                                                @*@foreach (Image item in ViewBag.image)
-                                                {
-                                                    <li><img src="@item.Path" alt="image"></li>
-                                                }*@
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.col-md-6 -->
 
-                                <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="110" data-mobi="40" data-smobi="40"></div>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                            
-                        </div>
-                    </section>
+                                        <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30" style="height:36px"></div>
+
+                                        <p class="wprt-subtitle">@Model.Title</p>
+
+                                        <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30" style="height:40px"></div>
+                                    </div><!-- /.col-md-12 -->
+
+                                    <div class="col-md-6">
+                                        <h3 class="line-height-normal margin-bottom-10">WHY CHOOSE US</h3>
+                                        <div class="wprt-lines style-1 custom-3">
+                                            <div class="line-1"></div>
+                                        </div>
+
+                                        <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25" style="height:25px"></div>
+
+                                        <p class=" margin-bottom-25">@Model.Context</p>
+
+
+
+
+
+                                        <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30" style="height:0px"></div>
+                                    </div><!-- /.col-md-6 -->
+
+                                    <div class="col-md-6">
+                                        <div class="wprt-galleries galleries w-570px" data-width="135" data-margin="10">
+                                            <div id="wprt-slider" class="flexslider">
+
+                                                <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                                                    <ul class="slides" style="width: 800%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+
+                                                        <li class="" style="width: 570px; margin-right: 0px; float: left; display: block;">
+
+                                                            <img src="@Model.imagePath" alt="image" draggable="false">
+                                                        </li>
+
+
+
+                                                    </ul>
+                                                </div><ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev flex-disabled" href="#" tabindex="-1"><i class="fa fa-angle-left"></i></a></li><li class="flex-nav-next"><a class="flex-next" href="#"><i class="fa fa-angle-right"></i></a></li></ul>
+                                            </div>
+
+                                            <div id="wprt-carousel" class="flexslider">
+
+                                                <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                                                    <ul class="slides" style="width: 800%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+                                                        @foreach (var item in Model.path)
+                                                        {
+                                                            <li style="width: 135px; margin-right: 10px; float: left; display: block;"><img src="@item" alt="image" draggable="false"></li>
+                                                        }
+
+                                                    </ul>
+                                                </div><ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev flex-disabled" href="#" tabindex="-1"><i class="fa fa-angle-left"></i></a></li><li class="flex-nav-next"><a class="flex-next flex-disabled" href="#" tabindex="-1"><i class="fa fa-angle-right"></i></a></li></ul>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.col-md-6 -->
+
+                                    <div class="col-md-12">
+                                        <div class="wprt-spacer" data-desktop="110" data-mobi="40" data-smobi="40" style="height:110px"></div>
+                                    </div>
+                                </div><!-- /.row -->
+                            </div><!-- /.container -->
+                        </section>
+
+                        <!-- FACTS -->
+                        <!-- TEAM -->
+
+                    </div>
                 </div>
-                <!-- /.container -->
             </div>
         </div>
     </div>
-</div>
-

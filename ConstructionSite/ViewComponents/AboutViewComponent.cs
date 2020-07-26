@@ -50,7 +50,7 @@ namespace ConstructionSite.ViewComponents
                 .FirstOrDefault();
             if (aboutImageResult==null)
             {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataNotExists));
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
              ViewBag.with=500      ;
             ViewBag.hid=500;

@@ -174,8 +174,11 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
-  <data name="DataNotExists" xml:space="preserve">
-    <value>Data not exists</value>
+  <data name="ContactUs" xml:space="preserve">
+    <value>CONTACT US</value>
+  </data>
+  <data name="DataDoesNotExists" xml:space="preserve">
+    <value>Data does not exists</value>
   </data>
   <data name="Electrical" xml:space="preserve">
     <value>Electrical</value>
@@ -252,6 +255,9 @@
   <data name="OurHistoryAndFacts" xml:space="preserve">
     <value>Our history and facts</value>
   </data>
+  <data name="OurServices" xml:space="preserve">
+    <value>Our Services</value>
+  </data>
   <data name="PasswordAndConfirmPasswordNotMatched" xml:space="preserve">
     <value>Password and confirm password not matched</value>
   </data>
@@ -261,8 +267,14 @@
   <data name="Portfolio" xml:space="preserve">
     <value>PORTFOLIO</value>
   </data>
+  <data name="PortfolioDetail" xml:space="preserve">
+    <value>Portfolio Detail</value>
+  </data>
   <data name="Preconstruction" xml:space="preserve">
     <value>PRECONSTRUCTION</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>PROJECT DESCRIPTION</value>
   </data>
   <data name="QualityConstructionContinuesAfterTheProject" xml:space="preserve">
     <value>Quality construction continues after the project</value>
@@ -279,6 +291,9 @@
   <data name="RoofingAndFlooringServices" xml:space="preserve">
     <value>Roofing and flooring services</value>
   </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>SEE ALL</value>
+  </data>
   <data name="SelectedAnswerValueFake" xml:space="preserve">
     <value>Selected answer value fake</value>
   </data>
@@ -287,6 +302,9 @@
   </data>
   <data name="Service" xml:space="preserve">
     <value>Service</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
   </data>
   <data name="SomethingIsWrong" xml:space="preserve">
     <value>Something is Wrong</value>
