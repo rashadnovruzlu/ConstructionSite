@@ -69,6 +69,7 @@ namespace ConstructionSite.Controllers
             {
 
             }
+            ViewBag.img=GetImageByServiceID(id);
             return View(resultOnlySingleServcie);
         }
         public IActionResult Services(int id)
@@ -139,6 +140,22 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("","data is null");
             }
             return View(serviceSubServiceresult);
+        }
+        private object GetImageByServiceID(int id)
+        {
+            var serviceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
+                .Include(x => x.SubService.Service)
+
+                .Include(x => x.SubService)
+                .Include(x => x.SubService.SubServiceImages)
+                 .Where(x => x.SubServiceId == id)
+                .Select(x => new ServiceImage
+                {
+                  
+                    Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
+
+                }).ToList();
+            return serviceSubServiceresult;
         }
        
 
