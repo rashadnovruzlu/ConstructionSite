@@ -273,7 +273,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Data is NULL");
                 return RedirectToAction("Index");
-
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
@@ -296,8 +295,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ModelState.AddModelError("","delete error");
                 }
             }
-          
-           
             return RedirectToAction("Index");
         }
 
