@@ -1,5 +1,5 @@
 ﻿@inject SharedLocalizationService Localizer
-
+@model ProjectViewDetailsModel
 <!-- Featured Title -->
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
@@ -29,35 +29,25 @@
                                     <div class="wprt-galleries galleries w-770px" data-width="142" data-margin="15">
                                         <div id="wprt-slider" class="flexslider">
                                             <ul class="slides">
-                                                <li class="flex-active-slide">
-                                                    <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="~/assets/img/gallery/1.jpg" alt="image" />
-                                                </li>
-                                                <li class="flex-active-slide">
-                                                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="~/assets/img/gallery/2.jpg" alt="image" />
-                                                </li>
-                                                <li class="flex-active-slide">
-                                                    <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="~/assets/img/gallery/1.jpg" alt="image" />
-                                                </li>
-                                                <li class="flex-active-slide">
-                                                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="~/assets/img/gallery/2.jpg" alt="image" />
-                                                </li>
-                                                <li class="flex-active-slide">
-                                                    <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
-                                                    <img src="~/assets/img/gallery/1.jpg" alt="image" />
-                                                </li>
+                                                @foreach (var item in Model.Images)
+                                                {
+                                                    <li class="flex-active-slide">
+                                                        <a class="zoom" href="JavaScrip:void(0)"><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="@item" alt="image" />
+                                                    </li>
+                                                }
+
+
+
                                             </ul>
                                         </div>
                                         <div id="wprt-carousel" class="flexslider">
                                             <ul class="slides">
-                                                <li><img src="~/assets/img/gallery/1.jpg" alt="image"></li>
-                                                <li><img src="~/assets/img/gallery/2.jpg" alt="image"></li>
-                                                <li><img src="~/assets/img/gallery/1.jpg" alt="image"></li>
-                                                <li><img src="~/assets/img/gallery/2.jpg" alt="image"></li>
-                                                <li><img src="~/assets/img/gallery/1.jpg" alt="image"></li>
+                                                @foreach (var item in Model.Images)
+                                                {
+                                                    <li><img src="@item" alt="image"></li>
+                                                }
+
                                             </ul>
                                         </div>
                                     </div>
@@ -66,14 +56,13 @@
 
                                 <div class="col-md-4">
                                     <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
-                                    <h4 class="line-height-normal margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ProjectDescription)</h4>
+                                    <h4 class="line-height-normal margin-bottom-10">@Model.Name</h4>
                                     <div class="wprt-lines style-1 custom-3">
                                         <div class="line-1"></div>
                                         <div class="line-2"></div>
                                     </div>
                                     <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae. </p>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit.</p>
+                                    <p>@Model.Content.</p>
                                     <div class="wprt-lines style-1 custom-4">
                                         <div class="line-1"></div>
                                     </div>

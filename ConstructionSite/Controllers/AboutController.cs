@@ -1,10 +1,8 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.About;
-using ConstructionSite.Extensions.Pageinations;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +43,8 @@ namespace ConstructionSite.Controllers
                         Id = x.Id,
                         Context = x.About.FindContent(_lang),
                         Title = x.About.FindTitle(_lang),
-                        imagePath = x.Image.Path
+                        imagePath = x.Image.Path,
+                        path=x.About.AboutImages.Select(x=>x.Image.Path).ToList()
                     }).OrderByDescending(x => x.Id).FirstOrDefault();
             if (aboutImageResult==null)
             {
