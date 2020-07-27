@@ -16,7 +16,7 @@ namespace ConstructionSite.TagHelpers
         {
             if (!string.IsNullOrEmpty(Text))
             {
-                if (Text.Length < 150)
+                if (Text.Length < 130)
                 {
                     output.Content.SetHtmlContent(Text.ToString());
                 }
