@@ -180,9 +180,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This portfolio was not delete");
             }
              _unitOfWork.Dispose();
-                return RedirectToAction("Index");
-            
-          
+             return RedirectToAction("Index");
         }
 
         #endregion

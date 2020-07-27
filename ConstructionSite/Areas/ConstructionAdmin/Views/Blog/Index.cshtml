@@ -58,7 +58,7 @@
                                     <td class=" "><img width="50" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
                                     <td class=" ">@item.CreateDate</td>
                                     <td><a class="edit btn btn-primary about-button" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit">Edit</a></td>
-                                    <td class=" "><a class="btn btn-danger delete delete-blog" data-id="@item.Id">Delete</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-blog" asp-route-id="@item.Id" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Delete">Delete</a></td>
                                 </tr>
                             }
                         }

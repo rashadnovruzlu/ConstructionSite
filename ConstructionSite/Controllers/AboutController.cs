@@ -28,7 +28,6 @@ namespace ConstructionSite.Controllers
             _lang                = _httpContextAccessor.getLang();
           
         }
-
         public IActionResult Index()
         {
             if (!ModelState.IsValid)

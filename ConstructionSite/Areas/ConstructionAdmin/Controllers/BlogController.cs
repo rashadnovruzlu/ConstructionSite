@@ -126,7 +126,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ImageExtensions.DeleteAsyc(_env, image, "News", _unitOfWork);
                 ModelState.AddModelError("", "Errors occured while creating Images");
-              
             }
             NewsImage newsImageData = new NewsImage
             {
@@ -275,7 +274,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Data is NULL");
                 return RedirectToAction("Index");
-
             }
             var newsResult = await _unitOfWork.newsRepository
                                                 .GetByIdAsync(newsImageResult.NewsId);
@@ -298,8 +296,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ModelState.AddModelError("","delete error");
                 }
             }
-          
-           
             return RedirectToAction("Index");
         }
 

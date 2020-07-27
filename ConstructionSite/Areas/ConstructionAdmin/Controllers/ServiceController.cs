@@ -233,24 +233,46 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region DELETE
         public async Task<IActionResult> Delete(int id)
         {
-            if (id < 1)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Data is not exists");
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
             }
-            var serviceIDResult = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
-            if (serviceIDResult == null)
+            Service serviceResult = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            if (serviceResult == null)
             {
-                ModelState.AddModelError("", "NULL");
+                return RedirectToAction("Index");
             }
-            var result = await _unitOfWork.ServiceRepository.DeleteAsync(serviceIDResult);
-            if (!result.IsDone)
+            var serviceDeleteResult = await _unitOfWork.ServiceRepository
+                                                        .DeleteAsync(serviceResult);
+            if (!serviceDeleteResult.IsDone)
             {
-                ModelState.AddModelError("", "Data cannot delete");
-
                 _unitOfWork.Rollback();
+                ModelState.AddModelError("", "This portfolio was not delete");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
+
+
+
+            //if (id < 1)
+            //{
+            //    ModelState.AddModelError("", "Data is not exists");
+            //}
+            //var serviceIDResult = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
+            //if (serviceIDResult == null)
+            //{
+            //    ModelState.AddModelError("", "NULL");
+            //}
+            //var result = await _unitOfWork.ServiceRepository.DeleteAsync(serviceIDResult);
+            //if (!result.IsDone)
+            //{
+            //    ModelState.AddModelError("", "Data cannot delete");
+
+            //    _unitOfWork.Rollback();
+            //}
+            //_unitOfWork.Dispose();
+            //return RedirectToAction("Index");
         }
         #endregion DELETE
     }
