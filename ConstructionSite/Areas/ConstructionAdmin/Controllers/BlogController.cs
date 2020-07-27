@@ -126,7 +126,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ImageExtensions.DeleteAsyc(_env, image, "News", _unitOfWork);
                 ModelState.AddModelError("", "Errors occured while creating Images");
-              
             }
             NewsImage newsImageData = new NewsImage
             {

@@ -53,12 +53,11 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-
                                     <td class="sorting_1">@item.Name</td>
                                     <td class=" ">@item.Tittle</td>
                                     <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
                                     <td class=" "><a class="edit btn btn-primary about-button" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
-                                    <td class=" "><a class="btn btn-danger delete deleteService about-button" data-id="@item.Id">Delete</a></td>
+                                    <td class=" "><a class="btn btn-danger delete deleteService about-button" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                                 </tr>
                             }
                         }
@@ -76,18 +75,6 @@
 </section>
 
 @section scripts{
-    <script>
-        $(".deleteService").click(function () {
-            var id = $(this).data("id");
-            $.ajax({
-                type: 'GET',
-                url: '/ConstructionAdmin/Service/Delete/' + id,
-                success: function () {
-                    window.location.href = "/ConstructionAdmin/Service"
-                }
-            })
-        });
-    </script>
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
