@@ -1692,7 +1692,9 @@ body.page #main-content { padding-top: 0; padding-bottom: 0; }
 	#site-header #site-header-inner,
 	#site-header.style-2 #site-header-inner,
 	#site-header.style-3 #site-header-inner,
-	#site-header.style-4 #site-header-inner { padding-top: 15px; padding-bottom: 15px; }
+	#site-header.style-4 #site-header-inner {
+		padding-top: 15px;
+		padding-bottom: 46px;}
 	#site-header.style-2 #site-logo { margin-top: 0; }
 	#site-header.style-4 #site-logo { text-align: left; float: left; }
 	.hentry { margin-top: 40px; }
