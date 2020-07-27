@@ -3,6 +3,7 @@ using ConstructionSite.DTO.AdminViewModels.News;
 using ConstructionSite.DTO.FrontViewModels.Blog;
 using ConstructionSite.Extensions.Pageinations;
 using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Helpers.Paging;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -33,7 +34,7 @@ namespace ConstructionSite.Controllers
             _localizationHandle=localizationHandle;
         }
 
-        public IActionResult Index(int count=1)
+        public IActionResult Index(int page=1)
         {
            
             if (!ModelState.IsValid)
@@ -45,7 +46,8 @@ namespace ConstructionSite.Controllers
             var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
                  .Include(x => x.Image)
                  .Include(x => x.News)
-                 .ToList()
+                 .ToList();
+          var result=  newsImageResult
                  .Select(x => new NewsViewModel
                  {
                      Id = x.NewsId,
@@ -54,16 +56,26 @@ namespace ConstructionSite.Controllers
                      Imagepath = x.Image.Path,
                      CreateDate = x.News.CreateDate
                  })
-                 .OrderByDescending(x=>x.Id)
-                 .AsQueryable()
-                 .Pagination(count,3);
-                
+                .ToList()
+                .Skip((page-1)*3)
+                .Take(3)
+                .AsEnumerable();
+                var data=new PaginModel<NewsViewModel>()
+                {
+                    Paging= result,
+                    PagingInfo=new PagingInfo
+                    {
+                        CurrentPage=page,
+                        ItemPrePage=3,
+                        TotalItems=newsImageResult.Count()
+                    }
+                };
             if (newsImageResult==null)
             {
                 return RedirectToAction("Index","Home");
             }
            
-            return View(newsImageResult);
+            return View(data);
         }
 
         public async Task<IActionResult> Detail(int id)
