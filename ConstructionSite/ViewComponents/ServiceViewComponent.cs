@@ -36,12 +36,6 @@ namespace ConstructionSite.ViewComponents
 
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-           
-        
-                
-               
-               
-
             var result =  _unitOfWork.ServiceRepository.GetAll()
                 .Include(x=>x.SubServices)
                 .Include(x=>x.Image)
@@ -58,8 +52,6 @@ namespace ConstructionSite.ViewComponents
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
             return View(result);
-                
-                
         }
     }
 }
