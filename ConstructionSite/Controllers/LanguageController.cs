@@ -31,8 +31,8 @@ namespace ConstructionSite.Controllers
             // cookie name
             string cookieName =
                 CookieRequestCultureProvider.DefaultCookieName;
-            //
-            Response.Cookies.Append(cookieName, cookieValue);
+           
+           Response.Cookies.Append(cookieName, cookieValue);
 
           
 

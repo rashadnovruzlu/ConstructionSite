@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Resources;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,9 +14,9 @@ namespace ConstructionSite.Localization
     {
         public static IServiceCollection AddLocalizationInjection(this IServiceCollection services)
         {
-          
-                
-                services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
                 services.AddSingleton<SharedLocalizationService>();
 

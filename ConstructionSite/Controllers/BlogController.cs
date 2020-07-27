@@ -8,6 +8,7 @@ using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -53,8 +54,9 @@ namespace ConstructionSite.Controllers
                      Imagepath = x.Image.Path,
                      CreateDate = x.News.CreateDate
                  })
+                 .OrderByDescending(x=>x.Id)
                  .AsQueryable()
-                 .Pagination(count,1);
+                 .Pagination(count,3);
                 
             if (newsImageResult==null)
             {
