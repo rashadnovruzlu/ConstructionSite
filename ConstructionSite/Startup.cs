@@ -1,16 +1,13 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
+using ConstructionSite.Extensions.Seed;
+using ConstructionSite.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ConstructionSite.Extensions.Seed;
-using Newtonsoft.Json;
-using ConstructionSite.Helpers.Interfaces;
-using ConstructionSite.Localization;
 
 namespace ConstructionSite
 {
@@ -30,17 +27,20 @@ namespace ConstructionSite
             services.AddLocalizationInjection();
 
             services.IdentityLoad(Configuration);
-            services.Configure<IISServerOptions>(options =>
-            {
-                options.AutomaticAuthentication = false;
-            });
+            //services.Configure<IISServerOptions>(options =>
+            //{
+            //    options.AutomaticAuthentication = false;
+            //});
             services.ServiceDataBaseWithInjection(Configuration);
-            services.AddControllersWithViews();
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
-                options.AccessDeniedPath = new PathString("/ConstructionAdmin/Account/Index");
-            });
+          
+            //services.AddControllersWithViews()
+            //     .AddDataAnnotationsLocalization()
+            //    .AddViewLocalization();
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
+            //    options.AccessDeniedPath = new PathString("/ConstructionAdmin/Account/Index");
+            //});
             services.AddAuthentication(CookieAuthenticationDefaults
                         .AuthenticationScheme)
                             .AddCookie();

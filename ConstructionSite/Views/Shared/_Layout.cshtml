@@ -18,11 +18,11 @@
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
     <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
-    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css"/>
+    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />
 
-    
 
-   
+
+
 
     <!-- load cubeportfolio jQuery plugin -->
     <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
@@ -31,11 +31,7 @@
     <!-- Favicon and touch icons  -->
     <link rel="shortcut icon" href="~/assets/img/logo-light.png">
     <link rel="apple-touch-icon-precomposed" href="~/assets/icon/apple-touch-icon-158-precomposed.png" />
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="~/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="~/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  
 </head>
 
 
@@ -60,36 +56,19 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                        <partial name="_mainnav"/>
+                            <partial name="_mainnav" />
                             <!-- /#main-nav -->
 
                             <div class="nav-top-cart-wrapper">
                                 <a class="nav-cart-trigger" href="#">
                                     <span class="fa fa-language" aria-hidden="true"></span>
                                 </a>
-                                <div class="nav-shop-cart">
-                                    <div class="widget_shopping_cart_content">
-                                        <ul class="cart_list product_list_widget ">
-                                            <li id="en" class="mini_cart_item">
-                                                <a href="#">
-                                                    EN
-                                                </a>
-                                            </li>
-                                            <li id="az" class="mini_cart_item">
-                                                <a href="#">
-                                                    AZ
-                                                </a>
-                                            </li>
-                                            <li id="ru" class="mini_cart_item">
-                                                <a href="#">
-                                                    RU
-                                                </a>
-                                            </li>
-                                        </ul>
+                                @await Html.PartialAsync("Language")
+                               
                                         <!-- /.product_list_widget -->
 
-                                    </div>
-                                </div>
+                                    <!--</div>
+                                </div>-->
                             </div>
                         </div>
                         <!-- /#site-header-inner -->
@@ -98,7 +77,7 @@
                 <!-- /#site-header -->
 
             </div>
-           
+
 
             @RenderBody()
 
@@ -106,9 +85,9 @@
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
                     <div class="row">
-                       
-                        @*@await Component.InvokeAsync("Adress")*@ 
-                        <partial name="_UsefulLink"/>
+
+                        @*@await Component.InvokeAsync("Adress")*@
+                        <partial name="_UsefulLink" />
                     </div>
                 </div>
             </footer>
@@ -143,9 +122,9 @@
 
     <!-- Revolution Slider -->
     <partial name="Revolution" />
- <script type="text/javascript" src="~/Component.js">
+    <script type="text/javascript" src="~/Component.js">
     </script>
-  @RenderSection("Scrips",false)
+    @RenderSection("Scrips", false)
 </body>
 </html>
 

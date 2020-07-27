@@ -6,7 +6,7 @@ namespace ConstructionSite.Helpers.Constants
 {
     public sealed class LANGUAGECONSTANT
     {
-        public const string Az = "az-Latn";
+        public const string Az = "az-Latn-AZ";
         public const string En = "en-US";
         public const string Ru = "ru-RU";
 
@@ -33,7 +33,7 @@ namespace ConstructionSite.Helpers.Constants
 
             return map;
         }
-        public static CultureInfo[] GetCultureInfo()
+        public static CultureInfo[] GetSupportedCulture()
         {
             return GetLanguages().Select(x => new CultureInfo(x)).ToArray();
         }
