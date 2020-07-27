@@ -56,8 +56,8 @@ namespace ConstructionSite.TagHelpers
                 urlTemplate += "&" + key + "=" + request.Query[key];
             }
 
-            var startIndex = Math.Max(Model.CurrentPage - 5, 1);
-            var finishIndex = Math.Min(Model.CurrentPage + 5, Model.PageCount);
+            var startIndex = Math.Max(Model.CurrentPage - 3, 1);
+            var finishIndex = Math.Min(Model.CurrentPage + 3, Model.PageCount);
 
             output.TagName = "";
             //output.Content.AppendHtml("<ul class=\"pagination\">");
