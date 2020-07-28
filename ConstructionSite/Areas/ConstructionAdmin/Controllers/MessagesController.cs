@@ -11,11 +11,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class MessagesController : Controller
     {
+        #region Fields
         private readonly IUnitOfWork _unitOfWork;
+        #endregion
+
+        #region CTOR
         public MessagesController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork=unitOfWork;
+            _unitOfWork = unitOfWork;
         }
+        #endregion
+
+        #region INDEX
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -23,24 +30,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-            var messageAllResult=  _unitOfWork.messageRepository.GetAll()
-                .OrderByDescending(x=>x.Id)
-                .Select(x=>new MesageViewModel
+            var messageAllResult = _unitOfWork.messageRepository.GetAll()
+                .OrderByDescending(x => x.Id)
+                .Select(x => new MesageViewModel
                 {
-                    id=x.Id,
-                    Email=x.Email,
-                    Name=x.Name,
-                    IsAnswerd=x.IsAnswerd,
-                    SendDate=x.SendDate,
-                    Subject=x.Subject
+                    id = x.Id,
+                    Email = x.Email,
+                    Name = x.Name,
+                    IsAnswerd = x.IsAnswerd,
+                    SendDate = x.SendDate,
+                    Subject = x.Subject
                 })
                 .ToList();
-            if (messageAllResult==null&&messageAllResult.Count<0)
+            if (messageAllResult == null && messageAllResult.Count < 0)
             {
                 ModelState.AddModelError("", "no message");
             }
             return View(messageAllResult);
         }
+        #endregion
+
         public async Task<IActionResult> Delte(int id)
         {
             if (!ModelState.IsValid)
