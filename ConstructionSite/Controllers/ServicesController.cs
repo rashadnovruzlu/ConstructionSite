@@ -8,15 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
     public class ServicesController : Controller
     {
-        string                                    _lang;
-        private readonly IUnitOfWork               _unitOfWork;
-        private readonly IHttpContextAccessor      _httpContextAccessor;
+        private string _lang;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
 
         public ServicesController(IUnitOfWork unitOfWork,
@@ -28,6 +27,7 @@ namespace ConstructionSite.Controllers
             _lang = _httpContextAccessor.getLang();
             _localizationHandle = localizationHandle;
         }
+
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -35,20 +35,20 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
             }
-            var allServiceResult=_unitOfWork.ServiceRepository.GetAll()
-               .Select(x=>new ServiceViewModel
+            var allServiceResult = _unitOfWork.ServiceRepository.GetAll()
+               .Select(x => new ServiceViewModel
                {
-                   Id=x.Id,
-                   Name=x.FindName(_lang),
-                   Tittle=x.FindName(_lang),
-                   image=x.Image.Path
+                   Id = x.Id,
+                   Name = x.FindName(_lang),
+                   Tittle = x.FindName(_lang),
+                   image = x.Image.Path
                }).ToList();
-            if (allServiceResult==null)
+            if (allServiceResult == null)
             {
-
             }
             return View(allServiceResult);
         }
+
         public IActionResult Services(int id)
         {
             if (!ModelState.IsValid)
@@ -61,7 +61,6 @@ namespace ConstructionSite.Controllers
             {
                 return RedirectToAction("Index");
             }
-
 
             var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
@@ -76,7 +75,6 @@ namespace ConstructionSite.Controllers
                    Content = x.SubService.FindContent(_lang),
                    Name = x.SubService.FindName(_lang),
                    Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
-
                }).OrderByDescending(x => x.id)
                .FirstOrDefault();
             if (ServiceSubServiceresult == null)
@@ -85,8 +83,8 @@ namespace ConstructionSite.Controllers
             }
 
             return View(ServiceSubServiceresult);
-
         }
+
         public IActionResult SubService(int id)
         {
             if (!ModelState.IsValid)
@@ -108,7 +106,6 @@ namespace ConstructionSite.Controllers
                      Content = x.SubService.FindContent(_lang),
                      Name = x.SubService.FindName(_lang),
                      Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
-
                  }).OrderByDescending(x => x.id)
                  .FirstOrDefault();
             if (serviceSubServiceresult == null)
@@ -117,8 +114,6 @@ namespace ConstructionSite.Controllers
             }
             return View(serviceSubServiceresult);
         }
-
-
 
         //public IActionResult Single(int id)
         //{
@@ -145,7 +140,6 @@ namespace ConstructionSite.Controllers
         //     .FirstOrDefault();
         //    if (resultOnlySingleServcie==null)
         //    {
-
         //    }
         //    ViewBag.img=GetImageByServiceID(id);
         //    return View(resultOnlySingleServcie);
@@ -161,13 +155,10 @@ namespace ConstructionSite.Controllers
         //         .Where(x => x.SubServiceId == id)
         //        .Select(x => new ServiceImage
         //        {
-
         //            Images = x.SubService.SubServiceImages.Select(x =>  x.Image.Path).ToList()
 
         //        }).ToList();
         //    return serviceSubServiceresult;
         //}
-
-
     }
 }

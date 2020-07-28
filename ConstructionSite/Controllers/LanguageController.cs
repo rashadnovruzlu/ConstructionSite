@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace ConstructionSite.Controllers
 {
@@ -15,6 +11,7 @@ namespace ConstructionSite.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
@@ -31,10 +28,8 @@ namespace ConstructionSite.Controllers
             // cookie name
             string cookieName =
                 CookieRequestCultureProvider.DefaultCookieName;
-           
-           Response.Cookies.Append(cookieName, cookieValue);
 
-          
+            Response.Cookies.Append(cookieName, cookieValue);
 
             return LocalRedirect(returnUrl);
         }
