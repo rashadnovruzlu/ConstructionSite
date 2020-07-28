@@ -49,6 +49,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var contactResult = _unitOfWork.ContactRepository.GetAll()
                                             .Select(y => new ContactViewModel
                                             {
+                                                Id=y.Id,
                                                 Tittle = y.FindTitle(_lang),
                                                 Content = y.FindContent(_lang),
                                                 Address = y.Address,
@@ -191,7 +192,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region DELETE
-
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
