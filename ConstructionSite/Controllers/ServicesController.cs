@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
