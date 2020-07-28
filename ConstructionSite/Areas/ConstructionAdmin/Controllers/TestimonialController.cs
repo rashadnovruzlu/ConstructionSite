@@ -46,14 +46,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Model State is not Valid.");
             }
-        var  CustomerFeedbackViewModelResult=  _unitOfWork.customerFeedbackRepository.GetAll()
-                .Select(x=>new CustomerViewModel
-                {
-                    id=x.Id,
-                    Content=x.FindContent(_lang),
-                    FullName=x.FullName,
-                    Position=x.Position
-                });
+            var CustomerFeedbackViewModelResult = _unitOfWork.customerFeedbackRepository.GetAll()
+                    .Select(x => new CustomerViewModel
+                    {
+                        id = x.Id,
+                        Content = x.FindContent(_lang),
+                        FullName = x.FullName,
+                        Position = x.Position
+                    }).ToList();
             return View(CustomerFeedbackViewModelResult);
         }
 
