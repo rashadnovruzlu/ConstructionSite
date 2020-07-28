@@ -25,20 +25,20 @@ namespace ConstructionSite
         {
 
             services.AddMvc();
-            services.AddLocalizationInjection();
+            services.Localization();
 
             services.IdentityLoad(Configuration);
             
             services.ServiceDataBaseWithInjection(Configuration);
 
-            services.AddControllersWithViews()
-                 .AddDataAnnotationsLocalization()
-                .AddViewLocalization();
+            //services.AddControllersWithViews()
+            //     .AddDataAnnotationsLocalization()
+            //    .AddViewLocalization();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
                 options.AccessDeniedPath = new PathString("/ConstructionAdmin/Account/Index");
-               
+
             });
             services.AddAuthentication(CookieAuthenticationDefaults
                         .AuthenticationScheme)
@@ -58,9 +58,10 @@ namespace ConstructionSite
                 app.UseHsts();
             }
             app.SeedRole();
-
+            app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseRequestLocalization();
+            
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
