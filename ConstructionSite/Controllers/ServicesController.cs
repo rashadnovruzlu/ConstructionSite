@@ -120,13 +120,6 @@ namespace ConstructionSite.Controllers
 
 
 
-
-
-
-
-
-
-
         //public IActionResult Single(int id)
         //{
         //    if (!ModelState.IsValid)
