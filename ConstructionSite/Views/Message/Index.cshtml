@@ -30,44 +30,45 @@
                                     <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30" style="height:40px"></div>
                                 </div>
                                 <!-- /.col-md-12 -->
-
-                                @await Component.InvokeAsync("Contact")
-                                <div class="col-md-8">
-                                    <form class="wprt-contact-form" asp-controller="Message" asp-action="Add" novalidate="novalidate">
-                                        <div class="inner">
-                                            <div class="left-side">
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="1" placeholder="Name *" asp-for="Name" id="name" required="">
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="email" value="" tabindex="2" placeholder="Email *" asp-for="Email" id="email" required="">
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="4" placeholder="Subject *" asp-for="Subject" id="subject" required="">
-                                                </div>
-                                                <div class="message-wrap">
-                                                    <textarea class="" tabindex="5" placeholder="Message *" asp-for="UserMessage" id="message" required=""></textarea>
-                                                </div>
-                                                <div class="send-wrap">
-                                                    <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
+                                <div class="col-md-4">
+                                    @await Component.InvokeAsync("Contact")
+                                    </div>
+                                    <div class="col-md-8">
+                                        <form class="wprt-contact-form" asp-controller="Message" asp-action="Add" novalidate="novalidate">
+                                            <div class="inner">
+                                                <div class="left-side">
+                                                    <div class="input-wrap">
+                                                        <input type="text" value="" tabindex="1" placeholder="Name *" asp-for="Name" id="name" required="">
+                                                    </div>
+                                                    <div class="input-wrap">
+                                                        <input type="email" value="" tabindex="2" placeholder="Email *" asp-for="Email" id="email" required="">
+                                                    </div>
+                                                    <div class="input-wrap">
+                                                        <input type="text" value="" tabindex="4" placeholder="Subject *" asp-for="Subject" id="subject" required="">
+                                                    </div>
+                                                    <div class="message-wrap">
+                                                        <textarea class="" tabindex="5" placeholder="Message *" asp-for="UserMessage" id="message" required=""></textarea>
+                                                    </div>
+                                                    <div class="send-wrap">
+                                                        <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                    <!-- /.wprt-contact-form -->
+                                        </form>
+                                        <!-- /.wprt-contact-form -->
+
+                                    </div>
+                                    <!-- /.col-md-8 -->
+
+                                    <div class="col-md-12">
+                                        <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60" style="height:100px"></div>
+                                    </div>
+                                    <!-- /.col-md-12 -->
 
                                 </div>
-                                <!-- /.col-md-8 -->
-
-                                <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60" style="height:100px"></div>
-                                </div>
-                                <!-- /.col-md-12 -->
+                                <!-- /.row -->
 
                             </div>
-                            <!-- /.row -->
-
-                        </div>
                         <!-- /.container -->
 
                     </section>
