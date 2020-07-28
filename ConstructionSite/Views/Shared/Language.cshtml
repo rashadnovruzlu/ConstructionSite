@@ -1,46 +1,27 @@
 ﻿@using Microsoft.AspNetCore.Builder
 @using Microsoft.Extensions.Options
 
-
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
 @{
-   
-
     var cultureItems = LocOptions.Value.SupportedUICultures
-        .ToList();
-   
+                                    .ToList();
 }
-
-   
-
-        <div class="nav-shop-cart">
-           
-
-            <form class="widget_shopping_cart_content" asp-controller="Language" asp-action="SetLanguage"
-                  method="post" >
- <input type="hidden" name="returnUrl" value="@Context.Request.Path "/>
-                Language:  <select name="culture" onchange="this.form.submit();">
-
-                <option hidden>Select</option>
-                    @foreach (var item in cultureItems)
-                    {
-                        
-                        <option class="mini_cart_item" value="@item.Name">@item.NativeName.Substring(0, 2).ToUpper()</option>
-                    }
-                </select>
-
-
-            </form>
-
-            </div>
-       
-
-
-
-       
-   
-        @*<form asp-controller="Language" asp-action="SetLanguage" 
+        
+<div class="nav-shop-cart">
+    <form class="widget_shopping_cart_content" asp-controller="Language" asp-action="SetLanguage" method="post" >
+        <input type="hidden" name="returnUrl" value="@Context.Request.Path "/>
+        Language:  
+        <select name="culture" onchange="this.form.submit();">
+            <option hidden>Select</option>
+                @foreach (var item in cultureItems)
+                {
+                    <option class="mini_cart_item" value="@item.Name">@item.NativeName.Substring(0, 2).ToUpper()</option>
+                }
+        </select>
+    </form>
+</div>
+             @*<form asp-controller="Language" asp-action="SetLanguage" 
               asp-route-returnUrl="@Context.Request.Path"
               method="post">
             <select  name="culture" onchange="this.form.submit();"
