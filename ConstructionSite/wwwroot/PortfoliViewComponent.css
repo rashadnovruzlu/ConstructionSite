@@ -34,9 +34,13 @@
     width: 370px;
     height: 300px;
 }
-.serviceImage{
-    width:270px;
+.cbp img{
     height:180px;
+}
+.serviceImage {
+    
+    width: 270px;
+    height: 180px;
 }
 
 
