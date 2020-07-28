@@ -12,86 +12,50 @@ namespace ConstructionSite.Localization
 {
     public static class LocalizationInjection
     {
-        public static IServiceCollection AddLocalizationInjection(this IServiceCollection services)
+        public static IServiceCollection Localization(this IServiceCollection services)
         {
-
+           
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-                services.AddSingleton<SharedLocalizationService>();
+            services.AddSingleton<SharedLocalizationService>();
 
-                services.Configure<RequestLocalizationOptions>(options =>
-                {
-                   
-                    options.DefaultRequestCulture = new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+              
+                options.DefaultRequestCulture = new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
 
-                  
-                    options.SupportedCultures = LANGUAGECONSTANT.GetSupportedCulture();
+              
+                options.SupportedCultures = LANGUAGECONSTANT.GetSupportedCulture();
 
-                 
-                    options.SupportedUICultures = LANGUAGECONSTANT.GetSupportedCulture();
+                
+                options.SupportedUICultures = LANGUAGECONSTANT.GetSupportedCulture();
 
-                    //Added by Rashad
-                    options.RequestCultureProviders = new List<IRequestCultureProvider>
+                //Added by Rashad
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
                                                 {
                                                     new QueryStringRequestCultureProvider(),
                                                     new CookieRequestCultureProvider()
                                                 };
+            });
+
+            services.AddControllersWithViews()
+               
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+              
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                    {
+                        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName ?? string.Empty);
+                        return factory.Create("SharedResource", assemblyName.Name);
+                    };
                 });
 
-                services.AddControllersWithViews()
-                   
-                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                
-                    .AddDataAnnotationsLocalization(options =>
-                    {
-                        options.DataAnnotationLocalizerProvider = (type, factory) =>
-                        {
-                            var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName ?? string.Empty);
-                            return factory.Create("SharedResource", assemblyName.Name);
-                        };
-                    });
-
-                return services;
-            }
-
-            //services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-            //services.AddSingleton<SharedLocalizationService>();
-
-            //services.Configure<RequestLocalizationOptions>(options =>
-            //{
-
-            //    options.DefaultRequestCulture = new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
+            return services;
 
 
-            //    options.SupportedCultures = LANGUAGECONSTANT.GetCultureInfo();
-
-
-            //    options.SupportedUICultures = LANGUAGECONSTANT.GetCultureInfo();
-
-
-            //    options.RequestCultureProviders = new List<IRequestCultureProvider>
-            //                                    {
-            //                                        new QueryStringRequestCultureProvider(),
-            //                                        new CookieRequestCultureProvider()
-            //                                    };
-            //});
-
-            //services.AddControllersWithViews()
-
-            //    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-
-            //    .AddDataAnnotationsLocalization(options =>
-            //    {
-            //        options.DataAnnotationLocalizerProvider = (type, factory) =>
-            //        {
-            //            var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName ?? string.Empty);
-            //            return factory.Create("SharedResource", assemblyName.Name);
-            //        };
-            //    });
-
-            //return services;
         }
     }
+}
 
