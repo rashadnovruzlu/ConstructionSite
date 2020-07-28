@@ -49,29 +49,36 @@ namespace ConstructionSite.Controllers
             }
             return View(allServiceResult);
         }
-        public IActionResult Single(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
-            }
-            var resultOnlySingleServcie=_unitOfWork.ServiceRepository.GetAll()
-                .Select(x=>new ServiceViewModel
-                {
-                    Id=x.Id,
-                    Name=x.FindName(_lang),
-                    Tittle=x.FindTitle(_lang),
-                    image=x.Image.Path
+        //public IActionResult Single(int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        //        ModelState.AddModelError("", "Bad Request");
+        //    }
+        //    var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
+        //     .Include(x => x.SubService.Service)
+        //      .Include(x => x.SubService)
+        //     .Include(x => x.SubService.SubServiceImages)
+        //     .Where(y => y.SubService.ServiceId == id)
+        //     .Select(x => new ServiceSubServiceImage
+        //     {
+        //         id = x.Id,
 
-                }).FirstOrDefault(x=>x.Id==id);
-            if (resultOnlySingleServcie==null)
-            {
+        //         SubServiceID = x.SubServiceId,
+        //         Content = x.SubService.FindContent(_lang),
+        //         Name = x.SubService.FindName(_lang),
+        //         Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
 
-            }
-            ViewBag.img=GetImageByServiceID(id);
-            return View(resultOnlySingleServcie);
-        }
+        //     }).OrderByDescending(x => x.id)
+        //     .FirstOrDefault();
+        //    if (resultOnlySingleServcie==null)
+        //    {
+
+        //    }
+        //    ViewBag.img=GetImageByServiceID(id);
+        //    return View(resultOnlySingleServcie);
+        //}
         public IActionResult Services(int id)
         {
             if (!ModelState.IsValid)
@@ -88,8 +95,7 @@ namespace ConstructionSite.Controllers
 
             var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
-
-               .Include(x => x.SubService)
+                .Include(x => x.SubService)
                .Include(x => x.SubService.SubServiceImages)
                .Where(y => y.SubService.ServiceId == id)
                .Select(x => new ServiceSubServiceImage
@@ -131,7 +137,7 @@ namespace ConstructionSite.Controllers
                      SubServiceID = x.SubServiceId,
                      Content = x.SubService.FindContent(_lang),
                      Name = x.SubService.FindName(_lang),
-                     Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
+                     Images = x.SubService.SubServiceImages.Select(x =>   x.Image.Path).ToList()
 
                  }).OrderByDescending(x => x.id)
                  .FirstOrDefault();
@@ -152,7 +158,7 @@ namespace ConstructionSite.Controllers
                 .Select(x => new ServiceImage
                 {
                   
-                    Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
+                    Images = x.SubService.SubServiceImages.Select(x =>  x.Image.Path).ToList()
 
                 }).ToList();
             return serviceSubServiceresult;
