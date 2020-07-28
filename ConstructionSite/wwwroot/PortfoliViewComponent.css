@@ -1,29 +1,42 @@
-﻿
-.imagest {
-    width: 337px;
-    height: 223px;
-}
-
-.cbp-item {
+﻿.cbp-item {
     padding: 0px;
+    margin: 0;
 }
 
-#projectss {
-    width: 400px;
-    height: 370px;
-}
-
-.grid-container {
-    padding: 0px;
+#grid-container {
     margin: 0px;
 }
 
 .datas {
     margin: 0px;
+    padding: 0px;
+    float: left;
 }
 
 .imagest:hover {
     visibility: visible;
+}
+
+.imagest {
+    width: 337px;
+    height: 223px;
+}
+
+.datas {
+    margin: 0px;
+   
+}
+
+.imagest:hover {
+    visibility: visible;
+}
+.imageblog {
+    width: 370px;
+    height: 300px;
+}
+.serviceImage{
+    width:270px;
+    height:180px;
 }
 
 

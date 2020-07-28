@@ -11,11 +11,14 @@ namespace ConstructionSite.Injections
     {
         public static string getLang(this IHttpContextAccessor _httpContextAccessor)
         {
-            var data = _httpContextAccessor.HttpContext.Request;
+            var httpContext= _httpContextAccessor.HttpContext;
+            var data =httpContext.Request;
+            var nes=httpContext.Response;
 
             var rqf = data.HttpContext.Features.Get<IRequestCultureFeature>();
-            var culture = rqf.RequestCulture.Culture;
-             return culture.Name;
+            //var culture = rqf.RequestCulture.Culture;
+            var culture = rqf.RequestCulture.UICulture;
+            return culture.Name;
         }
     }
 }

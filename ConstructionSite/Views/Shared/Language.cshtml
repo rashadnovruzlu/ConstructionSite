@@ -9,7 +9,7 @@
 @{
     // получаем сервис IRequestCultureFeature
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    // получаем список поддерживаемых культур
+  
     var cultureItems = LocOptions.Value.SupportedUICultures
         .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
         .ToList();
@@ -17,10 +17,10 @@
 
 
    
-        <form asp-controller="Language" asp-action="SetLanguage" class="cart_list product_list_widget "
+        <form asp-controller="Language" asp-action="SetLanguage" 
               asp-route-returnUrl="@Context.Request.Path"
               method="post">
-            <select class="mini_cart_item" name="culture" onchange="this.form.submit();"
+            <select  name="culture" onchange="this.form.submit();"
                     asp-for="@requestCulture.RequestCulture.UICulture.Name"
                     asp-items="cultureItems"></select>
         </form>
