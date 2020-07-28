@@ -56,7 +56,7 @@
                                     <td class="sorting_1">@item.Address</td>
                                     <td class="sorting_1">@item.PhoneNumber</td>
                                     <td class="sorting_1">@item.Email</td>
-                                    <td class=" "><a class="btn btn-danger delete delete-about" data-id="@item.Id">Delete</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
                                 </tr>
                             }
                         }
@@ -73,16 +73,6 @@
     </div>
 </section>
 @section scripts{
-    <script>
-        $(".delete-about").click(function () {
-            var id = $(this).data("id");
-            $.ajax({
-                type: 'GET',
-                url: '/ConstructionAdmin/Contact/Delete/' + id
-            })
-        });
-    </script>
-
     <script>
         $(document).ready(function () {
             $('#myTable').DataTable();
