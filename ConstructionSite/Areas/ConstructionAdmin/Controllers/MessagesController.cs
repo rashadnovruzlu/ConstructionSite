@@ -50,6 +50,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         #endregion
 
+        #region DELETE
         public async Task<IActionResult> Delte(int id)
         {
             if (!ModelState.IsValid)
@@ -71,5 +72,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }
