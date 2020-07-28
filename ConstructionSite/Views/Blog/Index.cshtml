@@ -1,4 +1,4 @@
-﻿@model PagedResult<NewsViewModel>
+﻿@model PaginModel<NewsViewModel>
 @inject SharedLocalizationService Localizer
 
 <div id="featured-title" class="clearfix featured-title-left">
@@ -16,7 +16,7 @@
     <div id="content-wrap" class="container">
         <div id="site-content" class="site-content clearfix" style="width: 100%">
             <div id="inner-content" class="inner-content-wrap">
-               @foreach (var item in Model.Results)
+               @foreach (var item in Model.Paging)
                {
                     <article class="hentry">
                         <div class="post-media clearfix">
@@ -60,11 +60,8 @@
 
                     </article>
                 }
-            <div class="wprt-pagination clearfix">
-                <ul class="page-numbers">
-                
-                    <pager pager-model="@Model"></pager>
-                </ul>
+            <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List">
+               
             </div>
             </div>
             <!-- /.inner-content-wrap -->

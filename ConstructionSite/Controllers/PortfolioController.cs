@@ -46,7 +46,7 @@ namespace ConstructionSite.Controllers
                     
                     
                 }).ToList();
-            return View(result);
+            return View( result);
         }
 
         public IActionResult Detail(int id)
