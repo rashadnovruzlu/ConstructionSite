@@ -15,12 +15,10 @@ namespace ConstructionSite.Controllers
 {
     public class PortfolioController : Controller
     {
-
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly SharedLocalizationService _sharedLocalizationService;
-
 
         public PortfolioController(IUnitOfWork unitOfWork,
                               IHttpContextAccessor httpContextAccessor,
@@ -29,24 +27,23 @@ namespace ConstructionSite.Controllers
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _lang = _httpContextAccessor.getLang();
-            _sharedLocalizationService=sharedLocalizationService;
+            _sharedLocalizationService = sharedLocalizationService;
         }
+
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("",_sharedLocalizationService.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
+                ModelState.AddModelError("", _sharedLocalizationService.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var result=_unitOfWork.portfolioRepository.GetAll()
-                .Select(x=>new PortfolioViewModel
+            var result = _unitOfWork.portfolioRepository.GetAll()
+                .Select(x => new PortfolioViewModel
                 {
-                    Id=x.Id,
-                    Name=x.FindName(_lang),
-                    
-                    
+                    Id = x.Id,
+                    Name = x.FindName(_lang),
                 }).ToList();
-            return View( result);
+            return View(result);
         }
 
         public IActionResult Detail(int id)
@@ -56,29 +53,27 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _sharedLocalizationService.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            if (id<1)
+            if (id < 1)
             {
-
             }
-         var result=   _unitOfWork.projectImageRepository.GetAll()
-                .Include(x=>x.Image)
-                .Include(x=>x.Project)
-               
-                .Select(x=>new ProjectViewDetailsModel
-                {
-                    ID=x.Project.Id,
-                    Content=x.Project.FindContent(_lang),
-                    Name=x.Project.FindName(_lang),
-                    Images=x.Project.ProjectImages.Select(y=>y.Image.Path).ToList()
+            var result = _unitOfWork.projectImageRepository.GetAll()
+                   .Include(x => x.Image)
+                   .Include(x => x.Project)
 
-                }).FirstOrDefault(x=>x.ID==id);
+                   .Select(x => new ProjectViewDetailsModel
+                   {
+                       ID = x.Project.Id,
+                       Content = x.Project.FindContent(_lang),
+                       Name = x.Project.FindName(_lang),
+                       Images = x.Project.ProjectImages.Select(y => y.Image.Path).ToList()
+                   }).FirstOrDefault(x => x.ID == id);
             return View(result);
         }
-        public PartialViewResult Project(int id=0)
-        {
-            if (id==0)
-            {
 
+        public PartialViewResult Project(int id = 0)
+        {
+            if (id == 0)
+            {
                 var Queryresult = _unitOfWork.projectImageRepository.GetAll()
 
                       .Include(x => x.Project)
@@ -93,40 +88,37 @@ namespace ConstructionSite.Controllers
                       .ToList();
                 return PartialView(Queryresult);
             }
-           
-                var result = _unitOfWork.projectImageRepository.GetAll()
 
-                   .Include(x => x.Project)
-                   .Include(x => x.Image)
-                   .Where(x => x.Project.PortfolioId == id)
-                   .Select(x => new ProjectViewModel
-                   {
-                       Id = x.Project.Id,
-                       Name = x.Project.FindName(_lang),
-                       Image = x.Image.Path
-                   })
-                   .ToList();
-                return PartialView(result);
-           
-           
+            var result = _unitOfWork.projectImageRepository.GetAll()
+
+               .Include(x => x.Project)
+               .Include(x => x.Image)
+               .Where(x => x.Project.PortfolioId == id)
+               .Select(x => new ProjectViewModel
+               {
+                   Id = x.Project.Id,
+                   Name = x.Project.FindName(_lang),
+                   Image = x.Image.Path
+               })
+               .ToList();
+            return PartialView(result);
         }
+
         public PartialViewResult All()
         {
-             var Queryresult = _unitOfWork.projectImageRepository.GetAll()
+            var Queryresult = _unitOfWork.projectImageRepository.GetAll()
 
-                   .Include(x => x.Project)
-                   .Include(x => x.Image)
+                  .Include(x => x.Project)
+                  .Include(x => x.Image)
 
-                   .Select(x => new ProjectViewModel
-                   {
-                       Id = x.Project.Id,
-                       Name = x.Project.FindName(_lang),
-                       Image = x.Image.Path
-                   })
-                   .ToList();
-                return PartialView(Queryresult);
-           
-          
+                  .Select(x => new ProjectViewModel
+                  {
+                      Id = x.Project.Id,
+                      Name = x.Project.FindName(_lang),
+                      Image = x.Image.Path
+                  })
+                  .ToList();
+            return PartialView(Queryresult);
         }
     }
 }
