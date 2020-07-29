@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ConstructionSite.DTO.AdminViewModels.message;
+using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels.message;
-using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
