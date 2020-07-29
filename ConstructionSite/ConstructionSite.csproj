@@ -6,7 +6,7 @@
   <AspNetCoreHostingModel>InProsses</AspNetCoreHostingModel>
   </PropertyGroup>
 <PropertyGroup>
-  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
 </PropertyGroup>
   <ItemGroup>
