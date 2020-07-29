@@ -39,6 +39,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.DTO.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
   </ItemGroup>
@@ -93,7 +94,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
     <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
   </ItemGroup>
