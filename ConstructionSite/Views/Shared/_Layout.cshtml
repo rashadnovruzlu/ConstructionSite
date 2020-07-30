@@ -27,7 +27,8 @@
     <!-- Favicon and touch icons  -->
     <link rel="shortcut icon" href="~/assets/img/logo-light.png">
     <link rel="apple-touch-icon-precomposed" href="~/assets/icon/apple-touch-icon-158-precomposed.png" />
-  
+    <script src="~/customer/js/map.js"></script>
+
 </head>
 
 
@@ -102,7 +103,8 @@
     <!-- /#wrapper -->
 
     <a id="scroll-top">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Top)</a>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZWUE32UR-FTJgp1QlLnQfjOUDeDrKL5Q&callback=initMap&libraries=&v=weekly"
+            defer></script>
     <!-- Javascript -->
     <partial name="Javascript" />
 
