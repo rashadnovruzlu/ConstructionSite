@@ -24,8 +24,9 @@ namespace ConstructionSite.Localization
 
         public string GetLocalizedHtmlString(string key)
         {
-           
-            return _localizer[key].Value;
+           string Result=string.Empty;
+           Result= _localizer[key].Value;
+           return Result;
         }
     }
 }
