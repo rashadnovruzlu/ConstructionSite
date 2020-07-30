@@ -4,8 +4,8 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: {
-                lat: -34.397,
-                lng: 150.644
+                lat: this.getlat(),
+                lng: this.getlng()
             },
             zoom: 6
         });
@@ -41,5 +41,36 @@
             : "Error: Your browser doesn't support geolocation."
         );
         infoWindow.open(map);
-      }
+}
+
+function getlat() {
+
+  let lat;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+             lat = position.coords.latitude;
+           
+           
+
+        });
+    }
+    return lat;
+
+}    
+function getlng() {
+
+    let lng;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+           
+             lng = position.coords.longitude;
+
+
+        });
+    }
+    return lng;
+
+}    
    
