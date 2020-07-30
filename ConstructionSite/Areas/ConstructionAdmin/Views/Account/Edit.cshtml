@@ -1,26 +1,41 @@
 ﻿@model UserEditModel
 
+<style>
+    .add-model {
+        margin-left: 20px;
+        background-color: #F1F2F7 !important;
+    }
+
+    .add-model header {
+        height: 30px;
+        margin-top: 15px;
+    }
+
+    .add-body {
+        margin-top: -10px;
+    }
+
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+</style>
+
 <div class="text-danger" asp-validation-summary="All"></div>
 
 <!--main content start-->
-<section id="main-content">
-    <section class="wrapper">
+<section id="main-content" style="margin-left: 10%;">
+    <section class="wrapper" style="padding: 0; margin-top: 0%; margin-left: -4%;">
 
         <!-- page start-->
         <div class="row">
-            <aside class="profile-nav col-lg-3">
+            <aside class="profile-info col-lg-12">
                 <section class="panel">
-                    @await Component.InvokeAsync("AdminEdit")
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a asp-controller="Account" asp-action="Index"> <i class="icon-user"></i> Profile</a></li>
-                        <li class="active"><a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id"> <i class="icon-edit"></i> Edit profile</a></li>
-                    </ul>
-                </section>
-            </aside>
-            <aside class="profile-info col-lg-9">
-                <section class="panel">
-                    <div class="panel-body bio-graph-info">
-                        <h1> Profile Edit</h1>
+                    <div class="panel-body bio-graph-info add-body">
+                        <header class="panel-heading">
+                            Update Profile
+                        </header>
                         <form asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" class="form-horizontal" role="form" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger">Please fix the error.</div>
                             @Html.HiddenFor(m => m.Id)
@@ -57,7 +72,7 @@
                             </div>
                             <div class="form-group" style="margin-left: 63%;">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="submit" class="btn btn-success about-button">Save</button>
                                     <button asp-action="index" asp-controller="account" type="button" class="btn btn-default cancel-button">Cancel</button>
                                 </div>
                             </div>
