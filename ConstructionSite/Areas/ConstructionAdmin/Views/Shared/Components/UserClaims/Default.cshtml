@@ -1,12 +1,16 @@
 ﻿@model UserDTO
 <div class="top-nav" style="padding-bottom: 56px;">
     <ul class="nav pull-right top-menu">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: RGB(49, 49, 49); color: white;">
             @Model.Name
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index" class="dropdown-item">My Profile</a>
-            <a class="dropdown-item" href="#">Log Out</a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="text-align: center">
+            <div>
+                <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Index" class="dropdown-item">My Profile</a>
+            </div>
+            <div>
+                <a class="dropdown-item" href="#">Log Out</a>
+            </div>
         </div>
     </ul>
 </div>
