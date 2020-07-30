@@ -7,13 +7,14 @@ namespace ConstructionSite.Controllers
 {
     public class LanguageController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
+        public void  SetLanguage(string id)
         {
             IRequestCultureFeature feature =
                 HttpContext.Features.Get<IRequestCultureFeature>();
@@ -21,7 +22,7 @@ namespace ConstructionSite.Controllers
             // new request
             RequestCulture requestCulture =
                 new RequestCulture(feature.RequestCulture.Culture,
-                    new CultureInfo(culture));
+                    new CultureInfo(id));
             // create cookie
             string cookieValue =
                 CookieRequestCultureProvider.MakeCookieValue(requestCulture);
@@ -31,7 +32,7 @@ namespace ConstructionSite.Controllers
 
             Response.Cookies.Append(cookieName, cookieValue);
 
-            return LocalRedirect(returnUrl);
+          //  return LocalRedirect(returnUrl);
         }
     }
 }
