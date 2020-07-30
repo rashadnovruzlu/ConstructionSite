@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace ConstructionSite.Helpers.Paging
@@ -13,10 +12,5 @@ namespace ConstructionSite.Helpers.Paging
         {
             return (int) Math.Ceiling((decimal)TotalItems/ItemPrePage);
         }
-    }
-    public class PaginModel<T>
-    {
-        public IEnumerable<T>  Paging { get; set; }
-        public PagingInfo  PagingInfo { get; set; }
     }
 }
