@@ -72,5 +72,9 @@ function getlng() {
     }
     return lng;
 
-}    
+}
+function seach() {
+    var result = new new google.maps.places.SearchBox("Baki");
+    alert(result);
+}
    
