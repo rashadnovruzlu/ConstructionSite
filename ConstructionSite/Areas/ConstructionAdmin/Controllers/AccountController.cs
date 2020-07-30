@@ -203,7 +203,6 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     }
                     else
                     {
-
                         foreach (var item in valideterpasswor.Errors)
                         {
                             ModelState.AddModelError("",item.Description.ToString());
@@ -226,7 +225,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
 
 
           
-          var userUpdateresult=await  _userManager.UpdateAsync(userDataResult);
+            var userUpdateresult=await  _userManager.UpdateAsync(userDataResult);
             if (userUpdateresult.Succeeded)
             {
                return RedirectToAction("Index");
@@ -246,11 +245,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
-            
-                await _signInManager.SignOutAsync();
-                return RedirectToAction("index", "Dashboard");
-            
-          
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "About");
         }
       
         #endregion
