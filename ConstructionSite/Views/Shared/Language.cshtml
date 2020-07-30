@@ -11,7 +11,6 @@
 
     <form class="widget_shopping_cart_content" asp-controller="Language" asp-action="SetLanguage" method="post" >
         <input type="hidden" name="returnUrl" value="@Context.Request.Path "/>
-        Language:  
         <select name="culture" onchange="this.form.submit();">
             <option hidden>Select</option>
                 @foreach (var item in cultureItems)
@@ -20,7 +19,6 @@
                 }
         </select>
     </form>
-
             
     <ul>
         <li>
