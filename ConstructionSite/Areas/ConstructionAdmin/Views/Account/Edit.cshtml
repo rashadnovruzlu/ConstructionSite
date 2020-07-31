@@ -3,7 +3,6 @@
 <style>
     .add-model {
         margin-left: 20px;
-        background-color: #F1F2F7 !important;
     }
 
     .add-model header {
@@ -13,6 +12,7 @@
 
     .add-body {
         margin-top: -10px;
+        background-color: rgb(241,242, 247);
     }
 
     .about-button:hover {
@@ -20,6 +20,7 @@
         border-color: black;
         color: #fff;
     }
+    
 </style>
 
 <div class="text-danger" asp-validation-summary="All"></div>
@@ -33,9 +34,10 @@
             <aside class="profile-info col-lg-12">
                 <section class="panel">
                     <div class="panel-body bio-graph-info add-body">
-                        <header class="panel-heading">
+                        <header class="panel-heading" style="margin-left: -2%;">
                             Update Profile
                         </header>
+                        <hr />
                         <form asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" class="form-horizontal" role="form" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger">Please fix the error.</div>
                             @Html.HiddenFor(m => m.Id)
@@ -44,33 +46,33 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">@Html.DisplayNameFor(model => model.Name)</label>
-                                <div class="col-lg-6">
+                                <div class="col-lg-9">
                                     <input type="text" asp-for="Name" class="form-control" id="f-name" placeholder="Enter a name">
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">@Html.DisplayNameFor(m => m.Email)</label>
-                                <div class="col-lg-6">
+                                <div class="col-lg-9">
                                     <input type="text" asp-for="Email" class="form-control" id="email" placeholder="Enter a email">
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">@Html.DisplayNameFor(m => m.Username)</label>
-                                <div class="col-lg-6">
+                                <div class="col-lg-9">
                                     <input type="text" asp-for="Username" class="form-control" id="n-pwd" placeholder="Enter a username">
                                     <span asp-validation-for="Username" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">@Html.DisplayNameFor(m => m.Password)</label>
-                                <div class="col-lg-6">
+                                <div class="col-lg-9">
                                     <input type="password" asp-for="Password" class="form-control" id="n-pwd" placeholder="Enter a password">
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group" style="margin-left: 63%;">
+                            <div class="form-group" style="margin-left: 72%;">
                                 <div class="col-lg-offset-2 col-lg-10">
                                     <button type="submit" class="btn btn-success about-button">Save</button>
                                     <button asp-action="index" asp-controller="account" type="button" class="btn btn-default cancel-button">Cancel</button>
