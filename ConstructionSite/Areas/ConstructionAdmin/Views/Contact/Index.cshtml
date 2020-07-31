@@ -25,9 +25,6 @@
     </header>
     <hr />
     <div class="panel-body">
-        <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New Contact Element</a>
-        </div>
         <div class="adv-table editable-table ">
             <div class="space15"></div>
             <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
@@ -56,7 +53,7 @@
                                     <td class="sorting_1">@item.Address</td>
                                     <td class="sorting_1">@item.PhoneNumber</td>
                                     <td class="sorting_1">@item.Email</td>
-                                    <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                                    <td class=" "><a class="btn btn-primary delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
                                 </tr>
                             }
                         }

@@ -241,7 +241,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Account");
         }
       
         #endregion
