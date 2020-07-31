@@ -1,4 +1,13 @@
 ﻿@inject SharedLocalizationService Localizer
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
+
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var cultureItems = LocOptions.Value.SupportedUICultures
+                                    .ToList();
+}
 
 <li><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
 <li><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>

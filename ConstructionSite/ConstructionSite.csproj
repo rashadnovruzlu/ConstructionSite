@@ -49,7 +49,6 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\images\about\" />
     <Folder Include="wwwroot\images\service\" />
-    <Folder Include="wwwroot\customer\" />
   </ItemGroup>
 
   <ItemGroup>

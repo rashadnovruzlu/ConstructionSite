@@ -13,10 +13,10 @@ namespace ConstructionSite.Injections
         {
             var httpContext= _httpContextAccessor.HttpContext;
             var data =httpContext.Request;
-            var nes=httpContext.Response;
+          
 
             var rqf = data.HttpContext.Features.Get<IRequestCultureFeature>();
-            //var culture = rqf.RequestCulture.Culture;
+            
             var culture = rqf.RequestCulture.UICulture;
             return culture.Name;
         }
