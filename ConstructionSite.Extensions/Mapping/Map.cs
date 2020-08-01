@@ -10,13 +10,13 @@ namespace ConstructionSite.Extensions.Mapping
     {
         public static T Mapped<T>(this object query)
         {
-            Type hedefTip=typeof(T);
-            Type kaynakTip=query.GetType();
+            Type TargetType=typeof(T);
+            Type SoruceType=query.GetType();
             T soruces=Activator.CreateInstance<T>();
-            PropertyInfo [] propertyInfo= hedefTip.GetProperties();
-            foreach (var item in kaynakTip.GetProperties())
+            PropertyInfo [] propertyInfo= TargetType.GetProperties();
+            foreach (var item in SoruceType.GetProperties())
             {
-             var target=   hedefTip.GetProperties()
+             var target=   TargetType.GetProperties()
                     .FirstOrDefault(x=>x.Name.ToUpper()==item.Name.ToUpper());
                 if (target!=null)
                 {
