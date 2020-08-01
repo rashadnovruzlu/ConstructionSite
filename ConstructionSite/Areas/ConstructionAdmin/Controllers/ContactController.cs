@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Contact;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
@@ -129,31 +130,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
 
             var contantcUpdateResult =_unitOfWork.ContactRepository
-                .GetById(id);
+                .GetById(id)
+                .Mapped<ContactUpdateViewModel>();
             _unitOfWork.Dispose();
             if (contantcUpdateResult == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");
                 return RedirectToAction("Index");
             }
-            var updateContactUpdate = new ContactUpdateViewModel
-            {
-                Id          = contantcUpdateResult.Id,
-                ContentAz   = contantcUpdateResult.ContentAz,
-                ContentEn   = contantcUpdateResult.ContentEn,
-                ContentRu   = contantcUpdateResult.ContentRu,
-                TittleAz    = contantcUpdateResult.TittleAz,
-                TittleEn    = contantcUpdateResult.TittleEn,
-                TittleRu    = contantcUpdateResult.TittleRu,
-                Address     = contantcUpdateResult.Address,
-                Email       = contantcUpdateResult.Email,
-                PhoneNumber = contantcUpdateResult.PhoneNumber
-            };
-
-            if (updateContactUpdate == null)
-            {
-                ModelState.AddModelError("", "Errors occured while editing Contact");
-            }
+           
+           
             return View(contantcUpdateResult);
         }
 
@@ -168,20 +154,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (contactUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data is not exist");
+                return RedirectToAction("Index");
             }
-            var updateContactModel = new Contact
-            {
-                Id = contactUpdateViewModel.Id,
-                TittleAz = contactUpdateViewModel.TittleAz,
-                TittleEn = contactUpdateViewModel.TittleEn,
-                TittleRu = contactUpdateViewModel.TittleRu,
-                ContentAz = contactUpdateViewModel.ContentAz,
-                ContentEn = contactUpdateViewModel.ContentEn,
-                ContentRu = contactUpdateViewModel.ContentRu,
-                Address = contactUpdateViewModel.Address,
-                PhoneNumber = contactUpdateViewModel.PhoneNumber,
-                Email = contactUpdateViewModel.Email
-            };
+            var updateContactModel=  contactUpdateViewModel.Mapped<Contact>();
+          
             var contactResult = await _unitOfWork.ContactRepository
                                                     .UpdateAsync(updateContactModel);
             if (!contactResult.IsDone)
