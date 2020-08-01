@@ -19,6 +19,13 @@
     .edit-delete {
         text-align: center;
     }
+
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+
 </style>
 
 <section class="panel common">
@@ -56,7 +63,7 @@
                                     <td class=" ">@item.CreateDate</td>
                                     <td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                                        <a class="delete delete-about about-button" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                     </td>
                                 </tr>
                             }
