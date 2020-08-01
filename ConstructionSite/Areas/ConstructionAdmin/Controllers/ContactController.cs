@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -127,22 +128,25 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var contantcUpdateResult = _unitOfWork.ContactRepository.GetById(id);
+            var contantcUpdateResult =_unitOfWork.ContactRepository
+                .GetById(id);
+            _unitOfWork.Dispose();
             if (contantcUpdateResult == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");
+                return RedirectToAction("Index");
             }
             var updateContactUpdate = new ContactUpdateViewModel
             {
-                Id = contantcUpdateResult.Id,
-                ContentAz = contantcUpdateResult.ContentAz,
-                ContentEn = contantcUpdateResult.ContentEn,
-                ContentRu = contantcUpdateResult.ContentRu,
-                TittleAz = contantcUpdateResult.TittleAz,
-                TittleEn = contantcUpdateResult.TittleEn,
-                TittleRu = contantcUpdateResult.TittleRu,
-                Address = contantcUpdateResult.Address,
-                Email = contantcUpdateResult.Email,
+                Id          = contantcUpdateResult.Id,
+                ContentAz   = contantcUpdateResult.ContentAz,
+                ContentEn   = contantcUpdateResult.ContentEn,
+                ContentRu   = contantcUpdateResult.ContentRu,
+                TittleAz    = contantcUpdateResult.TittleAz,
+                TittleEn    = contantcUpdateResult.TittleEn,
+                TittleRu    = contantcUpdateResult.TittleRu,
+                Address     = contantcUpdateResult.Address,
+                Email       = contantcUpdateResult.Email,
                 PhoneNumber = contantcUpdateResult.PhoneNumber
             };
 

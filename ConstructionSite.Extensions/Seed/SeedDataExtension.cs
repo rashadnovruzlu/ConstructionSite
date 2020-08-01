@@ -4,73 +4,23 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace ConstructionSite.Extensions.Seed
 {
     public static class SeedDataExtension
     {
-        public async static void Seeding(IApplicationBuilder app)
+        public  static  void SeedData(this IApplicationBuilder app)
         {
             var context = app.ApplicationServices.GetRequiredService<ConstructionDbContext>();
             context.Database.Migrate();
-            if (!await context.Abouts.AnyAsync())
+           
+
+         
+
+            if(!context.Contacts.Any())
             {
-                context.Abouts.Add(new About
-                {
-                   TittleAz= "RECENT",
-                   TittleRu= "RECENT",
-                   TittleEn= "RECENT",
-
-                   ContentAz= "Integer rhoncus hendrerit sem egestas porttitor. " +
-                              "Integer et mi sed dolor eleifend pretium quis ut velit. " +
-                              "Nam sit amet arcu feugiat, consequat orci at, ultrices magna. " +
-                              "Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. " +
-                              "Nulla commodo leo eget justo blandit, non sagittis lectus dignissim",
-                   
-                   ContentRu= "Integer rhoncus hendrerit sem egestas porttitor. " +
-                              "Integer et mi sed dolor eleifend pretium quis ut velit. " +
-                              "Nam sit amet arcu feugiat, consequat orci at, ultrices magna. " +
-                              "Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. " +
-                              "Nulla commodo leo eget justo blandit, non sagittis lectus dignissim",
-
-                    ContentEn= "Integer rhoncus hendrerit sem egestas porttitor. " +
-                              "Integer et mi sed dolor eleifend pretium quis ut velit. " +
-                              "Nam sit amet arcu feugiat, consequat orci at, ultrices magna. " +
-                              "Aliquam vestibulum, eros vel venenatis vulputate, erat augue suscipit mi, nec rhoncus velit ipsum sed lorem. " +
-                              "Nulla commodo leo eget justo blandit, non sagittis lectus dignissim"
-                });
-            }
-
-            if(!await context.Images.AnyAsync())
-            {
-                context.Images.Add(new Image
-                {
-
-                });
-            
-            }
-
-            if(!await context.Services.AnyAsync())
-            {
-                context.Services.Add(new Service
-                {
-                    NameAz = "Construction",
-                    NameEn = "Construction",
-                    NameRu = "Construction",
-
-                    TittleAz = "Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. " +
-                               "Nam blandit maximus tristique. Vivamus enim quam.",
-
-                    TittleEn = "Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. " +
-                               "Nam blandit maximus tristique. Vivamus enim quam.",
-
-                    TittleRu = "Sed sit amet sapien sit amet odio lobortis ullamcorper quis vel nisl. " +
-                               "Nam blandit maximus tristique. Vivamus enim quam."
-                });
-            }
-
-            if(!await context.Contacts.AnyAsync())
-            {
+                
                 context.Contacts.Add(new Contact
                 {
                     TittleAz = "GET IN TOUCH WITH US",
@@ -93,6 +43,15 @@ namespace ConstructionSite.Extensions.Seed
                     Email = "contact@construction.com",
                     PhoneNumber = "+1 718-955-2838 or +1 718-955-3290"
                 });
+                if (context.Contacts.Count() > 1)
+                {
+                    var result = context.Contacts.OrderByDescending(x => x.Id)
+                         .Take(1).FirstOrDefault();
+                    var ss = context.Contacts.Where(x => x.Id != result.Id).ToList();
+                    context.Contacts.RemoveRange(ss);
+
+
+                }
             }
 
             context.SaveChanges();
