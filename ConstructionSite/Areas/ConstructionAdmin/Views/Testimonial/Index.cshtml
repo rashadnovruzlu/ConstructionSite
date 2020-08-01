@@ -20,7 +20,9 @@
         border-color: black;
         color: #fff;
     }
-
+    .edit-delete {
+        text-align: center;
+    }
     .edit:hover {
         border-color: black;
     }
@@ -45,8 +47,7 @@
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Full Name</th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Position</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Content</th>
-                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">Edit</th>
-                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Delete: activate to sort column ascending" style="width: 128px;">Delete</th>
+                            <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
                         </tr>
                     </thead>
 
@@ -60,8 +61,10 @@
                                     <td class="sorting_1">@item.FullName</td>
                                     <td class=" ">@item.Position</td>
                                     <td class=" ">@item.Content</td>
-                                    <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Update" asp-route-id="@item.id">Edit</a></td>
-                                    <td class=" "><a class="btn btn-danger delete delete-about about-button" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Delete" asp-route-id="@item.id">Delete</a></td>
+                                    <td class="edit-delete">
+                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Update" asp-route-id="@item.id">Edit</a> |
+                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                                    </td>
                                 </tr>
                             }
                         }

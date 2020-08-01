@@ -15,11 +15,16 @@
             margin-top: 45px !important;
             background-color: RGB(241, 242, 247) !important;
         }
+        .edit-delete {
+            text-align: center;
+        }
+
         .about-button:hover {
             background-color: black !important;
             border-color: black;
             color: #fff;
         }
+
     </style>
 
     <section class="panel common">
@@ -41,11 +46,9 @@
                                 <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Title</th>
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Content</th>
                                 <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">Edit</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Delete: activate to sort column ascending" style="width: 128px;">Delete</th>
+                                <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
                             </tr>
                         </thead>
-
                         <tbody role="alert" aria-live="polite" aria-relevant="all">
                             @if (Model.Any())
                             {
@@ -55,8 +58,10 @@
                                         <td class="sorting_1">@item.Name</td>
                                         <td class=" ">@item.Content</td>
                                         <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
-                                        <td class=" "><a class="edit btn btn-primary about-button" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
-                                        <td class=" "><a class="btn btn-danger" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                                        <td class="edit-delete">
+                                            <a class="edit" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
+                                            <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
                                     </tr>
                                 }
                             }
