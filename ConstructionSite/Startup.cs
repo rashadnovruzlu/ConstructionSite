@@ -62,6 +62,7 @@ namespace ConstructionSite
           
 
             app.SeedRole();
+            app.SeedData();
             app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseRequestLocalization();

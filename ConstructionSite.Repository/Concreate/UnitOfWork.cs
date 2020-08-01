@@ -2,6 +2,7 @@
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Implementations;
 using ConstructionSite.Repository.Interfaces;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace ConstructionSite.Repository.Concreate
         private readonly ConstructionDbContext _context;
         public UnitOfWork(ConstructionDbContext context)
         {
-            _context=context;
+            _context=context?? throw new ArgumentNullException("is null");
         }
         public IAboutImageRepository AboutImageRepository
         {
