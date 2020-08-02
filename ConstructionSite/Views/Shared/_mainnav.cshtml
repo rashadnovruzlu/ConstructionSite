@@ -8,12 +8,19 @@
     var cultureItems = LocOptions.Value.SupportedUICultures
                                     .ToList();
 }
+@section head{ 
+<style>
+    .langdata{
+        padding:10px;
+    }
+</style>
+}
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
         <li class="current-menu-item"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
         <li><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
         <li class="menu-item menu-item-has-children">
-            <a href="#team">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a>
+            <a href="/Services/Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a>
             @await Component.InvokeAsync("ServiceMenu")
         </li>
 
@@ -24,9 +31,9 @@
         @foreach (var item in cultureItems)
         {
             
-            <li><a class="datas_item" data-id="@item.Name">
+            <li><a class="datas_item langdata" data-id="@item.Name">
                 <input class="contexts" type="hidden"  data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()</a></li>
-            @*<li class="datas_item" data-id="@item.Name">@item.NativeName.Substring(0, 2).ToUpper()</li>*@
+         
         }
     </ul>
 </nav>
