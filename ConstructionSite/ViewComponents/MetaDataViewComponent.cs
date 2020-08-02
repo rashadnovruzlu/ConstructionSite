@@ -1,13 +1,11 @@
-﻿using ConstructionSite.DTO.AdminViewModels.ServiceViewComponent;
+﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
@@ -28,18 +26,17 @@ namespace ConstructionSite.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-          
-            //var result= _unitOfWork.ServiceRepository.GetAll()
-            //   .Include(x=>x.SubServices)
-            //   .Include(x=>x.Id)
-            //   .Select(x=>new ServiceMetaData
-            //   {
-            //       ServiceName=x.FindName(_lang),
-            //       SubServiceName=x.SubServices.Where(x=>x.Id==)
-                   
-            //   })
-                
-            return View();
+
+            var result = _unitOfWork.ServiceRepository.GetAll()
+               .Include(x => x.SubServices)
+               .Select(x=>new ServiceMetaData
+               {
+                  Name=x.FindName(_lang)
+               })
+               .ToList();
+
+
+            return View(result);
         }
     }
 }
