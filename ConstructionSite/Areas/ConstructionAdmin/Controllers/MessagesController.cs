@@ -66,6 +66,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "Bad Request");
+                return RedirectToAction("Index");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
