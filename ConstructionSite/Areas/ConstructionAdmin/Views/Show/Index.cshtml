@@ -40,8 +40,9 @@
                     <td class=" ">@item.Content</td>
                     <td class=" ">@item.SendDate</td>
                     <td class="edit-delete">
-
-                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Show" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        <i class="fa fa-trash" aria-hidden="true">
+                            <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Show" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                            </i>
                     </td>
                 </tr>
                     }

@@ -58,7 +58,9 @@
                                     <td class="sorting_1">@item.Address</td>
                                     <td class="sorting_1">@item.PhoneNumber</td>
                                     <td class="sorting_1">@item.Email</td>
-                                    <td class="edit-delete"><a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                                    <td class="edit-delete">
+                                        <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">      <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                                        </i></td>
                                 </tr>
                             }
                         }
