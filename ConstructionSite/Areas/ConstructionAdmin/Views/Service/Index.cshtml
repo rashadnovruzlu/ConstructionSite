@@ -61,9 +61,12 @@
                                     <td class=" ">@item.Tittle</td>
                                     <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
                                     <td class="edit-delete">
-                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                    </td>
+                                        <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">
+                                            <a class="edit" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
+                                            </i>
+                                        <i class="fa fa-trash" aria-hidden="true">       <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </i>
+</td>
                                 </tr>
                             }
                         }

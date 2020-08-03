@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.message;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net;
@@ -7,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    public class MessagesController : Controller
+    [Area(nameof(ConstructionAdmin))]
+    [Authorize(Roles = "Admin")]
+    public class ShowController : Controller
     {
         #region Fields
         private readonly IUnitOfWork _unitOfWork;
         #endregion
 
         #region CTOR
-        public MessagesController(IUnitOfWork unitOfWork)
+        public ShowController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -37,7 +40,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Name = x.Name,
                     IsAnswerd = x.IsAnswerd,
                     SendDate = x.SendDate,
-                    Subject = x.Subject
+                    Subject = x.Subject,
+                    Content=x.UserMessage
                 })
                 .ToList();
             if (messageAllResult == null && messageAllResult.Count < 0)
@@ -49,7 +53,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region DELETE
-        public async Task<IActionResult> Delte(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {

@@ -56,8 +56,12 @@
 
                                     <td class=" ">@item.Name</td>
                                     <td class="edit-delete">
-                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">
+                                            <a class="edit" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                                        </i>|
+                                        <i class="fa fa-trash" aria-hidden="true">
+                                            <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                            </i>
                                     </td>
                                 </tr>
                             }
