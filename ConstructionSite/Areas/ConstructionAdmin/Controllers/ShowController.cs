@@ -40,7 +40,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Name = x.Name,
                     IsAnswerd = x.IsAnswerd,
                     SendDate = x.SendDate,
-                    Subject = x.Subject
+                    Subject = x.Subject,
+                    Content=x.UserMessage
                 })
                 .ToList();
             if (messageAllResult == null && messageAllResult.Count < 0)
@@ -52,7 +53,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region DELETE
-        public async Task<IActionResult> Delte(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
             {
