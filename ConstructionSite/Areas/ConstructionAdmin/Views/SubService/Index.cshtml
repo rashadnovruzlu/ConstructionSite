@@ -59,11 +59,10 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-
                                     <td class="sorting_1">@item.Name</td>
-                                    <td class=" ">@item.Content</td>
+                                    <td class=" ">SubService Content</td>
                                     <td class="img-style">
-                                        <img width="120" height="160" src="@item.ImagePath" alt="Alternate Text" />
+                                        <img width="60" height="60" src="@item.ImagePath" alt="Alternate Text" />
                                     </td>
                                     <td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
