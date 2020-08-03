@@ -55,16 +55,15 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-
                                     <td class="sorting_1 edit-delete">@item.FullName</td>
                                     <td class="edit-delete">@item.Position</td>
                                     <td class="edit-delete">Testimonial Content</td>
                                     <td class="edit-delete">
                                         <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">
                                             <a class="edit" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Update" asp-route-id="@item.id">Edit</a></i> |
-                                        <i class="fa fa-trash" aria-hidden="true">     <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                                        <i class="fa fa-trash" aria-hidden="true"><a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Testimonial" asp-action="Delete" asp-route-id="@item.id">Delete</a>
                                         </i>
-</td>
+                                    </td>
                                 </tr>
                             }
                         }
