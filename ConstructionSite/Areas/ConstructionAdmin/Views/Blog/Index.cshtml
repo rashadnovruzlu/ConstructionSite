@@ -13,7 +13,6 @@
         font-size: 1.2em;
     }
     .common {
-        margin-top: 45px !important;
         background-color: RGB(241, 242, 247) !important;
     }
     .edit-delete {
@@ -25,7 +24,18 @@
         border-color: black;
         color: #fff;
     }
-
+    .img-style {
+        text-align: center;
+    }
+    .edit-icon {
+        color: #6E90EC;
+        padding-right: 7%;
+        font-size: 1.3em;
+    }
+    .delete-icon {
+        color: #F0636A;
+        font-size: 1.3em;
+    }
 </style>
 
 <section class="panel common">
@@ -57,17 +67,13 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-                                    <td class=" ">@item.Title</td>
-                                    <td class=" ">@item.Content</td>
-                                    <td class=" "><img width="50" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
-                                    <td class=" ">@item.CreateDate</td>
-                                    <td class="edit-delete">
-                                        <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">
-                                            <a class="edit" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                        </i>
-                                        <i class="fa fa-trash" aria-hidden="true">
-                                            <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                            </i>
+                                    <td class="img-style">@item.Title</td>
+                                    <td class="img-style">Blog Content</td>
+                                    <td class="img-style"><img width="60" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
+                                    <td class="img-style">@item.CreateDate</td>
+                                    <td class="edit-delete area-margin">
+                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a> 
+                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             }
