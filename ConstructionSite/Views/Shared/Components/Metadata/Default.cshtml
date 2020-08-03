@@ -1,8 +1,0 @@
-﻿@model IEnumerable<ServiceMetaData>
-@inject SharedLocalizationService Localizer
-
-<meta name="description" content=@foreach (var item in Model)
-{
-    @String.Join(' ',item.Name)
-}
-/>
