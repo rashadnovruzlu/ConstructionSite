@@ -11,6 +11,7 @@ namespace ConstructionSite.DTO.AdminViewModels.message
         public string Email { get; set; }
         public string   Subject { get; set; }
         public DateTime SendDate { get; set; }
+        public string Content { get; set; }
         public bool IsAnswerd { get; set; }
        
     }

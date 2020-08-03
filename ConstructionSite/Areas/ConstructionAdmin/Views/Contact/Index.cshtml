@@ -53,12 +53,15 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-                                    <td class="sorting_1 img-style">@item.Tittle</td>
-                                    <td class="img-style">Contact Content</td>
-                                    <td class="sorting_1 img-style">@item.Address</td>
-                                    <td class="sorting_1 img-style">@item.PhoneNumber</td>
-                                    <td class="sorting_1 img-style">@item.Email</td>
-                                    <td class="edit-delete"><a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+
+                                    <td class="sorting_1">@item.Tittle</td>
+                                    <td class=" ">@item.Content</td>
+                                    <td class="sorting_1">@item.Address</td>
+                                    <td class="sorting_1">@item.PhoneNumber</td>
+                                    <td class="sorting_1">@item.Email</td>
+                                    <td class="edit-delete">
+                                        <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">      <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                                        </i></td>
                                 </tr>
                             }
                         }
