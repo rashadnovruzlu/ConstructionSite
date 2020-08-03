@@ -31,6 +31,11 @@
     .img-style{
         text-align: center;
     }
+    .edit-icon {
+        color: #6E90EC;
+        padding-right: 7%;
+        font-size: 1.3em;
+    }
 </style>
 
 <section class="panel common">
@@ -66,7 +71,7 @@
                                     <td class="img-style img-style">About Content</td>
                                     <td class="img-style img-style"><img src="@item.Image" width="60" height="60" alt="Alternate Text" /></td>
                                     <td class="edit-delete">
-                                        <i class="fa fa-pencil-square-o fa-2" aria-hidden="true">     <a class="edit" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></i>
+                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             }
