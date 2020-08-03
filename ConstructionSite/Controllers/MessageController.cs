@@ -13,18 +13,17 @@ namespace ConstructionSite.Controllers
 {
     public class MessageController : Controller
     {
-        private string _lang;
+       
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+      
         private readonly SharedLocalizationService _localizationHandle;
 
         public MessageController(IUnitOfWork unitOfWork,
-                                  IHttpContextAccessor httpContextAccessor,
+                                  
                                   SharedLocalizationService localizationHandle)
         {
             _unitOfWork = unitOfWork;
-            _httpContextAccessor = httpContextAccessor;
-            _lang = httpContextAccessor.getLang();
+          
             _localizationHandle = localizationHandle;
         }
 
