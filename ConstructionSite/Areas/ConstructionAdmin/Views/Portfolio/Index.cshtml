@@ -12,7 +12,6 @@
         font-size: 1.2em;
     }
     .common {
-        margin-top: 45px !important;
         background-color: RGB(241, 242, 247) !important;
     }
     .edit-delete {
@@ -24,7 +23,9 @@
         border-color: black;
         color: #fff;
     }
-
+    .img-style {
+        text-align: center;
+    }
 </style>
 
 <section class="panel common">
@@ -53,8 +54,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-
-                                    <td class=" ">@item.Name</td>
+                                    <td class="img-style">@item.Name</td>
                                     <td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
                                         <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id">Delete</a>

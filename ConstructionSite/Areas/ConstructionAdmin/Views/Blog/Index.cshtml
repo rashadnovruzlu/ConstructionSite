@@ -13,7 +13,6 @@
         font-size: 1.2em;
     }
     .common {
-        margin-top: 45px !important;
         background-color: RGB(241, 242, 247) !important;
     }
     .edit-delete {
@@ -59,10 +58,10 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
-                                    <td class=" ">@item.Title</td>
-                                    <td class=" ">Blog Content</td>
+                                    <td class="img-style">@item.Title</td>
+                                    <td class="img-style">Blog Content</td>
                                     <td class="img-style"><img width="60" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
-                                    <td class=" ">@item.CreateDate</td>
+                                    <td class="img-style">@item.CreateDate</td>
                                     <td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                                         <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
