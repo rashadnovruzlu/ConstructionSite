@@ -3,8 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+  
+  
   </PropertyGroup>
-
+ <PropertyGroup>
+  <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+</PropertyGroup>
   <ItemGroup>
     <Compile Remove="Areas\ConstructionAdmin\Data\**" />
     <Compile Remove="Areas\ConstructionAdmin\Views\Contact\Models\**" />
@@ -42,7 +46,6 @@
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.DTO.csproj" />
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
-    <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
