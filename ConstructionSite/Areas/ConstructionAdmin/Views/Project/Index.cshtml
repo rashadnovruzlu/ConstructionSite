@@ -24,7 +24,9 @@
             border-color: black;
             color: #fff;
         }
-
+        .img-style {
+            text-align: center;
+        }
     </style>
 
     <section class="panel common">
@@ -57,7 +59,7 @@
                                     <tr class="odd">
                                         <td class="sorting_1">@item.Name</td>
                                         <td class=" ">@item.Content</td>
-                                        <td class=" "><img src="@item.Image" width="60" height="80" alt="Alternate Text" /></td>
+                                        <td class="img-style"><img src="@item.Image" width="120" height="160" alt="Alternate Text" /></td>
                                         <td class="edit-delete">
                                             <a class="edit" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id">Edit</a> |
                                             <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
