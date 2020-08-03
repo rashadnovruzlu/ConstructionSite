@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
-  
-  
+  <AspNetCoreHostingModel>InProsses</AspNetCoreHostingModel>
   </PropertyGroup>
- <PropertyGroup>
-  <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+<PropertyGroup>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
 </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Areas\ConstructionAdmin\Data\**" />
