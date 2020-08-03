@@ -5,7 +5,6 @@
 
 <style>
     .add-model {
-        margin-left: 20px;
         background-color: rgb(241,242, 247);
     }
 
@@ -24,69 +23,70 @@
     }
 </style>
 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel add-model">
+                <header class="panel-heading">
+                    Service Update
+                </header>
+                <hr />
+                <div class="panel-body add-body">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="ImageId" value="@Model.ImageId" />
+                        <input type="hidden" name="id" value="@Model.id" />
+                        <div class="form-group ">
+                            <div class="col-lg-10">
+                                <input asp-for="NameAz" class="form-control " id="ccomment" placeholder="Name AZE" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-10">
+                                <input asp-for="NameEn" class="form-control " id="ccomment" placeholder="Name ENG" />
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-10">
+                                <input asp-for="NameRu" class="form-control " id="ccomment" placeholder="Name RU" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10">
+                                <textarea type="text" asp-for="TittleAz" rows="15" id="f-name" class="form-control" placeholder="Title AZE"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10">
+                                <textarea type="text" asp-for="TittleEn" rows="15" id="f-name" class="form-control" placeholder="Title ENG"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-10">
+                                <textarea type="text" asp-for="TittleRu" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-10">
+                                <img src="@Model.path" width="240" height="280" alt="Alternate Text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
 
-<div class="row">
-    <div class="col-lg-12">
-        <section class="panel add-model">
-            <header class="panel-heading">
-                Service Update
-            </header>
-            <hr />
-            <div class="panel-body add-body">
-                <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="ImageId" value="@Model.ImageId" />
-                    <input type="hidden" name="id" value="@Model.id" />
-                    <div class="form-group ">
-                        <div class="col-lg-10">
-                            <input asp-for="NameAz" class="form-control " id="ccomment" placeholder="Name AZE" />
+                            <div class="col-lg-10">
+                                <input type="file" name="file" placeholder="Images" id="f-name" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group ">
-                        <div class="col-lg-10">
-                            <input asp-for="NameEn" class="form-control " id="ccomment" placeholder="Name ENG" />
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <div class="col-lg-10">
-                            <input asp-for="NameRu" class="form-control " id="ccomment" placeholder="Name RU" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-10">
-                            <textarea type="text" asp-for="TittleAz" rows="15" id="f-name" class="form-control" placeholder="Title AZE"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-10">
-                            <textarea type="text" asp-for="TittleEn" rows="15" id="f-name" class="form-control" placeholder="Title ENG"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-10">
-                            <textarea type="text" asp-for="TittleRu" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <div class="col-lg-10">
-                            <img src="@Model.path" width="240" height="280" alt="Alternate Text" />
-                        </div>
-                    </div>
-                    <div class="form-group">
 
-                        <div class="col-lg-10">
-                            <input type="file" name="file" placeholder="Images" id="f-name" class="form-control" />
+                        <div class="form-group" style="margin-left: 63%;">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success about-button" type="submit">Save</button>
+                                <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group" style="margin-left: 63%;">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <button class="btn btn-success about-button" type="submit">Save</button>
-                            <button class="btn btn-default cancel-button" type="button">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </section>
+                    </form>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
 
