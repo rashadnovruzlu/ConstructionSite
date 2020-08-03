@@ -63,7 +63,7 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
     }
 }
