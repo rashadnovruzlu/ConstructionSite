@@ -20,9 +20,10 @@
     <link rel="stylesheet" type="text/css" href="~/style.css">
     <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
     <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALbpyx9AJ-esItiKCkh7rezjoT2z9xaAg&callback=initMap&libraries=&v=weekly"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAg_qMijcesYvYrubm2DqAczXdvqjo8FIA&callback=initMap">
+    </script>
     <!-- load cubeportfolio jQuery plugin -->
-    <script src="~/customer/js/map.js"></script>
+  
     <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
     @RenderSection("head", false)
 
@@ -118,7 +119,7 @@
     <!-- /#wrapper -->
 
     <a id="scroll-top">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Top)</a>
-   
+
     <!-- Javascript -->
     <partial name="Javascript" />
 
@@ -126,7 +127,8 @@
     <partial name="Revolution" />
     <script type="text/javascript" src="~/Component.js">
     </script>
-  
+   
+   
     @RenderSection("Scrips", false)
 </body>
 </html>
