@@ -9,6 +9,317 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\about\18d9e9d2-4192-4471-8255-3291b2584e36.jpg" />
+    <None Remove="images\about\4113e935-b912-4285-870d-7dc90c38fbb3.jpg" />
+    <None Remove="images\about\44d37322-19df-4317-bbe1-2442554bd418.jpg" />
+    <None Remove="images\about\4e850c64-c4c9-49b4-9b49-23605c5c9f12.jpg" />
+    <None Remove="images\about\7e49d675-d472-452b-bca4-d486f9087f5b.jpg" />
+    <None Remove="images\about\aed55c47-5c82-4eb6-9245-4310ebbe070e.jpeg" />
+    <None Remove="images\News\157bdfa2-d776-440c-9baf-5ffd201e1467.jpg" />
+    <None Remove="images\News\1d423a49-efd8-4456-9a4a-89a6ceec49ff.jpg" />
+    <None Remove="images\News\1fd72e23-2b20-4626-9cb4-b0916ab6ad04.jpg" />
+    <None Remove="images\News\21d46834-e42c-4f48-9f69-1f45204d54c3.jpg" />
+    <None Remove="images\News\31c78f29-167a-442b-89fb-8f02b084af09.jpg" />
+    <None Remove="images\News\41263c55-5466-4f64-8587-3ecd0fb6b2fc.jpg" />
+    <None Remove="images\News\42759193-4e28-4460-a475-b87349286cdb.jpg" />
+    <None Remove="images\News\6f04228a-8d32-4124-b934-e4432d00733e.jpg" />
+    <None Remove="images\News\891e048c-cc0c-4c11-85b3-fd938ce6a388.jpg" />
+    <None Remove="images\News\914c047d-622a-43fd-b248-e1a346b23d84.jpg" />
+    <None Remove="images\News\99d4958b-f1c8-4d4b-bab3-259281e7fb32.jpg" />
+    <None Remove="images\News\9a26892f-b89d-4a9f-b62d-755ba613eaea.jpg" />
+    <None Remove="images\News\a40b804f-7c59-4379-91ab-73e743beb5b5.jpg" />
+    <None Remove="images\News\a43bb8eb-a721-45a6-90ed-3f1a457223df.jpg" />
+    <None Remove="images\News\a5cd3cfe-1137-4af6-ad66-6da750a2458e.jpeg" />
+    <None Remove="images\News\c93dbc49-1275-48d1-856f-5598521570b4.jpg" />
+    <None Remove="images\News\c9e18e43-3508-4497-904d-394479113bfc.jpg" />
+    <None Remove="images\News\d12f23d0-f76d-4480-b94a-a72b5648c9d7.jpg" />
+    <None Remove="images\News\e7a1310f-74ef-4965-b0b9-b71aaeff7be1.jpg" />
+    <None Remove="images\News\eb797957-8cdf-4461-9ec0-540117ed201b.jpeg" />
+    <None Remove="images\project\2096529c-4f5b-42a6-af89-55585844a151.jpg" />
+    <None Remove="images\project\2f586887-daf7-4ebe-bfd5-731ee43d5a93.jpg" />
+    <None Remove="images\project\43620aa2-ee26-4852-bfe5-e40bf08c3d9f.jpg" />
+    <None Remove="images\project\466c0d62-82b0-41cc-9377-b7042cc27630.jpg" />
+    <None Remove="images\project\4b7d7aab-8166-408f-b627-7b13833863a0.jpg" />
+    <None Remove="images\project\4cf7af2c-99ad-4fd0-bc3e-3b0ca8622dec.png" />
+    <None Remove="images\project\4e84cecb-c608-4dc3-9420-a7bc60b69bbd.jpg" />
+    <None Remove="images\project\50494031-e5a3-4692-9c20-03f57a96d556.jpg" />
+    <None Remove="images\project\51f15b84-e7b8-46fc-af99-a0b32fe0358b.jpg" />
+    <None Remove="images\project\55424712-7ab9-4fbb-904e-0732657ec80b.jpg" />
+    <None Remove="images\project\6443dc49-05b3-4ba6-947e-dc3d4748f8dd.jpg" />
+    <None Remove="images\project\83c30847-dd19-4195-867e-35516ff6d523.jpg" />
+    <None Remove="images\project\95f08c83-9a80-4b08-bed0-4ea9e8db9ca8.jpg" />
+    <None Remove="images\project\99352cbf-5a35-4b2c-a3cd-b3bcc3610763.jpg" />
+    <None Remove="images\project\adb72861-2cfc-4c9a-b4ab-fbdb74b081de.jpg" />
+    <None Remove="images\project\ae29188f-4979-425d-acfd-c10fa4b1a73d.jpg" />
+    <None Remove="images\project\b1c06dbb-cf77-4c59-a10e-e701496a65ea.jpg" />
+    <None Remove="images\project\b4b41d3a-11ed-4f5c-9803-eb54641966f3.jpg" />
+    <None Remove="images\project\d9ca8d64-825f-40f5-8df3-421fa287beed.jpg" />
+    <None Remove="images\project\e057911c-5621-44a8-bc0c-e3175211cf7d.jpg" />
+    <None Remove="images\project\e5a6d66f-4812-4ca6-90d1-c1f999c733ee.jpg" />
+    <None Remove="images\project\e7cfa0df-1e98-41c5-b058-eaeac4ef3834.jpg" />
+    <None Remove="images\service\0bb17329-66ad-47c7-899f-019035f1388a.jpg" />
+    <None Remove="images\service\0f12c4f8-b1b4-47c8-b8c9-5709722e0a37.jpg" />
+    <None Remove="images\service\8428d167-f73f-4e8f-a10c-efeac138ad3b.jpg" />
+    <None Remove="images\service\96f98541-f664-45de-b0dd-e8feaa9c7080.jpg" />
+    <None Remove="images\subserver\18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" />
+    <None Remove="images\subserver\29f9a7ad-b770-41f1-8a78-0c0f4e48f880.jpg" />
+    <None Remove="images\subserver\6a8549f6-7fe9-4b39-89c0-ff069ef992b7.png" />
+    <None Remove="images\subserver\87b89885-083c-4d82-bfa7-fe5ac0934992.jpg" />
+    <None Remove="images\subserver\9e5e169a-28d0-4e16-ad8c-b31ea6a41ba9.jpeg" />
+    <None Remove="images\subserver\a242dba1-9e78-4239-9c9f-d7d99f9ee036.jpg" />
+    <None Remove="images\subserver\ad9ef2b2-96f1-4e60-a480-bc562c82df01.jpg" />
+    <None Remove="images\subserver\bad627c8-000a-4a70-99a0-6b1948820755.jpg" />
+    <None Remove="images\subserver\fa6a1444-5a0f-43c8-ad94-710800f745c7.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="images\about\18d9e9d2-4192-4471-8255-3291b2584e36.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\about\4113e935-b912-4285-870d-7dc90c38fbb3.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\about\44d37322-19df-4317-bbe1-2442554bd418.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\about\4e850c64-c4c9-49b4-9b49-23605c5c9f12.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\about\7e49d675-d472-452b-bca4-d486f9087f5b.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\about\aed55c47-5c82-4eb6-9245-4310ebbe070e.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\157bdfa2-d776-440c-9baf-5ffd201e1467.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\1d423a49-efd8-4456-9a4a-89a6ceec49ff.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\1fd72e23-2b20-4626-9cb4-b0916ab6ad04.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\21d46834-e42c-4f48-9f69-1f45204d54c3.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\31c78f29-167a-442b-89fb-8f02b084af09.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\41263c55-5466-4f64-8587-3ecd0fb6b2fc.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\42759193-4e28-4460-a475-b87349286cdb.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\6f04228a-8d32-4124-b934-e4432d00733e.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\891e048c-cc0c-4c11-85b3-fd938ce6a388.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\914c047d-622a-43fd-b248-e1a346b23d84.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\99d4958b-f1c8-4d4b-bab3-259281e7fb32.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\9a26892f-b89d-4a9f-b62d-755ba613eaea.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\a40b804f-7c59-4379-91ab-73e743beb5b5.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\a43bb8eb-a721-45a6-90ed-3f1a457223df.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\a5cd3cfe-1137-4af6-ad66-6da750a2458e.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\c93dbc49-1275-48d1-856f-5598521570b4.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\c9e18e43-3508-4497-904d-394479113bfc.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\d12f23d0-f76d-4480-b94a-a72b5648c9d7.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\e7a1310f-74ef-4965-b0b9-b71aaeff7be1.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\News\eb797957-8cdf-4461-9ec0-540117ed201b.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\2096529c-4f5b-42a6-af89-55585844a151.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\2f586887-daf7-4ebe-bfd5-731ee43d5a93.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\43620aa2-ee26-4852-bfe5-e40bf08c3d9f.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\466c0d62-82b0-41cc-9377-b7042cc27630.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\4b7d7aab-8166-408f-b627-7b13833863a0.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\4cf7af2c-99ad-4fd0-bc3e-3b0ca8622dec.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\4e84cecb-c608-4dc3-9420-a7bc60b69bbd.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\50494031-e5a3-4692-9c20-03f57a96d556.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\51f15b84-e7b8-46fc-af99-a0b32fe0358b.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\55424712-7ab9-4fbb-904e-0732657ec80b.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\6443dc49-05b3-4ba6-947e-dc3d4748f8dd.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\83c30847-dd19-4195-867e-35516ff6d523.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\95f08c83-9a80-4b08-bed0-4ea9e8db9ca8.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\99352cbf-5a35-4b2c-a3cd-b3bcc3610763.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\adb72861-2cfc-4c9a-b4ab-fbdb74b081de.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\ae29188f-4979-425d-acfd-c10fa4b1a73d.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\b1c06dbb-cf77-4c59-a10e-e701496a65ea.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\b4b41d3a-11ed-4f5c-9803-eb54641966f3.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\d9ca8d64-825f-40f5-8df3-421fa287beed.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\e057911c-5621-44a8-bc0c-e3175211cf7d.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\e5a6d66f-4812-4ca6-90d1-c1f999c733ee.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\project\e7cfa0df-1e98-41c5-b058-eaeac4ef3834.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\service\0bb17329-66ad-47c7-899f-019035f1388a.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\service\0f12c4f8-b1b4-47c8-b8c9-5709722e0a37.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\service\8428d167-f73f-4e8f-a10c-efeac138ad3b.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\service\96f98541-f664-45de-b0dd-e8feaa9c7080.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\29f9a7ad-b770-41f1-8a78-0c0f4e48f880.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\6a8549f6-7fe9-4b39-89c0-ff069ef992b7.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\87b89885-083c-4d82-bfa7-fe5ac0934992.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\9e5e169a-28d0-4e16-ad8c-b31ea6a41ba9.jpeg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\a242dba1-9e78-4239-9c9f-d7d99f9ee036.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\ad9ef2b2-96f1-4e60-a480-bc562c82df01.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\bad627c8-000a-4a70-99a0-6b1948820755.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="images\subserver\fa6a1444-5a0f-43c8-ad94-710800f745c7.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.3" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />

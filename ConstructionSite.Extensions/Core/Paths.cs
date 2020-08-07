@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace ConstructionSite.Extensions.Core
 {
-   public static class Paths
+    public static class Paths
     {
         public static string createfilePathSaveHardDisk(IWebHostEnvironment _env, string subFolder, string FileNameAfterReName, string _IMAGE)
         {
@@ -15,6 +12,7 @@ namespace ConstructionSite.Extensions.Core
         }
         public static string createFilePathSaveDataBase(string subFolder, string FileNameAfterReName,string _IMAGE)
         {
+            string str= Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
             return "/" + Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
         }
     }
