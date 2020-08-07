@@ -74,22 +74,26 @@ namespace ConstructionSite.Controllers
             return View(data);
         }
 
-        public async Task<IActionResult> Detail(int id)
+        public IActionResult Detail(int id)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var newsImageResult = await _unitOfWork.newsImageRepository.GetByIdAsync(id);
-
+            var newsImageResult =  _unitOfWork.newsImageRepository
+                .GetAll()
+                .Include(x=>x.News)
+                .Include(x=>x.Image)
+                .FirstOrDefault(x=>x.NewsId==id);
+           
             if (newsImageResult==null)
             {
                return RedirectToAction("Index");
             }
             var blogDetalyeViewModel = new BlogDetalyeViewModel
             {
-                Id = newsImageResult.Id,
+                Id = newsImageResult.NewsId,
                 Title = newsImageResult.News.FindTitle(_lang),
                 Content = newsImageResult.News.FindContent(_lang),
                 dateTime = newsImageResult.News.CreateDate,
