@@ -77,14 +77,7 @@ namespace ConstructionSite
             app.UseAuthentication();
             app.UseAuthorization();
            
-            app.UseFileServer(new FileServerOptions()
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "node_modules")
-                ),
-                RequestPath = "/node_modules",
-                EnableDirectoryBrowsing = false
-            });
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
