@@ -83,6 +83,10 @@ namespace ConstructionSite.Controllers
             }
             var newsImageResult = await _unitOfWork.newsImageRepository.GetByIdAsync(id);
 
+            if (newsImageResult==null)
+            {
+               return RedirectToAction("Index");
+            }
             var blogDetalyeViewModel = new BlogDetalyeViewModel
             {
                 Id = newsImageResult.Id,
