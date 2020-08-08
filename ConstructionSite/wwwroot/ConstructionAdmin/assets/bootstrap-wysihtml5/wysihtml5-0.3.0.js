@@ -3983,7 +3983,7 @@ wysihtml5.browser = (function() {
         realUrl = "http://" + realUrl;
       }
       
-      return '<a href="' + realUrl + '">' + displayUrl + '</a>' + punctuation;
+      return '<a href="~/' + realUrl + '">' + displayUrl + '</a>' + punctuation;
     });
   }
   
@@ -5503,7 +5503,7 @@ wysihtml5.dom.replaceWithChildNodes = function(node) {
       if (stylesheets) {
         length = stylesheets.length;
         for (; i<length; i++) {
-          html += '<link rel="stylesheet" href="' + stylesheets[i] + '">';
+          html += '<link rel="stylesheet" href="~/' + stylesheets[i] + '">';
         }
       }
       templateVars.stylesheets = html;
@@ -5772,10 +5772,10 @@ wysihtml5.quirks.cleanPastedHTML = (function() {
 //
 // In Firefox this:
 //      var d = document.createElement("div");
-//      d.innerHTML ='<a href="~"></a>';
+//      d.innerHTML ='<a href="~/~"></a>';
 //      d.innerHTML;
 // will result in:
-//      <a href="%7E"></a>
+//      <a href="~/%7E"></a>
 // which is wrong
 (function(wysihtml5) {
   var TILDE_ESCAPED = "%7E";
@@ -8147,7 +8147,7 @@ wysihtml5.views.View = Base.extend(
       }
 
       // Assuming we have the following:
-      //  <a href="http://www.google.de">http://www.google.de</a>
+      //  <a href="~/http://www.google.de">http://www.google.de</a>
       // If a user now changes the url in the innerHTML we want to make sure that
       // it's synchronized with the href attribute (as long as the innerHTML is still a url)
       var // Use a live NodeList to check whether there are any links in the document
@@ -8885,7 +8885,7 @@ wysihtml5.views.Textarea = wysihtml5.views.View.extend(
      * and inserts them in their corresponding dialog input fields
      * 
      * Assume the "elementToChange" looks like this:
-     *    <a href="http://www.google.com" target="_blank">foo</a>
+     *    <a href="~/http://www.google.com" target="_blank">foo</a>
      *
      * and we have the following dialog:
      *    <input type="text" data-wysihtml5-dialog-field="href" value="">

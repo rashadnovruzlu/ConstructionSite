@@ -244,7 +244,7 @@
     <value />
   </data>
   <data name="News" xml:space="preserve">
-    <value />
+    <value>Новости</value>
   </data>
   <data name="NoEmailsWereFound" xml:space="preserve">
     <value />
@@ -304,7 +304,7 @@
     <value />
   </data>
   <data name="Services" xml:space="preserve">
-    <value />
+    <value>Сервисы</value>
   </data>
   <data name="SomethingIsWrong" xml:space="preserve">
     <value />
@@ -364,7 +364,7 @@
     <value />
   </data>
   <data name="WhatIsIncluded" xml:space="preserve">
-    <value />
+    <value>ЧТО ВХОДИТ В КОМПЛЕКТ</value>
   </data>
   <data name="WhyChooseUs" xml:space="preserve">
     <value />

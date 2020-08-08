@@ -15,7 +15,7 @@ Just add the following lines to the `head` of your website:
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"></script>
 
-    <link rel="stylesheet"type="text/css" href="/path/to/jquery.easy-pie-chart.css">
+    <link rel="stylesheet"type="text/css" href="~//path/to/jquery.easy-pie-chart.css">
 
 The second step is to add a element to your site to represent chart and add the `data-percent` attribute with the percent number the pie chart should have:
 

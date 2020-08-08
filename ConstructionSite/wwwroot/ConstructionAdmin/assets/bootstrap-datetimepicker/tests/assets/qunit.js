@@ -766,7 +766,7 @@ QUnit.load = function() {
 	}
 	var banner = id("qunit-header");
 	if ( banner ) {
-		banner.innerHTML = '<a href="' + QUnit.url({ filter: undefined }) + '"> ' + banner.innerHTML + '</a> ' + urlConfigHtml;
+		banner.innerHTML = '<a href="~/' + QUnit.url({ filter: undefined }) + '"> ' + banner.innerHTML + '</a> ' + urlConfigHtml;
 		addEvent( banner, "change", function( event ) {
 			var params = {};
 			params[ event.target.name ] = event.target.checked ? true : undefined;

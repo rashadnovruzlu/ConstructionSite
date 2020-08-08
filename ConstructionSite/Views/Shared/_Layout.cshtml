@@ -7,27 +7,27 @@
     <!-- Basic Page Needs -->
     <meta charset="utf-8" />
 
-    <title>Construction - @ViewData["Title"]</title>
-   
-    <meta name="description"  descriptions />
-    <meta name="keywords" metapage/>
-    <meta name="author" content="blogwp.com" />
+    <title>PDC.az</title>
+
+    <meta name="description" descriptions />
+    <meta name="keywords" metapage />
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
-    <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
-    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />
-
-    <!-- load cubeportfolio jQuery plugin -->
-    <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-    @RenderSection("head", false)
 
     <!-- Favicon and touch icons  -->
     <link rel="shortcut icon" href="~/assets/img/logo-light.png">
     <link rel="apple-touch-icon-precomposed" href="~/assets/icon/apple-touch-icon-158-precomposed.png" />
+
+    @*<link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
+    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />*@
+
+    <!-- load cubeportfolio jQuery plugin -->
+    <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+    @RenderSection("head", false)
 
     <style>
         body::-webkit-scrollbar {
@@ -42,10 +42,7 @@
             box-shadow: inset 0 0 1px 1px #5C6670;
         }
     </style>
-  
-
 </head>
-
 
 <body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
     <div id="top"></div>
@@ -68,7 +65,7 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                            <partial name="_mainnav" />
+                            <partial name="_Mainnav" />
                             <!-- /#main-nav -->
                             @*@await Html.PartialAsync("Language")*@
                         </div>
@@ -78,7 +75,6 @@
                 <!-- /#site-header -->
 
             </div>
-
 
             @RenderBody()
 

@@ -820,7 +820,7 @@ var sh = {
 		 */
 		getButtonHtml: function(highlighter, commandName, label)
 		{
-			return '<span><a href="#" class="toolbar_item'
+			return '<span><a href="~/#" class="toolbar_item'
 				+ ' command_' + commandName
 				+ ' ' + commandName
 				+ '">' + label + '</a></span>'
@@ -1709,7 +1709,7 @@ function processUrls(code)
 			suffix = match[2];
 		}
 		
-		return '<a href="' + m + '">' + m + '</a>' + suffix;
+		return '<a href="~/' + m + '">' + m + '</a>' + suffix;
 	});
 };
 
