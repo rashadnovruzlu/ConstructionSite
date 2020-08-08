@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Index";
+}
 <div class="rev_slider_wrapper fullwidthbanner-container">
     <div id="rev-slider1" class="rev_slider fullwidthabanner">
         <ul>
@@ -150,7 +152,7 @@
                     @await Component.InvokeAsync("About")
                     @await Component.InvokeAsync("Service")
                     @await Component.InvokeAsync("Portfolio")
-                 
+
 
                     @await Component.InvokeAsync("Testimonial")
                 </div>
@@ -161,7 +163,6 @@
 
         </div>
         <!-- /.container -->
-
         @(await Component.InvokeAsync("Blog"))
         <section id="contact" class="wprt-section">
             <div class="container">

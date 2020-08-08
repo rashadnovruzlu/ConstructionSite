@@ -1,6 +1,8 @@
 ﻿@model PaginModel<NewsViewModel>
 @inject SharedLocalizationService Localizer
-
+@{
+    ViewData["Title"] = "Index";
+}
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
@@ -16,8 +18,8 @@
     <div id="content-wrap" class="container">
         <div id="site-content" class="site-content clearfix" style="width: 100%">
             <div id="inner-content" class="inner-content-wrap">
-               @foreach (var item in Model.Paging)
-               {
+                @foreach (var item in Model.Paging)
+                {
                     <article class="hentry">
                         <div class="post-media clearfix">
                             <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id"><img src="@item.Imagepath" alt="image"></a>
@@ -60,9 +62,9 @@
 
                     </article>
                 }
-            <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List">
-               
-            </div>
+                <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List">
+
+                </div>
             </div>
             <!-- /.inner-content-wrap -->
 
