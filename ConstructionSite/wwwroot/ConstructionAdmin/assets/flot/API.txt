@@ -151,7 +151,7 @@ clickable:
 
   labelFormatter: function(label, series) {
     // series is the series object for the label
-    return '<a href="#' + label + '">' + label + '</a>';
+    return '<a href="~/#' + label + '">' + label + '</a>';
   }
 
 "noColumns" is the number of columns to divide the legend table into.

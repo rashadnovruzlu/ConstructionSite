@@ -569,7 +569,7 @@
 
         selector = this.selector
           + '[data-target="' + target + '"],'
-          + this.selector + '[href="' + target + '"]'
+          + this.selector + '[href="~/' + target + '"]'
 
         active = $(selector)
           .parent('li')
@@ -2141,7 +2141,7 @@
     source: []
   , items: 8
   , menu: '<ul class="typeahead dropdown-menu"></ul>'
-  , item: '<li><a href="#"></a></li>'
+  , item: '<li><a href="~/#"></a></li>'
   , minLength: 1
   }
 

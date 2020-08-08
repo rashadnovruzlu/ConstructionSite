@@ -48,7 +48,7 @@
 	 * highly flexible tool, based upon the foundations of progressive 
 	 * enhancement, which will add advanced interaction controls to any 
 	 * HTML table. For a full list of features please refer to
-	 * <a href="http://datatables.net">DataTables.net</a>.
+	 * <a href="~/http://datatables.net">DataTables.net</a>.
 	 *
 	 * Note that the <i>DataTable</i> object is not a global variable but is
 	 * aliased to <i>jQuery.fn.DataTable</i> and <i>jQuery.fn.dataTable</i> through which 

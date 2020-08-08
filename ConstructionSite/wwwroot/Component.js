@@ -10,9 +10,4 @@ $(document).ready(function () {
         id = $(this).data("id");
         $("#grid-container").load(`/Portfolio/Project/${id}`);
     });
-  
-
-
-
-
 });
