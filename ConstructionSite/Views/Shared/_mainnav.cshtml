@@ -30,10 +30,8 @@
 
         @foreach (var item in cultureItems)
         {
-            
             <li><a class="datas_item langdata" data-id="@item.Name">
-                <input class="contexts" type="hidden"  data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()</a></li>
-         
+            <input class="contexts" type="hidden"  data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()</a></li>
         }
     </ul>
 </nav>
