@@ -101,6 +101,7 @@ namespace ConstructionSite.Helpers.Constants
 
         #region Region
         public const string ReadMore = "ReadMore";
+        public const string THEBESTCOMPANY= "THEBESTCOMPANY";
         #endregion
 
         #region Portfolio

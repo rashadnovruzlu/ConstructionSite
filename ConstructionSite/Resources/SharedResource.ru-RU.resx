@@ -321,11 +321,14 @@
   <data name="Testimonials" xml:space="preserve">
     <value>Отзывы</value>
   </data>
+  <data name="THEBESTCOMPANY" xml:space="preserve">
+    <value>ЛУЧШАЯ КОМПАНИЯ</value>
+  </data>
   <data name="THECONSTRUCTION" xml:space="preserve">
     <value>ПОСТРОЙКА</value>
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
-    <value />
+    <value>электронной почты</value>
   </data>
   <data name="ThePasswordFieldisRequired" xml:space="preserve">
     <value />
@@ -361,16 +364,16 @@
     <value />
   </data>
   <data name="UserNotFound" xml:space="preserve">
-    <value />
+    <value>Пользователь не найден</value>
   </data>
   <data name="WeUseTechnologyToDoTheJobMoreQuickly" xml:space="preserve">
     <value />
   </data>
   <data name="WhatIsIncluded" xml:space="preserve">
-    <value />
+    <value>Что входит в комплект</value>
   </data>
   <data name="WhyChooseUs" xml:space="preserve">
-    <value />
+    <value>Почему выбрали нас</value>
   </data>
   <data name="YourPasswordHasBeenSuccessfullyReset" xml:space="preserve">
     <value />
