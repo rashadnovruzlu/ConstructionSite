@@ -39,7 +39,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
-            _lang = _httpContextAccessor.getLang();
+            _lang = _httpContextAccessor.getLanguages();
         }
         #endregion
 

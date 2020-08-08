@@ -26,7 +26,7 @@ namespace ConstructionSite.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
-            _lang = _httpContextAccessor.getLang();
+            _lang = _httpContextAccessor.getLanguages();
             _sharedLocalizationService = sharedLocalizationService;
         }
 
@@ -65,7 +65,7 @@ namespace ConstructionSite.Controllers
                        ID = x.Project.Id,
                        Content = x.Project.FindContent(_lang),
                        Name = x.Project.FindName(_lang),
-                       Image=x.Image.Path,
+                       Image = x.Image.Path,
                        Images = x.Project.ProjectImages.Select(y => y.Image.Path).ToList()
                    }).FirstOrDefault(x => x.ID == id);
             return View(result);

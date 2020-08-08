@@ -21,7 +21,7 @@ namespace ConstructionSite.Controllers
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _localizationHandle = localizationHandle;
-            _lang = _httpContextAccessor.getLang();
+            _lang = _httpContextAccessor.getLanguages();
         }
 
         public IActionResult Index()

@@ -9,16 +9,12 @@ namespace ConstructionSite.Injections
 {
    public static class RequestCurrentLang
     {
-        public static string getLang(this IHttpContextAccessor _httpContextAccessor)
+        public static string getLanguages(this IHttpContextAccessor _httpContextAccessor)
         {
-            var httpContext= _httpContextAccessor.HttpContext;
-            var data =httpContext.Request;
-          
-
-            var rqf = data.HttpContext.Features.Get<IRequestCultureFeature>();
-            
-            var culture = rqf.RequestCulture.UICulture;
-            return culture.Name;
+           var data = _httpContextAccessor.HttpContext.Request;
+            var requestCultureFeature = data.HttpContext.Features.Get<IRequestCultureFeature>();
+            var requestCulture = requestCultureFeature.RequestCulture.UICulture;
+            return requestCulture.Name;
         }
     }
 }

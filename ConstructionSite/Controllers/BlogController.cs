@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
@@ -27,7 +26,7 @@ namespace ConstructionSite.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
-            _lang = _httpContextAccessor.getLang();
+            _lang = _httpContextAccessor.getLanguages();
             _localizationHandle = localizationHandle;
         }
 
@@ -81,15 +80,15 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var newsImageResult =  _unitOfWork.newsImageRepository
+            var newsImageResult = _unitOfWork.newsImageRepository
                 .GetAll()
-                .Include(x=>x.News)
-                .Include(x=>x.Image)
-                .FirstOrDefault(x=>x.NewsId==id);
-           
-            if (newsImageResult==null)
+                .Include(x => x.News)
+                .Include(x => x.Image)
+                .FirstOrDefault(x => x.NewsId == id);
+
+            if (newsImageResult == null)
             {
-               return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             var blogDetalyeViewModel = new BlogDetalyeViewModel
             {

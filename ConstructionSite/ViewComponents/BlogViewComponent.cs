@@ -24,7 +24,7 @@ namespace ConstructionSite.ViewComponents
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
             _localizationHandle = localizationHandle;
-            _lang = _contextAccessor.getLang();
+            _lang = _contextAccessor.getLanguages();
         }
 
         public IViewComponentResult Invoke()

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConstructionSite.DTO.FrontViewModels.Service
 {
-   public class SingleService
+   public class SingleServiceViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
