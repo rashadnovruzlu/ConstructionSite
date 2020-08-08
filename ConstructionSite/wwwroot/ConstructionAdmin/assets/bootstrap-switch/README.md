@@ -14,8 +14,8 @@ Usage
 Just include Twitter Bootstrap, jQuery, Bootstrap Switch CSS and Javascript
 ``` html
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8;" />
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
-<link rel="stylesheet" href="bootstrap-switch.css">
+<link rel="stylesheet" href="~/http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css">
+<link rel="stylesheet" href="~/bootstrap-switch.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="bootstrap-switch.js"></script>  // master

@@ -8,26 +8,26 @@
     <meta charset="utf-8" />
 
     <title>Construction - @ViewData["Title"]</title>
-   
-    <meta name="description"  descriptions />
-    <meta name="keywords" metapage/>
-    <meta name="author" content="blogwp.com" />
+
+    <meta name="description" descriptions />
+    <meta name="keywords" metapage />
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
     <link rel="stylesheet" type="text/css" href="~/style.css">
-    <link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
-    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />
-
-    <!-- load cubeportfolio jQuery plugin -->
-    <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-    @RenderSection("head", false)
 
     <!-- Favicon and touch icons  -->
     <link rel="shortcut icon" href="~/assets/img/logo-light.png">
     <link rel="apple-touch-icon-precomposed" href="~/assets/icon/apple-touch-icon-158-precomposed.png" />
+
+    @*<link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
+    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />*@
+
+    <!-- load cubeportfolio jQuery plugin -->
+    <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+    @RenderSection("head", false)
 
     <style>
         body::-webkit-scrollbar {
@@ -42,7 +42,7 @@
             box-shadow: inset 0 0 1px 1px #5C6670;
         }
     </style>
-  
+
 
 </head>
 
@@ -85,6 +85,13 @@
             <!-- Footer -->
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
+                    <div id="site-logo" class="clearfix">
+                        <div id="site-logo-inner">
+                            <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
+                                <img src="~/assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light.png" data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: -8px;  background-color: white;">
+                            </a>
+                        </div>
+                    </div>
                     <div class="row">
 
                         @await Component.InvokeAsync("Adress")

@@ -9,7 +9,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 <head>
 	<meta charset="utf-8">
 	<title>Sample &mdash; CKEditor</title>
-	<link rel="stylesheet" href="sample.css">
+	<link rel="stylesheet" href="~/sample.css">
 </head>
 <body>
 	<h1 class="samples">
@@ -49,10 +49,10 @@ foreach ( $postArray as $sForm => $value )
 	<div id="footer">
 		<hr>
 		<p>
-			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+			CKEditor - The text editor for the Internet - <a class="samples" href="~/http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2013, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+			Copyright &copy; 2003-2013, <a class="samples" href="~/http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
 		</p>
 	</div>
 </body>

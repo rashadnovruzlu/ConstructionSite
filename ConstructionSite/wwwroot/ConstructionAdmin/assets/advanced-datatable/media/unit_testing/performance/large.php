@@ -12,7 +12,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="~/http://www.datatables.net/favicon.ico" />
 		
 		<title>DataTables example</title>
 		<style type="text/css" title="currentStyle">
@@ -81,7 +81,7 @@
 	while ( $aRow = mysql_fetch_array( $rResult ) )
 	{
 		echo '<tr>';
-		echo '<td><a href="1">'.$aRow['id'].'</a></td>';
+		echo '<td><a href="~/1">'.$aRow['id'].'</a></td>';
 		echo '<td>'.$aRow['name'].'</td>';
 		echo '<td>'.$aRow['phone'].'</td>';
 		echo '<td>'.$aRow['email'].'</td>';

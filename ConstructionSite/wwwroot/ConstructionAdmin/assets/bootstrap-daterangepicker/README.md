@@ -23,8 +23,8 @@ Basic usage:
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="date.js"></script>
 <script type="text/javascript" src="daterangepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="~/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="~/daterangepicker.css" />
 
 <script type="text/javascript">
 $(document).ready(function() {

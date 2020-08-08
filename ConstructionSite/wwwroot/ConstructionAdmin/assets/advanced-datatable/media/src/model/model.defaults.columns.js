@@ -429,7 +429,7 @@ DataTable.defaults.columns = {
 	 *          "aTargets": [ 0 ],
 	 *          "mData": "download_link",
 	 *          "mRender": function ( data, type, full ) {
-	 *            return '<a href="'+data+'">Download</a>';
+	 *            return '<a href="~/'+data+'">Download</a>';
 	 *          }
 	 *        ]
 	 *      } );

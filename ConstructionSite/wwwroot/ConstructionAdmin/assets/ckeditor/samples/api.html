@@ -8,7 +8,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	<meta charset="utf-8">
 	<title>API Usage &mdash; CKEditor Sample</title>
 	<script src="../ckeditor.js"></script>
-	<link href="sample.css" rel="stylesheet">
+	<link href="~/sample.css" rel="stylesheet">
 	<script>
 
 // The instanceReady event is fired, when an instance of CKEditor has finished
@@ -122,12 +122,12 @@ function onBlur() {
 </head>
 <body>
 	<h1 class="samples">
-		<a href="index.html">CKEditor Samples</a> &raquo; Using CKEditor JavaScript API
+		<a href="~/index.html">CKEditor Samples</a> &raquo; Using CKEditor JavaScript API
 	</h1>
 	<div class="description">
 	<p>
 		This sample shows how to use the
-		<a class="samples" href="http://docs.ckeditor.com/#!/api/CKEDITOR.editor">CKEditor JavaScript API</a>
+		<a class="samples" href="~/http://docs.ckeditor.com/#!/api/CKEDITOR.editor">CKEditor JavaScript API</a>
 		to interact with the editor at runtime.
 	</p>
 	<p>
@@ -146,7 +146,7 @@ function onBlur() {
 		</noscript>
 	</div>
 	<form action="../../../samples/sample_posteddata.php" method="post">
-		<textarea cols="100" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+		<textarea cols="100" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="~/http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 
 		<script>
 			// Replace the <textarea id="editor1"> with an CKEditor instance.
@@ -179,7 +179,7 @@ function onBlur() {
 			<input onclick="SetContents();" type="button" value="Set Editor Contents">
 			<input onclick="GetContents();" type="button" value="Get Editor Contents (XHTML)">
 			<br>
-			<textarea cols="100" id="htmlArea" rows="3">&lt;h2&gt;Test&lt;/h2&gt;&lt;p&gt;This is some &lt;a href="/Test1.html"&gt;sample&lt;/a&gt; HTML code.&lt;/p&gt;</textarea>
+			<textarea cols="100" id="htmlArea" rows="3">&lt;h2&gt;Test&lt;/h2&gt;&lt;p&gt;This is some &lt;a href="~//Test1.html"&gt;sample&lt;/a&gt; HTML code.&lt;/p&gt;</textarea>
 			<br>
 			<br>
 			<input onclick="InsertText();" type="button" value="Insert Text">
@@ -196,10 +196,10 @@ Second line of text preceded by two line breaks.</textarea>
 	<div id="footer">
 		<hr>
 		<p>
-			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+			CKEditor - The text editor for the Internet - <a class="samples" href="~/http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
 		<p id="copy">
-			Copyright &copy; 2003-2013, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
+			Copyright &copy; 2003-2013, <a class="samples" href="~/http://cksource.com/">CKSource</a> - Frederico
 			Knabben. All rights reserved.
 		</p>
 	</div>

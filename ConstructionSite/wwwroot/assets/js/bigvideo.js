@@ -111,7 +111,7 @@
 			// create video controller
 			var markup = '<div id="big-video-control-container">';
 			markup += '<div id="big-video-control">';
-			markup += '<a href="#" id="big-video-control-play"></a>';
+			markup += '<a href="~/#" id="big-video-control-play"></a>';
 			markup += '<div id="big-video-control-middle">';
 			markup += '<div id="big-video-control-bar">';
 			markup += '<div id="big-video-control-bound-left"></div>';
