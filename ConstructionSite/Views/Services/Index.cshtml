@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<ServiceViewModel>
 @inject SharedLocalizationService Localizer
-
+@{
+    ViewData["Title"] = "Index";
+}
 <style>
     .sekil {
         width: 370px;
         height: 300px;
     }
-    
 </style>
 
 <div id="featured-title" class="clearfix featured-title-left">
@@ -44,15 +45,15 @@
                                         </div>
                                         <div class="wprt-spacer" data-desktop="60" data-mobi="30" data-smobi="30" style="height:60px"></div>
                                     </div>
-                                 }
-                                 <div class="col-md-12">
+                                }
+                                <div class="col-md-12">
                                     <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40" style="height:100px"></div>
-                                 </div>
+                                </div>
                                 <!-- /.col-md-12 -->
 
                             </div>
                             <!-- /.row -->
-                            
+
                         </div>
                         <!-- /.container -->
 
