@@ -41,10 +41,10 @@ namespace ConstructionSite.Controllers
                .GetAll()
                .Select(x => new ServiceViewModel
                {
-                   Id     = x.Id,
-                   Name   = x.FindName(_lang),
+                   Id = x.Id,
+                   Name = x.FindName(_lang),
                    Tittle = x.FindName(_lang),
-                   image  = x.Image.Path
+                   image = x.Image.Path
                })
                .ToList();
             if (allServiceViewModelResult == null)
@@ -93,11 +93,12 @@ namespace ConstructionSite.Controllers
                  .Include(x => x.SubService.SubServiceImages)
                  .Where(x => x.SubServiceId == id)
                  .Select(x => new ServiceSubServiceImage
-                 {   id           = x.Id,
+                 {
+                     id = x.Id,
                      SubServiceID = x.SubServiceId,
-                     Content      = x.SubService.FindContent(_lang),
-                     Name         = x.SubService.FindName(_lang),
-                     Images       = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
+                     Content = x.SubService.FindContent(_lang),
+                     Name = x.SubService.FindName(_lang),
+                     Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
                  })
                  .OrderByDescending(x => x.id)
                  .FirstOrDefault();
