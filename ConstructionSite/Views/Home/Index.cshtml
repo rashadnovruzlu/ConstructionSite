@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject SharedLocalizationService Localizer
+@{
     ViewData["Title"] = "Index";
 }
 <div class="rev_slider_wrapper fullwidthbanner-container">
@@ -29,7 +30,7 @@
                      data-splitin="none"
                      data-splitout="none"
                      data-responsive_offset="on">
-                    THE CONSTRUCTION
+                    @Localizer.GetLocalizedHtmlString(RESOURCEKEYS.THECONSTRUCTION)
                 </div>
                 <div class="tp-caption tp-resizeme text-white text-shadow letter-spacing-7px"
                      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"

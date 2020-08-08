@@ -1,16 +1,16 @@
-﻿
+﻿@inject SharedLocalizationService Localizer
 <div class="col-md-3">
     <div class="widget widget_links">
-        <h2 class="widget-title">Useful links</h2>
+        <h2 class="widget-title">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.UsefulLinks)</h2>
         <ul class="links col2">
-            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
-           
-            <li class="last"><a asp-controller="About" asp-action="Index">About Us</a></li>
-            <li><a asp-controller="Blog" asp-action="Index">News</a></li>
-          
-            <li><a asp-controller="Message" asp-action="Index">Contact</a></li>
-           
+            <li><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
+            <li><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
+
+            <li class="last"><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.AboutUs)</a></li>
+            <li><a asp-controller="Blog" asp-action="Index">>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
+
+            <li><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
+
         </ul>
     </div>
 </div>

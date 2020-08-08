@@ -321,6 +321,9 @@
   <data name="Testimonials" xml:space="preserve">
     <value>TESTIMONIALS</value>
   </data>
+  <data name="THECONSTRUCTION" xml:space="preserve">
+    <value>THECONSTRUCTION</value>
+  </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
     <value>The Email field is required</value>
   </data>
