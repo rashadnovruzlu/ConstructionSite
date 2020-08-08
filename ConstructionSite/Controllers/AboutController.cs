@@ -35,7 +35,9 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var aboutImageViewResult = _unitOfWork.AboutImageRepository.GetAll()
+            var aboutImageViewResult = _unitOfWork
+                    .AboutImageRepository
+                    .GetAll()
                     .Include(x => x.Image)
                     .Include(x => x.About)
                     .Select(x => new AboutIndexViewModel
