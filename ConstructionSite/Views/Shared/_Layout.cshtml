@@ -16,20 +16,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
-    <link rel="stylesheet" type="text/css" href="~/style.css">
 
-    <!-- Favicon and touch icons  -->
-    <link rel="shortcut icon" href="~/assets/img/logo-light.png">
-    <link rel="apple-touch-icon-precomposed" href="~/assets/icon/apple-touch-icon-158-precomposed.png" />
-
-    @*<link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
-    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />*@
-
+    <partial name="_LinkPartialStyle" />
+    <link href="~/customer/css/myContent.css" rel="stylesheet" />
+    <link href="~/customer/css/Layout.css" rel="stylesheet" />
     <!-- load cubeportfolio jQuery plugin -->
     <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
     @RenderSection("head", false)
 
-    <style>
+    @*<style>
         body::-webkit-scrollbar {
             width: 8px;
             background-color: RGB(49, 49, 49);
@@ -41,7 +36,7 @@
             background: linear-gradient(left, #96A6BF, #63738C);
             box-shadow: inset 0 0 1px 1px #5C6670;
         }
-    </style>
+    </style>*@
 </head>
 
 <body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
@@ -65,9 +60,8 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                            <partial name="_Mainnav" />
-                            <!-- /#main-nav -->
-                            @*@await Html.PartialAsync("Language")*@
+                            <partial name="_MainnavPartial" />
+                          
                         </div>
                         <!-- /#site-header-inner -->
                     </div>
@@ -83,7 +77,7 @@
                     <div class="row">
 
                         @await Component.InvokeAsync("Adress")
-                        <partial name="_UsefulLink" />
+                        <partial name="_UsefulLinkPartial" />
                     </div>
                 </div>
             </footer>
@@ -93,12 +87,7 @@
                 <div id="bottom-bar-inner" class="wprt-container">
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
-                            <ul class="bottom-nav">
-                                <li><a asp-controller="Home" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
-                                <li><a asp-controller="About" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
-                                <li><a asp-controller="Services" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a></li>
-                                <li><a asp-controller="Message" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
-                            </ul>
+                           <partial name="_FooterMenuPartial"/>
                         </div>
                         <!-- /.bottom-bar-menu -->
                     </div>
@@ -112,11 +101,11 @@
     <a id="scroll-top">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Top)</a>
 
     <!-- Javascript -->
-    <partial name="Javascript" />
+    <partial name="_JavascriptPartial" />
 
     <!-- Revolution Slider -->
-    <partial name="Revolution" />
-    <script type="text/javascript" src="~/Component.js">
+    <partial name="_RevolutionPartialScripts" />
+    <script type="text/javascript" src="~/customer/js/Component.js">
     </script>
 
     @RenderSection("Scrips", false)

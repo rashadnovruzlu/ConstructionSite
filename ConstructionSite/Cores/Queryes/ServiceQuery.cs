@@ -10,12 +10,12 @@ namespace ConstructionSite.Cores.Queryes
 {
     public static class ServiceQuery
     {
-        public static SingleServiceViewModels ServiceRepositoryQuery(this IUnitOfWork _unitOfWork,int id,string _lang)
+        public static SingleService ServiceRepositoryQuery(this IUnitOfWork _unitOfWork,int id,string _lang)
         {
           return  _unitOfWork.ServiceRepository
                        .GetAll()
                        .Include(x => x.Image)
-                       .Select(x => new SingleServiceViewModels
+                       .Select(x => new SingleService
                        {
                            Id = x.Id,
                            Name = x.FindName(_lang),
