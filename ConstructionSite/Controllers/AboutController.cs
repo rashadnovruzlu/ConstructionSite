@@ -35,7 +35,7 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var aboutImageResult = _unitOfWork.AboutImageRepository.GetAll()
+            var aboutImageViewResult = _unitOfWork.AboutImageRepository.GetAll()
                     .Include(x => x.Image)
                     .Include(x => x.About)
                     .Select(x => new AboutIndexViewModel
@@ -45,13 +45,15 @@ namespace ConstructionSite.Controllers
                         Title = x.About.FindTitle(_lang),
                         imagePath = x.Image.Path,
                         path = x.About.AboutImages.Select(x => x.Image.Path).ToList()
-                    }).OrderByDescending(x => x.Id).FirstOrDefault();
-            if (aboutImageResult == null)
+                    })
+                    .OrderByDescending(x => x.Id)
+                    .FirstOrDefault();
+            if (aboutImageViewResult == null)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
                 return RedirectToAction("Index", "Home");
             }
-            return View(aboutImageResult);
+            return View(aboutImageViewResult);
         }
     }
 }

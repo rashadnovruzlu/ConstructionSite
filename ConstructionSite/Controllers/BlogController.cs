@@ -15,11 +15,21 @@ namespace ConstructionSite.Controllers
 {
     public class BlogController : Controller
     {
+        /// <summary>
+        /// this is include need class
+        /// </summary>
         private string _lang;
+
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private SharedLocalizationService _localizationHandle;
 
+        /// <summary>
+        /// Conustructor
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="httpContextAccessor"></param>
+        /// <param name="localizationHandle"></param>
         public BlogController(IUnitOfWork unitOfWork,
                               IHttpContextAccessor httpContextAccessor,
                               SharedLocalizationService localizationHandle)
@@ -30,6 +40,12 @@ namespace ConstructionSite.Controllers
             _localizationHandle = localizationHandle;
         }
 
+        /// <summary>
+        /// this action for first get all list
+        /// and pagination
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public IActionResult Index(int page = 1)
         {
             if (!ModelState.IsValid)
@@ -42,7 +58,7 @@ namespace ConstructionSite.Controllers
                  .Include(x => x.Image)
                  .Include(x => x.News)
                  .ToList();
-            var result = newsImageResult
+            var newsViewModelResult = newsImageResult
                    .Select(x => new NewsViewModel
                    {
                        Id = x.NewsId,
@@ -55,9 +71,9 @@ namespace ConstructionSite.Controllers
                   .Skip((page - 1) * 3)
                   .Take(3)
                   .AsEnumerable();
-            var data = new PaginModel<NewsViewModel>()
+            var paginModelResult = new PaginModel<NewsViewModel>()
             {
-                Paging = result,
+                Paging = newsViewModelResult,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -70,9 +86,14 @@ namespace ConstructionSite.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(data);
+            return View(paginModelResult);
         }
 
+        /// <summary>
+        /// this action only for detail
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Detail(int id)
         {
             if (!ModelState.IsValid)
@@ -96,7 +117,6 @@ namespace ConstructionSite.Controllers
                 Title = newsImageResult.News.FindTitle(_lang),
                 Content = newsImageResult.News.FindContent(_lang),
                 dateTime = newsImageResult.News.CreateDate,
-
                 imagePath = newsImageResult.Image.Path,
             };
             return View(blogDetalyeViewModel);
