@@ -7,7 +7,7 @@
     <!-- Basic Page Needs -->
     <meta charset="utf-8" />
 
-    <title>Construction - @ViewData["Title"]</title>
+    <title>PDC.az</title>
 
     <meta name="description" descriptions />
     <meta name="keywords" metapage />
@@ -42,10 +42,7 @@
             box-shadow: inset 0 0 1px 1px #5C6670;
         }
     </style>
-
-
 </head>
-
 
 <body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
     <div id="top"></div>
@@ -68,7 +65,7 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                            <partial name="_mainnav" />
+                            <partial name="_Mainnav" />
                             <!-- /#main-nav -->
                             @*@await Html.PartialAsync("Language")*@
                         </div>
@@ -79,19 +76,11 @@
 
             </div>
 
-
             @RenderBody()
 
             <!-- Footer -->
             <footer id="footer">
                 <div id="footer-widgets" class="container style-1">
-                    <div id="site-logo" class="clearfix">
-                        <div id="site-logo-inner">
-                            <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
-                                <img src="~/assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light.png" data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: -8px;  background-color: white;">
-                            </a>
-                        </div>
-                    </div>
                     <div class="row">
 
                         @await Component.InvokeAsync("Adress")
