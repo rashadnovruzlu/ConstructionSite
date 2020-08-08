@@ -18,25 +18,24 @@
     <!-- Theme Style -->
 
     <partial name="_LinkPartialStyle" />
-    <link href="~/customer/css/myContent.css" rel="stylesheet" />
-    <link href="~/customer/css/Layout.css" rel="stylesheet" />
+   
     <!-- load cubeportfolio jQuery plugin -->
     <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-    @RenderSection("head", false)
+    @await RenderSectionAsync("head", false)
 
     @*<style>
-        body::-webkit-scrollbar {
-            width: 8px;
-            background-color: RGB(49, 49, 49);
-            opacity: .8;
-        }
+            body::-webkit-scrollbar {
+                width: 8px;
+                background-color: RGB(49, 49, 49);
+                opacity: .8;
+            }
 
-        body::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background: linear-gradient(left, #96A6BF, #63738C);
-            box-shadow: inset 0 0 1px 1px #5C6670;
-        }
-    </style>*@
+            body::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background: linear-gradient(left, #96A6BF, #63738C);
+                box-shadow: inset 0 0 1px 1px #5C6670;
+            }
+        </style>*@
 </head>
 
 <body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
