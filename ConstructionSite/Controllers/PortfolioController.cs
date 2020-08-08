@@ -65,6 +65,7 @@ namespace ConstructionSite.Controllers
                        ID = x.Project.Id,
                        Content = x.Project.FindContent(_lang),
                        Name = x.Project.FindName(_lang),
+                       Image=x.Image.Path,
                        Images = x.Project.ProjectImages.Select(y => y.Image.Path).ToList()
                    }).FirstOrDefault(x => x.ID == id);
             return View(result);

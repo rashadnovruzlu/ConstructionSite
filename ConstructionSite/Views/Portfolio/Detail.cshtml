@@ -1,6 +1,14 @@
 ﻿@inject SharedLocalizationService Localizer
 @model ProjectViewDetailsModel
-<!-- Featured Title -->
+@section head{
+    <style>
+        .porimage {
+            width: 770px;
+            height: 513px;
+        }
+    </style>
+ }
+
 <div id="featured-title" class="clearfix featured-title-left">
     <div id="featured-title-inner" class="container clearfix">
         <div class="featured-title-inner-wrap">
@@ -33,7 +41,9 @@
                                                 {
                                                     <li class="flex-active-slide">
                                                         <a class="zoom" href="JavaScrip:void(0)"><i class="fa fa-arrows-alt"></i></a>
-                                                        <img src="@item" alt="image" />
+                                                        <div class="porimage">
+                                                            <img   src="@item" alt="image" />
+                                                        </div>
                                                     </li>
                                                 }
 
@@ -42,13 +52,7 @@
                                             </ul>
                                         </div>
                                         <div id="wprt-carousel" class="flexslider">
-                                            <ul class="slides">
-                                                @foreach (var item in Model.Images)
-                                                {
-                                                    <li><img src="@item" alt="image"></li>
-                                                }
-
-                                            </ul>
+                                            
                                         </div>
                                     </div>
                                 </div>

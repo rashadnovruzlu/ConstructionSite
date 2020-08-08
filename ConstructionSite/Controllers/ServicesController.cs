@@ -62,9 +62,11 @@ namespace ConstructionSite.Controllers
                 return RedirectToAction("Index");
             }
 
+           
+
             var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
-                .Include(x => x.SubService)
+               .Include(x => x.SubService)
                .Include(x => x.SubService.SubServiceImages)
                .Where(y => y.SubService.ServiceId == id)
                .Select(x => new ServiceSubServiceImage
@@ -78,7 +80,16 @@ namespace ConstructionSite.Controllers
                .FirstOrDefault();
             if (ServiceSubServiceresult == null)
             {
-                return RedirectToAction("Index");
+             var my_result=   _unitOfWork.ServiceRepository.GetAll()
+                    .Include(x=>x.Image)
+                    .Select(x=>new SingleService
+                    {
+                        Id=x.Id,
+                        Name=x.FindName(_lang),
+                        Title=x.FindTitle(_lang),
+                        ImagePath=x.Image.Path
+                    }).FirstOrDefault(x=>x.Id==id);
+                return View("Single",my_result);
             }
             return View(ServiceSubServiceresult);
         }
@@ -108,7 +119,8 @@ namespace ConstructionSite.Controllers
                  .FirstOrDefault();
             if (serviceSubServiceresult == null)
             {
-                ModelState.AddModelError("", "data is null");
+                return RedirectToAction("Index");
+                
             }
             return View(serviceSubServiceresult);
         }
