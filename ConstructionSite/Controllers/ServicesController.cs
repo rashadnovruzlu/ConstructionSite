@@ -70,7 +70,6 @@ namespace ConstructionSite.Controllers
                .Select(x => new ServiceSubServiceImage
                {
                    id = x.Id,
-
                    SubServiceID = x.SubServiceId,
                    Content = x.SubService.FindContent(_lang),
                    Name = x.SubService.FindName(_lang),
@@ -81,7 +80,6 @@ namespace ConstructionSite.Controllers
             {
                 return RedirectToAction("Index");
             }
-
             return View(ServiceSubServiceresult);
         }
 
