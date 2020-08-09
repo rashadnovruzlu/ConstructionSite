@@ -11,31 +11,16 @@
 
     <meta name="description" descriptions />
     <meta name="keywords" metapage />
-
+    <meta name="author" content="PDC.az"/>
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
 
     <partial name="_LinkPartialStyle" />
-   
-    <!-- load cubeportfolio jQuery plugin -->
-    @*<script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>*@
     @await RenderSectionAsync("head", false)
 
-    @*<style>
-            body::-webkit-scrollbar {
-                width: 8px;
-                background-color: RGB(49, 49, 49);
-                opacity: .8;
-            }
-
-            body::-webkit-scrollbar-thumb {
-                border-radius: 10px;
-                background: linear-gradient(left, #96A6BF, #63738C);
-                box-shadow: inset 0 0 1px 1px #5C6670;
-            }
-        </style>*@
+   
 </head>
 
 <body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
@@ -44,27 +29,7 @@
         <div id="page" class="clearfix">
             <div id="site-header-wrap">
                 <!-- Header -->
-                <header id="site-header" class="header-front-page style-5">
-                    <div id="site-header-inner" class="container">
-                        <div class="wrap-inner">
-                            <div id="site-logo" class="clearfix">
-                                <div id="site-logo-inner">
-                                    <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
-                                        <img src="~/assets/img/logo-light.png" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: -8px;  background-color: white;">
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- /#site-logo -->
-
-                            <div class="mobile-button"><span></span></div>
-                            <!-- //mobile menu button -->
-
-                            <partial name="_MainnavPartial" />
-                          
-                        </div>
-                        <!-- /#site-header-inner -->
-                    </div>
-                </header>
+                <partial name="_HeaderPartial" />
                 <!-- /#site-header -->
             </div>
 
@@ -86,7 +51,7 @@
                 <div id="bottom-bar-inner" class="wprt-container">
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
-                           <partial name="_FooterMenuPartial"/>
+                            <partial name="_FooterMenuPartial" />
                         </div>
                         <!-- /.bottom-bar-menu -->
                     </div>
@@ -104,14 +69,11 @@
 
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
-    <script type="text/javascript" src="~/customer/js/Component.js">
+    <script type="text/javascript" src="~/customer/js/Component.js"
+            asp-append-version="true">
     </script>
-    <script>
-      
-        //$(document).ready(function () {                      // wait until 
-        //    $('img' + (i + 1)).attr('src','~/assets/img/logo-light.png'); // set the 
-        //});
-    </script>
-    @RenderSection("Scrips", false)
+   
+
+    @await RenderSectionAsync("Scrips", false)
 </body>
 </html>
