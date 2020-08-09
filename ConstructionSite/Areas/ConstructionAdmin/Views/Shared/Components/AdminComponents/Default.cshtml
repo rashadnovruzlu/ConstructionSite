@@ -12,8 +12,8 @@
             <div class="bio-row">
                 <p><span>Email </span>: @admin.Email</p>
             </div>
-            <a class="btn btn-primary" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id" style="width: 110px; margin-left: 2%;">Edit Profile</a>
-            <a class="btn btn-danger delete-btn" asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Delete" asp-route-id="@admin.Id">Delete Profile</a>
+            <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id" style="width: 110px; margin-left: 14%; text-align: center;"><i class="fa fa-pencil-square-o fa-2" style="color: #6E90EC; padding-right: 7%; font-size: 1.3em;" aria-hidden="true"></i></a>
+            <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Delete" asp-route-id="@admin.Id" style="text-align: center;"><i class="fa fa-trash" style="color: #F0636A; font-size: 1.3em;" aria-hidden="true"></i></a>
             <hr />
         </div>
     }
