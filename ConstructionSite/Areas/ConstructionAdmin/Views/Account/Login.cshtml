@@ -14,7 +14,7 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="~/ConstructionAdminimg/favicon.png">
 
-    <title>Construction - Admin</title>
+    <title>PDC.az - Login for Admin</title>
 
     <!-- Bootstrap core CSS -->
     <link href="~/ConstructionAdmin/css/bootstrap.min.css" rel="stylesheet">
@@ -24,12 +24,34 @@
     <!-- Custom styles for this template -->
     <link href="~/ConstructionAdmin/css/style.css" rel="stylesheet">
     <link href="~/ConstructionAdmin/css/style-responsive.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/assets/img/logo-light.png" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        .login-header {
+            background-color: rgb(49, 49, 49) !important;
+            opacity: 0.8 !important;
+            color: rgb(255, 255, 255);
+            overflow: hidden;
+            outline: none;
+        }
+        .btn-signIn {
+            color: #fff;
+            background-color: #ffc925 !important;
+            box-shadow: none !important;
+        }
+            .btn-signIn:hover {
+                background-color: rgb(49, 49, 49) !important;
+                border-color: rgb(49, 49, 49);
+                color: #fff;
+            }
+    </style>
+
 </head>
 <body class="login-body">
     <div class="container">
@@ -37,7 +59,7 @@
             <div asp-validation-summary="ModelOnly" class="form-group mb-3"></div>
             <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl"/>
             @Html.AntiForgeryToken()
-            <h2 class="form-signin-heading">Sign In Now</h2>
+            <h2 class="form-signin-heading login-header">Sign In Now</h2>
             <div class="login-wrap">
                 <label>Email</label>
                 <input type="text" asp-for="Email" class="form-control" placeholder="Your Email" autofocus style="width:100%">
@@ -53,7 +75,7 @@
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </p>
                 </div>
-                <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-login btn-block btn-signIn" type="submit">Sign in</button>
             </div>
         </form>
     </div>

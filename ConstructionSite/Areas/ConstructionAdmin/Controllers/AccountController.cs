@@ -116,7 +116,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginModel, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
             if (!ModelState.IsValid)
             {
@@ -134,7 +134,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     var result=  await  _signInManager.PasswordSignInAsync(appUser,loginModel.Password,true,true);
                     if (result.Succeeded)
                     {
-                        return Redirect(returnUrl ?? "/");
+                        return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
                     }
                 }
                 else
@@ -142,7 +142,8 @@ namespace ConstructionSite.Areas.Admin.Controllers
                     ModelState.AddModelError("email", "This email does not exist.");
                 }
             }
-            ViewBag.returnUrl= returnUrl;
+            //ViewBag.returnUrl= returnUrl;
+            //return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
             return View();
         }
 
@@ -271,6 +272,5 @@ namespace ConstructionSite.Areas.Admin.Controllers
         }
 
         #endregion
-     
     }
 }

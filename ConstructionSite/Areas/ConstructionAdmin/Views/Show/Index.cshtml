@@ -9,6 +9,13 @@
             border-color: black;
             color: #fff;
         }
+        .delete-icon {
+            color: #F0636A;
+            font-size: 1.3em;
+        }
+        .edit-delete {
+            text-align: center;
+        }
     </style>
 
     <div  id="editable-sample_wrapper" class="panel-body" role="grid">
@@ -23,7 +30,6 @@
                     <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Subject</th>
                     <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Content</th>
                     <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Send Date</th>
-                   
                     <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
                 </tr>
             </thead>
@@ -33,18 +39,16 @@
                 {
                     @foreach (var item in Model)
                     {
-                <tr class="odd">
-                    <td class="sorting_1">@item.Name</td>
-                    <td class=" ">@item.Email</td>
-                    <td class=" ">@item.Subject</td>
-                    <td class=" ">@item.Content</td>
-                    <td class=" ">@item.SendDate</td>
-                    <td class="edit-delete">
-                        <i class="fa fa-trash" aria-hidden="true">
-                            <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Show" asp-action="Delete" asp-route-id="@item.id">Delete</a>
-                            </i>
-                    </td>
-                </tr>
+                        <tr class="odd">
+                            <td class="sorting_1 edit-delete">@item.Name</td>
+                            <td class="edit-delete">@item.Email</td>
+                            <td class="edit-delete">@item.Subject</td>
+                            <td class="edit-delete">@item.Content</td>
+                            <td class="edit-delete">@item.SendDate</td>
+                            <td class="edit-delete">
+                                <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Show" asp-action="Delete" asp-route-id="@item.id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
                     }
                 }
                 else
