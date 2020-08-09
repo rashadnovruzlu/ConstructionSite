@@ -37,7 +37,8 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var allServiceViewModelResult = _unitOfWork.ServiceRepository
+            var allServiceViewModelResult = _unitOfWork
+               .ServiceRepository
                .GetAll()
                .Select(x => new ServiceViewModel
                {
@@ -86,7 +87,8 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var serviceSubServiceResult = _unitOfWork.SubServiceImageRepository
+            var serviceSubServiceResult = _unitOfWork
+                 .SubServiceImageRepository
                  .GetAll()
                  .Include(x => x.SubService.Service)
                  .Include(x => x.SubService)

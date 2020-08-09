@@ -53,7 +53,9 @@ namespace ConstructionSite.Controllers
                 SendDate = messageAddViewModel.SendDate,
                 IsAnswerd = messageAddViewModel.IsAnswerd
             };
-            var messageDataResult = _unitOfWork.messageRepository.Add(messageAddViewModelResult);
+            var messageDataResult = _unitOfWork
+                .messageRepository
+                .Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));

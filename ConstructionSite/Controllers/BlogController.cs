@@ -54,7 +54,9 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
-            var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
+            var newsImageResult = _unitOfWork
+                 .newsImageRepository
+                 .GetAll()
                  .Include(x => x.Image)
                  .Include(x => x.News)
                  .ToList();
@@ -101,7 +103,8 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var newsImageResult = _unitOfWork.newsImageRepository
+            var newsImageResult = _unitOfWork
+                .newsImageRepository
                 .GetAll()
                 .Include(x => x.News)
                 .Include(x => x.Image)

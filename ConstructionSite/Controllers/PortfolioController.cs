@@ -41,13 +41,14 @@ namespace ConstructionSite.Controllers
                 .portfolioRepository
                 .GetAll()
                 .Select(x => new PortfolioViewModel
-                {   Id = x.Id,
+                {
+                    Id = x.Id,
                     Name = x.FindName(_lang),
                 })
                 .ToList();
             return View(portfolioViewModelResult);
         }
-       
+
         public IActionResult Detail(int id)
         {
             if (!ModelState.IsValid)
@@ -74,6 +75,7 @@ namespace ConstructionSite.Controllers
                    .FirstOrDefault(x => x.ID == id);
             return View(projectViewDetailsModelResult);
         }
+
         [HttpGet]
         public PartialViewResult Project(int id = 0)
         {
@@ -114,6 +116,7 @@ namespace ConstructionSite.Controllers
                .ToList();
             return PartialView(projectViewModelResult);
         }
+
         [HttpGet]
         public PartialViewResult All()
         {

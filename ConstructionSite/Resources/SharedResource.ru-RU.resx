@@ -253,7 +253,7 @@
     <value />
   </data>
   <data name="OurHistoryAndFacts" xml:space="preserve">
-    <value />
+    <value>Наша история и факты</value>
   </data>
   <data name="OurServices" xml:space="preserve">
     <value>Наши сервисы</value>
@@ -271,7 +271,7 @@
     <value>Деталь портфолио</value>
   </data>
   <data name="Preconstruction" xml:space="preserve">
-    <value />
+    <value>До строительства</value>
   </data>
   <data name="ProjectDescription" xml:space="preserve">
     <value />
@@ -283,7 +283,7 @@
     <value>Читать далее</value>
   </data>
   <data name="Renovation" xml:space="preserve">
-    <value />
+    <value>ремонт</value>
   </data>
   <data name="ResconstructionServices" xml:space="preserve">
     <value />
