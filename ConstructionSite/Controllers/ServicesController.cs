@@ -1,5 +1,7 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
+﻿using ConstructionSite.Cores.Queryes;
+using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.DTO.FrontViewModels.SubService;
+using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -24,7 +26,7 @@ namespace ConstructionSite.Controllers
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _lang = _httpContextAccessor.getLang();
+            _lang = _httpContextAccessor.getLanguages();
             _localizationHandle = localizationHandle;
         }
 
@@ -33,20 +35,24 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var allServiceResult = _unitOfWork.ServiceRepository.GetAll()
+            var allServiceViewModelResult = _unitOfWork
+               .ServiceRepository
+               .GetAll()
                .Select(x => new ServiceViewModel
                {
                    Id = x.Id,
                    Name = x.FindName(_lang),
                    Tittle = x.FindName(_lang),
                    image = x.Image.Path
-               }).ToList();
-            if (allServiceResult == null)
+               })
+               .ToList();
+            if (allServiceViewModelResult == null)
             {
+                return RedirectToAction("Index", "Home");
             }
-            return View(allServiceResult);
+            return View(allServiceViewModelResult);
         }
 
         public IActionResult Services(int id)
@@ -54,7 +60,7 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
             if (id < 1)
@@ -62,25 +68,16 @@ namespace ConstructionSite.Controllers
                 return RedirectToAction("Index");
             }
 
-            var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
-               .Include(x => x.SubService.Service)
-                .Include(x => x.SubService)
-               .Include(x => x.SubService.SubServiceImages)
-               .Where(y => y.SubService.ServiceId == id)
-               .Select(x => new ServiceSubServiceImage
-               {
-                   id = x.Id,
-                   SubServiceID = x.SubServiceId,
-                   Content = x.SubService.FindContent(_lang),
-                   Name = x.SubService.FindName(_lang),
-                   Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
-               }).OrderByDescending(x => x.id)
-               .FirstOrDefault();
-            if (ServiceSubServiceresult == null)
+            var serviceSubServiceImageResult = _unitOfWork
+             .SubServiceImageRepositoryQuery(id, _lang);
+            if (serviceSubServiceImageResult == null)
             {
-                return RedirectToAction("Index");
+                var singleServiceViewModelsResult =
+                    _unitOfWork.ServiceRepositoryQuery(id, _lang);
+
+                return View("Single", singleServiceViewModelsResult);
             }
-            return View(ServiceSubServiceresult);
+            return View(serviceSubServiceImageResult);
         }
 
         public IActionResult SubService(int id)
@@ -88,75 +85,30 @@ namespace ConstructionSite.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var serviceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
+            var serviceSubServiceResult = _unitOfWork
+                 .SubServiceImageRepository
+                 .GetAll()
                  .Include(x => x.SubService.Service)
-
                  .Include(x => x.SubService)
                  .Include(x => x.SubService.SubServiceImages)
-                  .Where(x => x.SubServiceId == id)
+                 .Where(x => x.SubServiceId == id)
                  .Select(x => new ServiceSubServiceImage
                  {
                      id = x.Id,
-
                      SubServiceID = x.SubServiceId,
                      Content = x.SubService.FindContent(_lang),
                      Name = x.SubService.FindName(_lang),
                      Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
-                 }).OrderByDescending(x => x.id)
+                 })
+                 .OrderByDescending(x => x.id)
                  .FirstOrDefault();
-            if (serviceSubServiceresult == null)
+            if (serviceSubServiceResult == null)
             {
-                ModelState.AddModelError("", "data is null");
+                return RedirectToAction("Index");
             }
-            return View(serviceSubServiceresult);
+            return View(serviceSubServiceResult);
         }
-
-        //public IActionResult Single(int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        ModelState.AddModelError("", "Bad Request");
-        //    }
-        //    var ServiceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
-        //     .Include(x => x.SubService.Service)
-        //      .Include(x => x.SubService)
-        //     .Include(x => x.SubService.SubServiceImages)
-        //     .Where(y => y.SubService.ServiceId == id)
-        //     .Select(x => new ServiceSubServiceImage
-        //     {
-        //         id = x.Id,
-
-        //         SubServiceID = x.SubServiceId,
-        //         Content = x.SubService.FindContent(_lang),
-        //         Name = x.SubService.FindName(_lang),
-        //         Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
-
-        //     }).OrderByDescending(x => x.id)
-        //     .FirstOrDefault();
-        //    if (resultOnlySingleServcie==null)
-        //    {
-        //    }
-        //    ViewBag.img=GetImageByServiceID(id);
-        //    return View(resultOnlySingleServcie);
-        //}
-
-        //private object GetImageByServiceID(int id)
-        //{
-        //    var serviceSubServiceresult = _unitOfWork.SubServiceImageRepository.GetAll()
-        //        .Include(x => x.SubService.Service)
-
-        //        .Include(x => x.SubService)
-        //        .Include(x => x.SubService.SubServiceImages)
-        //         .Where(x => x.SubServiceId == id)
-        //        .Select(x => new ServiceImage
-        //        {
-        //            Images = x.SubService.SubServiceImages.Select(x =>  x.Image.Path).ToList()
-
-        //        }).ToList();
-        //    return serviceSubServiceresult;
-        //}
     }
 }

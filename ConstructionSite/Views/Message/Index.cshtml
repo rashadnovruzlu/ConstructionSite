@@ -1,80 +1,84 @@
 ﻿@model MessageAddViewModel
 @inject SharedLocalizationService Localizer
-    <style>
-        #map {
-            height: 400px;
-            width:100%;
-        }
-    </style>
-   
-    <div id="featured-title" class="clearfix featured-title-left">
-        <div id="featured-title-inner" class="container clearfix">
-            <div class="featured-title-inner-wrap">
-                <div class="featured-title-heading-wrap">
-                    <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ContactUs)</h1>
-                </div>
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<div id="featured-title" class="clearfix featured-title-left">
+    <div id="featured-title-inner" class="container clearfix">
+        <div class="featured-title-inner-wrap">
+            <div class="featured-title-heading-wrap">
+                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ContactUs)</h1>
             </div>
         </div>
     </div>
-    <div id="main-content" class="site-main clearfix">
-        <div id="content-wrap">
-            <div id="site-content" class="site-content clearfix">
-                <div id="inner-content" class="inner-content-wrap">
-                    <div class="page-content">
-                        <section class="wprt-section">
-                            <div id="map"></div>
-                            <div class="container">
+</div>
+<div id="main-content" class="site-main clearfix">
+    <div id="content-wrap">
+        <div id="site-content" class="site-content clearfix">
+            <div id="inner-content" class="inner-content-wrap">
+                <div class="page-content">
+                    <section class="wprt-section">
+                        <div id="map"></div>
+                        <div class="container">
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ContactUs)</h2>
-                                        <div class="wprt-lines style-2 custom-1">
-                                            <div class="line-1"></div>
-                                        </div>
-                                        <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30" style="height:36px"></div>
-                                        <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
-                                        <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30" style="height:40px"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ContactUs)</h2>
+                                    <div class="wprt-lines style-2 custom-1">
+                                        <div class="line-1"></div>
                                     </div>
-                                    <!-- /.col-md-12 -->
-                                    <div class="col-md-4">
-                                        @await Component.InvokeAsync("Contact")
-                                    </div>
-                                    <div class="col-md-8">
-                                        <form class="wprt-contact-form" asp-controller="Message" asp-action="Add" novalidate="novalidate">
-                                            <div class="inner">
-                                                <div class="left-side">
-                                                    <div class="input-wrap">
-                                                        <input type="text" value="" tabindex="1" placeholder="Name *" asp-for="Name" id="name" required="">
-                                                    </div>
-                                                    <div class="input-wrap">
-                                                        <input type="email" value="" tabindex="2" placeholder="Email *" asp-for="Email" id="email" required="">
-                                                    </div>
-                                                    <div class="input-wrap">
-                                                        <input type="text" value="" tabindex="4" placeholder="Subject *" asp-for="Subject" id="subject" required="">
-                                                    </div>
-                                                    <div class="message-wrap">
-                                                        <textarea class="" tabindex="5" placeholder="Message *" asp-for="UserMessage" id="message" required=""></textarea>
-                                                    </div>
-                                                    <div class="send-wrap">
-                                                        <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
-                                                    </div>
+                                    <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30" style="height:36px"></div>
+                                    <p class="wprt-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet iaculis elit. Nam semper ut arcu non placerat. Praesent nibh massa varius.</p>
+                                    <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30" style="height:40px"></div>
+                                </div>
+                                <!-- /.col-md-12 -->
+                                <div class="col-md-4">
+                                    @await Component.InvokeAsync("Contact")
+                                </div>
+                                <div class="col-md-8">
+                                    <form class="wprt-contact-form" asp-controller="Message" asp-action="Add" novalidate="novalidate">
+                                        <div class="inner">
+                                            <div class="left-side">
+                                                <div class="input-wrap">
+                                                    <input type="text" value="" tabindex="1" placeholder="Name *" asp-for="Name" id="name" required="">
+                                                </div>
+                                                <div class="input-wrap">
+                                                    <input type="email" value="" tabindex="2" placeholder="Email *" asp-for="Email" id="email" required="">
+                                                </div>
+                                                <div class="input-wrap">
+                                                    <input type="text" value="" tabindex="4" placeholder="Subject *" asp-for="Subject" id="subject" required="">
+                                                </div>
+                                                <div class="message-wrap">
+                                                    <textarea class="" tabindex="5" placeholder="Message *" asp-for="UserMessage" id="message" required=""></textarea>
+                                                </div>
+                                                <div class="send-wrap">
+                                                    <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
+                                    </form>
+                                </div>
 
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60" style="height:100px"></div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <div class="wprt-spacer" data-desktop="100" data-mobi="60" data-smobi="60" style="height:100px"></div>
                                 </div>
                             </div>
-
-                        </section>
-                    </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+@section Scrips{
+    <script src="~/customer/js/map.js"></script>
 
+}

@@ -24,24 +24,22 @@
 
 .datas {
     margin: 0px;
-   
 }
 
 .imagest:hover {
     visibility: visible;
 }
+
 .imageblog {
     width: 370px;
     height: 300px;
 }
-.cbp img{
-    height:180px;
-}
-.serviceImage {
-    
-    width: 270px;
+
+.cbp img {
     height: 180px;
 }
 
-
-
+.serviceImage {
+    width: 270px;
+    height: 180px;
+}

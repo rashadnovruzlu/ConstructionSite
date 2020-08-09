@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<PortfolioViewModel>
 @inject SharedLocalizationService Localizer
-
+@{
+    ViewData["Title"] = "Index";
+}
 <section id="works" class="wprt-section">
     <div class="container">
         <div class="row">
@@ -14,15 +16,13 @@
                 <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
             </div>
             <!-- /.col-md-12 -->
-
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
 
     <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
-        <div id="project-filter" >
+        <div id="project-filter">
             <div data-filter="*" class="cbp-filter-item">
                 <span class="All">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
             </div>
@@ -34,24 +34,19 @@
             }
         </div>
         <div id="grid-container">
-           
         </div>
-        </div>
-      
-
+    </div>
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
 
 @section scrips{
-   
+
     <script>
-       
-       
+
         $(document).ready(function () {
             var id = 0;
             $("#grid-container").load(`/Portfolio/Project/${id}`);
             $(".All").click(function () {
-              
 
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
@@ -59,14 +54,7 @@
                 id = $(this).data("id");
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
-           
-           
-           
 
         });
     </script>
 }
-
-
-
-

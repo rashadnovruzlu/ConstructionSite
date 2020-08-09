@@ -1,16 +1,11 @@
 ﻿@model IEnumerable<ProjectViewModel>
 
-
-   
         @foreach (var item in Model)
         {
 
-
     <div class=" cbp-item datas">
-       
-        <a href="/Portfolio/Detail/@item.Id" title="custom title 3">
 
-            
+        <a href="/Portfolio/Detail/@item.Id" title="custom title 3">
 
                     <div class="cbp-item-wrapper">
                         <div class="project-item">
@@ -25,29 +20,12 @@
                                                 <p>@item.Name</p>
                                             </div>
                                         </figcaption>
-
                                     </figure>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-           
-
-               
-
-          
-
-            
-
-            
-           
         </a>
     </div>
 
-
         }
-    
-
-

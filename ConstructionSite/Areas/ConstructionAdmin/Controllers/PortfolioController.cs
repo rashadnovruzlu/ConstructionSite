@@ -28,7 +28,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _lang = _httpContextAccessor.getLang();
+            _lang = _httpContextAccessor.getLanguages();
         }
         #endregion
 

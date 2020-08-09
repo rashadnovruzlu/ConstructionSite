@@ -1,4 +1,7 @@
-﻿
+﻿@inject SharedLocalizationService Localizer
+@{
+    ViewData["Title"] = "Index";
+}
 <div class="rev_slider_wrapper fullwidthbanner-container">
     <div id="rev-slider1" class="rev_slider fullwidthabanner">
         <ul>
@@ -27,7 +30,7 @@
                      data-splitin="none"
                      data-splitout="none"
                      data-responsive_offset="on">
-                    THE CONSTRUCTION
+                    @Localizer.GetLocalizedHtmlString(RESOURCEKEYS.THECONSTRUCTION)
                 </div>
                 <div class="tp-caption tp-resizeme text-white text-shadow letter-spacing-7px"
                      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
@@ -94,7 +97,7 @@
                      data-splitin="none"
                      data-splitout="none"
                      data-responsive_offset="on">
-                    THE BEST COMPANY
+                    @Localizer.GetLocalizedHtmlString(RESOURCEKEYS.THEBESTCOMPANY)
                 </div>
                 <div class="tp-caption tp-resizeme text-white text-shadow"
                      data-x="['left','left','left','left']" data-hoffset="['55','30','30','30']"
@@ -137,7 +140,6 @@
                 </div>
             </li>
             <!-- End Slide -->
-
         </ul>
         <div class="tp-bannertimer tp-bottom"></div>
     </div>
@@ -150,18 +152,14 @@
                     @await Component.InvokeAsync("About")
                     @await Component.InvokeAsync("Service")
                     @await Component.InvokeAsync("Portfolio")
-                 
 
                     @await Component.InvokeAsync("Testimonial")
                 </div>
                 <!-- /.col-md-12 -->
-
             </div>
             <!-- /.row -->
-
         </div>
         <!-- /.container -->
-
         @(await Component.InvokeAsync("Blog"))
         <section id="contact" class="wprt-section">
             <div class="container">
@@ -169,12 +167,9 @@
                     @await Component.InvokeAsync("Messages")
                 </div>
                 <!-- /.row -->
-
             </div>
             <!-- /.container -->
-
         </section>
     </div>
     <!-- /.page-content -->
-
 </div>

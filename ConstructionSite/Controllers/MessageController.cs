@@ -1,10 +1,8 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Message;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Constants;
-using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -13,17 +11,16 @@ namespace ConstructionSite.Controllers
 {
     public class MessageController : Controller
     {
-       
         private readonly IUnitOfWork _unitOfWork;
-      
+
         private readonly SharedLocalizationService _localizationHandle;
 
         public MessageController(IUnitOfWork unitOfWork,
-                                  
+
                                   SharedLocalizationService localizationHandle)
         {
             _unitOfWork = unitOfWork;
-          
+
             _localizationHandle = localizationHandle;
         }
 
@@ -56,13 +53,15 @@ namespace ConstructionSite.Controllers
                 SendDate = messageAddViewModel.SendDate,
                 IsAnswerd = messageAddViewModel.IsAnswerd
             };
-            var messageDataResult = _unitOfWork.messageRepository.Add(messageAddViewModelResult);
+            var messageDataResult = _unitOfWork
+                .messageRepository
+                .Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             }
             _unitOfWork.Dispose();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

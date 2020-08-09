@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 using System.Net;
 
 namespace ConstructionSite
@@ -49,6 +51,10 @@ namespace ConstructionSite
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+          
+          
+         
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -70,7 +76,8 @@ namespace ConstructionSite
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+           
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -80,6 +87,7 @@ namespace ConstructionSite
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+          
             });
 
         }

@@ -101,6 +101,7 @@ namespace ConstructionSite.Helpers.Constants
 
         #region Region
         public const string ReadMore = "ReadMore";
+        public const string THEBESTCOMPANY= "THEBESTCOMPANY";
         #endregion
 
         #region Portfolio
@@ -122,6 +123,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string ResconstructionServices = "ResconstructionServices";
         public const string RoofingAndFlooringServices = "RoofingAndFlooringServices";
         public const string News = "News";
+        public const string THECONSTRUCTION= "THECONSTRUCTION";
         #endregion
 
         #region CONTACT US

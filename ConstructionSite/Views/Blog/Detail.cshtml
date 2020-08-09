@@ -35,7 +35,7 @@
                                 <div class="post-meta-content-inner">
                                     <span class="post-date item">
                                         <span class="inner">
-                                            <span class="entry-date">@Model.dateTime</span>
+                                            <span class="entry-date">@Model.dateTime.ToUniversalTime().ToString("MMMM dd, yyyy")</span>
                                         </span>
                                     </span>
                                 </div>
@@ -45,18 +45,13 @@
                             <p>@Model.Content</p>
                         </div>
                         <!-- /.post-excerpt -->
-
                     </div>
                     <!-- /.post-content-wrap -->
-
                 </article>
-                
             </div>
             <!-- /.inner-content-wrap -->
-
         </div>
         <!-- /#site-content -->
-
     </div>
     <!-- /#main-content -->
 

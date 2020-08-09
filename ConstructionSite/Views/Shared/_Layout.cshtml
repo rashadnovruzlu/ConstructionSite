@@ -16,35 +16,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
-    <link rel="stylesheet" type="text/css" href="~/style.css">
 
-    <!-- Favicon and touch icons  -->
-    <link rel="shortcut icon" href="~/assets/img/logo-light.png">
-    <link rel="apple-touch-icon-precomposed" href="~/assets/icon/apple-touch-icon-158-precomposed.png" />
-
-    @*<link rel="stylesheet" type="text/css" href="~/ViewComponet.css">
-    <link rel="stylesheet" type="text/css" href="~/PortfoliViewComponent.css" />*@
-
+    <partial name="_LinkPartialStyle" />
+   
     <!-- load cubeportfolio jQuery plugin -->
-    <script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
-    @RenderSection("head", false)
+    @*<script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>*@
+    @await RenderSectionAsync("head", false)
 
-    <style>
-        body::-webkit-scrollbar {
-            width: 8px;
-            background-color: RGB(49, 49, 49);
-            opacity: .8;
-        }
+    @*<style>
+            body::-webkit-scrollbar {
+                width: 8px;
+                background-color: RGB(49, 49, 49);
+                opacity: .8;
+            }
 
-        body::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background: linear-gradient(left, #96A6BF, #63738C);
-            box-shadow: inset 0 0 1px 1px #5C6670;
-        }
-    </style>
+            body::-webkit-scrollbar-thumb {
+                border-radius: 10px;
+                background: linear-gradient(left, #96A6BF, #63738C);
+                box-shadow: inset 0 0 1px 1px #5C6670;
+            }
+        </style>*@
 </head>
 
-<body class="front-page /*one-page*/  no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
+<body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
     <div id="top"></div>
     <div id="wrapper" class="animsition">
         <div id="page" class="clearfix">
@@ -56,7 +50,7 @@
                             <div id="site-logo" class="clearfix">
                                 <div id="site-logo-inner">
                                     <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
-                                        <img src="~/assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light.png" data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: -8px;  background-color: white;">
+                                        <img src="~/assets/img/logo-light.png" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: -8px;  background-color: white;">
                                     </a>
                                 </div>
                             </div>
@@ -65,15 +59,13 @@
                             <div class="mobile-button"><span></span></div>
                             <!-- //mobile menu button -->
 
-                            <partial name="_Mainnav" />
-                            <!-- /#main-nav -->
-                            @*@await Html.PartialAsync("Language")*@
+                            <partial name="_MainnavPartial" />
+                          
                         </div>
                         <!-- /#site-header-inner -->
                     </div>
                 </header>
                 <!-- /#site-header -->
-
             </div>
 
             @RenderBody()
@@ -84,7 +76,7 @@
                     <div class="row">
 
                         @await Component.InvokeAsync("Adress")
-                        <partial name="_UsefulLink" />
+                        <partial name="_UsefulLinkPartial" />
                     </div>
                 </div>
             </footer>
@@ -94,35 +86,32 @@
                 <div id="bottom-bar-inner" class="wprt-container">
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
-                            <ul class="bottom-nav">
-                                <li><a asp-controller="Home" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
-                                <li><a asp-controller="About" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
-                                <li><a asp-controller="Services" asp-action="Construction" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a></li>
-                                <li><a asp-controller="Message" asp-action="Index" style="text-transform: uppercase">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
-                            </ul>
+                           <partial name="_FooterMenuPartial"/>
                         </div>
                         <!-- /.bottom-bar-menu -->
-
                     </div>
                 </div>
             </div>
         </div>
         <!-- /#page -->
-
     </div>
     <!-- /#wrapper -->
 
     <a id="scroll-top">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Top)</a>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZWUE32UR-FTJgp1QlLnQfjOUDeDrKL5Q&callback=initMap&libraries=&v=weekly"></script>
+
     <!-- Javascript -->
-    <partial name="Javascript" />
+    <partial name="_JavascriptPartial" />
 
     <!-- Revolution Slider -->
-    <partial name="Revolution" />
-    <script type="text/javascript" src="~/Component.js">
+    <partial name="_RevolutionPartialScripts" />
+    <script type="text/javascript" src="~/customer/js/Component.js">
     </script>
-    <script src="~/customer/js/map.js"></script>
+    <script>
+      
+        //$(document).ready(function () {                      // wait until 
+        //    $('img' + (i + 1)).attr('src','~/assets/img/logo-light.png'); // set the 
+        //});
+    </script>
     @RenderSection("Scrips", false)
 </body>
 </html>
-

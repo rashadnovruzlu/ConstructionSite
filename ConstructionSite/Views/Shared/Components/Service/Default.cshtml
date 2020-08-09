@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ServiceViewModel>
-@inject SharedLocalizationService Localizer 
-   
+@inject SharedLocalizationService Localizer
+
 <section id="team" class="wprt-section clearfix text-center">
     <div class="container">
         <div class="row">
@@ -17,7 +17,7 @@
                     Phasellus sit amet iaculis elit. Nam
                     semper ut arcu non placerat. Praesent nibh
                     massa varius.
-                </p> 
+                </p>
                 <div class="link">
                     <a asp-controller="Services" asp-action="Index" class="wprt-button small rounded-3px">
                         @Localizer.GetLocalizedHtmlString(RESOURCEKEYS.SeeAll)
@@ -28,7 +28,7 @@
                     <div id="team-wrap" class="cbp">
                         @foreach (ServiceViewModel item in Model)
                         {
-                            <div class="cbp-item" >
+                            <div class="cbp-item">
                                 <div class="cbp-item-wrapper">
                                     <div class="member">
                                         <div class="inner">
@@ -53,18 +53,14 @@
                          }
                     </div>
                     <!-- /#team-wrap -->
-
                 </div>
                 <!-- /.wprt-team -->
 
                 <div class="wprt-spacer" data-desktop="70" data-mobi="50" data-smobi="40"></div>
             </div>
             <!-- /.col-md-12 -->
-
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
-
 </section>
