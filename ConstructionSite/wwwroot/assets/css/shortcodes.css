@@ -2274,21 +2274,23 @@
 .project-item .effect-zoe h2 {
     float: left;
 }
+
 .project-item .effect-zoe p {
-    text-transform:uppercase;
+    text-transform: uppercase;
 }
-    .project-item .effect-zoe p {
+
+.project-item .effect-zoe p {
     float: left;
     color: black;
     display: inline-block;
-   
 }
-        .project-item .effect-zoe p:hover {
-            float: left;
-            color: #ffc925;
-            text-decoration: underline #ffc925;
-            display: inline-block;
-        }
+
+.project-item .effect-zoe p:hover {
+        float: left;
+        color: #ffc925;
+        text-decoration: underline #ffc925;
+        display: inline-block;
+    }
 
 .project-item .effect-zoe:hover p.icon-links a:hover,
 .project-item .effect-zoe:hover p.icon-links a:focus {
