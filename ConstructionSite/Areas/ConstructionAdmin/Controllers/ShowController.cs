@@ -24,6 +24,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion
 
         #region INDEX
+        [HttpGet]
         public IActionResult Index()
         {
             if (!ModelState.IsValid)

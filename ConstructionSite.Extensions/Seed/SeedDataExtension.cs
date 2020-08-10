@@ -41,7 +41,10 @@ namespace ConstructionSite.Extensions.Seed
 
                     Address = "68 Havemeyer St, Brooklyn, NY 11211 United States",
                     Email = "contact@construction.com",
-                    PhoneNumber = "+1 718-955-2838 or +1 718-955-3290"
+                    PhoneNumber = "+1 718-955-2838 or +1 718-955-3290",
+                    lat= "40.409264",
+                    lng= "49.867092"
+
                 });
                 if (context.Contacts.Count() > 1)
                 {
