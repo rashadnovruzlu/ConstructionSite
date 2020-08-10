@@ -11,31 +11,16 @@
 
     <meta name="description" descriptions />
     <meta name="keywords" metapage />
-
+    <meta name="author" content="PDC.az"/>
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
 
     <partial name="_LinkPartialStyle" />
-   
-    <!-- load cubeportfolio jQuery plugin -->
-    @*<script type="text/javascript" src="cubeportfolio/js/jquery.cubeportfolio.min.js"></script>*@
     @await RenderSectionAsync("head", false)
 
-    @*<style>
-            body::-webkit-scrollbar {
-                width: 8px;
-                background-color: RGB(49, 49, 49);
-                opacity: .8;
-            }
-
-            body::-webkit-scrollbar-thumb {
-                border-radius: 10px;
-                background: linear-gradient(left, #96A6BF, #63738C);
-                box-shadow: inset 0 0 1px 1px #5C6670;
-            }
-        </style>*@
+   
 </head>
 
 <body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
@@ -86,7 +71,7 @@
                 <div id="bottom-bar-inner" class="wprt-container">
                     <div class="bottom-bar-inner-wrap">
                         <div class="bottom-bar-menu">
-                           <partial name="_FooterMenuPartial"/>
+                            <partial name="_FooterMenuPartial" />
                         </div>
                         <!-- /.bottom-bar-menu -->
                     </div>
@@ -104,14 +89,11 @@
 
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
-    <script type="text/javascript" src="~/customer/js/Component.js">
+    <script type="text/javascript" src="~/customer/js/Component.js"
+            asp-append-version="true">
     </script>
-    <script>
-      
-        //$(document).ready(function () {                      // wait until 
-        //    $('img' + (i + 1)).attr('src','~/assets/img/logo-light.png'); // set the 
-        //});
-    </script>
-    @RenderSection("Scrips", false)
+   
+
+    @await RenderSectionAsync("Scrips", false)
 </body>
 </html>
