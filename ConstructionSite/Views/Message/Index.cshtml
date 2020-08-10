@@ -82,5 +82,21 @@
     <script let keys="AIzaSyD2QmvoLHHVFktvA_fyDKKLoRjZJzpEKqg" ;
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcD5yIXxI3_K6v4NOqfI4F_B53VqpLq3s&callback=initMap&libraries=&v=weekly"
             defer></script>
-<script src="~/customer/js/_mapMarker.js"></script>
+<script>
+    function initMap() {
+        const myLatLng = {
+            lat: @ViewBag.la,
+            lng: @ViewBag.lo
+        };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: myLatLng
+        });
+        new google.maps.Marker({
+            position: myLatLng,
+            map,
+            title: "Hello World!"
+        });
+    }
+</script>
 }
