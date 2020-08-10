@@ -22,7 +22,6 @@ namespace ConstructionSite.Controllers
                                   SharedLocalizationService localizationHandle)
         {
             _unitOfWork = unitOfWork;
-
             _localizationHandle = localizationHandle;
         }
 
@@ -38,7 +37,7 @@ namespace ConstructionSite.Controllers
                 }).FirstOrDefault();
             ViewBag.la=_googelMapGeolocation.Latitude;
             ViewBag.lo=_googelMapGeolocation.Longitude;
-            _unitOfWork.Dispose();
+          
             return View();
         }
 
