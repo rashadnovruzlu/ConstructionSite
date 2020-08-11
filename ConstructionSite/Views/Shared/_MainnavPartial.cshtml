@@ -17,37 +17,27 @@
 }
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
-        
-        <li><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
-        <li><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
-        <li>
+
+
+        <li class="@Html.Active("Home","Index")"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
+        <li class="@Html.Active("About","Index")"><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
+        <li class="@Html.Active("Services","Index")">
             <a href="/Services/Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a>
             @await Component.InvokeAsync("ServiceMenu")
         </li>
 
-        <li><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
-        <li><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
-        <li><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
+        <li class="@Html.Active("Portfolio","Index")"><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
+        <li class="@Html.Active("Blog","Index")"><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
+        <li class="@Html.Active("Message","Index")"><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
 
         @foreach (var item in cultureItems)
         {
-        <li>
-            <a class="datas_item langdata" data-id="@item.Name">
-                <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
-            </a>
-        </li>
+            <li class="@Html.LanguageA("Language","SetLanguage",item.Name)" >
+                <a class="datas_item langdata" data-id="@item.Name" >
+                    <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
+                </a>
+            </li>
         }
     </ul>
 </nav>
-@section Scrips{
-    <script src="~/ConstructionAdmin/js/jquery-1.8.3.min.js"></script>
-    <script src="~/customer/js/Language.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            // Get current url
-            // Select an a element that has the matching href and apply a class of 'active'. Also prepend a - to the content of the link
-            var url = window.location.href;
-            $('.menu a[href="' + url + '"]').addClass('current_page_item');
-        });
-    </script>
-}
+

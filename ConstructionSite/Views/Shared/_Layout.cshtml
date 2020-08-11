@@ -19,7 +19,7 @@
 
     <partial name="_LinkPartialStyle" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    @await RenderSectionAsync("head", false)
+    @RenderSection("head", false)
 
 
 </head>
@@ -36,7 +36,7 @@
                             <div id="site-logo" class="clearfix">
                                 <div id="site-logo-inner">
                                     <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
-                                        <img src="~/assets/img/logo-light.png" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: 0px;  background-color: white;">
+                                        <img src="~/assets/img/logo-light.png" alt="Construction" data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: 0px;  background-color: white;">
                                     </a>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                             <!-- //mobile menu button -->
 
                             <partial name="_MainnavPartial" />
-                          
+
                         </div>
                         <!-- /#site-header-inner -->
                     </div>
@@ -68,7 +68,7 @@
             </footer>
 
             <!-- Bottom -->
-            <partial name="_BottonPartial"/>
+            <partial name="_BottonPartial" />
         </div>
         <!-- /#page -->
     </div>
@@ -81,12 +81,14 @@
 
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
-    <partial name="_LoadingPartialScripts"/>
-    <script type="text/javascript" src="~/customer/js/Component.js"
-            asp-append-version="true">
-    </script>
-   
 
-    @await RenderSectionAsync("Scrips", false)
+    <script type="text/javascript" src="~/customer/js/Component.js"
+            >
+    </script>
+    <script type="text/javascript" src="~/customer/js/Language.js"></script>
+   
+    @RenderSection("Scrips", required: false)
+
+
 </body>
 </html>

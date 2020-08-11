@@ -32,7 +32,7 @@ namespace ConstructionSite.Controllers
 
             Response.Cookies.Append(cookieName, cookieValue);
 
-            //  return LocalRedirect(returnUrl);
+           
         }
     }
 }
