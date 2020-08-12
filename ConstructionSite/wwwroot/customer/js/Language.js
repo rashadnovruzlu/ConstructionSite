@@ -8,7 +8,8 @@
             method: "POST",
             url: "/Language/SetLanguage/" + id,
             success: function () {
-             // window.location.replace(returnUrl);
+               
+            window.location.replace(returnUrl);
                
             }
 
