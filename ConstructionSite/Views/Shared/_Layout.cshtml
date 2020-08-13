@@ -5,7 +5,7 @@
 
 <head>
     <!-- Basic Page Needs -->
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
 
     <title>PDC.az</title>
 
@@ -20,8 +20,6 @@
     <partial name="_LinkPartialStyle" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @RenderSection("head", false)
-
-
 </head>
 
 <body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
@@ -46,7 +44,6 @@
                             <!-- //mobile menu button -->
 
                             <partial name="_MainnavPartial" />
-
                         </div>
                         <!-- /#site-header-inner -->
                     </div>
@@ -82,13 +79,10 @@
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
 
-    <script type="text/javascript" src="~/customer/js/Component.js"
-            >
+    <script type="text/javascript" src="~/customer/js/Component.js">
     </script>
     <script type="text/javascript" src="~/customer/js/Language.js"></script>
-   
+
     @RenderSection("Scrips", required: false)
-
-
 </body>
 </html>

@@ -13,17 +13,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class ShowController : Controller
     {
         #region Fields
+
         private readonly IUnitOfWork _unitOfWork;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public ShowController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -42,7 +47,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     IsAnswerd = x.IsAnswerd,
                     SendDate = x.SendDate,
                     Subject = x.Subject,
-                    Content=x.UserMessage
+                    Content = x.UserMessage
                 })
                 .ToList();
             if (messageAllResult == null && messageAllResult.Count < 0)
@@ -51,9 +56,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(messageAllResult);
         }
-        #endregion
+
+        #endregion INDEX
 
         #region DELETE
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -77,6 +84,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
-        #endregion
+
+        #endregion DELETE
     }
 }

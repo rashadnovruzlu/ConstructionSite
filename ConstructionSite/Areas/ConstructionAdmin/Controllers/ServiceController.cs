@@ -201,7 +201,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "FILE NULL");
             }
-           
+
             var serviceAddViewModelResult = new Service
             {
                 Id = serviceUpdateViewModel.id,
@@ -231,6 +231,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion UPDATE
 
         #region DELETE
+
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -253,8 +254,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
 
-
-
             //if (id < 1)
             //{
             //    ModelState.AddModelError("", "Data is not exists");
@@ -274,6 +273,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             //_unitOfWork.Dispose();
             //return RedirectToAction("Index");
         }
+
         #endregion DELETE
     }
 }

@@ -18,7 +18,6 @@
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
 
-
         <li class="@Html.Active("Home","Index")"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
         <li class="@Html.Active("About","Index")"><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
         <li class="@Html.Active("Services","Index")">
@@ -32,12 +31,11 @@
 
         @foreach (var item in cultureItems)
         {
-            <li class="@Html.LanguageA("Language","SetLanguage",item.Name)" >
-                <a class="datas_item langdata" data-id="@item.Name" >
+            <li class="@Html.LanguageA("Language","SetLanguage",item.Name)">
+                <a class="datas_item langdata" data-id="@item.Name">
                     <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
                 </a>
             </li>
         }
     </ul>
 </nav>
-

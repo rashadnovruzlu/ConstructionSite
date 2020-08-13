@@ -18,11 +18,11 @@
                 <div class="wprt-service arrow-style-2 has-arrows arrow60 arrow-light" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
                     <div id="service-wrap" class="cbp">
                         @foreach (BlogViewModel item in Model)
-                    {
+                        {
                             <div class="cbp-item">
                                 <div class="service-item clearfix">
 
-                                    <div class="thumb"><img  class="imageblog"src="@item.Image" style="width:350px;height:350px" alt="image" /></div>
+                                    <div class="thumb"><img class="imageblog" src="@item.Image" style="width:350px;height:350px" alt="image" /></div>
                                     <div class="service-item-wrap">
                                         <h3 class="title font-size-18"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" blogtitle="@item.Tittle"></a></h3>
                                         <p blogtext="@item.Content"></p>

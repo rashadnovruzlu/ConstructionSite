@@ -1,13 +1,13 @@
 // Revolution Slider
-var RevSlider = function() {
+var RevSlider = function () {
     "use strict";
 
     // Revolution Slider 1
-    var handleRevSliderLayout1 = function() {
-        var tpj=jQuery,         
-        revapi9;
-        tpj(document).ready(function() {
-            if(tpj("#rev-slider1").revolution == undefined){
+    var handleRevSliderLayout1 = function () {
+        var tpj = jQuery,
+            revapi9;
+        tpj(document).ready(function () {
+            if (tpj("#rev-slider1").revolution == undefined) {
                 revslider_showDoubleJqueryError("#rev-slider1");
             } else {
                 revapi9 = tpj("#rev-slider1").show().revolution({
@@ -48,15 +48,15 @@ var RevSlider = function() {
                         outof: "pause",
                         visible_area: "80%"
                     },
-                    responsiveLevels: [1240,1024,778,480],
-                    gridwidth: [1240,1024,778,480],
-                    gridheight: [500,450,400,350],
+                    responsiveLevels: [1240, 1024, 778, 480],
+                    gridwidth: [1240, 1024, 778, 480],
+                    gridheight: [500, 450, 400, 350],
                     lazyType: "smart",
                     parallax: {
                         type: "scroll",
                         origo: "enterpoint",
                         speed: 400,
-                        levels: [5,10,15,20,25,30,35,40,45,50],
+                        levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
                     },
                     shadow: 0,
                     spinner: "off",
@@ -82,19 +82,19 @@ var RevSlider = function() {
     }
 
     // Revolution Slider 2
-    var handleRevSliderLayout2 = function() {
-        var tpj=jQuery,         
-        revapi9;
-        tpj(document).ready(function() {
-            if(tpj("#rev-slider2").revolution == undefined){
+    var handleRevSliderLayout2 = function () {
+        var tpj = jQuery,
+            revapi9;
+        tpj(document).ready(function () {
+            if (tpj("#rev-slider2").revolution == undefined) {
                 revslider_showDoubleJqueryError("#rev-slider2");
             } else {
                 revapi9 = tpj("#rev-slider2").show().revolution({
                     sliderType: "standard",
                     jsFileLocation: "includes/rev-slider/js/",
-                    startwidth:1170,
-                    startheight:650,
-                    fullWidth:"on",
+                    startwidth: 1170,
+                    startheight: 650,
+                    fullWidth: "on",
                     dottedOverlay: "none",
                     delay: 9000,
                     navigation: {
@@ -138,15 +138,15 @@ var RevSlider = function() {
                         outof: "pause",
                         visible_area: "80%"
                     },
-                    responsiveLevels: [1240,1024,778,480],
-                    gridwidth: [1240,1024,778,480],
-                    gridheight: [500,450,400,350],
+                    responsiveLevels: [1240, 1024, 778, 480],
+                    gridwidth: [1240, 1024, 778, 480],
+                    gridheight: [500, 450, 400, 350],
                     lazyType: "smart",
                     parallax: {
                         type: "scroll",
                         origo: "enterpoint",
                         speed: 400,
-                        levels: [5,10,15,20,25,30,35,40,45,50],
+                        levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
                     },
                     shadow: 0,
                     spinner: "off",
@@ -172,13 +172,13 @@ var RevSlider = function() {
     }
 
     return {
-        init: function() {
+        init: function () {
             handleRevSliderLayout1(); // initial setup for revolution slider layout 1
             handleRevSliderLayout2(); // initial setup for revolution slider layout 2
         }
     }
 }();
 
-$(document).ready(function() {
+$(document).ready(function () {
     RevSlider.init();
 });

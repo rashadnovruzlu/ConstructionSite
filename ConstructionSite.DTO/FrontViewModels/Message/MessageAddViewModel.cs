@@ -8,6 +8,7 @@ namespace ConstructionSite.DTO.FrontViewModels.Message
        
         public string Name { get; set; }
        
+        [UIHint("email")]
         public string Email { get; set; }
        
         public string Subject { get; set; }

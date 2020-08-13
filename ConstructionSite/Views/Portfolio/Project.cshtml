@@ -1,31 +1,31 @@
 ﻿@model IEnumerable<ProjectViewModel>
 
-        @foreach (var item in Model)
-        {
+@foreach (var item in Model)
+{
 
     <div class=" cbp-item datas">
 
         <a href="/Portfolio/Detail/@item.Id" title="custom title 3">
 
-                    <div class="cbp-item-wrapper">
-                        <div class="project-item">
-                            <div class="inner">
-                                <div class="grid">
-                                    <figure class="effect-zoe">
+            <div class="cbp-item-wrapper">
+                <div class="project-item">
+                    <div class="inner">
+                        <div class="grid">
+                            <figure class="effect-zoe">
 
-                                        <img src="@item.Image" alt="custom alt 3" class="imagest" />
+                                <img src="@item.Image" alt="custom alt 3" class="imagest" />
 
-                                        <figcaption>
-                                            <div>
-                                                <p>@item.Name</p>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
-                                </div>
-                            </div>
+                                <figcaption>
+                                    <div>
+                                        <p>@item.Name</p>
+                                    </div>
+                                </figcaption>
+                            </figure>
                         </div>
                     </div>
+                </div>
+            </div>
         </a>
     </div>
 
-        }
+}

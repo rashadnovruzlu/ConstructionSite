@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -21,13 +20,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class ProjectController : Controller
     {
         #region Fields
+
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public ProjectController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor)
@@ -37,7 +39,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLanguages();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -68,11 +71,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(result);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
-        [HttpGet] 
+        [HttpGet]
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -132,7 +135,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index", "Project", new { Areas = "ConstructionAdmin" });
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
 
@@ -148,32 +151,32 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Id is not exists");
             }
-        var projectUpdateViewModel =  _unitOfWork.projectImageRepository
-                .GetAll()
-                .Include(x=>x.Image)
-                .Include(x=>x.Project)
-                .Select(x=>new ProjectUpdateViewModel
-                {
-                    Id=x.Id,
-                    ContentAz=x.Project.ContentAz,
-                    ContentEn=x.Project.ContentEn,
-                    ContentRu=x.Project.ContentRu,
-                    NameAz = x.Project.NameAz,
-                    NameEn = x.Project.NameEn,
-                    NameRu = x.Project.NameRu,
-                    ImageId =x.ImageId,
-                    ImagePath=x.Image.Path,
-                   
-                    PortfolioId=x.Project.PortfolioId,
-                    ProjectId=x.ProjectId
-                })
-                .FirstOrDefault(x=>x.ProjectId==id);
-       ViewBag.items=_unitOfWork.portfolioRepository.GetAll()
-                .Select(x=>new PortfolioViewModel
-                {
-                    Id=x.Id,
-                    Name=x.FindName(_lang)
-                }).ToList();
+            var projectUpdateViewModel = _unitOfWork.projectImageRepository
+                    .GetAll()
+                    .Include(x => x.Image)
+                    .Include(x => x.Project)
+                    .Select(x => new ProjectUpdateViewModel
+                    {
+                        Id = x.Id,
+                        ContentAz = x.Project.ContentAz,
+                        ContentEn = x.Project.ContentEn,
+                        ContentRu = x.Project.ContentRu,
+                        NameAz = x.Project.NameAz,
+                        NameEn = x.Project.NameEn,
+                        NameRu = x.Project.NameRu,
+                        ImageId = x.ImageId,
+                        ImagePath = x.Image.Path,
+
+                        PortfolioId = x.Project.PortfolioId,
+                        ProjectId = x.ProjectId
+                    })
+                    .FirstOrDefault(x => x.ProjectId == id);
+            ViewBag.items = _unitOfWork.portfolioRepository.GetAll()
+                     .Select(x => new PortfolioViewModel
+                     {
+                         Id = x.Id,
+                         Name = x.FindName(_lang)
+                     }).ToList();
             return View(projectUpdateViewModel);
         }
 
@@ -181,8 +184,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel, IFormFile file)
         {
-           
-
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -190,24 +191,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (projectUpdateViewModel == null)
             {
-
                 ModelState.AddModelError("", "Data is null");
                 return RedirectToAction("Index");
             }
 
             var projectViewModelUpdate = new Project
             {
-                Id          = projectUpdateViewModel.ProjectId,
-                NameAz      = projectUpdateViewModel.NameAz,
-                NameRu      = projectUpdateViewModel.NameRu,
-                NameEn      = projectUpdateViewModel.NameEn,
-                ContentAz   = projectUpdateViewModel.ContentAz,
-                ContentRu   = projectUpdateViewModel.ContentRu,
-                ContentEn   = projectUpdateViewModel.ContentEn,
+                Id = projectUpdateViewModel.ProjectId,
+                NameAz = projectUpdateViewModel.NameAz,
+                NameRu = projectUpdateViewModel.NameRu,
+                NameEn = projectUpdateViewModel.NameEn,
+                ContentAz = projectUpdateViewModel.ContentAz,
+                ContentRu = projectUpdateViewModel.ContentRu,
+                ContentEn = projectUpdateViewModel.ContentEn,
                 PortfolioId = projectUpdateViewModel.PortfolioId
             };
             var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
-         
+
             if (!portfolioUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while editing Portfolio");
@@ -216,20 +216,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (file != null)
             {
                 var image = _unitOfWork.imageRepository.GetById(projectUpdateViewModel.ImageId);
-                if (image==null)
+                if (image == null)
                 {
-                    ModelState.AddModelError("","fill is null");
+                    ModelState.AddModelError("", "fill is null");
                 }
                 var imageResult = await file.UpdateAsyc(_env, image, "project", _unitOfWork);
-                
+
                 if (!imageResult)
                 {
                     ModelState.AddModelError("", "Errors occured while editing Images");
                 }
-
             }
-           
-           
+
             ProjectImage projectImage = new ProjectImage
             {
                 Id = projectUpdateViewModel.Id,
@@ -247,7 +245,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion UPDATE
 
         #region DELETE
 
@@ -261,7 +259,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 return RedirectToAction("Index");
             }
             var projectResult = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
-            var ImageResult =  _env.Delete(projectImageResult.ImageId, "project", _unitOfWork);
+            var ImageResult = _env.Delete(projectImageResult.ImageId, "project", _unitOfWork);
 
             if (ImageResult != false && projectImageResult != null)
             {
@@ -271,7 +269,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     _unitOfWork.Dispose();
                     return RedirectToAction("Index");
                 }
-                
             }
             else
             {
@@ -281,6 +278,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-        #endregion
+        #endregion DELETE
     }
 }
