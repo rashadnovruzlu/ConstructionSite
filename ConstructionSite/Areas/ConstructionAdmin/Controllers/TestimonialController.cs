@@ -18,13 +18,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class TestimonialController : Controller
     {
         #region Fields
-        private string                        _lang;
+
+        private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork          _unitOfWork;
-        private readonly IWebHostEnvironment  _env;
-        #endregion
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
+
+        #endregion Fields
 
         #region CTOR
+
         public TestimonialController(IUnitOfWork unitOfWork,
                                      IWebHostEnvironment env,
                                      IHttpContextAccessor httpContextAccessor)
@@ -34,7 +37,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _lang = _httpContextAccessor.getLanguages();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -53,11 +57,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         Content = x.FindContent(_lang),
                         FullName = x.FullName,
                         Position = x.Position
-                    }).ToList();
+                    })
+                    .ToList();
             return View(CustomerFeedbackViewModelResult);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
@@ -85,13 +90,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerAddViewModelResult=new CustomerFeedback
+            var customerAddViewModelResult = new CustomerFeedback
             {
-                ContentAz=customerAddViewModel.ContentAz,
-                ContentEn=customerAddViewModel.ContentEn,
-                ContentRu=customerAddViewModel.ContentRu,
-                FullName=customerAddViewModel.FullName,
-                Position=customerAddViewModel.Position
+                ContentAz = customerAddViewModel.ContentAz,
+                ContentEn = customerAddViewModel.ContentEn,
+                ContentRu = customerAddViewModel.ContentRu,
+                FullName = customerAddViewModel.FullName,
+                Position = customerAddViewModel.Position
             };
             var customerFeedbackAddedResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerAddViewModelResult);
 
@@ -104,7 +109,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
 
@@ -152,14 +157,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerViewUpdateModelResult=new CustomerFeedback
+            var customerViewUpdateModelResult = new CustomerFeedback
             {
-                Id=customerViewUpdateModel.Id,
-                ContentAz=customerViewUpdateModel.ContentAz,
-                ContentEn=customerViewUpdateModel.ContentEn,
-                ContentRu=customerViewUpdateModel.ContentRu,
-                FullName=customerViewUpdateModel.FullName,
-                Position=customerViewUpdateModel.Position
+                Id = customerViewUpdateModel.Id,
+                ContentAz = customerViewUpdateModel.ContentAz,
+                ContentEn = customerViewUpdateModel.ContentEn,
+                ContentRu = customerViewUpdateModel.ContentRu,
+                FullName = customerViewUpdateModel.FullName,
+                Position = customerViewUpdateModel.Position
             };
             var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerViewUpdateModelResult);
             if (!customerFeedbackUpdateResult.IsDone)
@@ -171,9 +176,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion UPDATE
 
         #region DELETE
+
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -199,6 +205,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return View();
         }
-        #endregion
+
+        #endregion DELETE
     }
 }

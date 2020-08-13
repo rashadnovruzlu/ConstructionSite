@@ -43,20 +43,20 @@
                                     @await Component.InvokeAsync("Contact")
                                 </div>
                                 <div class="col-md-8">
-                                    <form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Message">
+                                    <form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Message" >
                                         <div class="inner">
                                             <div class="left-side">
                                                 <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="1" placeholder="Name *" asp-for="Name" id="name" required="">
+                                                    <input type="text"  tabindex="1" placeholder="Name " asp-for="Name" id="name" required>
                                                 </div>
                                                 <div class="input-wrap">
-                                                    <input type="email" value="" tabindex="2" placeholder="Email *" asp-for="Email" id="email" required="">
+                                                    <input type="email"  tabindex="2" placeholder="Email " asp-for="Email" id="email" required>
                                                 </div>
                                                 <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="4" placeholder="Subject *" asp-for="Subject" id="subject" required="">
+                                                    <input type="text"  tabindex="4" placeholder="Subject " asp-for="Subject" id="subject" required>
                                                 </div>
                                                 <div class="message-wrap">
-                                                    <textarea class="" tabindex="5" placeholder="Message *" asp-for="UserMessage" id="message" required=""></textarea>
+                                                    <textarea class="" tabindex="5" placeholder="Message " asp-for="UserMessage" id="message" required></textarea>
                                                 </div>
                                                 <div class="send-wrap">
                                                     <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">

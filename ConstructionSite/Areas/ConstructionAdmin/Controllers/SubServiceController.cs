@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers

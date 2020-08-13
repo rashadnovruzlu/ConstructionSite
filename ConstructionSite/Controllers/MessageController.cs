@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Maps;
 using ConstructionSite.DTO.FrontViewModels.Message;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
@@ -30,6 +31,7 @@ namespace ConstructionSite.Controllers
          var _googelMapGeolocation=  _unitOfWork
                 .ContactRepository
                 .GetAll()
+               
                 .Select(x=>new Geolocation
                 {
                     Latitude=x.lat,
@@ -56,15 +58,17 @@ namespace ConstructionSite.Controllers
             }
             messageAddViewModel.SendDate = DateTime.Now;
             messageAddViewModel.IsAnswerd = false;
-            var messageAddViewModelResult = new Message
-            {
-                Name = messageAddViewModel.Name,
-                Email = messageAddViewModel.Email,
-                Subject = messageAddViewModel.Subject,
-                UserMessage = messageAddViewModel.UserMessage,
-                SendDate = messageAddViewModel.SendDate,
-                IsAnswerd = messageAddViewModel.IsAnswerd
-            };
+            //var messageAddViewModelResult = new Message
+            //().Mapped<MessageAddViewModel>()
+            //{
+            //    Name = messageAddViewModel.Name,
+            //    Email = messageAddViewModel.Email,
+            //    Subject = messageAddViewModel.Subject,
+            //    UserMessage = messageAddViewModel.UserMessage,
+            //    SendDate = messageAddViewModel.SendDate,
+            //    IsAnswerd = messageAddViewModel.IsAnswerd
+            //};
+            var messageAddViewModelResult= messageAddViewModel.Mapped<Message>();
             var messageDataResult = _unitOfWork
                 .messageRepository
                 .Add(messageAddViewModelResult);
