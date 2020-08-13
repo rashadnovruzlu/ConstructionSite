@@ -43,7 +43,7 @@
                                     @await Component.InvokeAsync("Contact")
                                 </div>
                                 <div class="col-md-8">
-                                    <form class="wprt-contact-form" asp-controller="Message" asp-action="Add" novalidate="novalidate">
+                                    <form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Message">
                                         <div class="inner">
                                             <div class="left-side">
                                                 <div class="input-wrap">
