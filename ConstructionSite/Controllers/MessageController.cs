@@ -28,18 +28,18 @@ namespace ConstructionSite.Controllers
 
         public IActionResult Index()
         {
-         var _googelMapGeolocation=  _unitOfWork
-                .ContactRepository
-                .GetAll()
-               
-                .Select(x=>new Geolocation
-                {
-                    Latitude=x.lat,
-                    Longitude=x.lng
-                }).FirstOrDefault();
-            ViewBag.la=_googelMapGeolocation.Latitude;
-            ViewBag.lo=_googelMapGeolocation.Longitude;
-          
+            var _googelMapGeolocation = _unitOfWork
+                   .ContactRepository
+                   .GetAll()
+
+                   .Select(x => new Geolocation
+                   {
+                       Latitude = x.lat,
+                       Longitude = x.lng
+                   }).FirstOrDefault();
+            ViewBag.la = _googelMapGeolocation.Latitude;
+            ViewBag.lo = _googelMapGeolocation.Longitude;
+
             return View();
         }
 
@@ -58,23 +58,14 @@ namespace ConstructionSite.Controllers
             }
             messageAddViewModel.SendDate = DateTime.Now;
             messageAddViewModel.IsAnswerd = false;
-            //var messageAddViewModelResult = new Message
-            //().Mapped<MessageAddViewModel>()
-            //{
-            //    Name = messageAddViewModel.Name,
-            //    Email = messageAddViewModel.Email,
-            //    Subject = messageAddViewModel.Subject,
-            //    UserMessage = messageAddViewModel.UserMessage,
-            //    SendDate = messageAddViewModel.SendDate,
-            //    IsAnswerd = messageAddViewModel.IsAnswerd
-            //};
-            var messageAddViewModelResult= messageAddViewModel.Mapped<Message>();
+             var messageAddViewModelResult = messageAddViewModel.Mapped<Message>();
             var messageDataResult = _unitOfWork
                 .messageRepository
                 .Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
+                return RedirectToAction("Index","Home");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index", "Home");

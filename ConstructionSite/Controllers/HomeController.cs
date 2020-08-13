@@ -6,11 +6,11 @@ namespace ConstructionSite.Controllers
     {
         public HomeController()
         {
-            ViewBag.active= "current-menu-item";
+            ViewBag.active = "current-menu-item";
         }
+
         public IActionResult Index()
         {
-
             return View();
         }
     }
