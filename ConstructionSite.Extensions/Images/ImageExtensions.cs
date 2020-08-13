@@ -12,6 +12,39 @@ namespace ConstructionSite.Extensions.Images
     {
         private const string _IMAGE = "images";
 
+        public async static Task<bool> SaveImageArray(this IFormFile  file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        {
+            bool IsResult = false;
+
+
+            if (file != null)
+            {
+
+                string FileNameAfterReName = Helper.reNameFileName(file);
+                string filePath = Paths
+                     .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+
+
+                bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+                if (!folderIsCreatedSuccess)
+                {
+                    IsResult = false;
+                }
+                await using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                image.Title = FileNameAfterReName;
+                image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
+                if (!imageSaveFile.IsDone)
+                {
+                    IsResult = false;
+                }
+                IsResult = true;
+            }
+            return IsResult;
+        }
         public async static Task<bool> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult=false;
