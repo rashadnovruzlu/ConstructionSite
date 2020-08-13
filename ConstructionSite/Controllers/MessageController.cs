@@ -44,7 +44,7 @@ namespace ConstructionSite.Controllers
         }
 
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public IActionResult Add(MessageAddViewModel messageAddViewModel)
         {
             if (!ModelState.IsValid)
@@ -58,14 +58,14 @@ namespace ConstructionSite.Controllers
             }
             messageAddViewModel.SendDate = DateTime.Now;
             messageAddViewModel.IsAnswerd = false;
-             var messageAddViewModelResult = messageAddViewModel.Mapped<Message>();
+            var messageAddViewModelResult = messageAddViewModel.Mapped<Message>();
             var messageDataResult = _unitOfWork
                 .messageRepository
                 .Add(messageAddViewModelResult);
             if (!messageDataResult.IsDone)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             _unitOfWork.Dispose();
             return RedirectToAction("Index", "Home");

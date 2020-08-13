@@ -21,12 +21,12 @@
 
     <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
         <div id="project-filter">
-            <div data-filter="*" class="cbp-filter-item">
+            <div id="myfist" class="cbp-filter-item">
                 <span class="All">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
             </div>
             @foreach (var item in Model)
             {
-                <div class="cbp-filter-item mains" data-id="@item.Id">
+                <div class="cbp-filter-item mains" data-name="@item.Name" data-id="@item.Id">
                     <span>@item.Name</span>
                 </div>
             }
@@ -39,17 +39,26 @@
 
 @section scrips{
 
-    <script>
+    <script asp-append-version="true">
 
         $(document).ready(function () {
             var id = 0;
             $("#grid-container").load(`/Portfolio/Project/${id}`);
+            $("#myfist").removeClass("cbp-filter-item");
+            $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
             $(".All").click(function () {
-
+                $("#myfist").removeClass("cbp-filter-item");
+                $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
             $(".mains").click(function () {
                 id = $(this).data("id");
+                var item = $(this).data("name");
+                item.removeClass("cbp-filter-item mains");
+                item.addClass("cbp-filter-item  mains cbp-filter-item-active");
+                $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
+                $("#myfist").addClass("cbp-filter-item");
+
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
 
