@@ -49,6 +49,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     Subject = x.Subject,
                     Content = x.UserMessage
                 })
+                .OrderByDescending(x=>x.id)
                 .ToList();
             if (messageAllResult == null && messageAllResult.Count < 0)
             {
