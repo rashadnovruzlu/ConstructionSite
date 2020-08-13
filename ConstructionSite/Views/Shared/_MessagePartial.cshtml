@@ -1,24 +1,22 @@
 ﻿
-<div class="col-md-8">
-    <form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Message">
-        <div class="inner">
-            <div class="left-side">
-                <div class="input-wrap">
-                    <input type="text" value="" tabindex="1" placeholder="Name *" name="name" id="Name" required>
-                </div>
-                <div class="input-wrap">
-                    <input type="email" value="" tabindex="2" placeholder="Email *" name="Email" id="email" required>
-                </div>
-                <div class="input-wrap">
-                    <input type="text" value="" tabindex="4" placeholder="Subject *" name="Subject" id="subject" required>
-                </div>
-                <div class="message-wrap">
-                    <textarea class="" tabindex="5" placeholder="Message *" name="message" id="Message" required></textarea>
-                </div>
-                <div class="send-wrap">
-                    <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
-                </div>
+<form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Add">
+    <div class="inner">
+        <div class="left-side">
+            <div class="input-wrap">
+                <input type="text" value="" tabindex="1" placeholder="Name *" name="Name" id="name" required>
+            </div>
+            <div class="input-wrap">
+                <input type="email" value="" tabindex="2" placeholder="Email *" name="Email" id="email" required>
+            </div>
+            <div class="input-wrap">
+                <input type="text" value="" tabindex="4" placeholder="Subject *" name="subject" id="subject" required>
+            </div>
+            <div class="message-wrap">
+                <textarea class="" tabindex="5" placeholder="Message *" name="UserMessage" id="message" required></textarea>
+            </div>
+            <div class="send-wrap">
+                <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
             </div>
         </div>
-    </form>
-</div>
+    </div>
+</form>

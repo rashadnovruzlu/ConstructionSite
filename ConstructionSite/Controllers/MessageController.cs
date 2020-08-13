@@ -44,7 +44,7 @@ namespace ConstructionSite.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public IActionResult Add(MessageAddViewModel messageAddViewModel)
         {
             if (!ModelState.IsValid)
