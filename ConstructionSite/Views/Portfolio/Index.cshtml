@@ -28,7 +28,7 @@
             </div>
             @foreach (var item in Model)
             {
-                <div  class="cbp-filter-item  mains" data-name="@item.Name" data-id="@item.Id">
+                <div class="cbp-filter-item  mains" data-name="@item.Name" data-id="@item.Id">
                     <span class="" data-id="@item.Id">@item.Name</span>
                 </div>
             }
@@ -51,15 +51,14 @@
             $(".All").click(function () {
                 $("#myfist").removeClass("cbp-filter-item");
                 $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
-               $("#grid-container").load(`/Portfolio/Project/${id}`);
+                $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
             $(".mains").click(function () {
                 id = $(this).data("id");
-                    
+
                 $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
                 $("#myfist").addClass("cbp-filter-item");
-               
-            
+
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
 
