@@ -31,7 +31,7 @@
 
         @foreach (var item in cultureItems)
         {
-            <li class="@Html.LanguageA("Language","SetLanguage",item.Name)">
+            <li id="@item.Name" class="langss" data-name="@item.Name" data-id="@item.Name">
                 <a class="datas_item langdata" data-id="@item.Name">
                     <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
                 </a>

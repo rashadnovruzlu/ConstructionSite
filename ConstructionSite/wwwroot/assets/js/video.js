@@ -11,7 +11,7 @@
         function c() { return f } function d() { return l } if (!a || !a.Pb) {
             var e = a || window.event; a = {}; for (var g in e) "layerX" !== g && ("layerY" !== g && "keyLocation" !== g) && ("returnValue" == g && e.preventDefault || (a[g] = e[g])); a.target || (a.target = a.srcElement || document); a.relatedTarget = a.fromElement === a.target ? a.toElement : a.fromElement; a.preventDefault = function () { e.preventDefault && e.preventDefault(); a.returnValue = l; a.Nd = c; a.defaultPrevented = f }; a.Nd = d; a.defaultPrevented = l; a.stopPropagation = function () {
                 e.stopPropagation &&
-                e.stopPropagation(); a.cancelBubble = f; a.Pb = c
+                    e.stopPropagation(); a.cancelBubble = f; a.Pb = c
             }; a.Pb = d; a.stopImmediatePropagation = function () { e.stopImmediatePropagation && e.stopImmediatePropagation(); a.Jc = c; a.stopPropagation() }; a.Jc = d; if (a.clientX != k) { g = document.documentElement; var h = document.body; a.pageX = a.clientX + (g && g.scrollLeft || h && h.scrollLeft || 0) - (g && g.clientLeft || h && h.clientLeft || 0); a.pageY = a.clientY + (g && g.scrollTop || h && h.scrollTop || 0) - (g && g.clientTop || h && h.clientTop || 0) } a.which = a.charCode || a.keyCode; a.button != k && (a.button = a.button & 1 ? 0 : a.button &
                 4 ? 1 : a.button & 2 ? 2 : 0)
         } return a
@@ -79,7 +79,7 @@
                     if (this.ua) {
                         this.ua = l; this.userActive(f); this.clearTimeout(h); var a = this.options().inactivityTimeout; 0 < a && (h = this.setTimeout(function () {
                             this.ua ||
-                            this.userActive(l)
+                                this.userActive(l)
                         }, a))
                     }
                 }, 250)

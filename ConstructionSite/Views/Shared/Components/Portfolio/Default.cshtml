@@ -26,7 +26,7 @@
             </div>
             @foreach (var item in Model)
             {
-                <div class="cbp-filter-item  mains" data-name="@item.Name" data-id="@item.Id">
+                <div id="@item.Name" class="cbp-filter-item  mains " data-name="@item.Name" data-id="@item.Id">
                     <span class="" data-id="@item.Id">@item.Name</span>
                 </div>
             }

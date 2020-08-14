@@ -28,8 +28,8 @@
             </div>
             @foreach (var item in Model)
             {
-                <div class="cbp-filter-item  mains" data-name="@item.Name" data-id="@item.Id">
-                    <span class="" data-id="@item.Id">@item.Name</span>
+                <div id="@item.Name" class="cbp-filter-item  mains @item.Name" data-name="@item.Name" data-id="@item.Id">
+                    <span  data-id="@item.Id">@item.Name</span>
                 </div>
             }
         </div>
@@ -41,27 +41,49 @@
 
 @section scrips{
 
-    <script asp-append-version="true">
+    @*<script asp-append-version="true">
 
         $(document).ready(function () {
             var id = 0;
+           
             $("#grid-container").load(`/Portfolio/Project/${id}`);
-            $("#myfist").removeClass("cbp-filter-item  ");
-            $("#myfist").addClass("cbp-filter-item   cbp-filter-item-active");
+                 removeMain();
+                 fistActive();
             $(".All").click(function () {
-                $("#myfist").removeClass("cbp-filter-item");
-                $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
+                removeMain();
+                fistActive();
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
             $(".mains").click(function () {
                 id = $(this).data("id");
-
-                $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
-                $("#myfist").addClass("cbp-filter-item");
-
+                var name = $(this).data("name");
+                
+                unFistActive();
+                removeMain();
+                mainActive(name);
+            
                 $("#grid-container").load(`/Portfolio/Project/${id}`);
             });
 
         });
-    </script>
+
+        function fistActive() {
+            $("#myfist").removeClass("cbp-filter-item");
+            $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
+        }
+        function unFistActive() {
+            $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
+            $("#myfist").addClass("cbp-filter-item");
+           
+        }
+        function mainActive(Name) {
+            $('.' + Name).removeClass("cbp-filter-item  mains ");
+            $('.' + Name).addClass("cbp-filter-item mains cbp-filter-item-active ");
+        }
+       
+        function removeMain() {
+            $("#secend").removeClass("cbp-filter-item mains cbp-filter-item-active");
+            $("#secend").addClass("cbp-filter-item  mains ");
+        }
+    </script>*@
 }

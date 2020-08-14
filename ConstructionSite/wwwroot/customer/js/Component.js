@@ -1,56 +1,40 @@
 ﻿var id = 0;
 
-        $(document).ready(function () {
+$(document).ready(function () {
+    $("#grid-container").load(`/Portfolio/Project/${id}`);
+    removeMain();
+    fistActive();
+    $(".All").click(function () {
+        removeMain();
+        fistActive();
+        $("#grid-container").load(`/Portfolio/Project/${id}`);
+    });
+    $(".mains").click(function () {
+        id = $(this).data("id");
+        var name = $(this).data("name");
+
+        unFistActive();
+        removeMain();
+        mainActive(name);
 
         $("#grid-container").load(`/Portfolio/Project/${id}`);
-            $("#myfist").removeClass("cbp-filter-item  ");
-            $("#myfist").addClass("cbp-filter-item   cbp-filter-item-active");
-            $(".All").click(function () {
-        $("#myfist").removeClass("cbp-filter-item");
-                $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
-                $("#grid-container").load(`/Portfolio/Project/${id}`);
-            });
-            $(".mains").click(function () {
-        id = $(this).data("id");
+    });
+});
 
-                $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
-                $("#myfist").addClass("cbp-filter-item");
+function fistActive() {
+    $("#myfist").removeClass("cbp-filter-item");
+    $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
+}
+function unFistActive() {
+    $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
+    $("#myfist").addClass("cbp-filter-item");
+}
+function mainActive(Name) {
+    $('#' + Name).removeClass("cbp-filter-item mains");
+    $('#' + Name).addClass("cbp-filter-item mains cbp-filter-item-active  ");
+}
 
-                $("#grid-container").load(`/Portfolio/Project/${id}`);
-            });
-
-        });
-//$(document).ready(function () {
-   
-  
-//    $("#grid-container").load(`/Portfolio/Project/${id=0}`);
-//    $(".All").click(function () {
-//        $("#grid-container").load(`/Portfolio/Project/${id=0}`);
-//    });
-//    $(".mains").click(function () {
-//        id = $(this).data("id");
-//        $("#grid-container").load(`/Portfolio/Project/${id}`);
-//    });
-//});
-
-
-        //$(document).ready(function () {
-        //    var id = 0;
-        //    $("#grid-container").load(`/Portfolio/Project/${id}`);
-        //    $("#myfist").removeClass("cbp-filter-item");
-        //    $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
-        //    $(".All").click(function () {
-        //    $("#myfist").removeClass("cbp-filter-item");
-        //        $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
-        //        $("#grid-container").load(`/Portfolio/Project/${id}`);
-        //    });
-        //    $(".mains").click(function () {
-        //    id = $(this).data("id");
-
-        //        $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
-        //        $("#myfist").addClass("cbp-filter-item");
-
-        //        $("#grid-container").load(`/Portfolio/Project/${id}`);
-        //    });
-
-        //});
+function removeMain() {
+    $(".mains").removeClass("cbp-filter-item mains cbp-filter-item-active  ")
+        .addClass("mains cbp-filter-item  mains");
+}
