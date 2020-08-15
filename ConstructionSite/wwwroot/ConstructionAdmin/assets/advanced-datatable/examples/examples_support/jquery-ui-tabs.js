@@ -65,7 +65,7 @@
         }, _setOption: function (a, c) { this.options[a] = c; if (a === "disabled") this.widget()[c ? "addClass" : "removeClass"](this.widgetBaseClass + "-disabled ui-state-disabled").attr("aria-disabled", c); return this }, enable: function () { return this._setOption("disabled", false) }, disable: function () { return this._setOption("disabled", true) }, _trigger: function (a, c, d) {
             var e = this.options[a]; c = b.Event(c); c.type = (a === this.widgetEventPrefix ? a : this.widgetEventPrefix + a).toLowerCase(); d = d || {}; if (c.originalEvent) {
                 a =
-                b.event.props.length; for (var f; a;) { f = b.event.props[--a]; c[f] = c.originalEvent[f] }
+                    b.event.props.length; for (var f; a;) { f = b.event.props[--a]; c[f] = c.originalEvent[f] }
             } this.element.trigger(c, d); return !(b.isFunction(e) && e.call(this.element[0], c, d) === false || c.isDefaultPrevented())
         }
     }
