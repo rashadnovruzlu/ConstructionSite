@@ -1,0 +1,28 @@
+﻿.effect-zoes .hoverDiv {
+    position: absolute !important;
+    bottom: -75px !important;
+    left: 0 !important;
+    width: 100% !important;
+    background-color: white !important;
+    padding: 1.5em 1.5em 1.8em !important;
+    transition: all 0.3s linear;
+    visibility: hidden;
+}
+
+.effect-zoes:hover .hoverDiv{
+    bottom:0px !important;
+    visibility:visible;
+}
+
+.effect-zoes .hoverDiv p {
+    text-transform: uppercase !important;
+    transition:0.5s;
+   
+}
+
+    .effect-zoes .hoverDiv p:hover {
+        text-decoration: underline;
+        color: #ffc925;
+        font-weight: inherit;
+    }
+

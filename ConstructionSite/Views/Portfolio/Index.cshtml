@@ -34,56 +34,9 @@
             }
         </div>
         <div id="grid-container">
+
         </div>
     </div>
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
 
-@section scrips{
-
-    @*<script asp-append-version="true">
-
-        $(document).ready(function () {
-            var id = 0;
-           
-            $("#grid-container").load(`/Portfolio/Project/${id}`);
-                 removeMain();
-                 fistActive();
-            $(".All").click(function () {
-                removeMain();
-                fistActive();
-                $("#grid-container").load(`/Portfolio/Project/${id}`);
-            });
-            $(".mains").click(function () {
-                id = $(this).data("id");
-                var name = $(this).data("name");
-                
-                unFistActive();
-                removeMain();
-                mainActive(name);
-            
-                $("#grid-container").load(`/Portfolio/Project/${id}`);
-            });
-
-        });
-
-        function fistActive() {
-            $("#myfist").removeClass("cbp-filter-item");
-            $("#myfist").addClass("cbp-filter-item cbp-filter-item-active");
-        }
-        function unFistActive() {
-            $("#myfist").removeClass("cbp-filter-item cbp-filter-item-active");
-            $("#myfist").addClass("cbp-filter-item");
-           
-        }
-        function mainActive(Name) {
-            $('.' + Name).removeClass("cbp-filter-item  mains ");
-            $('.' + Name).addClass("cbp-filter-item mains cbp-filter-item-active ");
-        }
-       
-        function removeMain() {
-            $("#secend").removeClass("cbp-filter-item mains cbp-filter-item-active");
-            $("#secend").addClass("cbp-filter-item  mains ");
-        }
-    </script>*@
-}
