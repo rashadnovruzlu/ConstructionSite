@@ -1,10 +1,12 @@
-﻿.effect-zoes .hoverDiv {
+﻿
+
+.effect-zoes .hoverDiv {
     position: absolute !important;
     bottom: -75px !important;
     left: 0 !important;
     width: 100% !important;
     background-color: white !important;
-    padding: 1.5em 1.5em 1.8em !important;
+    padding: 1.2em 1.5em 1.2em !important;
     transition: all 0.3s linear;
     visibility: hidden;
 }

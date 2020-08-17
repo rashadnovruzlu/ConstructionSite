@@ -294,6 +294,11 @@ h4 a:hover,
 h5 a:hover,
 h6 a:hover { text-decoration: none }
 
+.hoverDiv p {
+	font-size: 17px;
+	margin: 0px !important;
+}
+
 .text-accent-color { color: #ffc925 !important; }
 .text-white { color: #fff !important; }
 .text-grey { color: #aeaeae !important; }
