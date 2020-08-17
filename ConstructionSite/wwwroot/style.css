@@ -616,7 +616,6 @@ p.dropcap span.first-letter { font-size: 55px; float: left; color: #ffc925; text
 -------------------------------------------------------------- */
 #site-header { position: relative; background-color: #fff; }
 #site-header-inner { position: relative; padding-top: 30px; padding-bottom: 30px; height: 100%; }
-#site-logo { float: left; }
 #site-logo .site-logo-text { color: #252525; font-size: 22px; line-height: 34px; font-weight: 700; }
 #site-logo .site-logo-text:hover { color: #ffc925; }
 
@@ -975,7 +974,7 @@ color: #252525; font-family: "Montserrat", sans-serif; font-size: 1.071em; font-
 	position: relative;
 	background: transparent;
 	cursor: pointer;
-	margin-top: 8px;
+	margin-top: 20px;
 	width: 26px;
 	height: 16px;
 	-webkit-transition: all ease .238s;
