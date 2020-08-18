@@ -54,12 +54,12 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="wwwroot\Assets\font\bootstrap\glyphicons-halflings-regular.svg" />
-    <None Include="wwwroot\Assets\font\bootstrap\glyphicons-halflings-regular.woff2" />
-    <None Include="wwwroot\Assets\font\construction\fontello.svg" />
-    <None Include="wwwroot\Assets\font\construction\fontello.woff2" />
-    <None Include="wwwroot\Assets\font\fontawesome\fontawesome-webfont.svg" />
-    <None Include="wwwroot\Assets\font\fontawesome\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Assets\Font\bootstrap\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Assets\Font\bootstrap\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\Assets\Font\construction\fontello.svg" />
+    <None Include="wwwroot\Assets\Font\construction\fontello.woff2" />
+    <None Include="wwwroot\Assets\Font\fontawesome\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Assets\Font\fontawesome\fontawesome-webfont.woff2" />
     <None Include="wwwroot\Assets\Js\animsition.js" />
     <None Include="wwwroot\Assets\Js\bigvideo.js" />
     <None Include="wwwroot\Assets\Js\bootstrap.min.js" />
@@ -77,20 +77,20 @@
     <None Include="wwwroot\Assets\Js\vegas.js" />
     <None Include="wwwroot\Assets\Js\video.js" />
     <None Include="wwwroot\Includes\contact\contact-process.php" />
-    <None Include="wwwroot\Includes\rev-slider\css\closedhand.123" />
-    <None Include="wwwroot\Includes\rev-slider\css\openhand.123" />
-    <None Include="wwwroot\Includes\rev-slider\fonts\revicons\revicons90c6.svg" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.actions.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.carousel.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.kenburn.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.layeranimation.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.migration.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.navigation.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.parallax.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.slideanims.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\extensions\revolution.extension.video.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\jquery.themepunch.revolution.min.js" />
-    <None Include="wwwroot\Includes\rev-slider\js\jquery.themepunch.tools.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\css\closedhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\css\openhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\fonts\revicons\revicons90c6.svg" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.actions.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.carousel.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.kenburn.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.layeranimation.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.migration.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.navigation.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.parallax.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.slideanims.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.video.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\jquery.themepunch.revolution.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\jquery.themepunch.tools.min.js" />
   </ItemGroup>
 
   <ItemGroup>
