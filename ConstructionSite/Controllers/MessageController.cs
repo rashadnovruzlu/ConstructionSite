@@ -27,7 +27,11 @@ namespace ConstructionSite.Controllers
             _unitOfWork = unitOfWork;
             _localizationHandle = localizationHandle;
         }
-
+        /// <summary>
+        /// this is Map Geolocation Dynamic Send Data
+        /// To Javascrip
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             var _googelMapGeolocation = _unitOfWork
