@@ -44,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.DTO.csproj" />
+    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
   </ItemGroup>
