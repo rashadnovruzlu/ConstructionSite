@@ -3,6 +3,7 @@
     var returnUrl = $(".contexts").data("id");
     $(".datas_item").click(function () {
         var id = $(this).data("id");
+        alert(id);
         $.ajax({
             method: "POST",
             url: "/Language/SetLanguage/" + id,
@@ -24,13 +25,13 @@
 //        add(name);
 //        });
 //};
-//function add(Name) {
-//    alert(Name);
-//    $("#" + Name)
-//        .removeClass("langss")
-//        .addClass("langss current-menu-item");
-//}
-//function removeLang() {
-//    $(".langss").removeClass("langss current-menu-item")
-//        .addClass("langss");
-//}
+function add(Name) {
+    alert(Name);
+    $("#" + Name)
+        .removeClass("langss")
+        .addClass("langss current-menu-item");
+}
+function removeLang() {
+    $(".langss").removeClass("langss current-menu-item")
+        .addClass("langss");
+}

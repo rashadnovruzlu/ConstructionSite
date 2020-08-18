@@ -28,7 +28,7 @@
         <li class="@Html.Active("Portfolio","Index")"><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
         <li class="@Html.Active("Blog","Index")"><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
         <li class="@Html.Active("Message","Index")"><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
-        @*<div class="langu" style="display: flex;">
+        <div class="langu" style="display:flex;">
             @foreach (var item in cultureItems)
             {
                 <li id="@item.Name" class="langss" data-name="@item.Name" data-id="@item.Name">
@@ -37,6 +37,6 @@
                     </a>
                 </li>
             }
-        </div>*@
+        </div>
     </ul>
 </nav>

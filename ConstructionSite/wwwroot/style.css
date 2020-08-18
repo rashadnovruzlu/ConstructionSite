@@ -821,19 +821,7 @@ color: #252525; font-family: "Montserrat", sans-serif; font-size: 1.071em; font-
 	-moz-box-shadow: inset 0 12px 19px rgba(255,255,255,0.1), 0 1px 7px rgba(0,0,0,0.2);
 	box-shadow: inset 0 12px 19px rgba(255,255,255,0.1), 0 1px 7px rgba(0,0,0,0.2);
 }
-#main-nav-mobi .menu-item-has-children .arrow:before {
-	content: "\f105";
-	color: #aaa;
-}
-#main-nav-mobi .menu-item-has-children .arrow.active:before {
-	content: "\f107";
-}
-#main-nav-mobi ul ul li {
-	background-color: #292929;
-}
-#main-nav-mobi ul ul ul li {
-	background-color: #323232;
-}
+
 	#main-nav .sub-menu li a {
 		background-color: #fff;
 		color: #252525;
@@ -1461,18 +1449,7 @@ body.page #main-content { padding-top: 0; padding-bottom: 0; }
 
 #sidebar .widget.widget_links ul li a,
 #footer-widgets .widget.widget_links ul li a { position: relative; display: inline-block; padding-left: 25px; }
-.langu li a {
-	color: #fff;
-}
-.langu li {
-	margin-top: 12px !important;
-}
-@media only screen and (max-width: 990px) {
-	.langu li a {
-		text-align: center;
-		margin-left: 20px;
-	}
-}
+
 #sidebar .widget.widget_links ul li.style-3 a,
 #footer-widgets .widget.widget_links ul li.style-3 a,
 #sidebar .widget.widget_links ul li.style-4 a,
