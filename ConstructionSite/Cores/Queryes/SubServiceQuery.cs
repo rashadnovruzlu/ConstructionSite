@@ -7,9 +7,9 @@ namespace ConstructionSite.Cores.Queryes
 {
     public static class SubServiceQuery
     {
-        public static ServiceSubServiceImage SubServiceImageRepositoryQuery(this IUnitOfWork _unitOfWork,int id,string _lang)
+        public static ServiceSubServiceImage SubServiceImageRepositoryQuery(this IUnitOfWork unitOfWork,int id,string lang)
         {
-          return  _unitOfWork.SubServiceImageRepository.GetAll()
+          var ServiceSubServiceImageResult=  unitOfWork.SubServiceImageRepository.GetAll()
                .Include(x => x.SubService.Service)
                .Include(x => x.SubService)
                .Include(x => x.SubService.SubServiceImages)
@@ -18,11 +18,12 @@ namespace ConstructionSite.Cores.Queryes
                {
                    id = x.Id,
                    SubServiceID = x.SubServiceId,
-                   Content = x.SubService.FindContent(_lang),
-                   Name = x.SubService.FindName(_lang),
+                   Content = x.SubService.FindContent(lang),
+                   Name = x.SubService.FindName(lang),
                    Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
                }).OrderByDescending(x => x.id)
                .FirstOrDefault();
+            return ServiceSubServiceImageResult;
         }
     }
 }
