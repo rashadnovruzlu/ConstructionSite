@@ -1,18 +1,12 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.TagHelpers
 {
     [HtmlTargetElement("a")]
-    public class BlogTitleTagHelpers:TagHelper
+    public class BlogTitleTagHelpers : TagHelper
     {
         [HtmlAttributeName("blogtitle")]
         public string size { get; set; }
-
-
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
