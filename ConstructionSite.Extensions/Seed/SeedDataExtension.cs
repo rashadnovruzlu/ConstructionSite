@@ -10,17 +10,13 @@ namespace ConstructionSite.Extensions.Seed
 {
     public static class SeedDataExtension
     {
-        public  static  void SeedData(this IApplicationBuilder app)
+        public static void SeedData(this IApplicationBuilder app)
         {
             var context = app.ApplicationServices.GetRequiredService<ConstructionDbContext>();
             context.Database.Migrate();
-           
 
-         
-
-            if(!context.Contacts.Any())
+            if (!context.Contacts.Any())
             {
-                
                 context.Contacts.Add(new Contact
                 {
                     TittleAz = "GET IN TOUCH WITH US",
@@ -42,9 +38,8 @@ namespace ConstructionSite.Extensions.Seed
                     Address = "68 Havemeyer St, Brooklyn, NY 11211 United States",
                     Email = "contact@construction.com",
                     PhoneNumber = "+1 718-955-2838 or +1 718-955-3290",
-                    lat= "40.409264",
-                    lng= "49.867092"
-
+                    lat = "40.409264",
+                    lng = "49.867092"
                 });
                 if (context.Contacts.Count() > 1)
                 {
@@ -52,8 +47,6 @@ namespace ConstructionSite.Extensions.Seed
                          .Take(1).FirstOrDefault();
                     var ss = context.Contacts.Where(x => x.Id != result.Id).ToList();
                     context.Contacts.RemoveRange(ss);
-
-
                 }
             }
 
