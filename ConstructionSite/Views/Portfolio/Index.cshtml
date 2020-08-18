@@ -24,19 +24,17 @@
     <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
         <div id="project-filter">
             <div id="myfist" class="cbp-filter-item All">
-                <span >@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
+                <span>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
             </div>
             @foreach (var item in Model)
             {
                 <div id="@item.Name" class="cbp-filter-item  mains @item.Name" data-name="@item.Name" data-id="@item.Id">
-                    <span  data-id="@item.Id">@item.Name</span>
+                    <span data-id="@item.Id">@item.Name</span>
                 </div>
             }
         </div>
         <div id="grid-container">
-
         </div>
     </div>
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-

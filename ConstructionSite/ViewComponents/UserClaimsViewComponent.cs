@@ -1,7 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
