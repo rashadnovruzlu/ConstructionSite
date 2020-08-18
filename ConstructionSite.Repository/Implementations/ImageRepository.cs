@@ -9,9 +9,6 @@ namespace ConstructionSite.Repository.Implementations
     {
         public ImageRepository(ConstructionDbContext context) : base(context)
         {
-
         }
-
-
     }
 }

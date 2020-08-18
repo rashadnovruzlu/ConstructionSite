@@ -8,10 +8,10 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<Message> builder)
         {
-           builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.Name)
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Name)
                 .HasMaxLength(75);
-            builder.Property(x=>x.Email)
+            builder.Property(x => x.Email)
                 .IsRequired()
                 .HasMaxLength(100);
             builder.Property(x => x.Subject)
@@ -22,12 +22,4 @@ namespace ConstructionSite.Entity.Configuration
             .HasMaxLength(2000);
         }
     }
-   
-
-
-
-
-
-
-
 }

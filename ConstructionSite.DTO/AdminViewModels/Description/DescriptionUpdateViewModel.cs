@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.AdminViewModels.Description
+﻿namespace ConstructionSite.DTO.AdminViewModels.Description
 {
-   public class DescriptionUpdateViewModel
+    public class DescriptionUpdateViewModel
     {
         public int Id { get; set; }
         public string TittleAz { get; set; }

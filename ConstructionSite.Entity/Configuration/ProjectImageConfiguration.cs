@@ -18,12 +18,4 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(p => p.ProjectImages);
         }
     }
-   
-
-
-
-
-
-
-
 }

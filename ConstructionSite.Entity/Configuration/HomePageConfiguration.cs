@@ -12,12 +12,4 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(i => i.HomePages);
         }
     }
-   
-
-
-
-
-
-
-
 }

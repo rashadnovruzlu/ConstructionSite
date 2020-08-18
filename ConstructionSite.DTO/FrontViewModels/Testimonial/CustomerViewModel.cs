@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.FrontViewModels.Testimonial
+﻿namespace ConstructionSite.DTO.FrontViewModels.Testimonial
 {
-   public class CustomerViewModel
+    public class CustomerViewModel
     {
         public int Id { get; set; }
 
         public string Content { get; set; }
-
 
         public string FullName { get; set; }
 

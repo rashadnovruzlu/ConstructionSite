@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.AdminViewModels.Image
+﻿namespace ConstructionSite.DTO.AdminViewModels.Image
 {
-   public class AddAboutViewModel
+    public class AddAboutViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

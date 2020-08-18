@@ -8,18 +8,10 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<SubServiceImage> builder)
         {
-           builder.HasOne(ssi => ssi.Image)
-                                .WithMany(i => i.SubServiceImages);
+            builder.HasOne(ssi => ssi.Image)
+                                 .WithMany(i => i.SubServiceImages);
             builder.HasOne(ssi => ssi.SubService)
                                 .WithMany(ss => ss.SubServiceImages);
         }
     }
-   
-
-
-
-
-
-
-
 }

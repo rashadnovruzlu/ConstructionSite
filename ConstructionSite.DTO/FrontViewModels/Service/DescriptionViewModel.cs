@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.FrontViewModels.Service
+﻿namespace ConstructionSite.DTO.FrontViewModels.Service
 {
-   public class DescriptionViewModel
+    public class DescriptionViewModel
     {
         public int Id { get; set; }
         public string Tittle { get; set; }
