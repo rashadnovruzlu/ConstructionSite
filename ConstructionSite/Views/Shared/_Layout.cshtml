@@ -17,10 +17,7 @@
     <!-- Theme Style -->
 
     <partial name="_LinkPartialStyle" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @RenderSection("head", false)
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     @*<link href="~/customer/css/icon.css" rel="stylesheet" />*@
 </head>
 
@@ -30,7 +27,8 @@
         <div id="page" class="clearfix">
             <div id="site-header-wrap">
                 <!-- Header -->
-                <header id="site-header" class="header-front-page style-5">
+                <partial name="_HeaderPartial" />
+                @*<header id="site-header" class="header-front-page style-5">
                     <div id="site-header-inner" class="container" style="padding: 18px 15px;">
                         <div class="wrap-inner">
                             <div id="site-logo" class="clearfix" style="width: 50%;display: inline-block;">
@@ -41,16 +39,16 @@
         </div>
                                 
                             </div>
-                            <!-- /#site-logo -->
+                             /#site-logo 
 
                             <div class="mobile-button"><span></span></div>
-                            <!-- //mobile menu button -->
+                             //mobile menu button 
 
                             <partial name="_MainnavPartial" />
                         </div>
-                        <!-- /#site-header-inner -->
+                         /#site-header-inner 
                     </div>
-                </header>
+                </header>*@
                 <!-- /#site-header -->
             </div>
 
