@@ -42,7 +42,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
         }
 
         #endregion CTOR

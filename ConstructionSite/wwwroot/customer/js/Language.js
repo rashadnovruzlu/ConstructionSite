@@ -7,7 +7,9 @@
             method: "POST",
             url: "/Language/SetLanguage/" + id,
             success: function () {
+
                 window.location.replace(returnUrl);
+
                
                
             }
@@ -29,6 +31,6 @@
 //        .addClass("langss current-menu-item");
 //}
 //function removeLang() {
-//    $(".langss").removeClass("langss current-menu-item ")
+//    $(".langss").removeClass("langss current-menu-item")
 //        .addClass("langss");
 //}

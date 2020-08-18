@@ -36,7 +36,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork = unitOfWork;
             _environment = environment;
             _contextAccessor = contextAccessor;
-            _lang = _contextAccessor.getLanguages();
+            _lang = _contextAccessor.GetLanguages();
         }
 
         #endregion CTOR

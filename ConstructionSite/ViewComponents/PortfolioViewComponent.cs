@@ -20,7 +20,7 @@ namespace ConstructionSite.ViewComponents
         {
             _unitOfWork=unitOfWork;
             _httpContext = httpContext;
-            _lang = _httpContext.getLanguages();
+            _lang = _httpContext.GetLanguages();
         }
         public IViewComponentResult Invoke()
         {

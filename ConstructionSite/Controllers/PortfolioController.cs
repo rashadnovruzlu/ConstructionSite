@@ -26,7 +26,7 @@ namespace ConstructionSite.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
             _sharedLocalizationService = sharedLocalizationService;
         }
 

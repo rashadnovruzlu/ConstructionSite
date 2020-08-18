@@ -25,7 +25,7 @@ namespace ConstructionSite.TagHelpers
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _lang = httpContextAccessor.getLanguages();
+            _lang = httpContextAccessor.GetLanguages();
            
         }
        
