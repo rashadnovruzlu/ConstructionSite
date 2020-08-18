@@ -17,7 +17,11 @@ namespace ConstructionSite.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private SharedLocalizationService _localizationHandle;
         private readonly IUnitOfWork _unitOfWork;
-
+        /// <summary>
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="localizationHandle"></param>
+        /// <param name="httpContextAccessor"></param>
         public AboutController(IUnitOfWork unitOfWork,
                                SharedLocalizationService localizationHandle,
                                IHttpContextAccessor httpContextAccessor)
@@ -27,7 +31,10 @@ namespace ConstructionSite.Controllers
             _localizationHandle = localizationHandle;
             _lang = _httpContextAccessor.GetLanguages();
         }
-
+        /// <summary>
+        /// this is About 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -35,7 +42,7 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var aboutImageViewResult = _unitOfWork
+                    var aboutImageViewResult = _unitOfWork
                     .AboutImageRepository
                     .GetAll()
                     .Include(x => x.Image)
@@ -46,7 +53,7 @@ namespace ConstructionSite.Controllers
                         Context = x.About.FindContent(_lang),
                         Title = x.About.FindTitle(_lang),
                         imagePath = x.Image.Path,
-                        path = x.About.AboutImages.Select(x => x.Image.Path).ToList()
+                        path = x.About.AboutImages.Select(x =>  x.Image.Path).ToList()
                     })
                     .OrderByDescending(x => x.Id)
                     .FirstOrDefault();
