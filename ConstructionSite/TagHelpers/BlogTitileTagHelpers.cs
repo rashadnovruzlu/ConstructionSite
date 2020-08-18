@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ConstructionSite.TagHelpers
 {
     [HtmlTargetElement("a")]
-    public class BlogTitileTagHelpers:TagHelper
+    public class BlogTitleTagHelpers:TagHelper
     {
         [HtmlAttributeName("blogtitle")]
         public string size { get; set; }
