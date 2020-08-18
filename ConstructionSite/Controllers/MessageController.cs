@@ -19,10 +19,9 @@ namespace ConstructionSite.Controllers
         private readonly SharedLocalizationService _localizationHandle;
 
         public MessageController(IUnitOfWork unitOfWork,
-
                                   SharedLocalizationService localizationHandle)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork         = unitOfWork;
             _localizationHandle = localizationHandle;
         }
 
@@ -31,7 +30,6 @@ namespace ConstructionSite.Controllers
             var _googelMapGeolocation = _unitOfWork
                    .ContactRepository
                    .GetAll()
-
                    .Select(x => new Geolocation
                    {
                        Latitude = x.lat,
