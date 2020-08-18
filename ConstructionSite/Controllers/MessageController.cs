@@ -12,6 +12,9 @@ using System.Net;
 
 namespace ConstructionSite.Controllers
 {
+    /// <summary>
+    /// MessageController Write to Message
+    /// </summary>
     public class MessageController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +24,7 @@ namespace ConstructionSite.Controllers
         public MessageController(IUnitOfWork unitOfWork,
                                   SharedLocalizationService localizationHandle)
         {
-            _unitOfWork         = unitOfWork;
+            _unitOfWork = unitOfWork;
             _localizationHandle = localizationHandle;
         }
 
