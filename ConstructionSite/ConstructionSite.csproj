@@ -77,8 +77,8 @@
     <None Include="wwwroot\Assets\Js\vegas.js" />
     <None Include="wwwroot\Assets\Js\video.js" />
     <None Include="wwwroot\Includes\contact\contact-process.php" />
-    <None Include="wwwroot\Includes\Rev-slider\css\closedhand.123" />
-    <None Include="wwwroot\Includes\Rev-slider\css\openhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\Css\closedhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\Css\openhand.123" />
     <None Include="wwwroot\Includes\Rev-slider\fonts\revicons\revicons90c6.svg" />
     <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.actions.min.js" />
     <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.carousel.min.js" />
