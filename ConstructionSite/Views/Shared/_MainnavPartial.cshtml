@@ -8,6 +8,7 @@
     var cultureItems = LocOptions.Value.SupportedUICultures
                                     .ToList();
 }
+
 @section head{
 <style>
     .langdata{
@@ -15,6 +16,7 @@
     }
 </style>
 }
+
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
         <li class="current-menu-item"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
@@ -36,4 +38,4 @@
     </ul>
 </nav>
 <script src="~/ConstructionAdmin/js/jquery-1.8.3.min.js"></script>
-<script src="~/customer/js/Language.js"></script>
+<script src="~/Custom/Js/Language.js"></script>
