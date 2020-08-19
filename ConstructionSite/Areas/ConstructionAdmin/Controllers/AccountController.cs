@@ -105,7 +105,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         #endregion CREATE
 
         #region LOGIN
-
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -116,7 +116,7 @@ namespace ConstructionSite.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginModel)
+        public async Task<IActionResult> Login(LoginViewModel loginModel,string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -139,11 +139,12 @@ namespace ConstructionSite.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("email", "This email does not exist.");
+                    ModelState.AddModelError("email", "This email or Password not exist.");
+                    return Redirect(returnUrl??"/");
                 }
             }
-            //ViewBag.returnUrl= returnUrl;
-            //return RedirectToAction("Index", "Account", new { Areas = "ConstructionAdmin" });
+            ViewBag.returnUrl= returnUrl;
+           
             return View();
         }
 
