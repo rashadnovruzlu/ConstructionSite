@@ -50,50 +50,47 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\images\about\" />
-    <Folder Include="wwwroot\images\service\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="wwwroot\assets\font\bootstrap\glyphicons-halflings-regular.svg" />
-    <None Include="wwwroot\assets\font\bootstrap\glyphicons-halflings-regular.woff2" />
-    <None Include="wwwroot\assets\font\construction\fontello.svg" />
-    <None Include="wwwroot\assets\font\construction\fontello.woff2" />
-    <None Include="wwwroot\assets\font\fontawesome\fontawesome-webfont.svg" />
-    <None Include="wwwroot\assets\font\fontawesome\fontawesome-webfont.woff2" />
-    <None Include="wwwroot\assets\js\animsition.js" />
-    <None Include="wwwroot\assets\js\bigvideo.js" />
-    <None Include="wwwroot\assets\js\bootstrap.min.js" />
-    <None Include="wwwroot\assets\js\countTo.js" />
-    <None Include="wwwroot\assets\js\cube.portfolio.js" />
-    <None Include="wwwroot\assets\js\fitText.js" />
-    <None Include="wwwroot\assets\js\flexslider.js" />
-    <None Include="wwwroot\assets\js\gmap3.min.js" />
-    <None Include="wwwroot\assets\js\jquery.min.js" />
-    <None Include="wwwroot\assets\js\main.js" />
-    <None Include="wwwroot\assets\js\owlCarousel.js" />
-    <None Include="wwwroot\assets\js\plugins.js" />
-    <None Include="wwwroot\assets\js\rev-slider.js" />
-    <None Include="wwwroot\assets\js\validate.js" />
-    <None Include="wwwroot\assets\js\vegas.js" />
-    <None Include="wwwroot\assets\js\video.js" />
-    <None Include="wwwroot\includes\contact\contact-process.php" />
-    <None Include="wwwroot\includes\rev-slider\css\closedhand.123" />
-    <None Include="wwwroot\includes\rev-slider\css\openhand.123" />
-    <None Include="wwwroot\includes\rev-slider\fonts\revicons\revicons90c6.svg" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.actions.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.carousel.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.kenburn.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.layeranimation.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.migration.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.navigation.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.parallax.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.slideanims.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\extensions\revolution.extension.video.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\jquery.themepunch.revolution.min.js" />
-    <None Include="wwwroot\includes\rev-slider\js\jquery.themepunch.tools.min.js" />
+    <None Include="wwwroot\Assets\Font\bootstrap\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Assets\Font\bootstrap\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\Assets\Font\construction\fontello.svg" />
+    <None Include="wwwroot\Assets\Font\construction\fontello.woff2" />
+    <None Include="wwwroot\Assets\Font\fontawesome\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Assets\Font\fontawesome\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Assets\Js\animsition.js" />
+    <None Include="wwwroot\Assets\Js\bigvideo.js" />
+    <None Include="wwwroot\Assets\Js\bootstrap.min.js" />
+    <None Include="wwwroot\Assets\Js\countTo.js" />
+    <None Include="wwwroot\Assets\Js\cube.portfolio.js" />
+    <None Include="wwwroot\Assets\Js\fitText.js" />
+    <None Include="wwwroot\Assets\Js\flexslider.js" />
+    <None Include="wwwroot\Assets\Js\gmap3.min.js" />
+    <None Include="wwwroot\Assets\Js\jquery.min.js" />
+    <None Include="wwwroot\Assets\Js\main.js" />
+    <None Include="wwwroot\Assets\Js\owlCarousel.js" />
+    <None Include="wwwroot\Assets\Js\plugins.js" />
+    <None Include="wwwroot\Assets\Js\rev-slider.js" />
+    <None Include="wwwroot\Assets\Js\validate.js" />
+    <None Include="wwwroot\Assets\Js\vegas.js" />
+    <None Include="wwwroot\Assets\Js\video.js" />
+    <None Include="wwwroot\Includes\contact\contact-process.php" />
+    <None Include="wwwroot\Includes\Rev-slider\Css\closedhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\Css\openhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\fonts\revicons\revicons90c6.svg" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.actions.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.carousel.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.kenburn.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.layeranimation.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.migration.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.navigation.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.parallax.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.slideanims.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\extensions\revolution.extension.video.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\jquery.themepunch.revolution.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\Js\jquery.themepunch.tools.min.js" />
   </ItemGroup>
 
   <ItemGroup>
