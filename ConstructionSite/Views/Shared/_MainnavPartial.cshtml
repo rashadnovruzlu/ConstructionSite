@@ -33,7 +33,7 @@
         <div class="langu" style="display:flex;">
             @foreach (var item in cultureItems)
             {
-                <li id="@item.Name" class="langss" data-name="@item.Name" data-id="@item.Name">
+                <li id="@item.Name" class="langss" data-name="@item.Name" data-id="@item.Name" style="margin-top:11px;cursor: pointer;">
                     <a class="datas_item langdata" data-id="@item.Name">
                         <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
                     </a>
