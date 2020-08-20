@@ -5,6 +5,5 @@ namespace ConstructionSite.Repository.Interfaces
 {
     public interface IStaticFieldRepository : IGenericRepository<StaticField>
     {
-
     }
 }

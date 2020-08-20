@@ -1,3 +1,4 @@
+using ConstructionSite.Extensions.Cookie;
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
@@ -6,13 +7,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using System.IO;
-using System.Net;
 
 namespace ConstructionSite
 {
@@ -27,17 +24,13 @@ namespace ConstructionSite
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc();
             services.Localization();
 
             services.IdentityLoad(Configuration);
-            
-            services.ServiceDataBaseWithInjection(Configuration);
 
-            //services.AddControllersWithViews()
-            //     .AddDataAnnotationsLocalization()
-            //    .AddViewLocalization();
+            services.ServiceDataBaseWithInjection(Configuration);
+            //services.CookiePath();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
@@ -51,10 +44,6 @@ namespace ConstructionSite
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          
-          
-         
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -65,19 +54,17 @@ namespace ConstructionSite
 
                 app.UseHsts();
             }
-          
 
             app.SeedRole();
             app.SeedData();
             app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseRequestLocalization();
-            
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-           
-          
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -87,9 +74,7 @@ namespace ConstructionSite
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-          
             });
-
         }
     }
 }

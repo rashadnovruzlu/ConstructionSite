@@ -37,21 +37,20 @@
         <!-- /#projects -->
     </div>
     <!--/.wprt-project -->
-
     @*@section scrips{
 
-        <script>
+            <script>
 
-                $(document).ready(function () {
-
-                    $("#grid-container").load(`/Portfolio/All`);
-                    $(".All").click(function () {
-                        id = $(this).data("id");
+                    $(document).ready(function () {
 
                         $("#grid-container").load(`/Portfolio/All`);
-                    });
+                        $(".All").click(function () {
+                            id = $(this).data("id");
 
-                });
-        </script>
-    }*@
+                            $("#grid-container").load(`/Portfolio/All`);
+                        });
+
+                    });
+            </script>
+        }*@
 </section>

@@ -8,6 +8,7 @@
 <PropertyGroup>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
+    <UserSecretsId>a182fefd-c83e-46e9-9b0a-3218e964473d</UserSecretsId>
 </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Areas\ConstructionAdmin\Data\**" />
@@ -43,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.DTO.csproj" />
+    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
   </ItemGroup>

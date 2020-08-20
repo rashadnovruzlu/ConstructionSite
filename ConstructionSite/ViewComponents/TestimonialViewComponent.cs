@@ -7,30 +7,31 @@ using System.Linq;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class TestimonialViewComponent:ViewComponent
+    public class TestimonialViewComponent : ViewComponent
     {
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
+
         public TestimonialViewComponent(IUnitOfWork unitOfWork,
                                          IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
-            _httpContextAccessor=httpContextAccessor;
-            _lang=_httpContextAccessor.getLanguages();
+            _httpContextAccessor = httpContextAccessor;
+            _lang = _httpContextAccessor.GetLanguages();
         }
+
         public IViewComponentResult Invoke()
         {
-           var result= _unitOfWork.customerFeedbackRepository.GetAll()
-                .Select(x=>new CustomerViewModel
-                {
-                    Id=x.Id,
-                    Content=x.FindContent(_lang),
-                    FullName=x.FullName,
-                    Position=x.Position
-                }).ToList();
+            var result = _unitOfWork.customerFeedbackRepository.GetAll()
+                 .Select(x => new CustomerViewModel
+                 {
+                     Id = x.Id,
+                     Content = x.FindContent(_lang),
+                     FullName = x.FullName,
+                     Position = x.Position
+                 }).ToList();
             return View(result);
-
         }
     }
 }

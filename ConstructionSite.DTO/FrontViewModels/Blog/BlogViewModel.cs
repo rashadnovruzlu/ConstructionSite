@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Text;
-
-namespace ConstructionSite.DTO.FrontViewModels.Blog
+﻿namespace ConstructionSite.DTO.FrontViewModels.Blog
 {
     public class BlogViewModel
     {

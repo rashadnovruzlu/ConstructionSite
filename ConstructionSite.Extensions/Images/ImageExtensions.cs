@@ -12,104 +12,122 @@ namespace ConstructionSite.Extensions.Images
     {
         private const string _IMAGE = "images";
 
-        public async static Task<bool> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        public async static Task<bool> SaveImageArray(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
-            bool IsResult=false;
+            bool IsResult = false;
 
-
-            if (file!=null)
+            if (file != null)
             {
-              
-               string FileNameAfterReName  = Helper.reNameFileName(file);
-               string filePath             = Paths
-                    .createfilePathSaveHardDisk(_env,subFolder,FileNameAfterReName,_IMAGE);
+                string FileNameAfterReName = Helper.reNameFileName(file);
+                string filePath = Paths
+                     .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
 
-              
-                bool folderIsCreatedSuccess= Folders.createFolder(_env,subFolder,_IMAGE);
+                bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
                 if (!folderIsCreatedSuccess)
                 {
-                    IsResult=false;
+                    IsResult = false;
                 }
                 await using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
-                image.Title =FileNameAfterReName;
-                image.Path =Paths.createFilePathSaveDataBase(subFolder,FileNameAfterReName,_IMAGE);
-                var imageSaveFile= await _unitOfWork.imageRepository.AddAsync(image);
+                image.Title = FileNameAfterReName;
+                image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
                 if (!imageSaveFile.IsDone)
                 {
-                    IsResult=false;
+                    IsResult = false;
                 }
-                IsResult=true;
+                IsResult = true;
             }
             return IsResult;
         }
-        public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env,  Image image,string subFolder,  IUnitOfWork _unitOfWork)
+
+        public async static Task<bool> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
-            
+            bool IsResult = false;
+
+            if (file != null)
+            {
+                string FileNameAfterReName = Helper.reNameFileName(file);
+                string filePath = Paths
+                     .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+
+                bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+                if (!folderIsCreatedSuccess)
+                {
+                    IsResult = false;
+                }
+                await using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                image.Title = FileNameAfterReName;
+                image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
+                if (!imageSaveFile.IsDone)
+                {
+                    IsResult = false;
+                }
+                IsResult = true;
+            }
+            return IsResult;
+        }
+
+        public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
+        {
             bool IsResult = false;
             var imageGetById = _unitOfWork.imageRepository.GetById(image.Id);
 
-            string filePathForDeleteFromHardDisk =Paths.createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title,_IMAGE);
+            string filePathForDeleteFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title, _IMAGE);
 
-            string fileNameAfterReName   =Helper.reNameFileName(file);
+            string fileNameAfterReName = Helper.reNameFileName(file);
 
-            var filePathSaveFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName,_IMAGE);
+            var filePathSaveFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName, _IMAGE);
 
-            string filePathSaveDataBase  = Paths.createFilePathSaveDataBase(subFolder, fileNameAfterReName,_IMAGE);
-           
+            string filePathSaveDataBase = Paths.createFilePathSaveDataBase(subFolder, fileNameAfterReName, _IMAGE);
 
-
-          
-          
             if (file != null)
             {
                 Files.deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
-               
-                
-                   
-                    file.saveImageForDisk(filePathSaveFromHardDisk);
-                    IsResult=true;
-                
+
+                file.saveImageForDisk(filePathSaveFromHardDisk);
+                IsResult = true;
+
                 if (IsResult)
                 {
-                   
-                    imageGetById.Title    = fileNameAfterReName;
-                    imageGetById.Path     =  filePathSaveDataBase;
+                    imageGetById.Title = fileNameAfterReName;
+                    imageGetById.Path = filePathSaveDataBase;
                     var updateImageResult = await _unitOfWork.imageRepository.UpdateAsync(imageGetById);
                     if (updateImageResult.IsDone)
                     {
-                        IsResult=true;
+                        IsResult = true;
                     }
                 }
-               
             }
             return IsResult;
         }
+
         public static bool DeleteAsyc(IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
+            bool isResult = false;
+            var imageDeleteFormHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, image.Title, _IMAGE);
+            var imageDbResult = _unitOfWork.imageRepository.Delete(image);
 
-          
-            bool isResult=false;
-            var imageDeleteFormHardDisk= Paths.createfilePathSaveHardDisk(_env,subFolder,image.Title,_IMAGE);
-            var imageDbResult= _unitOfWork.imageRepository.Delete(image);
-           
             if (imageDbResult.IsDone)
             {
                 Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
                 isResult = imageDbResult.IsDone;
             }
             return isResult;
-             
         }
+
         public static bool Delete(IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
-           Image imageResult= _unitOfWork.imageRepository.GetById(imageId);
+            Image imageResult = _unitOfWork.imageRepository.GetById(imageId);
 
-           
-            var imageDeleteFormHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageResult.Title,_IMAGE);
-            var result=  _unitOfWork.imageRepository.Delete(imageResult);
+            var imageDeleteFormHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
+            var result = _unitOfWork.imageRepository.Delete(imageResult);
             Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
             return result.IsDone;
         }
@@ -122,12 +140,5 @@ namespace ConstructionSite.Extensions.Images
                    file.ContentType == "image/x-png" ||
                    file.ContentType == "image/gif";
         }
-
-      
-       
-       
-       
-       
-       
     }
 }

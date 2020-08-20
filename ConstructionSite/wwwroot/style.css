@@ -6,8 +6,7 @@
  * Author: BlogWP
  * Theme URI: http://www.blogwp.com/construction
  * Author URI: http://www.blogwp.com
- */ 
-
+ */
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i|Montserrat:300,400,500,600,700&subset=latin");
 
 @import "Lib/bootstrap-v4-rtl/css/bootstrap.css";
@@ -48,10 +47,21 @@
  * Media Queries
  * Retina Devices
  */
-
 /* Reset Browsers
 -------------------------------------------------------------- */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;font:inherit;vertical-align:baseline;font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit;}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}html{font-size:62.5%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}body{background:#fff;line-height:1;}article,aside,details,figcaption,figure,footer,header,main,nav,section{display:block}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0;}caption,th,td{font-weight:normal;text-align:left;}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}blockquote,q{quotes:none}a:focus{outline:none}a:hover,a:active{outline:0}a img{border:0}img{max-width:100%;height:auto;}select{max-width:100%}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family: inherit;
+	font-size: 100%;
+	font-style: inherit;
+	font-weight: inherit;
+}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}html{font-size:62.5%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}body{background:#fff;line-height:1;}article,aside,details,figcaption,figure,footer,header,main,nav,section{display:block}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0;}caption,th,td{font-weight:normal;text-align:left;}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}blockquote,q{quotes:none}a:focus{outline:none}a:hover,a:active{outline:0}a img{border:0}img{max-width:100%;height:auto;}select{max-width:100%}
 
 /* General
 -------------------------------------------------------------- */
@@ -283,6 +293,11 @@ h3 a:hover,
 h4 a:hover,
 h5 a:hover,
 h6 a:hover { text-decoration: none }
+
+.hoverDiv p {
+	font-size: 17px;
+	margin: 0px !important;
+}
 
 .text-accent-color { color: #ffc925 !important; }
 .text-white { color: #fff !important; }
@@ -606,7 +621,6 @@ p.dropcap span.first-letter { font-size: 55px; float: left; color: #ffc925; text
 -------------------------------------------------------------- */
 #site-header { position: relative; background-color: #fff; }
 #site-header-inner { position: relative; padding-top: 30px; padding-bottom: 30px; height: 100%; }
-#site-logo { float: left; }
 #site-logo .site-logo-text { color: #252525; font-size: 22px; line-height: 34px; font-weight: 700; }
 #site-logo .site-logo-text:hover { color: #ffc925; }
 
@@ -965,7 +979,7 @@ color: #252525; font-family: "Montserrat", sans-serif; font-size: 1.071em; font-
 	position: relative;
 	background: transparent;
 	cursor: pointer;
-	margin-top: 8px;
+	margin-top: 20px;
 	width: 26px;
 	height: 16px;
 	-webkit-transition: all ease .238s;

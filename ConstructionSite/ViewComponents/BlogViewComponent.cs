@@ -10,9 +10,9 @@ using System.Net;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class BlogViewComponent:ViewComponent
+    public class BlogViewComponent : ViewComponent
     {
-        string _lang;
+        private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
@@ -24,7 +24,7 @@ namespace ConstructionSite.ViewComponents
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
             _localizationHandle = localizationHandle;
-            _lang = _contextAccessor.getLanguages();
+            _lang = _contextAccessor.GetLanguages();
         }
 
         public IViewComponentResult Invoke()
@@ -45,7 +45,7 @@ namespace ConstructionSite.ViewComponents
                                                     NewsId = x.NewsId,
                                                     Image = x.Image.Path,
                                                     ImageId = x.ImageId
-                                                }).OrderByDescending(x=>x.Id).Take(3)
+                                                }).OrderByDescending(x => x.Id).Take(3)
                                                 .ToList()
                                                     ;
             if (newsImageResult == null)

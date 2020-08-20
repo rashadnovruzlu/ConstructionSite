@@ -14,12 +14,4 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(n => n.NewsImages);
         }
     }
-   
-
-
-
-
-
-
-
 }

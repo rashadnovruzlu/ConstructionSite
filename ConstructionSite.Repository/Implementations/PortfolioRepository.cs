@@ -9,9 +9,6 @@ namespace ConstructionSite.Repository.Implementations
     {
         public PortfolioRepository(ConstructionDbContext context) : base(context)
         {
-
         }
-
-
     }
 }

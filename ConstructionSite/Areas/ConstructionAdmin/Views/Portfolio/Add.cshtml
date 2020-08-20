@@ -1,68 +1,69 @@
 ﻿@model PortfolioAddModel
 
-    <style>
-        .add-model {
-            background-color: rgb(241,242, 247);
-            padding-left: 7%;
+<style>
+    .add-model {
+        background-color: rgb(241,242, 247);
+        padding-left: 7%;
+    }
+
+        .add-model header {
+            height: 30px;
+            margin-top: 15px;
         }
 
-            .add-model header {
-                height: 30px;
-                margin-top: 15px;
-            }
+    .add-body {
+        margin-top: -10px;
+    }
 
-        .add-body {
-            margin-top: -10px;
-        }
-        .about-button:hover {
-            background-color: black !important;
-            border-color: black;
-            color: #fff;
-        }
-    </style>
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+</style>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <section class="panel add-model">
-                    <header class="panel-heading">
-                        Portfolio Add
-                    </header>
-                    <hr />
-                    <div class="panel-body add-body">
-                        <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" method="post">
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
-                                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel add-model">
+                <header class="panel-heading">
+                    Portfolio Add
+                </header>
+                <hr />
+                <div class="panel-body add-body">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" method="post">
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="NameEn" placeholder="Name ENG" id="f-name" class="form-control">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="NameEn" placeholder="Name ENG" id="f-name" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="NameRu" placeholder="Name RU" id="f-name" class="form-control">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="NameRu" placeholder="Name RU" id="f-name" class="form-control">
                             </div>
-                            <div class="form-group" style="margin-left: 72%;">
-                                <div class="col-lg-offset-2 col-lg-11">
-                                    <button class="btn btn-success about-button" type="submit">Save</button>
-                                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
-                                </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 72%;">
+                            <div class="col-lg-offset-2 col-lg-11">
+                                <button class="btn btn-success about-button" type="submit">Save</button>
+                                <button class="btn btn-default cancel-button" type="button">Cancel</button>
                             </div>
-                        </form>
-                    </div>
-                </section>
-            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
     </div>
+</div>
 
 @section scripts{
-<script>
+    <script>
         $(".cancel-button").click(function () {
             window.location.href = "/ConstructionAdmin/Portfolio/Index";
         })
-</script>
+    </script>
 }

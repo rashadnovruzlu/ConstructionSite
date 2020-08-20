@@ -26,10 +26,13 @@ namespace ConstructionSite.Controllers
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
             _localizationHandle = localizationHandle;
         }
-
+        /// <summary>
+        /// IActionResult Index
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -54,7 +57,11 @@ namespace ConstructionSite.Controllers
             }
             return View(allServiceViewModelResult);
         }
-
+        /// <summary>
+        /// IActionResult Services
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Services(int id)
         {
             if (!ModelState.IsValid)
@@ -79,7 +86,11 @@ namespace ConstructionSite.Controllers
             }
             return View(serviceSubServiceImageResult);
         }
-
+        /// <summary>
+        /// IActionResult SubService
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult SubService(int id)
         {
             if (!ModelState.IsValid)

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.DTO.AdminViewModels.News
 {
-   public class NewsViewModel
+    public class NewsViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

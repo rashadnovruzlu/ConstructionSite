@@ -1,46 +1,42 @@
 ﻿using ConstructionSite.Helpers.Paging;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.Xml;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("div",Attributes ="page-model")]
-    public class PaginationTagHelper:TagHelper
+    [HtmlTargetElement("div", Attributes = "page-model")]
+    public class PaginationTagHelper : TagHelper
     {
         public IUrlHelperFactory _urlHelperFactory;
+
         public PaginationTagHelper(IUrlHelperFactory urlHelperFactory)
         {
-            this._urlHelperFactory=urlHelperFactory;
+            this._urlHelperFactory = urlHelperFactory;
         }
+
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
-        public PagingInfo  PageModel { get; set; }
+
+        public PagingInfo PageModel { get; set; }
         public string PagingAction { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var urlHelper=_urlHelperFactory.GetUrlHelper(ViewContext);
-            var result=new TagBuilder("ul");
+            var urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);
+            var result = new TagBuilder("ul");
             result.AddCssClass("page-numbers");
-        
+
             for (int i = 1; i <= PageModel.TotalPage(); i++)
             {
-               var li = new TagBuilder("li");
+                var li = new TagBuilder("li");
 
-               
                 if (i == PageModel.CurrentPage)
                 {
-                    var myli=new TagBuilder("li");
+                    var myli = new TagBuilder("li");
                     var span = new TagBuilder("span");
                     span.AddCssClass("page-numbers current");
                     span.InnerHtml.Append(i.ToString());
@@ -56,10 +52,8 @@ namespace ConstructionSite.TagHelpers
                     li.InnerHtml.AppendHtml(a);
                     result.InnerHtml.AppendHtml(li);
                 }
-               
-    
             }
-           
+
             output.Content.AppendHtml(result);
         }
     }

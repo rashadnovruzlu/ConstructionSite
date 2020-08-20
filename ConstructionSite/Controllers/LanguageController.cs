@@ -13,6 +13,11 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
+        /// <summary>
+        /// this is Language POST Method send
+        /// Query With AJAX
+        /// </summary>
+        /// <param name="id"></param>
         [HttpPost]
         public void SetLanguage(string id)
         {
@@ -31,8 +36,6 @@ namespace ConstructionSite.Controllers
                 CookieRequestCultureProvider.DefaultCookieName;
 
             Response.Cookies.Append(cookieName, cookieValue);
-
-            //  return LocalRedirect(returnUrl);
         }
     }
 }

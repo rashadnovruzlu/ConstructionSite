@@ -27,41 +27,12 @@
                                 <!-- /.col-md-12 -->
 
                                 <div class="col-md-4">
-                                    <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Address)</h5>
-                                    <p>@Model.Address</p>
-                                    <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
-                                    <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.PhoneNumber)</h5>
-                                    <p>@Model.PhoneNumber</p>
-                                    <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
-                                    <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.EmailAddress)</h5>
-                                    <p>@Model.Email</p>
-                                    <div class="wprt-spacer" data-desktop="0" data-mobi="10" data-smobi="10"></div>
+                                    @await Component.InvokeAsync("Contact")
                                 </div>
                                 <!-- /.col-md-4 -->
 
                                 <div class="col-md-8">
-                                    <form class="wprt-contact-form" method="post" action="./includes/contact/contact-process.php">
-                                        <div class="inner">
-                                            <div class="left-side">
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="1" placeholder="Name *" name="name" id="name" required>
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="email" value="" tabindex="2" placeholder="Email *" name="email" id="email" required>
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="4" placeholder="Subject *" name="subject" id="subject" required>
-                                                </div>
-                                                <div class="message-wrap">
-                                                    <textarea class="" tabindex="5" placeholder="Message *" name="message" id="message" required></textarea>
-                                                </div>
-                                                <div class="send-wrap">
-                                                    <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <!-- /.wprt-contact-form -->
+                                    @await Component.InvokeAsync("Messages")
                                 </div>
                                 <!-- /.col-md-8 -->
 

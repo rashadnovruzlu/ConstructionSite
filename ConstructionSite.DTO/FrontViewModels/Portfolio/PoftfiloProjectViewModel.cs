@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.FrontViewModels.Portfolio
+﻿namespace ConstructionSite.DTO.FrontViewModels.Portfolio
 {
-   public class PoftfiloProjectViewModel
+    public class PoftfiloProjectViewModel
     {
         public int id { get; set; }
         public string Name { get; set; }

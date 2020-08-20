@@ -8,9 +8,9 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<News> builder)
         {
-           builder.HasKey(x=>x.Id);
+            builder.HasKey(x => x.Id);
 
-            builder.Property(x=>x.TittleAz)
+            builder.Property(x => x.TittleAz)
                 .IsRequired()
                 .HasMaxLength(150);
 
@@ -20,20 +20,11 @@ namespace ConstructionSite.Entity.Configuration
             builder.Property(x => x.TittleRu)
              .HasMaxLength(150);
 
-            builder.Property(x=>x.ContentAz)
+            builder.Property(x => x.ContentAz)
                 .IsRequired();
 
-            builder.Property(x=>x.ContentEn);
-            builder.Property(x=>x.ContentRu);
-               
+            builder.Property(x => x.ContentEn);
+            builder.Property(x => x.ContentRu);
         }
     }
-   
-
-
-
-
-
-
-
 }

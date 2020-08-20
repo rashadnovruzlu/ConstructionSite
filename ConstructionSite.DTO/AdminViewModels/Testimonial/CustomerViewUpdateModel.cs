@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.AdminViewModels.Testimonial
+﻿namespace ConstructionSite.DTO.AdminViewModels.Testimonial
 {
-   public class CustomerViewUpdateModel
+    public class CustomerViewUpdateModel
     {
         public int Id { get; set; }
 

@@ -37,27 +37,7 @@
                                     @await Component.InvokeAsync("Contact")
                                 </div>
                                 <div class="col-md-8">
-                                    <form class="wprt-contact-form" asp-controller="Message" asp-action="Add" novalidate="novalidate">
-                                        <div class="inner">
-                                            <div class="left-side">
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="1" placeholder="Name *" asp-for="Name" id="name" required="">
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="email" value="" tabindex="2" placeholder="Email *" asp-for="Email" id="email" required="">
-                                                </div>
-                                                <div class="input-wrap">
-                                                    <input type="text" value="" tabindex="4" placeholder="Subject *" asp-for="Subject" id="subject" required="">
-                                                </div>
-                                                <div class="message-wrap">
-                                                    <textarea class="" tabindex="5" placeholder="Message *" asp-for="UserMessage" id="message" required=""></textarea>
-                                                </div>
-                                                <div class="send-wrap">
-                                                    <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    @await Component.InvokeAsync("Messages")
                                 </div>
 
                                 <div class="col-md-12">
@@ -71,3 +51,26 @@
         </div>
     </div>
 </div>
+@section scrips{
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script let keys="AIzaSyD2QmvoLHHVFktvA_fyDKKLoRjZJzpEKqg" ;
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcD5yIXxI3_K6v4NOqfI4F_B53VqpLq3s&callback=initMap&libraries=&v=weekly"
+            defer></script>
+    <script>
+    function initMap() {
+        const myLatLng = {
+            lat: @ViewBag.la,
+            lng: @ViewBag.lo
+        };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: myLatLng
+        });
+        new google.maps.Marker({
+            position: myLatLng,
+            map,
+            title: "Hello World!"
+        });
+    }
+    </script>
+}

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ConstructionSite.Extensions.Core
 {
-    public static  class Helper
+    public static class Helper
     {
         public static string reNameFileName(IFormFile file)
         {

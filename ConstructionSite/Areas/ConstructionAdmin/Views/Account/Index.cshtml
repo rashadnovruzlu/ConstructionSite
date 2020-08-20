@@ -26,7 +26,6 @@
                 <section class="panel">
 
                     @await Component.InvokeAsync("UserProfile")
-
                 </section>
             </aside>
             <aside class="profile-info col-lg-9 user-bio">
@@ -34,9 +33,8 @@
                     <div class="bio-graph-heading" style="background-color: rgb(49, 49, 49); opacity: .8;">
                         <h1>Bio Graph</h1>
                     </div>
-                    
-                    @await Component.InvokeAsync("AdminComponents") 
 
+                    @await Component.InvokeAsync("AdminComponents")
                 </section>
             </aside>
         </div>

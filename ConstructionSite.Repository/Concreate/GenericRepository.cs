@@ -16,7 +16,7 @@ namespace ConstructionSite.Repository.Concreate
         #region --Fild--
 
         private readonly ConstructionDbContext _context;
-      
+
         private string _errorMessage = string.Empty;
 
         #endregion --Fild--
@@ -26,7 +26,6 @@ namespace ConstructionSite.Repository.Concreate
         public GenericRepository(ConstructionDbContext context)
         {
             _context = context;
-           
         }
 
         #endregion --Ctor--
@@ -40,8 +39,7 @@ namespace ConstructionSite.Repository.Concreate
 
         public async Task<ICollection<T>> GetAllAsync()
         {
-          return await _context.Set<T>().ToListAsync();
-            
+            return await _context.Set<T>().ToListAsync();
         }
 
         #endregion --GetAll--
@@ -58,21 +56,20 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 _context.Set<T>().Add(entity);
-               _context.SaveChanges();
+                _context.SaveChanges();
                 result.Data = entity;
             }
             catch (Exception ex)
             {
-                string erro=ex.Message;
-                result.IsDone=false;
+                string erro = ex.Message;
+                result.IsDone = false;
             }
             return result;
-           
         }
 
         public async Task<RESULT<T>> AddAsync(T entity)
         {
-            RESULT<T>  result=new RESULT<T> { IsDone=true};
+            RESULT<T> result = new RESULT<T> { IsDone = true };
             if (entity == null)
             {
                 throw new ArgumentNullException();
@@ -82,15 +79,13 @@ namespace ConstructionSite.Repository.Concreate
                 await _context.Set<T>().AddAsync(entity);
                 await _context.SaveChangesAsync();
                 result.Data = entity;
-
             }
             catch (Exception ex)
             {
-               string mesage=ex.Message;
-                result.IsDone=false;
+                string mesage = ex.Message;
+                result.IsDone = false;
             }
-            return await  Task.FromResult(result);
-          
+            return await Task.FromResult(result);
         }
 
         public RESULT<T> AddRange(ICollection<T> entity)
@@ -345,8 +340,6 @@ namespace ConstructionSite.Repository.Concreate
         {
             _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
         }
-
-
 
         #endregion --Search--
     }

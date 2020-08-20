@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -22,13 +20,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class SubServiceController : Controller
     {
         #region Fields
+
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public SubServiceController(IUnitOfWork unitOfWork,
                                     IWebHostEnvironment env,
                                     IHttpContextAccessor httpContextAccessor)
@@ -36,9 +37,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -72,7 +74,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(SubServiceImage);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
@@ -92,7 +94,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }).ToList();
             if (result.Count < 1)
             {
-               _unitOfWork.Dispose();
+                _unitOfWork.Dispose();
                 ModelState.AddModelError("", "This is empty");
                 return RedirectToAction("Index");
             }
@@ -123,7 +125,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
-           
+
             var SubServiceAddResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
             if (!SubServiceAddResult.IsDone)
             {
@@ -142,7 +144,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
 
@@ -159,25 +161,24 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This is empty");
                 return RedirectToAction("Index");
             }
-       var   subserviceUpdateImageResult=_unitOfWork.SubServiceImageRepository
-                .GetAll()
-                .Include(x=>x.Image)
-                .Include(x=>x.SubService)
-                .Select(x=>new SubServiceUpdateViewModel
-                {
-                    Id=x.SubServiceId,
-                    imageId=x.ImageId,
-                    ImagePath=x.Image.Path,
-                    ContentAz=x.SubService.ContentAz,
-                    ContentEn=x.SubService.ContentEn,
-                    ContentRu=x.SubService.ContentRu,
-                    NameAz=x.SubService.NameAz,
-                    NameEn=x.SubService.NameEn,
-                    NameRu=x.SubService.NameRu,
-                    ServerId=x.SubService.ServiceId
-                    
-                })
-                .FirstOrDefault(x=>x.Id==id);
+            var subserviceUpdateImageResult = _unitOfWork.SubServiceImageRepository
+                     .GetAll()
+                     .Include(x => x.Image)
+                     .Include(x => x.SubService)
+                     .Select(x => new SubServiceUpdateViewModel
+                     {
+                         Id = x.SubServiceId,
+                         imageId = x.ImageId,
+                         ImagePath = x.Image.Path,
+                         ContentAz = x.SubService.ContentAz,
+                         ContentEn = x.SubService.ContentEn,
+                         ContentRu = x.SubService.ContentRu,
+                         NameAz = x.SubService.NameAz,
+                         NameEn = x.SubService.NameEn,
+                         NameRu = x.SubService.NameRu,
+                         ServerId = x.SubService.ServiceId
+                     })
+                     .FirstOrDefault(x => x.Id == id);
             if (subserviceUpdateImageResult == null)
             {
                 ModelState.AddModelError("", "This is empty");
@@ -203,7 +204,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Id = subServiceUpdateViewModel.Id,
                 ServiceId = subServiceUpdateViewModel.ServerId,
-                
+
                 NameAz = subServiceUpdateViewModel.NameAz,
                 NameEn = subServiceUpdateViewModel.NameEn,
                 NameRu = subServiceUpdateViewModel.NameRu,
@@ -216,7 +217,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Sub Service is null");
             }
 
-            var subServiceUpdateResult =  _unitOfWork.SubServiceRepository.Update(subServiceViewUpdateModel);
+            var subServiceUpdateResult = _unitOfWork.SubServiceRepository.Update(subServiceViewUpdateModel);
             if (!subServiceUpdateResult.IsDone)
             {
                 ModelState.AddModelError("", "Errors occured while editing Sub Service");
@@ -252,9 +253,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion UPDATE
 
         #region DELETE
+
         public async Task<IActionResult> Delete(int id)
         {
             var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
@@ -282,6 +284,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion DELETE
     }
 }

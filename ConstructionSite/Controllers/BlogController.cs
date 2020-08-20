@@ -36,7 +36,7 @@ namespace ConstructionSite.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
             _localizationHandle = localizationHandle;
         }
 
@@ -114,7 +114,7 @@ namespace ConstructionSite.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var blogDetalyeViewModel = new BlogDetalyeViewModel
+            var blogDetailViewModel = new BlogDetalyeViewModel
             {
                 Id = newsImageResult.NewsId,
                 Title = newsImageResult.News.FindTitle(_lang),
@@ -122,7 +122,7 @@ namespace ConstructionSite.Controllers
                 dateTime = newsImageResult.News.CreateDate,
                 imagePath = newsImageResult.Image.Path,
             };
-            return View(blogDetalyeViewModel);
+            return View(blogDetailViewModel);
         }
     }
 }

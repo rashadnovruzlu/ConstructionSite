@@ -3,17 +3,18 @@ using ConstructionSite.Entity.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
     public class AdminComponentsViewComponent : ViewComponent
     {
         private readonly UserManager<ApplicationUser> _userManager;
+
         public AdminComponentsViewComponent(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
+
         public IViewComponentResult Invoke()
         {
             var result = _userManager.Users.Select(m => new UserDTO

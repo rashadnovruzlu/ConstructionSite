@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace ConstructionSite.DTO.AdminViewModels.Blog
 {
     public class BlogCreateModel
     {
-		public int Id { get; set; }
-		public string TittleAz { get; set; }
-		public string TittleEn { get; set; }
-		public string TittleRu { get; set; }
-		public string ContentAz { get; set; }
-		public string ContentEn { get; set; }
-		public string ContentRu { get; set; }
-		//public string Img { get; set; }
-		public int ImageId { get; set; }
-		public DateTime CreateDate { get; set; }
-	}
+        public int Id { get; set; }
+        public string TittleAz { get; set; }
+        public string TittleEn { get; set; }
+        public string TittleRu { get; set; }
+        public string ContentAz { get; set; }
+        public string ContentEn { get; set; }
+        public string ContentRu { get; set; }
+
+        //public string Img { get; set; }
+        public int ImageId { get; set; }
+
+        public DateTime CreateDate { get; set; }
+    }
 }

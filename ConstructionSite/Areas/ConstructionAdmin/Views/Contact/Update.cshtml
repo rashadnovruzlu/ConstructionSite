@@ -1,93 +1,104 @@
 ﻿@model ContactUpdateViewModel
 
-    <style>
-        .add-model {
-            background-color: rgb(241,242, 247);
-            padding-left: 7%;
+<style>
+    .add-model {
+        background-color: rgb(241,242, 247);
+        padding-left: 7%;
+    }
+
+        .add-model header {
+            height: 30px;
+            margin-top: 15px;
         }
 
-            .add-model header {
-                height: 30px;
-                margin-top: 15px;
-            }
+    .add-body {
+        margin-top: -10px;
+    }
 
-        .add-body {
-            margin-top: -10px;
-        }
-        .about-button:hover {
-            background-color: black !important;
-            border-color: black;
-            color: #fff;
-        }
-    </style>
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+</style>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <section class="panel add-model">
-                    <header class="panel-heading">
-                        Create Contact Elements
-                    </header>
-                    <hr />
-                    <div class="panel-body add-body">
-                        <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
-                                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel add-model">
+                <header class="panel-heading">
+                    Create Contact Elements
+                </header>
+                <hr />
+                <div class="panel-body add-body">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Contact" asp-action="Update" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="TittleEn" id="f-name" class="form-control" placeholder="Title ENG">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="TittleEn" id="f-name" class="form-control" placeholder="Title ENG">
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Title RU">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input asp-for="TittleRu" id="f-name" class="form-control" placeholder="Title RU">
                             </div>
-                            <div class="form-group ">
-                                <div class="col-lg-11">
-                                    <textarea asp-for="ContentAz" rows="10" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-11">
+                                <textarea asp-for="ContentAz" rows="10" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
                             </div>
-                            <div class="form-group ">
-                                <div class="col-lg-11">
-                                    <textarea asp-for="ContentEn" rows="10" class="form-control " id="ccomment" required="" placeholder="Content ENG"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-11">
+                                <textarea asp-for="ContentEn" rows="10" class="form-control " id="ccomment" required="" placeholder="Content ENG"></textarea>
                             </div>
-                            <div class="form-group ">
-                                <div class="col-lg-11">
-                                    <textarea asp-for="ContentRu" rows="10" class="form-control " id="ccomment" required="" placeholder="Content RU"></textarea>
-                                </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-lg-11">
+                                <textarea asp-for="ContentRu" rows="10" class="form-control " id="ccomment" required="" placeholder="Content RU"></textarea>
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="Address" id="f-name" class="form-control" placeholder="Address">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="Address" id="f-name" class="form-control" placeholder="Address">
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="text" asp-for="PhoneNumber" id="f-name" class="form-control" placeholder="Phone Number">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="PhoneNumber" id="f-name" class="form-control" placeholder="Phone Number">
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-11">
-                                    <input type="email" asp-for="Email" id="f-name" class="form-control" placeholder="Email">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="email" asp-for="Email" id="f-name" class="form-control" placeholder="Email">
                             </div>
-                            <div class="form-group" style="margin-left: 72%;">
-                                <div class="col-lg-offset-2 col-lg-11">
-                                    <button class="btn btn-success about-button" type="submit">Save</button>
-                                    <button class="btn btn-default cancel-button" type="button">Cancel</button>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="lat" id="f-name" class="form-control" placeholder="Latitude ">
                             </div>
-                        </form>
-                    </div>
-                </section>
-            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="lng" id="f-name" class="form-control" placeholder="Longitude ">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 72%;">
+                            <div class="col-lg-offset-2 col-lg-11">
+                                <button class="btn btn-success about-button" type="submit">Save</button>
+                                <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
     </div>
+</div>
 
 @section scripts{
     <script>

@@ -2,13 +2,13 @@
 @model ProjectViewDetailsModel
 
 @section head{
-    <style>
-        .porimage {
-            width: 770px;
-            height: 513px;
-        }
-    </style>
- }
+    @*<style>
+            .porimage {
+                width: 770px;
+                height: 513px;
+            }
+        </style>*@
+}
 
 <!-- Main Content -->
 <div id="main-content" class="site-main clearfix">
@@ -33,7 +33,7 @@
                                                     <li class="flex-active-slide">
                                                         <a class="zoom" href="JavaScrip:void(0)"><i class="fa fa-arrows-alt"></i></a>
                                                         <div class="porimage">
-                                                            <img   src="@item" alt="image" />
+                                                            <img src="@item" alt="image" />
                                                         </div>
                                                     </li>
                                                 }
