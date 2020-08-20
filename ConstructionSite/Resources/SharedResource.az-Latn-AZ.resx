@@ -204,6 +204,9 @@
   <data name="Garden" xml:space="preserve">
     <value>Bağça</value>
   </data>
+  <data name="GetInTouchWithUs" xml:space="preserve">
+    <value>GET IN TOUCH WITH US</value>
+  </data>
   <data name="GreenBuilding" xml:space="preserve">
     <value>Yaşıl bina</value>
   </data>
