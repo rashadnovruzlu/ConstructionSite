@@ -16,9 +16,8 @@
 
     <!-- Theme Style -->
     <partial name="_LinkPartialStyle" />
-    <!-- Theme Style -->
-    @RenderSection("head", false)
-    @*<link href="~/customer/css/icon.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @await RenderSectionAsync("head", false)
 </head>
 
 <body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
@@ -44,24 +43,22 @@
                     </div>
                 </div>
             </footer>
-
-            <!-- Bottom -->
-            <partial name="_BottonPartial" />
         </div>
+        <!-- /#page -->
     </div>
+    <!-- /#wrapper -->
 
-    <a id="scroll-top"><i class="fa fa-arrow-up" style="font-size: 1.9em; margin-top: 22%;"></i></a>
+    <a id="scroll-top"><i class="fa fa-arrow-up" style="font-size: 1.9em;margin-top: 22%;"></i></a>
 
     <!-- Javascript -->
     <partial name="_JavascriptPartial" />
 
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
-    <partial name="_LoadingPartialScripts" />
-    <script type="text/javascript" src="~/customer/js/Component.js" asp-append-version="true">
+    <script type="text/javascript" src="~/Custom/Js/component.js"
+            asp-append-version="true">
     </script>
-    <script type="text/javascript" src="~/customer/js/Language.js" asp-append-version="true"></script>
 
-    @RenderSection("Scrips", required: false)
+    @await RenderSectionAsync("Scrips", false)
 </body>
 </html>

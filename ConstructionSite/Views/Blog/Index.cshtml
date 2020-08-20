@@ -3,19 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div id="featured-title" class="clearfix featured-title-left">
-    <div id="featured-title-inner" class="container clearfix">
-        <div class="featured-title-inner-wrap">
-            <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</h1>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Main Content -->
 <div id="main-content" class="site-main center clearfix">
     <div id="content-wrap" class="container">
+        <div style="text-align: center; font-size:36px">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</div>
         <div id="site-content" class="site-content clearfix" style="width: 100%">
             <div id="inner-content" class="inner-content-wrap">
                 @foreach (var item in Model.Paging)

@@ -137,6 +137,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string Message = "Message";
         public const string SendMessage = "SendMessage";
         public const string TermsAndConditions = "TermsAndConditions";
+        public const string GetInTouchWithUs = "GetInTouchWithUs";
         #endregion
 
         #region Footer

@@ -9,22 +9,22 @@
  */
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i|Montserrat:300,400,500,600,700&subset=latin");
 
-@import "lib/bootstrap-v4-rtl/css/bootstrap.css";
-@import "assets/css/animsition.css";
-@import "assets/css/animate.css";
-@import "assets/css/fontello.css";
-@import "assets/css/font-awesome.min.css";
-@import "assets/css/cubeportfolio.min.css";
-@import "assets/css/magnific-popup.css";
-@import "assets/css/flexslider.css";
-@import "lib/vegas/vegas.css";
-@import "assets/css/owl.carousel.css";
-@import "includes/rev-slider/css/settings.css";
-@import "includes/rev-slider/css/layers.css";
-@import "includes/rev-slider/css/navigation.css";
-@import "assets/css/woocommerce.css";
-@import "assets/css/shortcodes.css";
-@import "assets/css/custom.css";
+@import "Lib/bootstrap-v4-rtl/css/bootstrap.css";
+@import "Assets/Css/animsition.css";
+@import "Assets/Css/animate.css";
+@import "Assets/Css/fontello.css";
+@import "Assets/Css/font-awesome.min.css";
+@import "Assets/Css/cubeportfolio.min.css";
+@import "Assets/Css/magnific-popup.css";
+@import "Assets/Css/flexslider.css";
+@import "Lib/vegas/vegas.css";
+@import "Assets/Css/owl.carousel.css";
+@import "Includes/Rev-slider/Css/settings.css";
+@import "Includes/Rev-slider/Css/layers.css";
+@import "Includes/Rev-slider/Css/navigation.css";
+@import "Assets/Css/woocommerce.css";
+@import "Assets/Css/shortcodes.css";
+
 /**
  * Reset Browsers
  * General

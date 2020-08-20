@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "vegas@2.5.1",
-      "destination": "wwwroot/lib/vegas/",
+      "destination": "wwwroot/Lib/vegas/",
       "files": [
         "vegas.min.js",
         "vegas.min.css",
@@ -16,7 +16,7 @@
     },
     {
       "library": "bootstrap-v4-rtl@4.4.1-2",
-      "destination": "wwwroot/lib/bootstrap-v4-rtl/",
+      "destination": "wwwroot/Lib/bootstrap-v4-rtl/",
       "files": [
         "css/bootstrap.min.css",
         "css/bootstrap.min.css.map",
@@ -28,7 +28,7 @@
     },
     {
       "library": "datatables@1.10.21",
-      "destination": "wwwroot/lib/datatables/",
+      "destination": "wwwroot/Lib/datatables/",
       "files": [
         "js/jquery.dataTables.min.js",
         "js/dataTables.bootstrap.js",
