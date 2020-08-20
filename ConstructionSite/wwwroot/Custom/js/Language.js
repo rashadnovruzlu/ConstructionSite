@@ -3,7 +3,7 @@
     var returnUrl = $(".contexts").data("id");
     $(".datas_item").click(function () {
         var id = $(this).data("id");
-        alert(id);
+       
         $.ajax({
             method: "POST",
             url: "/Language/SetLanguage/" + id,
