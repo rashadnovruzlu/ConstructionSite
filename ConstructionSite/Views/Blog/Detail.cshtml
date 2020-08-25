@@ -1,49 +1,30 @@
 ﻿@model BlogDetalyeViewModel
 @inject SharedLocalizationService Localizer
-
-<!-- Main Content -->
-<div id="main-content" class="site-main center clearfix">
-    <div id="content-wrap" class="container">
-        <div id="site-content" class="site-content clearfix" style="width: 100%">
-            <div id="inner-content" class="inner-content-wrap">
-                <article class="hentry">
-                    <div class="post-media clearfix">
-                        <a href="javascrip:void(0)"><img src="@Model.imagePath" alt="image"></a>
-                    </div>
-                    <!-- /.post-media -->
-
-                    <div class="post-content-wrap">
-                        <h2 class="post-title">
-                            <span class="post-title-inner">
-                                <a href="javascrip:void(0)">@Model.Title</a>
-                            </span>
-                        </h2>
-                        <!-- /.post-title -->
-
-                        <div class="post-meta style-3">
-                            <div class="post-meta-content">
-                                <div class="post-meta-content-inner">
-                                    <span class="post-date item">
-                                        <span class="inner">
-                                            <span class="entry-date">@Model.dateTime.ToUniversalTime().ToString("MMMM dd, yyyy")</span>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="post-content post-excerpt">
-                            <p>@Model.Content</p>
-                        </div>
-                        <!-- /.post-excerpt -->
-                    </div>
-                    <!-- /.post-content-wrap -->
-                </article>
-            </div>
-            <!-- /.inner-content-wrap -->
-        </div>
-        <!-- /#site-content -->
-    </div>
-    <!-- /#main-content -->
-
+    <!-- Featured Title -->
     <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-</div>
+
+    <div>&nbsp;</div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="site-main center clearfix">
+        <div id="content-wrap" class="container">
+            <div style="text-align: center; font-size:36px">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</div>
+            <div>&nbsp;</div>
+            <div id="site-content" class="site-content clearfix" style="width: 100%">
+                <div>
+                    <div class="container">
+                        <img src="@Model.imagePath" alt="logo" style="width:400px;height:250px;margin-right:15px; float: left;">
+                        <h1>@Model.Title</h1>
+                        <p>@Model.Content</p>
+                    </div>
+                </div>
+                <!-- /.inner-content-wrap -->
+
+            </div>
+            <!-- /#site-content -->
+
+        </div>
+        <!-- /#main-content -->
+
+        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+    </div>
