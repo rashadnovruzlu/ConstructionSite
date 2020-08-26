@@ -4,11 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
+<!-- Featured Title -->
+<div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+
+<div>&nbsp;</div>
+
 <!-- Main Content -->
 <div id="main-content" class="site-main center clearfix">
     <div id="content-wrap" class="container">
-        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40" style="height:100px"></div>
-        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40" style="height:100px"></div>
         <div style="text-align: center; font-size:36px">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</div>
         <div id="site-content" class="site-content clearfix" style="width: 100%">
             <div id="inner-content" class="inner-content-wrap">
@@ -50,18 +53,24 @@
                                 </div>
                             </div>
                             <!-- /.post-read-more -->
+
                         </div>
                         <!-- /.post-content-wrap -->
+
                     </article>
                 }
-                <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List">
-                </div>
+                <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
             </div>
             <!-- /.inner-content-wrap -->
+
         </div>
         <!-- /#site-content -->
+
     </div>
     <!-- /#main-content -->
 
     <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
 </div>
+
+
+    
