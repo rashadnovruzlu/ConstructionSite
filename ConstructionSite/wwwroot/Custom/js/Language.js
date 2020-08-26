@@ -3,7 +3,7 @@
     var returnUrl = $(".contexts").data("id");
     $(".datas_item").click(function () {
         var id = $(this).data("id");
-       
+        test(id);
         $.ajax({
             method: "POST",
             url: "/Language/SetLanguage/" + id,
@@ -18,20 +18,21 @@
     });
    
 });
-//function test () {
-//    $(".langss").load(function () {
-//        var name = $(this).data("name");
-//        removeLang();
-//        add(name);
-//        });
-//};
+function test(id) {
+
+   
+   
+    removeLang(id);
+    add(id);
+}
+
 function add(Name) {
     alert(Name);
     $("#" + Name)
-        .removeClass("langss")
-        .addClass("langss current-menu-item");
+        .removeClass(Name)
+        .addClass("current-menu-item");
 }
-function removeLang() {
-    $(".langss").removeClass("langss current-menu-item")
-        .addClass("langss");
+function removeLang(Name) {
+    $("." + Name).removeClass("langss current-menu-item")
+        .addClass(Name);
 }
