@@ -77,6 +77,21 @@
     <None Include="wwwroot\Assets\Js\validate.js" />
     <None Include="wwwroot\Assets\Js\vegas.js" />
     <None Include="wwwroot\Assets\Js\video.js" />
+    <None Include="wwwroot\Includes\Contact\contact-process.php" />
+    <None Include="wwwroot\Includes\Rev-slider\css\closedhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\css\openhand.123" />
+    <None Include="wwwroot\Includes\Rev-slider\fonts\revicons\revicons90c6.svg" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.actions.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.carousel.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.kenburn.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.layeranimation.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.migration.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.navigation.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.parallax.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.slideanims.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\extensions\revolution.extension.video.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\jquery.themepunch.revolution.min.js" />
+    <None Include="wwwroot\Includes\Rev-slider\js\jquery.themepunch.tools.min.js" />
   </ItemGroup>
 
   <ItemGroup>
