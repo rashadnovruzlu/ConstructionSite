@@ -132,6 +132,9 @@
   <data name="All" xml:space="preserve">
     <value>Все</value>
   </data>
+  <data name="AllServices" xml:space="preserve">
+    <value>Все услуги</value>
+  </data>
   <data name="AnErrorOccurred" xml:space="preserve">
     <value />
   </data>
