@@ -97,6 +97,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string OurServices = "OurServices";
         public const string Services = "Services";
         public const string SeeAll = "SeeAll";
+        public const string AllServices = "AllServices";
         #endregion
 
         #region Region

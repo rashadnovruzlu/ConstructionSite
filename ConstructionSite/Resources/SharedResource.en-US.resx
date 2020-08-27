@@ -132,6 +132,9 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="AllServices" xml:space="preserve">
+    <value>All services</value>
+  </data>
   <data name="AnErrorOccurred" xml:space="preserve">
     <value>An Error Occurred</value>
   </data>
