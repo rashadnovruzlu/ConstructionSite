@@ -32,9 +32,9 @@
         <div class="langu">
             @foreach (var item in cultureItems)
             {
-                <li id="@item.Name" class="@item.Name" data-name="@item.Name" data-id="@item.Name" style="margin-top:11px; cursor: pointer;">
-                    <a class="datas_item langdata" data-id="@item.Name">
-                        <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
+                <li  style="margin-top:11px; cursor: pointer;">
+                    <a class="datas_item" data-id="@item.Name">
+                        <input class="contexts"  type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
                     </a>
                 </li>
             }
@@ -45,3 +45,8 @@
 
 <script src="~/ConstructionAdmin/js/jquery-1.8.3.min.js"></script>
 <script src="~/Custom/Js/language.js"></script>
+<style>
+    .myActive {
+        color: yellow;
+    }
+</style>
