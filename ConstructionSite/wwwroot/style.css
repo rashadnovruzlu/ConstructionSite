@@ -4172,9 +4172,9 @@ body.page #main-content {
 	justify-content: center;
 }
 
-	/*.langu li a {
+	.langu li a {
 		color: #fff;
-	}*/
+	}
 
 	.langu li {
 		margin-top: 12px !important;

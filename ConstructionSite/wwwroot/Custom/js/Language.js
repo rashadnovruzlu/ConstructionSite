@@ -1,22 +1,26 @@
-﻿var name='';
-$(document).ready(function () {
+﻿$(document).ready(function () {
     var returnUrl = $(".contexts").data("id");
     $(".datas_item").click(function () {
         var id = $(this).data("id");
-        DeActive();
+        //localStorage.clear();
+        //localStorage.setItem('name',id);
+        //DeActive();
 
-        Active(id);
        
       
         $.ajax({
             method: "POST",
             url: "/Language/SetLanguage/" + id,
             success: function () {
-               // mainActive(id);
-               window.location.replace(returnUrl);
+
+                window.location.replace(returnUrl);
+                //$(window).on('load', function () {
+                //    Active();
+                //});
 
              }
         });
+
        
     });
    
@@ -24,6 +28,7 @@ $(document).ready(function () {
 function DeActive() {
     $(".datas_item").css("color","white");
 }
-function Active(name) {
+function Active() {
+    var name = localStorage.getItem('name');
     $("#" + name).css("color", "red");
 }
