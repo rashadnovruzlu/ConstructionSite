@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @await RenderSectionAsync("head", false)
 
+    <style>
+        .header-style-5 #site-header {
+            background-color: transparent !important;
+            width: 100% !important;
+            height: 87px !important;
+        }
+    </style>
 
 </head>
 
@@ -36,7 +43,7 @@
                             <div id="site-logo" class="clearfix">
                                 <div id="site-logo-inner">
                                     <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
-                                        <img src="~/assets/img/logo-light.png" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; width: 110px; height: 68px; top: 0px;  background-color: white;">
+                                        <img src="~/Assets/Img/svg (1).svg" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; height: 83px; top: 2px;">
                                     </a>
                                 </div>
                             </div>

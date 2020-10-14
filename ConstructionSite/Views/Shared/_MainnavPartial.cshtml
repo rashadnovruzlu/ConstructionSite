@@ -9,11 +9,11 @@
                                     .ToList();
 }
 @section head{
-<style>
-    .langdata{
-        padding:10px;
-    }
-</style>
+    <style>
+        .langdata {
+            padding: 10px;
+        }
+    </style>
 }
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
@@ -28,12 +28,25 @@
         <li><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
         <li><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
 
-        @foreach (var item in cultureItems)
-        {
-            <li><a class="datas_item langdata" data-id="@item.Name">
-            <input class="contexts" type="hidden"  data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()</a></li>
-        }
+        @*@foreach (var item in cultureItems)
+            {
+
+                <li>
+                    <a class="datas_item langdata" data-id="@item.Name">
+                        <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
+                    </a>
+                </li>
+            }*@
+
+
     </ul>
+    @*<select style="width:auto;color:red;border:none;background:none">
+            <option>AZ</option>
+            <option>EN</option>
+            <option>RU</option>
+        </select>*@
+  
+
 </nav>
 <script src="~/ConstructionAdmin/js/jquery-1.8.3.min.js"></script>
 <script src="~/customer/js/Language.js"></script>
