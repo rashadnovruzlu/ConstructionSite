@@ -37,6 +37,12 @@
         #sidebar .nav-sidebar list-navbar:hover a {
             color: #ffc925;
         }
+
+        ul.sidebar-menu li {
+            margin-left: 0px !important;
+            margin-right: 0px !important
+        }
+
     </style>
 
 </head>
@@ -45,10 +51,10 @@
 
     <section id="container">
         <!--header start-->
-        <header class="header white-bg my-Header" style="background-color: RGB(49,49,49); opacity: .8; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)">
+        <header class="header white-bg my-Header" style="min-height:87px;background-color: RGB(49,49,49); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);display:flex;justify-content:space-between;align-items:center">
             <!--logo start-->
-            <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="construction-logo">
-                <img src="~/assets/img/logo-light.png" alt="Construction" data-retina="assets/img/logo-light.png" data-width="204" data-height="30" style="margin-top: 17px; margin-bottom: -34px; position: absolute; width: 228px; height: 63px; top: -17px; background-color: white; margin-left: -14px;">
+            <a href="/home/index" title="Construction" rel="home" class="construction-logo">
+                <img src="~/Assets/Img/svg (1).svg" alt="Construction" data-retina="assets/img/logo-light.png" data-width="204" data-height="30" style="position: absolute;height: 77px;top:2px;left:40px">
             </a>
             <!--logo end-->
 
@@ -57,9 +63,9 @@
         <!--header end-->
         <!--sidebar start-->
         <aside>
-            <div id="sidebar" class="nav-collapse" style="background-color: RGB(49,49,49); opacity: .8; color: #fff; width: 230px; padding-left: 20px;">
+            <div id="sidebar" class="nav-collapse" style="background-color: RGB(49,49,49); opacity: .8; color: #fff; width: 230px;">
                 <!-- sidebar menu start-->
-                <ul class="sidebar-menu nav-sidebar" id="nav-accordion">
+                <ul class="sidebar-menu nav-sidebar" id="nav-accordion" >
 
                         <partial name="_MenuView" />
                 
