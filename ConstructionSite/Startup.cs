@@ -41,6 +41,7 @@ namespace ConstructionSite
                 options.AccessDeniedPath = new PathString("/ConstructionAdmin/Account/Index");
 
             });
+
             services.AddAuthentication(CookieAuthenticationDefaults
                         .AuthenticationScheme)
                             .AddCookie();
