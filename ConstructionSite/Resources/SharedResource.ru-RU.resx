@@ -198,6 +198,9 @@
   <data name="FormIsNotValid" xml:space="preserve">
     <value />
   </data>
+  <data name="Galery" xml:space="preserve">
+    <value>Галерея</value>
+  </data>
   <data name="GalleryProject" xml:space="preserve">
     <value />
   </data>
