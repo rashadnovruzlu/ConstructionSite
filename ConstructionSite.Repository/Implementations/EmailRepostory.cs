@@ -8,7 +8,7 @@ namespace ConstructionSite.Repository.Implementations
 {
     public class EmailRepostory : IEmailRepostory
     {
-        public Task SendEmailAsync(Message messageData)
+        public async Task SendEmailAsync(Message messageData)
         {
             MimeMessage message= new MimeMessage();
 
@@ -20,14 +20,14 @@ namespace ConstructionSite.Repository.Implementations
             messageData.To);
             message.To.Add(to);
 
-            message.Subject = "This is email subject";
+            message.Subject = messageData.Subject;
 
             SmtpClient client = new SmtpClient();
-            client.Connect("smtp_address_here", 100, true);
-            client.Authenticate("user_name_here", "pwd_here");
+            await client.ConnectAsync("smtp_address_here", 100, true);
+            await client.AuthenticateAsync("user_name_here", "pwd_here");
 
-            client.Send(message);
-            client.Disconnect(true);
+            await client.SendAsync(message);
+            await client.DisconnectAsync(true);
             client.Dispose();
         }
     }

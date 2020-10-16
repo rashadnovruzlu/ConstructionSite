@@ -1,8 +1,6 @@
-﻿using ConstructionSite.ViwModel.FrontViewModels.Email;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
-
 
 namespace ConstructionSite.Controllers
 {
@@ -13,9 +11,8 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
-        public IActionResult SendEmail( yandexViewModelEmailSender)
+        public IActionResult SendEmail(yandexViewModelEmailSender)
         {
-
             MimeMessage message = new MimeMessage();
 
             MailboxAddress from = new MailboxAddress("Admin",
