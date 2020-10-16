@@ -10,7 +10,7 @@ namespace ConstructionSite.Repository.Implementations
     {
         public async Task SendEmailAsync(Message messageData)
         {
-            MimeMessage message= new MimeMessage();
+            MimeMessage message = new MimeMessage();
 
             MailboxAddress from = new MailboxAddress("Admin",
             messageData.From);

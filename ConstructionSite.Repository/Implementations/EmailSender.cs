@@ -1,13 +1,12 @@
-﻿using MimeKit;
+﻿using ConstructionSite.Helpers.Emails;
+using ConstructionSite.ViwModel.FrontViewModels.Email;
+using Microsoft.EntityFrameworkCore.Internal;
+using MimeKit;
 using System;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
-using ConstructionSite.Helpers.Emails;
-using ConstructionSite.ViwModel.FrontViewModels.Email;
 
 namespace ConstructionSite.Repository.Implementations
 {
@@ -33,9 +32,8 @@ namespace ConstructionSite.Repository.Implementations
             emailMessage.From.Add(new MailboxAddress("Al Mursheed", _emailConfig.From));
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
-            
-            var bodyBuilder = new BodyBuilder { HtmlBody = message.Content };
 
+            var bodyBuilder = new BodyBuilder { HtmlBody = message.Content };
 
             if (message.Attachments != null && message.Attachments.Any())
             {
@@ -52,7 +50,6 @@ namespace ConstructionSite.Repository.Implementations
                         ContentType.Parse(attachment.ContentType));
                 }
             }
-
 
             emailMessage.Body = bodyBuilder.ToMessageBody();
             return emailMessage;
