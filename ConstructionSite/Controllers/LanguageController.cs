@@ -21,7 +21,6 @@ namespace ConstructionSite.Controllers
         [HttpPost]
         public void SetLanguage(string id)
         {
-           
             IRequestCultureFeature feature =
                 HttpContext.Features.Get<IRequestCultureFeature>();
 
@@ -35,9 +34,9 @@ namespace ConstructionSite.Controllers
             // cookie name
             string cookieName =
                 CookieRequestCultureProvider.DefaultCookieName;
-           
+
             Response.Cookies.Append(cookieName, cookieValue);
-           // return RedirectToAction(url);
+            // return RedirectToAction(url);
         }
     }
 }

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.Helpers.Emails;
-using ConstructionSite.ViwModel.FrontViewModels.Yandex;
-using MailKit.Net.Smtp;
-using MailKit.Security;
+﻿using ConstructionSite.Helpers.Emails;
+using ConstructionSite.ViwModel.FrontViewModels.Email;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MimeKit;
-using MimeKit.Text;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
@@ -17,38 +11,33 @@ namespace ConstructionSite.Controllers
     {
         public IActionResult Index()
         {
-            Send("residovnaib@gmail.com", "Salam", "Kimse");
             return View();
         }
-        //public interface IEmailService
-        //{
-        //    void Send(string from, string to, string subject, string html);
-        //}
 
-
-
-        public void Send(string email, string subject, string message)
+        public IActionResult SendEmail(EmailViewModel yandexViewModelEmailSender)
         {
+            yandexViewModelEmailSender.Body = "Salam";
+            yandexViewModelEmailSender.To = "residovnaib77@gmail.com";
+            yandexViewModelEmailSender.Subject = "nese";
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("naib.reshidov@pragmatech.az");
+            mailMessage.To.Add(yandexViewModelEmailSender.To);
+            mailMessage.Subject = yandexViewModelEmailSender.Subject;
+            mailMessage.Body = yandexViewModelEmailSender.Body;
 
-            var emailData = new MimeMessage();
-            emailData.From.Add(new MailboxAddress("Naib", "NaibResidov@yandex.ru"));
-            emailData.To.Add(new MailboxAddress("", email));
-            emailData.Subject = subject;
-            emailData.Body = new TextPart(TextFormat.Html) { Text = message };
-            using var smtp = new SmtpClient();
-            smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-            smtp.Send(emailData);
-            smtp.Disconnect(true);
+            mailMessage.IsBodyHtml = false;
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("naib.reshidov@pragmatech.az", "7505020r");
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+                client.Send(mailMessage);
+            }
+            return View();
         }
     }
-    //public async Task<IActionResult> SendEmail(YandexViewModel yandexViewModelEmailSender)
-    //{
-    //    YandexSnder yandexSnder = new YandexSnder();
-    //    yandexViewModelEmailSender.Email = "NaibResidov@yandex.ru";
-    //    yandexViewModelEmailSender.Message = "Nothig";
-    //    yandexViewModelEmailSender.Subject = "qoqal";
-    //    await yandexSnder.SendEmail(yandexViewModelEmailSender.Email, yandexViewModelEmailSender.Subject, yandexViewModelEmailSender.Message);
-    //    return View();
-    //}
 }
-

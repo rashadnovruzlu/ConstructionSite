@@ -29,6 +29,7 @@ namespace ConstructionSite.Controllers
             _lang = _httpContextAccessor.GetLanguages();
             _localizationHandle = localizationHandle;
         }
+
         /// <summary>
         /// IActionResult Index
         /// </summary>
@@ -57,6 +58,7 @@ namespace ConstructionSite.Controllers
             }
             return View(allServiceViewModelResult);
         }
+
         /// <summary>
         /// IActionResult Services
         /// </summary>
@@ -86,6 +88,7 @@ namespace ConstructionSite.Controllers
             }
             return View(serviceSubServiceImageResult);
         }
+
         /// <summary>
         /// IActionResult SubService
         /// </summary>

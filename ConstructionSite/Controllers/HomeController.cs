@@ -13,10 +13,10 @@ namespace ConstructionSite.Controllers
         {
             return View();
         }
+
         public IActionResult Soon()
         {
             return View();
         }
-
     }
 }
