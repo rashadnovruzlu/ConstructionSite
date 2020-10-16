@@ -1,6 +1,8 @@
-﻿using MailKit.Net.Smtp;
+﻿using ConstructionSite.ViwModel.FrontViewModels.Email;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
+
 
 namespace ConstructionSite.Controllers
 {
@@ -11,8 +13,9 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
-        public IActionResult SendEmail(yandexViewModelEmailSender)
+        public IActionResult SendEmail(EmailViewModel yandexViewModelEmailSender)
         {
+
             MimeMessage message = new MimeMessage();
 
             MailboxAddress from = new MailboxAddress("Admin",
@@ -20,7 +23,7 @@ namespace ConstructionSite.Controllers
             message.From.Add(from);
 
             MailboxAddress to = new MailboxAddress("User",
-            "naib.reshidov@pragmatech.az");
+            "user@example.com");
             message.To.Add(to);
 
             message.Subject = "This is email subject";
