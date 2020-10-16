@@ -13,17 +13,17 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
-        public IActionResult SendEmail(EmailViewModel yandexViewModelEmailSender)
+        public IActionResult SendEmail( yandexViewModelEmailSender)
         {
 
             MimeMessage message = new MimeMessage();
 
             MailboxAddress from = new MailboxAddress("Admin",
-            "admin@example.com");
+            "residovnaib77@gmail.com");
             message.From.Add(from);
 
             MailboxAddress to = new MailboxAddress("User",
-            "user@example.com");
+            "naib.reshidov@pragmatech.az");
             message.To.Add(to);
 
             message.Subject = "This is email subject";
