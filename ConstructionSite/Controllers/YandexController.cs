@@ -1,9 +1,8 @@
-﻿using ConstructionSite.Helpers.Emails;
-using ConstructionSite.ViwModel.FrontViewModels.Email;
+﻿using ConstructionSite.ViwModel.FrontViewModels.Email;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Net.Mail;
-using System.Threading.Tasks;
+using MimeKit;
+
 
 namespace ConstructionSite.Controllers
 {
@@ -16,27 +15,27 @@ namespace ConstructionSite.Controllers
 
         public IActionResult SendEmail(EmailViewModel yandexViewModelEmailSender)
         {
-            yandexViewModelEmailSender.Body = "Salam";
-            yandexViewModelEmailSender.To = "residovnaib77@gmail.com";
-            yandexViewModelEmailSender.Subject = "nese";
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("naib.reshidov@pragmatech.az");
-            mailMessage.To.Add(yandexViewModelEmailSender.To);
-            mailMessage.Subject = yandexViewModelEmailSender.Subject;
-            mailMessage.Body = yandexViewModelEmailSender.Body;
 
-            mailMessage.IsBodyHtml = false;
-            using (SmtpClient client = new SmtpClient())
-            {
-                client.EnableSsl = true;
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("naib.reshidov@pragmatech.az", "7505020r");
-                client.Host = "smtp.gmail.com";
-                client.Port = 587;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            MimeMessage message = new MimeMessage();
 
-                client.Send(mailMessage);
-            }
+            MailboxAddress from = new MailboxAddress("Admin",
+            "admin@example.com");
+            message.From.Add(from);
+
+            MailboxAddress to = new MailboxAddress("User",
+            "user@example.com");
+            message.To.Add(to);
+
+            message.Subject = "This is email subject";
+
+            SmtpClient client = new SmtpClient();
+            client.Connect("smtp_address_here", 100, true);
+            client.Authenticate("user_name_here", "pwd_here");
+
+            client.Send(message);
+            client.Disconnect(true);
+            client.Dispose();
+
             return View();
         }
     }
