@@ -20,6 +20,9 @@
         border-color: black;
         color: #fff;
     }
+    .btn{
+        margin:5px;
+    }
 </style>
 
 <div class="text-danger" asp-validation-summary="All"></div>
@@ -71,8 +74,11 @@
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="form-group" style="margin-left: 82%;">
-                                    <div class="col-lg-offset-2 col-lg-10">
+                                <div class="form-group" style="display:flex;justify-content:flex-end;">
+
+                                    <div></div>
+
+                                    <div style="display:flex; justify-content:space-between;flex-wrap:nowrap;margin-right:12px;">
                                         <button class="btn btn-danger about-button" type="submit">Save</button>
                                         <button class="btn btn-default cancel-button" type="button">Cancel</button>
                                     </div>
