@@ -274,11 +274,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 var imageDeleteResult = ImageExtensions.DeleteAsyc(_env, imageResult, "about", _unitOfWork);
                 if (aboutDeleteResult.IsDone&&imageDeleteResult)
                 {
-                 
-                        _unitOfWork.Dispose();
-                        return RedirectToAction("Index");
-                   
-
+                    _unitOfWork.Dispose();
+                    return RedirectToAction("Index");
                 }
                 else
                 {
