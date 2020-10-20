@@ -3,6 +3,7 @@ using ConstructionSite.Extensions.Core;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -12,31 +13,40 @@ namespace ConstructionSite.Extensions.Images
     {
         private const string _IMAGE = "images";
 
-        public async static Task<bool> SaveImageArray(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        #region ::Save::
+        public async static Task<bool> SaveImageCollection(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
 
-            if (file != null)
+            if (files != null)
             {
-                string FileNameAfterReName = Helper.reNameFileName(file);
-                string filePath = Paths
-                     .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+                foreach (var file in files)
+                {
+                    if (file != null)
+                    {
+                        string FileNameAfterReName = Helper.reNameFileName(file);
+                        string filePath = Paths
+                             .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
 
-                bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
-                if (!folderIsCreatedSuccess)
-                {
-                    IsResult = false;
-                }
-                await using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                image.Title = FileNameAfterReName;
-                image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
-                var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
-                if (!imageSaveFile.IsDone)
-                {
-                    IsResult = false;
+                        bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+                        if (!folderIsCreatedSuccess)
+                        {
+                            IsResult = false;
+                        }
+                        await using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        image.Title = FileNameAfterReName;
+                        image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                        var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
+                        if (!imageSaveFile.IsDone)
+                        {
+                            IsResult = false;
+                        }
+
+                    }
+                    IsResult = true;
                 }
                 IsResult = true;
             }
@@ -73,7 +83,10 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+        #endregion
 
+
+        #region ::UPDATE::
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -107,7 +120,9 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+        #endregion
 
+        #region ::DELETE::
         public static bool DeleteAsyc(IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool isResult = false;
@@ -132,6 +147,10 @@ namespace ConstructionSite.Extensions.Images
             return result.IsDone;
         }
 
+        #endregion
+
+
+        #region ::FILETYPE::
         private static bool IsImage(this IFormFile file)
         {
             return file.ContentType == "image/jpeg" ||
@@ -140,5 +159,9 @@ namespace ConstructionSite.Extensions.Images
                    file.ContentType == "image/x-png" ||
                    file.ContentType == "image/gif";
         }
+        #endregion
+
+
+
     }
 }
