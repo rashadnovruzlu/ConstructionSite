@@ -14,7 +14,7 @@ namespace ConstructionSite.Extensions.Images
         private const string _IMAGE = "images";
 
         #region ::Save::
-        public async static Task<bool> SaveImageCollection(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        public async static Task<bool> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
 
@@ -53,7 +53,7 @@ namespace ConstructionSite.Extensions.Images
             return IsResult;
         }
 
-        public async static Task<bool> SaveImage(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        public async static Task<bool> SaveImageAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
 
@@ -120,6 +120,40 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+        //public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, ICollection<Image>
+        //    image, string subFolder, IUnitOfWork _unitOfWork)
+        //{
+        //    bool IsResult = false;
+        //    var imageGetById = _unitOfWork.imageRepository.GetById(image.Id);
+
+        //    string filePathForDeleteFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title, _IMAGE);
+
+        //    string fileNameAfterReName = Helper.reNameFileName(file);
+
+        //    var filePathSaveFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName, _IMAGE);
+
+        //    string filePathSaveDataBase = Paths.createFilePathSaveDataBase(subFolder, fileNameAfterReName, _IMAGE);
+
+        //    if (file != null)
+        //    {
+        //        Files.deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
+
+        //        file.saveImageForDisk(filePathSaveFromHardDisk);
+        //        IsResult = true;
+
+        //        if (IsResult)
+        //        {
+        //            imageGetById.Title = fileNameAfterReName;
+        //            imageGetById.Path = filePathSaveDataBase;
+        //            var updateImageResult = await _unitOfWork.imageRepository.UpdateAsync(imageGetById);
+        //            if (updateImageResult.IsDone)
+        //            {
+        //                IsResult = true;
+        //            }
+        //        }
+        //    }
+        //    return IsResult;
+        //}
         #endregion
 
         #region ::DELETE::
