@@ -30,9 +30,6 @@ namespace ConstructionSite.Entity.Configuration
                 .IsRequired();
             builder.Property(x=>x.ContentRu);
             builder.Property(x=>x.ContentEn);
-                
-
-
         }
     }
    

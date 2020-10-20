@@ -13,6 +13,8 @@ namespace ConstructionSite.Entity.Models
 		public string Title { get; set; }
 		
 		public string Path { get; set; }
+
+		public string VideoPath { get; set; }
 		
 		public virtual Service Service { get; set; }
         
@@ -29,5 +31,7 @@ namespace ConstructionSite.Entity.Models
 		public virtual ICollection<ServiceImage> ServiceImages { get; set; }
 
 		public virtual ICollection<PortfolioImage> PortfolioImages { get; set; }
+
+		public virtual ICollection<GaleryFile> GaleryFiles { get; set; }
 	}
 }
