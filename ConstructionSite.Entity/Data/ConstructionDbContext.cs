@@ -28,6 +28,7 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<StaticField> StaticFields { get; set; }
         public virtual DbSet<SubService> SubServices { get; set; }
         public virtual DbSet<SubServiceImage> SubServiceImages { get; set; }
+        public virtual DbSet<ServiceImage> ServiceImages { get; set; }
        
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,7 +36,7 @@ namespace ConstructionSite.Entity.Data
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
 
            
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             #endregion
            
          

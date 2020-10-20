@@ -22,10 +22,6 @@ namespace ConstructionSite.Entity.Configuration
 
             builder.Property(x=>x.TittleAz)
                 .IsRequired();
-
-          
-               
-                                  
         }
     }
    

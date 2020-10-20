@@ -26,5 +26,7 @@ namespace ConstructionSite.Entity.Models
 		public virtual ICollection<ProjectImage> ProjectImages { get; set; }
 
 		public virtual ICollection<SubServiceImage> SubServiceImages { get; set; }
+
+		public virtual ICollection<ServiceImage> ServiceImages { get; set; }
 	}
 }
