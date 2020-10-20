@@ -29,6 +29,7 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<SubService> SubServices { get; set; }
         public virtual DbSet<SubServiceImage> SubServiceImages { get; set; }
         public virtual DbSet<ServiceImage> ServiceImages { get; set; }
+        public virtual DbSet<PortfolioImage> PortfolioImages { get; set; }
        
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)

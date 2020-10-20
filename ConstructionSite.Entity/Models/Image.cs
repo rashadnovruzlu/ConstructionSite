@@ -16,7 +16,6 @@ namespace ConstructionSite.Entity.Models
 		
 		public virtual Service Service { get; set; }
         
-
         public virtual ICollection<AboutImage> AboutImages { get; set; }
 
 		public virtual ICollection<HomePage> HomePages { get; set; }
@@ -28,5 +27,7 @@ namespace ConstructionSite.Entity.Models
 		public virtual ICollection<SubServiceImage> SubServiceImages { get; set; }
 
 		public virtual ICollection<ServiceImage> ServiceImages { get; set; }
+
+		public virtual ICollection<PortfolioImage> PortfolioImages { get; set; }
 	}
 }
