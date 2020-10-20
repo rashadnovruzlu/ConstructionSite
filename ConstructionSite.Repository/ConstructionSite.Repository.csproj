@@ -25,6 +25,7 @@
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
     <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Interfaces\ConstructionSite.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

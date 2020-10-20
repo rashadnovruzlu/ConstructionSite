@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Interfaces\ConstructionSite.Interfaces.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

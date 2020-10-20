@@ -110,7 +110,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "File is null");
             }
-            var imageResultID = await file.SaveImage(_env, "project", image, _unitOfWork);
+            var imageResultID = await file.SaveImageAsync(_env, "project", image, _unitOfWork);
 
             if (!imageResultID)
             {
