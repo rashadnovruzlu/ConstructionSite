@@ -18,10 +18,6 @@ namespace ConstructionSite.Entity.Configuration
                 x.ImageId,
                 x.GaleryId
             });
-            //builder.HasOne(gf => gf.Image)
-            //                     .WithMany(f => f.GaleryFiles);
-            //builder.HasOne(gf => gf.Galery)
-            //                    .WithMany(f => f.GaleryFiles);
         }
     }
 }
