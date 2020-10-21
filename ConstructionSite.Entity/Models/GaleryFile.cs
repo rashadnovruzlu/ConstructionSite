@@ -9,10 +9,10 @@ namespace ConstructionSite.Entity.Models
         public int Id { get; set; }
         public bool Type { get; set; }
 
-        public Galery Galery { get; set; }
+        public virtual Galery Galery { get; set; }
         public int GaleryId { get; set; }
 
-        public Image Image { get; set; }
+        public virtual Image Image { get; set; }
         public int ImageId { get; set; }
     }
 }
