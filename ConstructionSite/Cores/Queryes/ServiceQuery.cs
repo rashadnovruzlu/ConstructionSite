@@ -14,13 +14,13 @@ namespace ConstructionSite.Cores.Queryes
         {
           return  _unitOfWork.ServiceRepository
                        .GetAll()
-                       .Include(x => x.Image)
+                       .Include(x => x.ServiceImages)
                        .Select(x => new SingleService
                        {
                            Id = x.Id,
                            Name = x.FindName(_lang),
                            Title = x.FindTitle(_lang),
-                           ImagePath = x.Image.Path
+                           //ImagePath = x.Image.Path
                        }).FirstOrDefault(x => x.Id == id);
         }
     }

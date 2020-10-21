@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
-	public class Service:NameTitle
+	public class Service : NameTitleContent
 	{
 	
 		public int Id { get; set; }		
