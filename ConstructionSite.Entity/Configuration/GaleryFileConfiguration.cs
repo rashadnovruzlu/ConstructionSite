@@ -13,11 +13,15 @@ namespace ConstructionSite.Entity.Configuration
         {
             builder.Property(x => x.Type)
                     .IsRequired();
-
-            builder.HasOne(gf => gf.Image)
-                                 .WithMany(f => f.GaleryFiles);
-            builder.HasOne(gf => gf.Galery)
-                                .WithMany(f => f.GaleryFiles);
+            builder.HasKey(x => new
+            {
+                x.ImageId,
+                x.GaleryId
+            });
+            //builder.HasOne(gf => gf.Image)
+            //                     .WithMany(f => f.GaleryFiles);
+            //builder.HasOne(gf => gf.Galery)
+            //                    .WithMany(f => f.GaleryFiles);
         }
     }
 }
