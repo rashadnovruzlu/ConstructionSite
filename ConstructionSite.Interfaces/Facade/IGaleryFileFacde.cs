@@ -11,7 +11,9 @@ namespace ConstructionSite.Interfaces.Facade
         Task<bool> Add(GaleryFileAddViewModel galeryFileAddViewModel);
         Task<bool> Delete(int id);
         Task<bool> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel);
+        Task<List<GaleryFileViewModel>> GetAll(string _lang);
 
-       
+
+
     }
 }
