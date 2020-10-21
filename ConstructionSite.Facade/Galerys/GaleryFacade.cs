@@ -10,6 +10,10 @@ namespace ConstructionSite.Facade.Galerys
 {
     public class GaleryFacade : IGaleryFacade
     {
+        /// <summary>
+        /// PortfolioImage
+        /// ServiceImage
+        /// </summary>
         #region ::FILEDS::
 
         private readonly IUnitOfWork _unitOfWork;

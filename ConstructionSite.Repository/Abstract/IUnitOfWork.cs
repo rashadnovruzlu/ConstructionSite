@@ -25,6 +25,7 @@ namespace ConstructionSite.Repository.Abstract
         ISubServiceRepository SubServiceRepository { get; }
         IGaleryFileRepstory GaleryFileRepstory { get; }
         IGaleryRepstory GaleryRepstory { get; }
+        IPortfolioImageRepostory PortfolioImageRepostory { get; }
         Task<int> CommitAsync();
 
         int Commit();
