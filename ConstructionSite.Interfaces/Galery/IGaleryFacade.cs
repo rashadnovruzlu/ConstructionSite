@@ -6,6 +6,6 @@ namespace ConstructionSite.Interfaces.Galery
 {
     public interface IGaleryFacade
     {
-        Task<bool> Add();
+      
     }
 }

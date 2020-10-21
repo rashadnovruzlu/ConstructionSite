@@ -14,6 +14,12 @@ namespace ConstructionSite.Entity.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ImageId).IsRequired();
             builder.Property(x => x.ServiceId).IsRequired();
+
+            builder.HasKey(x => new
+            {
+                x.ImageId,
+                x.ServiceId
+            });
             builder.HasOne(si => si.Image)
                                 .WithMany(i => i.ServiceImages);
             builder.HasOne(si => si.Service)

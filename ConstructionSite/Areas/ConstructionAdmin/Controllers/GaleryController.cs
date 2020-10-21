@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConstructionSite.Entity.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -14,8 +15,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #region ::ADD::
-        public IActionResult Add()
+        public IActionResult Add(Galery galery)
         {
+
+
             return View();
 
         }
