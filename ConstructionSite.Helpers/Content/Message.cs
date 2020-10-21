@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ConstructionSite.Helpers.Content
 {
-    public  class Message
+    public class Message
     {
         public List<MailboxAddress> To { get; set; }
         public string Subject { get; set; }
@@ -14,7 +14,7 @@ namespace ConstructionSite.Helpers.Content
 
 
 
-       
+
 
         public Message(IEnumerable<string> to,
             string subject,

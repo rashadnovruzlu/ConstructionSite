@@ -1,37 +1,34 @@
 ﻿$(document).ready(function () {
-   
     var returnUrl = $(".contexts").data("id");
     $(".datas_item").click(function () {
         var id = $(this).data("id");
+        //localStorage.clear();
+        //localStorage.setItem('name',id);
+        //DeActive();
+
        
+      
         $.ajax({
             method: "POST",
             url: "/Language/SetLanguage/" + id,
             success: function () {
 
                 window.location.replace(returnUrl);
+                //$(window).on('load', function () {
+                //    Active();
+                //});
 
-               
-               
-            }
- });
+             }
+        });
+
+       
     });
    
 });
-//function test () {
-//    $(".langss").load(function () {
-//        var name = $(this).data("name");
-//        removeLang();
-//        add(name);
-//        });
-//};
-function add(Name) {
-    alert(Name);
-    $("#" + Name)
-        .removeClass("langss")
-        .addClass("langss current-menu-item");
+function DeActive() {
+    $(".datas_item").css("color","white");
 }
-function removeLang() {
-    $(".langss").removeClass("langss current-menu-item")
-        .addClass("langss");
+function Active() {
+    var name = localStorage.getItem('name');
+    $("#" + name).css("color", "red");
 }

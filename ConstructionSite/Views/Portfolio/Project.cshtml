@@ -1,25 +1,40 @@
 ﻿@model IEnumerable<ProjectViewModel>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 effect-zoes" style="padding:0px !important; height: 225px;">
+                <a style="display:block" href="/Portfolio/Detail/@item.Id" title="custom title 3">
+                    <img src="@item.Image" alt="custom alt 3" class="imagest animate__animated animate__zoomIn" style="width:100%; height:225px;" />
 
-@foreach (var item in Model)
-{
-    <div class=" cbp-item datas">
-        <a href="/Portfolio/Detail/@item.Id" title="custom title 3">
-            <div class="cbp-item-wrapper">
-                <div class="project-item">
-                    <div class="inner">
-                        <div class="grid">
-                            <figure class="effect-zoe">
-                                <img src="@item.Image" alt="custom alt 3" class="imagest animate__animated animate__zoomIn animate__slow 	2s"  />
-                                <figcaption>
-                                    <div>
-                                        <p>@item.Name</p>
-                                    </div>
-                                </figcaption>
-                            </figure>
+                    <div class="hoverDiv">
+                        <p>@item.Name</p>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+@*@foreach (var item in Model)
+    {
+        <div class=" cbp-item datas">
+            <a href="/Portfolio/Detail/@item.Id" title="custom title 3">
+                <div class="cbp-item-wrapper">
+                    <div class="project-item">
+                        <div class="inner">
+                            <div class="grid">
+                                <figure class="effect-zoe">
+                                    <img src="@item.Image" alt="custom alt 3" class="imagest animate__animated animate__zoomIn animate__slow 	2s" />
+                                    <figcaption>
+                                        <div>
+                                            <p>@item.Name</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </div>
-}
+            </a>
+        </div>
+    }*@

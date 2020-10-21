@@ -36,6 +36,7 @@ namespace ConstructionSite.Controllers
                 CookieRequestCultureProvider.DefaultCookieName;
 
             Response.Cookies.Append(cookieName, cookieValue);
+            // return RedirectToAction(url);
         }
     }
 }

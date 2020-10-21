@@ -3,6 +3,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interfaces.Facade;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -15,9 +16,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = ROLESNAME.Admin)]
-    public class AboutController : Controller
+
+    public class AboutController : CoreController
     {
         #region Fields
 
@@ -25,6 +25,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        private readonly IAboutFacade _aboutFacade;
 
         #endregion Fields
 
@@ -32,12 +33,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public AboutController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
-                               IHttpContextAccessor httpContextAccessor)
+                               IHttpContextAccessor httpContextAccessor,
+                               IAboutFacade aboutFacade)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
+            _aboutFacade = aboutFacade;
         }
 
         #endregion CTOR
@@ -53,19 +56,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var result = _unitOfWork.AboutImageRepository.GetAll()
-           .Include(x => x.About)
-           .Include(x => x.Image)
-
-           .Select(x => new AboutViewModel
-           {
-               Id = x.Id,
-               aboutID = x.About.Id,
-               Tittle = x.About.FindTitle(_lang),
-               Content = x.About.FindContent(_lang),
-               imageId = x.Image.Id,
-               Image = x.Image.Path
-           }).ToList();
+            var result = _aboutFacade.
+                GetAll(_lang).
+                   ToList(); ;
             if (result.Count < 1)
             {
                 ModelState.AddModelError("", "NULL");
@@ -80,11 +73,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
+
             return View();
         }
 
@@ -92,8 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AboutAddViewModel aboutAddViewModel, IFormFile FileData)
         {
-            AboutImage aboutImage = new AboutImage();
-            Image image = new Image();
+
             if (aboutAddViewModel == null)
             {
                 ModelState.AddModelError("", "Data is null");
@@ -103,56 +91,61 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var aboutAddViewModelResult = new About
+            var resultAfterInsert = await _aboutFacade.Insert(aboutAddViewModel, FileData);
+            if (!resultAfterInsert)
             {
-                Id = aboutAddViewModel.Id,
-                TittleAz = aboutAddViewModel.TittleAz,
-                TittleRu = aboutAddViewModel.TittleRu,
-                TittleEn = aboutAddViewModel.TittleEn,
-                ContentAz = aboutAddViewModel.ContentAz,
-                ContentEn = aboutAddViewModel.ContentEn,
-                ContentRu = aboutAddViewModel.ContentRu
-            };
-            var aboutSaveResult = await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
-
-            if (!aboutSaveResult.IsDone)
-            {
-                ModelState.AddModelError("", "Data is not saved.");
+                ModelState.AddModelError("", "errors");
             }
-            if (FileData == null)
-            {
-                ModelState.AddModelError("", "File not exists");
-                return RedirectToAction("Index");
-            }
-            bool imageSaveResult = await FileData.SaveImage(_env, "about", image, _unitOfWork);
-            if (!imageSaveResult)
-            {
-                //ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+            //var aboutAddViewModelResult = new About
+            //{
+            //    Id = aboutAddViewModel.Id,
+            //    TittleAz = aboutAddViewModel.TittleAz,
+            //    TittleRu = aboutAddViewModel.TittleRu,
+            //    TittleEn = aboutAddViewModel.TittleEn,
+            //    ContentAz = aboutAddViewModel.ContentAz,
+            //    ContentEn = aboutAddViewModel.ContentEn,
+            //    ContentRu = aboutAddViewModel.ContentRu
+            //};
+            //var aboutSaveResult = await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
 
-                ModelState.AddModelError("", "File is not saved.");
-            }
+            //if (!aboutSaveResult.IsDone)
+            //{
+            //    ModelState.AddModelError("", "Data is not saved.");
+            //}
+            //if (FileData == null)
+            //{
+            //    ModelState.AddModelError("", "File not exists");
+            //    return RedirectToAction("Index");
+            //}
+            //bool imageSaveResult = await FileData.SaveImageAsync(_env, "about", image, _unitOfWork);
+            //if (!imageSaveResult)
+            //{
+            //    //ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
 
-            if (aboutSaveResult.IsDone && imageSaveResult)
-            {
-                aboutImage.ImageId = image.Id;
-                aboutImage.AboutId = aboutAddViewModelResult.Id;
+            //    ModelState.AddModelError("", "File is not saved.");
+            //}
 
-                var aboutImageResult = await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
+            //if (aboutSaveResult.IsDone && imageSaveResult)
+            //{
+            //    aboutImage.ImageId = image.Id;
+            //    aboutImage.AboutId = aboutAddViewModelResult.Id;
 
-                if (aboutImageResult.IsDone)
-                {
-                    _unitOfWork.Dispose();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+            //    var aboutImageResult = await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
 
-                    _unitOfWork.Rollback();
-                    ModelState.AddModelError("", "File is not saved");
-                }
-            }
-            _unitOfWork.Dispose();
+            //    if (aboutImageResult.IsDone)
+            //    {
+            //        _unitOfWork.Dispose();
+            //        return RedirectToAction("Index");
+            //    }
+            //    else
+            //    {
+            //        ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
+
+            //        _unitOfWork.Rollback();
+            //        ModelState.AddModelError("", "File is not saved");
+            //    }
+            //}
+            //_unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 
@@ -205,50 +198,59 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            About UpdateAbout = new About
+            //About UpdateAbout = new About
+            //{
+            //    Id = aboutUpdateViewModel.aboutID,
+            //    ContentAz = aboutUpdateViewModel.ContentAz,
+            //    ContentEn = aboutUpdateViewModel.ContentEn,
+            //    ContentRu = aboutUpdateViewModel.ContentRu,
+            //    TittleAz = aboutUpdateViewModel.TittleAz,
+            //    TittleEn = aboutUpdateViewModel.TittleEn,
+            //    TittleRu = aboutUpdateViewModel.TittleRu,
+            //};
+            //var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
+            //if (!aboutResult.IsDone)
+            //{
+            //    ModelState.AddModelError("", "Errors occured while updating About");
+            //}
+            //if (file != null)
+            //{
+            //    Image image = _unitOfWork.imageRepository.GetById(aboutUpdateViewModel.imageId);
+            //    if (image == null)
+            //    {
+            //        ModelState.AddModelError("", "NULL");
+            //    }
+            //    var imageUpdateAfterResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
+            //    if (!imageUpdateAfterResult)
+            //    {
+            //        ModelState.AddModelError("", "NULL");
+            //    }
+            //}
+
+            //var updateAboutImage = new AboutImage
+            //{
+            //    Id = aboutUpdateViewModel.Id,
+            //    ImageId = aboutUpdateViewModel.imageId,
+            //    AboutId = UpdateAbout.Id,
+            //};
+            //var AboutImageResult =
+            // await _unitOfWork.AboutImageRepository.UpdateAsync(updateAboutImage);
+            //if (!AboutImageResult.IsDone)
+            //{
+            //    _unitOfWork.Rollback();
+            //    ModelState.AddModelError("", "Errors occured while updating About");
+            //}
+            //_unitOfWork.Dispose();
+            var result = await _aboutFacade.Update(aboutUpdateViewModel, file);
+            if (result)
             {
-                Id = aboutUpdateViewModel.aboutID,
-                ContentAz = aboutUpdateViewModel.ContentAz,
-                ContentEn = aboutUpdateViewModel.ContentEn,
-                ContentRu = aboutUpdateViewModel.ContentRu,
-                TittleAz = aboutUpdateViewModel.TittleAz,
-                TittleEn = aboutUpdateViewModel.TittleEn,
-                TittleRu = aboutUpdateViewModel.TittleRu,
-            };
-            var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
-            if (!aboutResult.IsDone)
-            {
-                ModelState.AddModelError("", "Errors occured while updating About");
+                return RedirectToAction("Index");
             }
-            if (file != null)
+            else
             {
-                Image image = _unitOfWork.imageRepository.GetById(aboutUpdateViewModel.imageId);
-                if (image == null)
-                {
-                    ModelState.AddModelError("", "NULL");
-                }
-                var imageUpdateAfterResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
-                if (!imageUpdateAfterResult)
-                {
-                    ModelState.AddModelError("", "NULL");
-                }
+                return View();
             }
 
-            var updateAboutImage = new AboutImage
-            {
-                Id = aboutUpdateViewModel.Id,
-                ImageId = aboutUpdateViewModel.imageId,
-                AboutId = UpdateAbout.Id,
-            };
-            var AboutImageResult =
-             await _unitOfWork.AboutImageRepository.UpdateAsync(updateAboutImage);
-            if (!AboutImageResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Errors occured while updating About");
-            }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
         }
 
         #endregion UPDATE

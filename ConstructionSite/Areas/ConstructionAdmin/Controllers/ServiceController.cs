@@ -101,7 +101,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "NULL");
             }
-            var imageResultID = await FileData.SaveImage(_env, "service", image, _unitOfWork);
+            var imageResultID = await FileData.SaveImageAsync(_env, "service", image, _unitOfWork);
             if (!imageResultID)
             {
                 Response.StatusCode = (int)HttpStatusCode.SeeOther;

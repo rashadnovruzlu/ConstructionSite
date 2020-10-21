@@ -16,5 +16,6 @@ namespace ConstructionSite.Extensions.Core
             string str = Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
             return "/" + Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
         }
+
     }
 }

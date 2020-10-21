@@ -1,23 +1,22 @@
-﻿@inject SharedLocalizationService Localizer
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-
+@inject SharedLocalizationService Localizer
 <head>
     <!-- Basic Page Needs -->
     <meta charset="UTF-8" />
 
-    <title>PDC.az</title>
+    <title>@ViewData["Title"]</title>
 
     <meta name="description" descriptions />
     <meta name="keywords" metapage />
     <meta name="author" content="PDC.az" />
+    <meta name="yandex-verification" content="6b4f86d4e9e888c0" />
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
     <partial name="_LinkPartialStyle" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     @await RenderSectionAsync("head", false)
 
     <style>
@@ -59,7 +58,7 @@
                 </header>
                 <!-- /#site-header -->
             </div>
-
+            <h1>Comming Soon</h1>
             @RenderBody()
 
             <!-- Footer -->
