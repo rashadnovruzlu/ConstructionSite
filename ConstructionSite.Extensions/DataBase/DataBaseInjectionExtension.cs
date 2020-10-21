@@ -1,8 +1,6 @@
 ﻿using ConstructionSite.Entity.Data;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Concreate;
-using ConstructionSite.Repository.Implementations;
-using ConstructionSite.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +28,7 @@ namespace ConstructionSite.Extensions.DataBase
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            
+
             return services;
         }
     }

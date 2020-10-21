@@ -103,8 +103,6 @@ namespace ConstructionSite.Facade.About
                 {
                     isResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
                 }
-
-
             }
 
             var updateAboutImage = new AboutImage

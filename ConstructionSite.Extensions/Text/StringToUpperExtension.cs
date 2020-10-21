@@ -5,6 +5,7 @@ namespace ConstructionSite.Extensions.Text
     public static class StringToUpperExtension
     {
         #region .::FISTUPPER::
+
         public static string FistUpper(this string str)
         {
             StringBuilder builder = new StringBuilder();
@@ -15,7 +16,7 @@ namespace ConstructionSite.Extensions.Text
             // string strFulllanguages = strFirstLetter + str.Substring(1);
             return strFulllanguages;
         }
-        #endregion
 
+        #endregion .::FISTUPPER::
     }
 }

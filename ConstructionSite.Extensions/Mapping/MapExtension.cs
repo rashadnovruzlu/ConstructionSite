@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,6 +26,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return soruces;
         }
+
         public static Task<T> MappedAsync<T>(this object query)
         {
             Type TargetType = typeof(T);
@@ -45,6 +45,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return Task.FromResult(soruces);
         }
+
         public static T Mapped<T>(this IEnumerable<T> query)
         {
             Type TargetType = typeof(T);
@@ -63,6 +64,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return soruces;
         }
+
         public static Task<T> MappedAsync<T>(this IEnumerable<T> query)
         {
             Type TargetType = typeof(T);
@@ -81,6 +83,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return Task.FromResult(soruces);
         }
+
         public async static Task<T> MappedAsync<T>(this IQueryable<T> query)
         {
             Type TargetType = typeof(T);
@@ -99,6 +102,5 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return await Task.FromResult(soruces);
         }
-
     }
 }
