@@ -28,8 +28,8 @@ namespace ConstructionSite.Entity.Configuration
             builder
                 .Property(x => x.ContentAz)
                 .IsRequired();
-            builder.Property(x => x.ContentRu);
-            builder.Property(x => x.ContentEn);
+            builder.Property(x=>x.ContentRu);
+            builder.Property(x=>x.ContentEn);
         }
     }
 }

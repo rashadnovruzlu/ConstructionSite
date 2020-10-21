@@ -26,14 +26,21 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<StaticField> StaticFields { get; set; }
         public virtual DbSet<SubService> SubServices { get; set; }
         public virtual DbSet<SubServiceImage> SubServiceImages { get; set; }
-
+        public virtual DbSet<ServiceImage> ServiceImages { get; set; }
+        public virtual DbSet<PortfolioImage> PortfolioImages { get; set; }
+        public virtual DbSet<Galery> Galeries { get; set; }
+        public virtual DbSet<GaleryFile> GaleryFiles { get; set; }
+        public virtual DbSet<Slide> Slides { get; set; }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
 
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            #endregion Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
+           
+            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            #endregion
+           
+         
 
             base.OnModelCreating(modelBuilder);
         }

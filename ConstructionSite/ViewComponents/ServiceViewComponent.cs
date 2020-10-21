@@ -36,15 +36,15 @@ namespace ConstructionSite.ViewComponents
 
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var result = _unitOfWork.ServiceRepository.GetAll()
-                .Include(x => x.SubServices)
-                .Include(x => x.Image)
-                .Select(x => new ServiceViewModel
+            var result =  _unitOfWork.ServiceRepository.GetAll()
+                .Include(x=>x.SubServices)
+                .Include(x=>x.ServiceImages)
+                .Select(x=>new ServiceViewModel
                 {
-                    Id = x.Id,
-                    Name = x.FindName(_lang),
-                    Tittle = x.FindTitle(_lang),
-                    image = x.Image.Path
+                    Id=x.Id,
+                    Name=x.FindName(_lang),
+                    Tittle=x.FindTitle(_lang),
+                    //image=x.ServiceImages   
                 }).ToList();
 
             if (result.Count == 0 | result == null)
