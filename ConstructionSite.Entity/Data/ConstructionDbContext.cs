@@ -32,6 +32,7 @@ namespace ConstructionSite.Entity.Data
         public virtual DbSet<PortfolioImage> PortfolioImages { get; set; }
         public virtual DbSet<Galery> Galeries { get; set; }
         public virtual DbSet<GaleryFile> GaleryFiles { get; set; }
+        public virtual DbSet<Slide> Slides { get; set; }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
