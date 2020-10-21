@@ -8,8 +8,9 @@ namespace ConstructionSite.Interfaces.Facade
 {
     public interface IServiceImageFacade
     {
+        Task<List<ServiceImageViewModel>> GetAll(string _lang);
         Task<bool> Add(ServiceImageAddViewModel serviceImageAddViewModel);
         Task<bool> Delete(int id);
-        Task<bool> Update();
+        Task<bool> Update(ServiceImageUpdateViewModel serviceImageUpdateViewModel);
     }
 }
