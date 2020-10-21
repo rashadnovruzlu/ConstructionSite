@@ -29,6 +29,7 @@ namespace ConstructionSite.Repository.Concreate
         private IGaleryFileRepstory _galeryFileRepstory;
         private IGaleryRepstory _galeryRepstory;
         private IPortfolioImageRepostory _portfolioImageRepostory;
+        private IServiceImageRepstory _serviceImageRepstory;
 
         private readonly ConstructionDbContext _context;
 
@@ -186,6 +187,14 @@ namespace ConstructionSite.Repository.Concreate
             get
             {
                 return _portfolioImageRepostory ?? (_portfolioImageRepostory = new PortfolioImageRepstory(_context));
+            }
+        }
+
+        public IServiceImageRepstory ServiceImageRepstory
+        {
+            get
+            {
+                return _serviceImageRepstory ?? (_serviceImageRepstory = new ServiceImageRepstory(_context));
             }
         }
 

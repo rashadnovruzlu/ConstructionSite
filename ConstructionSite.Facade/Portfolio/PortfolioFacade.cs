@@ -12,6 +12,9 @@ namespace ConstructionSite.Facade.Portfolio
 {
     public class PortfolioImageFacade : IPortfolioImageFacade
     {
+        #region ::FILDS::
+
+        #endregion
         private readonly IUnitOfWork _unitOfWork;
         public PortfolioImageFacade(IUnitOfWork unitOfWork)
         {
