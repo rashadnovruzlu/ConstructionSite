@@ -120,7 +120,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "File is null");
             }
 
-            var imageResultID = await file.SaveImage(_env, "subserver", imageSubService, _unitOfWork);
+            var imageResultID = await file.SaveImageAsync(_env, "subserver", imageSubService, _unitOfWork);
             if (!imageResultID)
             {
                 ModelState.AddModelError("", "Data didn't save");

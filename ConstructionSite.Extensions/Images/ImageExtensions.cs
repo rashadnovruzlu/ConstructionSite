@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Core;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -53,6 +54,7 @@ namespace ConstructionSite.Extensions.Images
             return IsResult;
         }
 
+
         public async static Task<bool> SaveImageAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -83,6 +85,44 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+
+
+        public async static Task<List<RESULT<Image>>> SaveImageCollectionForAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        {
+
+            List<RESULT<Image>> imagesForm = new List<RESULT<Image>>();
+
+            if (files != null)
+            {
+                foreach (var file in files)
+                {
+                    if (file != null)
+                    {
+                        string FileNameAfterReName = Helper.reNameFileName(file);
+                        string filePath = Paths
+                             .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+
+                        bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+                       
+                        await using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        image.Title = FileNameAfterReName;
+                        image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                        var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
+                        imagesForm.Add(imageSaveFile);
+                      
+
+                    }
+                   
+                }
+                
+            }
+            return imagesForm;
+        }
+
+
         #endregion
 
 
@@ -120,40 +160,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
-        //public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, ICollection<Image>
-        //    image, string subFolder, IUnitOfWork _unitOfWork)
-        //{
-        //    bool IsResult = false;
-        //    var imageGetById = _unitOfWork.imageRepository.GetById(image.Id);
 
-        //    string filePathForDeleteFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title, _IMAGE);
-
-        //    string fileNameAfterReName = Helper.reNameFileName(file);
-
-        //    var filePathSaveFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName, _IMAGE);
-
-        //    string filePathSaveDataBase = Paths.createFilePathSaveDataBase(subFolder, fileNameAfterReName, _IMAGE);
-
-        //    if (file != null)
-        //    {
-        //        Files.deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
-
-        //        file.saveImageForDisk(filePathSaveFromHardDisk);
-        //        IsResult = true;
-
-        //        if (IsResult)
-        //        {
-        //            imageGetById.Title = fileNameAfterReName;
-        //            imageGetById.Path = filePathSaveDataBase;
-        //            var updateImageResult = await _unitOfWork.imageRepository.UpdateAsync(imageGetById);
-        //            if (updateImageResult.IsDone)
-        //            {
-        //                IsResult = true;
-        //            }
-        //        }
-        //    }
-        //    return IsResult;
-        //}
         #endregion
 
         #region ::DELETE::

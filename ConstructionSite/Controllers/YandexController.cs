@@ -1,5 +1,8 @@
-﻿using ConstructionSite.ViwModel.FrontViewModels.Email;
+﻿using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.FrontViewModels.Email;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 
@@ -8,8 +11,21 @@ namespace ConstructionSite.Controllers
 {
     public class YandexController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
+        
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(IFormFile formFile)
+        {
+
             return View();
         }
 
