@@ -7,13 +7,13 @@ namespace ConstructionSite.Entity.Configuration
     public class ServiceConfiguration : IEntityTypeConfiguration<Service>
     {
         public void Configure(EntityTypeBuilder<Service> builder)
-        {    
-           
-            builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.NameAz)
+        {
+
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.NameAz)
                     .IsRequired()
                         .HasMaxLength(100);
-            
+
             builder.Property(x => x.NameRu)
                     .HasMaxLength(100);
 

@@ -18,6 +18,7 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(i => i.ServiceImages);
             builder.HasOne(si => si.Service)
                                 .WithMany(s => s.ServiceImages);
+
         }
     }
 }
