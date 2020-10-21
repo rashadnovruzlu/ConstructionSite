@@ -11,8 +11,7 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<GaleryFile> builder)
         {
-            builder.Property(x => x.Type)
-                    .IsRequired();
+
 
             builder.HasOne(gf => gf.Image)
                                  .WithMany(f => f.GaleryFiles);

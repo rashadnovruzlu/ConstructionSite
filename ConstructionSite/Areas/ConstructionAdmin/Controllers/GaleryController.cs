@@ -10,7 +10,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class GaleryController : CoreController
     {
+        #region ::FILDS::
+
+        #endregion
         private readonly IGaleryFacade _galeryFacade;
+        #region ::CTOR::
+
+        #endregion
         public GaleryController(IGaleryFacade galeryFacade)
         {
             _galeryFacade = galeryFacade;
@@ -23,6 +29,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region ::ADD::
         public IActionResult Add(Galery galery)
         {
+
+
 
 
 

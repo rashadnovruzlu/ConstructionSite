@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = "Admin")]
-    public class ShowController : Controller
+
+    public class ShowController : CoreController
     {
         #region Fields
 
