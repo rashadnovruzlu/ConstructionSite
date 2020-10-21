@@ -7,7 +7,7 @@ namespace ConstructionSite.Cores.Queryes
 {
     public static class ServiceQuery
     {
-        public static SingleService ServiceRepositoryQuery(this IUnitOfWork unitOfWork, int id, string lang)
+        public static SingleService ServiceRepositoryQuery(this IUnitOfWork _unitOfWork, int id, string _lang)
         {
           return  _unitOfWork.ServiceRepository
                        .GetAll()
@@ -17,6 +17,7 @@ namespace ConstructionSite.Cores.Queryes
                            Id = x.Id,
                            Name = x.FindName(_lang),
                            Title = x.FindTitle(_lang),
+                           
                            //ImagePath = x.Image.Path
                        }).FirstOrDefault(x => x.Id == id);
         }
