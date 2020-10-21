@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.AdminViewModels.Project
+﻿namespace ConstructionSite.DTO.AdminViewModels.Project
 {
-  public  class ProjectUpdateViewModel
+    public class ProjectUpdateViewModel
     {
         public int Id { get; set; }
         public string NameAz { get; set; }

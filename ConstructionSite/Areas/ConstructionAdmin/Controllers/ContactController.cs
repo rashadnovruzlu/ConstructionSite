@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -20,13 +19,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class ContactController : Controller
     {
         #region Fields
+
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _environment;
         private readonly IHttpContextAccessor _contextAccessor;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public ContactController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment environment,
                                  IHttpContextAccessor contextAccessor)
@@ -34,9 +36,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork = unitOfWork;
             _environment = environment;
             _contextAccessor = contextAccessor;
-            _lang = _contextAccessor.getLanguages();
+            _lang = _contextAccessor.GetLanguages();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -51,7 +54,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var contactResult = _unitOfWork.ContactRepository.GetAll()
                                             .Select(y => new ContactViewModel
                                             {
-                                                Id=y.Id,
+                                                Id = y.Id,
                                                 Tittle = y.FindTitle(_lang),
                                                 Content = y.FindContent(_lang),
                                                 Address = y.Address,
@@ -61,7 +64,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(contactResult);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
@@ -112,7 +115,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
 
@@ -129,7 +132,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var contantcUpdateResult =_unitOfWork.ContactRepository
+            var contantcUpdateResult = _unitOfWork.ContactRepository
                 .GetById(id)
                 .Mapped<ContactUpdateViewModel>();
             _unitOfWork.Dispose();
@@ -138,8 +141,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Errors occured while editing Contact");
                 return RedirectToAction("Index");
             }
-           
-           
+
             return View(contantcUpdateResult);
         }
 
@@ -156,8 +158,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This data is not exist");
                 return RedirectToAction("Index");
             }
-            var updateContactModel=  contactUpdateViewModel.Mapped<Contact>();
-          
+            var updateContactModel = contactUpdateViewModel.Mapped<Contact>();
+
             var contactResult = await _unitOfWork.ContactRepository
                                                     .UpdateAsync(updateContactModel);
             if (!contactResult.IsDone)
@@ -169,13 +171,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion UPDATE
 
         #region DELETE
+
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
@@ -195,6 +197,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion DELETE
     }
 }

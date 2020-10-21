@@ -132,6 +132,9 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="AllServices" xml:space="preserve">
+    <value>All services</value>
+  </data>
   <data name="AnErrorOccurred" xml:space="preserve">
     <value>An Error Occurred</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="Garden" xml:space="preserve">
     <value>Garden</value>
+  </data>
+  <data name="GetInTouchWithUs" xml:space="preserve">
+    <value>GET IN TOUCH WITH US</value>
   </data>
   <data name="GreenBuilding" xml:space="preserve">
     <value>Green building</value>

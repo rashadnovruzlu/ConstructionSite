@@ -1,16 +1,13 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Cores.Queryes
 {
     public static class ServiceQuery
     {
-        public static SingleService ServiceRepositoryQuery(this IUnitOfWork _unitOfWork,int id,string _lang)
+        public static SingleService ServiceRepositoryQuery(this IUnitOfWork unitOfWork, int id, string lang)
         {
           return  _unitOfWork.ServiceRepository
                        .GetAll()

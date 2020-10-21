@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace ConstructionSite.TagHelpers
 {
     [HtmlTargetElement("p")]
-    public class ServiceTagHelpers:TagHelper
+    public class ServiceTagHelpers : TagHelper
     {
         [HtmlAttributeName("text")]
         public string Text { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (!string.IsNullOrEmpty(Text))

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ConstructionSite.DTO.FrontViewModels.Portfolio
 {
-  public  class ProjectViewDetailsModel
+    public class ProjectViewDetailsModel
     {
         public int ID { get; set; }
         public string Name { get; set; }

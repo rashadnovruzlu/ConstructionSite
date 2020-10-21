@@ -10,9 +10,10 @@ namespace ConstructionSite.Extensions.Core
             string result = Path.Combine(_env.WebRootPath, _IMAGE, subFolder, FileNameAfterReName);
             return result;
         }
-        public static string createFilePathSaveDataBase(string subFolder, string FileNameAfterReName,string _IMAGE)
+
+        public static string createFilePathSaveDataBase(string subFolder, string FileNameAfterReName, string _IMAGE)
         {
-            string str= Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
+            string str = Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
             return "/" + Path.Combine(_IMAGE, subFolder, FileNameAfterReName);
         }
     }

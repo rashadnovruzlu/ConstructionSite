@@ -20,13 +20,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class AboutController : Controller
     {
         #region Fields
+
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public AboutController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
                                IHttpContextAccessor httpContextAccessor)
@@ -34,9 +37,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _env = env;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -52,7 +56,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var result = _unitOfWork.AboutImageRepository.GetAll()
            .Include(x => x.About)
            .Include(x => x.Image)
-           
+
            .Select(x => new AboutViewModel
            {
                Id = x.Id,
@@ -69,7 +73,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(result);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
@@ -99,15 +103,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var aboutAddViewModelResult=new About
+            var aboutAddViewModelResult = new About
             {
-                Id=aboutAddViewModel.Id,
-                TittleAz=aboutAddViewModel.TittleAz,
-                TittleRu=aboutAddViewModel.TittleRu,
-                TittleEn=aboutAddViewModel.TittleEn,
-                ContentAz=aboutAddViewModel.ContentAz,
-                ContentEn=aboutAddViewModel.ContentEn,
-                ContentRu=aboutAddViewModel.ContentRu
+                Id = aboutAddViewModel.Id,
+                TittleAz = aboutAddViewModel.TittleAz,
+                TittleRu = aboutAddViewModel.TittleRu,
+                TittleEn = aboutAddViewModel.TittleEn,
+                ContentAz = aboutAddViewModel.ContentAz,
+                ContentEn = aboutAddViewModel.ContentEn,
+                ContentRu = aboutAddViewModel.ContentRu
             };
             var aboutSaveResult = await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
 
@@ -124,11 +128,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!imageSaveResult)
             {
                 //ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-              
+
                 ModelState.AddModelError("", "File is not saved.");
             }
-            
-            if (aboutSaveResult.IsDone&&imageSaveResult)
+
+            if (aboutSaveResult.IsDone && imageSaveResult)
             {
                 aboutImage.ImageId = image.Id;
                 aboutImage.AboutId = aboutAddViewModelResult.Id;
@@ -152,9 +156,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
+
         public IActionResult Update(int id)
         {
             if (id < 1)
@@ -192,7 +197,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AboutUpdateViewModel aboutUpdateViewModel, IFormFile file)
         {
-           
             if (aboutUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data not exists");
@@ -228,13 +232,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     ModelState.AddModelError("", "NULL");
                 }
-               
             }
-           
+
             var updateAboutImage = new AboutImage
             {
                 Id = aboutUpdateViewModel.Id,
-                ImageId =aboutUpdateViewModel.imageId,
+                ImageId = aboutUpdateViewModel.imageId,
                 AboutId = UpdateAbout.Id,
             };
             var AboutImageResult =
@@ -247,9 +250,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
-        #endregion
+
+        #endregion UPDATE
 
         #region DELETE
+
         public IActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -261,38 +266,32 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "NULL");
             }
-            var AboutImageResult =  _unitOfWork.AboutImageRepository.GetById(id);
-           
-            var aboutResult =  _unitOfWork.AboutRepository.GetById(AboutImageResult.AboutId);
-            
+            var AboutImageResult = _unitOfWork.AboutImageRepository.GetById(id);
+
+            var aboutResult = _unitOfWork.AboutRepository.GetById(AboutImageResult.AboutId);
+
             var imageResult = _unitOfWork.imageRepository.GetById(AboutImageResult.ImageId);
 
-            
-            if (aboutResult!=null&&imageResult!=null)
+            if (aboutResult != null && imageResult != null)
             {
                 var aboutDeleteResult = _unitOfWork.AboutRepository.Delete(aboutResult);
                 var imageDeleteResult = ImageExtensions.DeleteAsyc(_env, imageResult, "about", _unitOfWork);
-                if (aboutDeleteResult.IsDone&&imageDeleteResult)
+                if (aboutDeleteResult.IsDone && imageDeleteResult)
                 {
                     _unitOfWork.Dispose();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    ModelState.AddModelError("","delete has been error");
+                    ModelState.AddModelError("", "delete has been error");
                     RedirectToAction("Index");
                 }
             }
-           
+
             _unitOfWork.Rollback();
             return RedirectToAction("Index");
-            
-
-           
-           
-
-            
         }
-        #endregion
+
+        #endregion DELETE
     }
 }

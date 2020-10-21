@@ -98,6 +98,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string OurServices = "OurServices";
         public const string Services = "Services";
         public const string SeeAll = "SeeAll";
+        public const string AllServices = "AllServices";
         #endregion
 
         #region Region
@@ -138,6 +139,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string Message = "Message";
         public const string SendMessage = "SendMessage";
         public const string TermsAndConditions = "TermsAndConditions";
+        public const string GetInTouchWithUs = "GetInTouchWithUs";
         #endregion
 
         #region Footer

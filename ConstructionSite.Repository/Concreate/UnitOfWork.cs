@@ -10,10 +10,10 @@ namespace ConstructionSite.Repository.Concreate
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private IAboutImageRepository         _aboutImageRepository;
-        private IAboutRepository              _AboutRepository;
-        private IContactRepository            _ContactRepository;
-        private ICustomerFeedbackRepository   _customerFeedbackRepository;
+        private IAboutImageRepository _aboutImageRepository;
+        private IAboutRepository _AboutRepository;
+        private IContactRepository _ContactRepository;
+        private ICustomerFeedbackRepository _customerFeedbackRepository;
         private IHomePageRepository _HomePageRepository;
         private IImageRepository _imageRepository;
         private IMessageRepository _messageRepository;
@@ -26,17 +26,19 @@ namespace ConstructionSite.Repository.Concreate
         private IStaticFieldRepository _staticFieldRepository;
         private ISubServiceImageRepository _subServiceImageRepository;
         private ISubServiceRepository _SubServiceRepository;
-       
+
         private readonly ConstructionDbContext _context;
+
         public UnitOfWork(ConstructionDbContext context)
         {
-            _context=context?? throw new ArgumentNullException("is null");
+            _context = context ?? throw new ArgumentNullException("is null");
         }
+
         public IAboutImageRepository AboutImageRepository
         {
             get
             {
-                return _aboutImageRepository??(_aboutImageRepository=new AboutImageRepository(_context));
+                return _aboutImageRepository ?? (_aboutImageRepository = new AboutImageRepository(_context));
             }
         }
 
@@ -44,7 +46,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _AboutRepository??(_AboutRepository=new AboutRepository(_context));
+                return _AboutRepository ?? (_AboutRepository = new AboutRepository(_context));
             }
         }
 
@@ -52,7 +54,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _ContactRepository??(_ContactRepository=new ContactRepository(_context));
+                return _ContactRepository ?? (_ContactRepository = new ContactRepository(_context));
             }
         }
 
@@ -60,7 +62,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _customerFeedbackRepository??(_customerFeedbackRepository=new CustomerFeedbackRepository(_context));
+                return _customerFeedbackRepository ?? (_customerFeedbackRepository = new CustomerFeedbackRepository(_context));
             }
         }
 
@@ -68,7 +70,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _HomePageRepository??(_HomePageRepository=new HomePageRepository(_context));
+                return _HomePageRepository ?? (_HomePageRepository = new HomePageRepository(_context));
             }
         }
 
@@ -76,7 +78,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _imageRepository??(_imageRepository=new ImageRepository(_context));
+                return _imageRepository ?? (_imageRepository = new ImageRepository(_context));
             }
         }
 
@@ -92,7 +94,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _newsImageRepository??(_newsImageRepository=new NewsImageRepository(_context));
+                return _newsImageRepository ?? (_newsImageRepository = new NewsImageRepository(_context));
             }
         }
 
@@ -100,7 +102,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _newsRepository??(_newsRepository=new NewsRepository(_context));
+                return _newsRepository ?? (_newsRepository = new NewsRepository(_context));
             }
         }
 
@@ -108,7 +110,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _portfolioRepository??(_portfolioRepository=new PortfolioRepository(_context));
+                return _portfolioRepository ?? (_portfolioRepository = new PortfolioRepository(_context));
             }
         }
 
@@ -116,7 +118,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _projectImageRepository??(_projectImageRepository=new ProjectImageRepository(_context));
+                return _projectImageRepository ?? (_projectImageRepository = new ProjectImageRepository(_context));
             }
         }
 
@@ -124,7 +126,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _projectRepository??(_projectRepository=new ProjectRepository(_context));
+                return _projectRepository ?? (_projectRepository = new ProjectRepository(_context));
             }
         }
 
@@ -132,7 +134,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _serviceRepository??(_serviceRepository=new ServiceRepository(_context));
+                return _serviceRepository ?? (_serviceRepository = new ServiceRepository(_context));
             }
         }
 
@@ -140,7 +142,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _staticFieldRepository??(_staticFieldRepository=new StaticFieldRepository(_context));
+                return _staticFieldRepository ?? (_staticFieldRepository = new StaticFieldRepository(_context));
             }
         }
 
@@ -148,7 +150,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-              return  _subServiceImageRepository??(_subServiceImageRepository=new SubServiceImageRepository(_context));
+                return _subServiceImageRepository ?? (_subServiceImageRepository = new SubServiceImageRepository(_context));
             }
         }
 
@@ -156,25 +158,23 @@ namespace ConstructionSite.Repository.Concreate
         {
             get
             {
-                return _SubServiceRepository??(_SubServiceRepository=new SubServiceRepository(_context));
+                return _SubServiceRepository ?? (_SubServiceRepository = new SubServiceRepository(_context));
             }
         }
 
-       
-
-        public  int Commit()
+        public int Commit()
         {
             return _context.SaveChanges();
         }
 
         public void Dispose()
         {
-           _context.Dispose();
+            _context.Dispose();
         }
 
         public async Task<int> CommitAsync()
         {
-           return  await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public void Rollback()

@@ -25,12 +25,4 @@ namespace ConstructionSite.Entity.Configuration
                                 .WithMany(p => p.Projects);
         }
     }
-   
-
-
-
-
-
-
-
 }

@@ -1,39 +1,25 @@
 ﻿@model ServiceSubServiceImage
 @inject SharedLocalizationService Localizer
 
-<div id="featured-title" class="clearfix featured-title-left">
-    <div id="featured-title-inner" class="container clearfix">
-        <div class="featured-title-inner-wrap">
-            <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">@Model.Name</h1>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="main-content" class="site-main clearfix">
     <div id="content-wrap" class="container">
         <div id="site-content" class="site-content clearfix">
             <div id="inner-content" class="inner-content-wrap">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40" style="height:80px"></div>
+                        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
                         <h3 class="line-height-normal margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.WhatIsIncluded)</h3>
                         <div class="wprt-lines style-1 custom-3">
                             <div class="line-1"></div>
                             <div class="line-2"></div>
                         </div>
-
-                        <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25" style="height:25px"></div>
-
+                        <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
                         <p class="margin-bottom-0">@Model.Content</p>
-
-                        <div class="wprt-spacer" data-desktop="35" data-mobi="35" data-smobi="35" style="height:35px"></div>
-
-                        <div class="wprt-spacer" data-desktop="50" data-mobi="40" data-smobi="40" style="height:50px"></div>
+                        <div class="wprt-spacer" data-desktop="35" data-mobi="35" data-smobi="35"></div>
                     </div>
 
                     <div class="col-md-12">
-                        <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40" style="height:80px"></div>
+                        <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
                     </div>
                 </div>
             </div>

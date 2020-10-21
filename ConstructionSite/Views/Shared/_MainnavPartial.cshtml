@@ -17,9 +17,10 @@
 }
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
-        <li class="current-menu-item"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
-        <li><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
-        <li class="menu-item menu-item-has-children">
+        <li class="@Html.Active("Home","Index")"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
+        <li class="@Html.Active("About","Index")"><a asp-controller="About" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.About)</a></li>
+
+        <li class="@Html.Active("Services","Index") menu-item menu-item-has-children">
             <a href="/Services/Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a>
             @await Component.InvokeAsync("ServiceMenu")
         </li>
@@ -49,5 +50,7 @@
   
 
 </nav>
+<!-- /#main-nav -->
+ 
 <script src="~/ConstructionAdmin/js/jquery-1.8.3.min.js"></script>
-<script src="~/customer/js/Language.js"></script>
+<script src="~/Custom/Js/language.js"></script>

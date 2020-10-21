@@ -7,8 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                <div class="wprt-spacer" data-desktop="100" data-mobi="100" data-smobi="100"></div>
                 <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</h2>
                 <div class="wprt-lines style-2 custom-1">
                     <div class="line-1"></div>
@@ -16,45 +15,27 @@
                 <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
             </div>
             <!-- /.col-md-12 -->
+
         </div>
         <!-- /.row -->
+
     </div>
     <!-- /.container -->
 
     <div class="wprt-project" data-layout="grid" data-column="4" data-column2="3" data-column3="2" data-column4="1" data-gaph="0" data-gapv="0">
         <div id="project-filter">
-            <div data-filter="*" class="cbp-filter-item">
-                <span class="All">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
+            <div id="myfist" class="cbp-filter-item All">
+                <span>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.All)</span>
             </div>
             @foreach (var item in Model)
             {
-                <div class="cbp-filter-item mains" data-id="@item.Id">
-                    <span>@item.Name</span>
+                <div id="@item.Name" class="cbp-filter-item  mains @item.Name" data-name="@item.Name" data-id="@item.Id">
+                    <span data-id="@item.Id">@item.Name</span>
                 </div>
             }
         </div>
-        <div id="grid-container">
+        <div id="grid-container" class="container-fluid">
         </div>
     </div>
 </section>
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-
-@section scrips{
-
-    <script>
-
-        $(document).ready(function () {
-            var id = 0;
-            $("#grid-container").load(`/Portfolio/Project/${id}`);
-            $(".All").click(function () {
-
-                $("#grid-container").load(`/Portfolio/Project/${id}`);
-            });
-            $(".mains").click(function () {
-                id = $(this).data("id");
-                $("#grid-container").load(`/Portfolio/Project/${id}`);
-            });
-
-        });
-    </script>
-}

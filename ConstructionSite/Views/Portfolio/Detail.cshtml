@@ -1,23 +1,5 @@
 ﻿@inject SharedLocalizationService Localizer
 @model ProjectViewDetailsModel
-@section head{
-    <style>
-        .porimage {
-            width: 770px;
-            height: 513px;
-        }
-    </style>
- }
-
-<div id="featured-title" class="clearfix featured-title-left">
-    <div id="featured-title-inner" class="container clearfix">
-        <div class="featured-title-inner-wrap">
-            <div class="featured-title-heading-wrap">
-                <h1 class="featured-title-heading">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.PortfolioDetail)</h1>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Main Content -->
 <div id="main-content" class="site-main clearfix">
@@ -29,7 +11,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
+                                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
                                 </div>
                                 <!-- /.col-md-12 -->
 
@@ -42,7 +24,7 @@
                                                     <li class="flex-active-slide">
                                                         <a class="zoom" href="JavaScrip:void(0)"><i class="fa fa-arrows-alt"></i></a>
                                                         <div class="porimage">
-                                                            <img   src="@item" alt="image" />
+                                                            <img src="@item" alt="image" />
                                                         </div>
                                                     </li>
                                                 }

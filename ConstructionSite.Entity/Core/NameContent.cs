@@ -1,11 +1,8 @@
 ﻿using ConstructionSite.Helpers.Constants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Core
 {
-   public class NameContent
+    public class NameContent
     {
         public string NameAz { get; set; }
 
@@ -16,6 +13,7 @@ namespace ConstructionSite.Entity.Core
         public string ContentAz { get; set; }
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
+
         public virtual string FindName(string lang)
         {
             if (lang == LANGUAGECONSTANT.Az)
@@ -28,6 +26,7 @@ namespace ConstructionSite.Entity.Core
             }
             return NameEn;
         }
+
         public virtual string FindContent(string lang)
         {
             if (lang == LANGUAGECONSTANT.Az)

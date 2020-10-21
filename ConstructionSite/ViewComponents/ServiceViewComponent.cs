@@ -1,33 +1,33 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Helpers.Constants;
-using ConstructionSite.Helpers.Interfaces;
 using ConstructionSite.Injections;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit.Encodings;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class ServiceViewComponent:ViewComponent
+    public class ServiceViewComponent : ViewComponent
     {
-        string                                      _lang;
-        private readonly IUnitOfWork                _unitOfWork;
-        private readonly IHttpContextAccessor       _httpContextAccessor;
-        private readonly SharedLocalizationService  _localizationHandle;
-        public ServiceViewComponent(IUnitOfWork unitOfWork, 
+        private string _lang;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly SharedLocalizationService _localizationHandle;
+
+        public ServiceViewComponent(IUnitOfWork unitOfWork,
                                     IHttpContextAccessor httpContextAccessor,
                                     SharedLocalizationService localizationHandle)
         {
-            _unitOfWork=unitOfWork;
+            _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _lang=httpContextAccessor.getLanguages();
+            _lang = httpContextAccessor.GetLanguages();
             _localizationHandle = localizationHandle;
         }
+
         public IViewComponentResult Invoke()
         {
             if (!ModelState.IsValid)

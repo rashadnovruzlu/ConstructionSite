@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels.Role;
+﻿using ConstructionSite.DTO.AdminViewModels.Role;
 using ConstructionSite.Entity.Identity;
-using ConstructionSite.Helpers.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class AdminRoleController : Controller
     {
-        private readonly RoleManager<IdentityRole>       _roleManager;
-        private readonly UserManager<ApplicationUser>    _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+
         public AdminRoleController(RoleManager<IdentityRole> roleManager,
                                    UserManager<ApplicationUser> userManager)
         {
-            this._roleManager=roleManager;
-            this._userManager=userManager;
-
+            this._roleManager = roleManager;
+            this._userManager = userManager;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -32,11 +30,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(_roleManager.Roles);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string Name)
@@ -48,10 +48,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (string.IsNullOrEmpty(Name))
             {
-                ModelState.AddModelError("","data is null");
+                ModelState.AddModelError("", "data is null");
                 return RedirectToAction("Index");
             }
-            var identityRoleResult=await _roleManager.CreateAsync(new IdentityRole(Name));
+            var identityRoleResult = await _roleManager.CreateAsync(new IdentityRole(Name));
             if (identityRoleResult.Succeeded)
             {
                 return RedirectToAction("Index");
@@ -62,11 +62,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     ModelState.AddModelError("", item.Description.ToString());
                 }
-                
             }
-           
+
             return View(Name);
         }
+
         [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
@@ -80,53 +80,53 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (string.IsNullOrEmpty(id))
             {
-               return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
-            var identityRoleResult=await _roleManager.FindByIdAsync(id);
-            if (identityRoleResult==null)
+            var identityRoleResult = await _roleManager.FindByIdAsync(id);
+            if (identityRoleResult == null)
             {
-                ModelState.AddModelError("","role not exists");
+                ModelState.AddModelError("", "role not exists");
             }
             foreach (var User in _userManager.Users)
             {
-               var list=await _userManager.IsInRoleAsync(User, identityRoleResult.Name)?memmbers:nomemmbers;
+                var list = await _userManager.IsInRoleAsync(User, identityRoleResult.Name) ? memmbers : nomemmbers;
                 list.Add(User);
             }
-            var modelResult=new RoleDetailsViewModel
+            var modelResult = new RoleDetailsViewModel
             {
-                Role=identityRoleResult,
-                Members=memmbers,
-                NoMembers=nomemmbers
+                Role = identityRoleResult,
+                Members = memmbers,
+                NoMembers = nomemmbers
             };
             return View(modelResult);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(RoleEditViewModel roleEditViewModel)
         {
-            if (roleEditViewModel!=null)
+            if (roleEditViewModel != null)
             {
-             foreach (var item in roleEditViewModel.IDsToAdd??new string[] { })
-            {
-                var user=await _userManager.FindByIdAsync(item);
-                if (user!=null)
+                foreach (var item in roleEditViewModel.IDsToAdd ?? new string[] { })
                 {
-                 var  userRoleResult=await _userManager.AddToRoleAsync(user,roleEditViewModel.RoleName);
-                    if (userRoleResult.Succeeded)
+                    var user = await _userManager.FindByIdAsync(item);
+                    if (user != null)
                     {
-                        foreach (var erro in userRoleResult.Errors)
+                        var userRoleResult = await _userManager.AddToRoleAsync(user, roleEditViewModel.RoleName);
+                        if (userRoleResult.Succeeded)
                         {
-                            ModelState.AddModelError("",erro.Description.ToString());
+                            foreach (var erro in userRoleResult.Errors)
+                            {
+                                ModelState.AddModelError("", erro.Description.ToString());
+                            }
                         }
-                    }
                         else
                         {
-
                             return RedirectToAction("Index");
                         }
+                    }
                 }
-            }
-             foreach (var item in roleEditViewModel.IDsToDelete ?? new string[] { })
+                foreach (var item in roleEditViewModel.IDsToDelete ?? new string[] { })
                 {
                     var user = await _userManager.FindByIdAsync(item);
                     if (user != null)
@@ -141,22 +141,21 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         }
                         else
                         {
-
                             return RedirectToAction("Index");
                         }
                     }
                 }
             }
             return View(roleEditViewModel.RoleID);
-           
         }
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var role=await _roleManager.FindByIdAsync(id);
-            if (role!=null)
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
             {
-             var deleteRoleResult= await  _roleManager.DeleteAsync(role);
+                var deleteRoleResult = await _roleManager.DeleteAsync(role);
                 if (deleteRoleResult.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -165,7 +164,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     foreach (var item in deleteRoleResult.Errors)
                     {
-                        ModelState.AddModelError("",item.Description.ToString());
+                        ModelState.AddModelError("", item.Description.ToString());
                     }
                 }
             }

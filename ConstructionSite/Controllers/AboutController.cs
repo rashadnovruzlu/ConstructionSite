@@ -18,6 +18,11 @@ namespace ConstructionSite.Controllers
         private SharedLocalizationService _localizationHandle;
         private readonly IUnitOfWork _unitOfWork;
 
+        /// <summary>
+        /// </summary>
+        /// <param name="unitOfWork"></param>
+        /// <param name="localizationHandle"></param>
+        /// <param name="httpContextAccessor"></param>
         public AboutController(IUnitOfWork unitOfWork,
                                SharedLocalizationService localizationHandle,
                                IHttpContextAccessor httpContextAccessor)
@@ -25,9 +30,13 @@ namespace ConstructionSite.Controllers
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _localizationHandle = localizationHandle;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
         }
 
+        /// <summary>
+        /// this is About
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -36,20 +45,20 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             var aboutImageViewResult = _unitOfWork
-                    .AboutImageRepository
-                    .GetAll()
-                    .Include(x => x.Image)
-                    .Include(x => x.About)
-                    .Select(x => new AboutIndexViewModel
-                    {
-                        Id = x.Id,
-                        Context = x.About.FindContent(_lang),
-                        Title = x.About.FindTitle(_lang),
-                        imagePath = x.Image.Path,
-                        path = x.About.AboutImages.Select(x => x.Image.Path).ToList()
-                    })
-                    .OrderByDescending(x => x.Id)
-                    .FirstOrDefault();
+            .AboutImageRepository
+            .GetAll()
+            .Include(x => x.Image)
+            .Include(x => x.About)
+            .Select(x => new AboutIndexViewModel
+            {
+                Id = x.Id,
+                Context = x.About.FindContent(_lang),
+                Title = x.About.FindTitle(_lang),
+                imagePath = x.Image.Path,
+                path = x.About.AboutImages.Select(x => x.Image.Path).ToList()
+            })
+            .OrderByDescending(x => x.Id)
+            .FirstOrDefault();
             if (aboutImageViewResult == null)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));

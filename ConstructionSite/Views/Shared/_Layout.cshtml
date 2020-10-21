@@ -5,7 +5,7 @@
 
 <head>
     <!-- Basic Page Needs -->
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
 
     <title>PDC.az</title>
 
@@ -16,7 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
-
     <partial name="_LinkPartialStyle" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @await RenderSectionAsync("head", false)
@@ -31,7 +30,7 @@
 
 </head>
 
-<body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
+<body class="front-page no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
     <div id="top"></div>
     <div id="wrapper" class="animsition">
         <div id="page" class="clearfix">
@@ -73,18 +72,6 @@
                     </div>
                 </div>
             </footer>
-
-            <!-- Bottom -->
-            <div id="bottom" class="clearfix style-1">
-                <div id="bottom-bar-inner" class="wprt-container">
-                    <div class="bottom-bar-inner-wrap">
-                        <div class="bottom-bar-menu">
-                            <partial name="_FooterMenuPartial" />
-                        </div>
-                        <!-- /.bottom-bar-menu -->
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- /#page -->
     </div>
@@ -97,10 +84,8 @@
 
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
-    <script type="text/javascript" src="~/customer/js/Component.js"
-            asp-append-version="true">
+    <script type="text/javascript" src="~/Custom/Js/component.js" asp-append-version="true">
     </script>
-   
 
     @await RenderSectionAsync("Scrips", false)
 </body>

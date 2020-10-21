@@ -8,27 +8,18 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<CustomerFeedback> builder)
         {
-           builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.ContentAz)
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.ContentAz)
                 .IsRequired()
                 .HasMaxLength(500);
             builder.Property(x => x.ContentEn)
                .HasMaxLength(500);
             builder.Property(x => x.ContentRu)
                .HasMaxLength(500);
-            builder.Property(x=>x.FullName)
+            builder.Property(x => x.FullName)
                 .HasMaxLength(35);
-            builder.Property(x=>x.Position)
+            builder.Property(x => x.Position)
                 .HasMaxLength(50);
-
         }
     }
-   
-
-
-
-
-
-
-
 }

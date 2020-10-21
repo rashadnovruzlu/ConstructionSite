@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ConstructionSite.Entity.Models
 {
@@ -20,11 +17,11 @@ namespace ConstructionSite.Entity.Models
         
         public virtual ICollection<AboutImage> AboutImages { get; set; }
 
-		public virtual ICollection<HomePage> HomePages { get; set; }
+        public virtual ICollection<HomePage> HomePages { get; set; }
 
-		public virtual ICollection<NewsImage> NewsImages { get; set; }
+        public virtual ICollection<NewsImage> NewsImages { get; set; }
 
-		public virtual ICollection<ProjectImage> ProjectImages { get; set; }
+        public virtual ICollection<ProjectImage> ProjectImages { get; set; }
 
 		public virtual ICollection<SubServiceImage> SubServiceImages { get; set; }
 

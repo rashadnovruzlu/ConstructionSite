@@ -125,6 +125,12 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
+                    b.Property<string>("lat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lng")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Contacts");

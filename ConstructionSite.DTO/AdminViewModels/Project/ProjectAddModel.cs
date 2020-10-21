@@ -1,11 +1,6 @@
-﻿using ConstructionSite.Entity.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.AdminViewModels.Project
+﻿namespace ConstructionSite.DTO.AdminViewModels.Project
 {
-   public class ProjectAddModel
+    public class ProjectAddModel
     {
         public string NameAz { get; set; }
 
@@ -17,6 +12,5 @@ namespace ConstructionSite.DTO.AdminViewModels.Project
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
         public int PortfolioId { get; set; }
-        
     }
 }

@@ -1,18 +1,13 @@
-﻿using ConstructionSite.Entity.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ConstructionSite.DTO.FrontViewModels.SubService
 {
-  public  class ServiceSubServiceImage
+    public class ServiceSubServiceImage
     {
         public int id { get; set; }
         public int SubServiceID { get; set; }
         public List<string> Images { get; set; }
-        public string       Name { get; set; }
-        public string       Content { get; set; }
-       
-       
+        public string Name { get; set; }
+        public string Content { get; set; }
     }
 }

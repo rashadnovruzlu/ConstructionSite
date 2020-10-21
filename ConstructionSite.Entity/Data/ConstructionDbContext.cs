@@ -6,15 +6,13 @@ namespace ConstructionSite.Entity.Data
 {
     public class ConstructionDbContext : DbContext
     {
-        
         public ConstructionDbContext(DbContextOptions<ConstructionDbContext> options) : base(options)
         {
-           
         }
 
         public virtual DbSet<About> Abouts { get; set; }
         public virtual DbSet<AboutImage> AboutImages { get; set; }
-        public  DbSet<Contact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
         public virtual DbSet<HomePage> HomePages { get; set; }
         public virtual DbSet<Image> Images { get; set; }

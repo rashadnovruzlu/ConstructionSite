@@ -1,11 +1,6 @@
-﻿using ConstructionSite.Entity.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.DTO.AdminViewModels.SubService
+﻿namespace ConstructionSite.DTO.AdminViewModels.SubService
 {
-  public  class SubServiceAddModel
+    public class SubServiceAddModel
     {
         public int Id { get; set; }
         public string NameAz { get; set; }
@@ -17,7 +12,6 @@ namespace ConstructionSite.DTO.AdminViewModels.SubService
         public string ContentAz { get; set; }
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
-        public int    ServiceId { get; set; }
-       
-	}
+        public int ServiceId { get; set; }
+    }
 }

@@ -68,6 +68,5 @@ namespace ConstructionSite.Repository.Abstract
         Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> predecat);
 
         #endregion --Seach--
-        
     }
 }

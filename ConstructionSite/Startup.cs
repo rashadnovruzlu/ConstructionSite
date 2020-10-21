@@ -35,9 +35,6 @@ namespace ConstructionSite
             
             services.ServiceDataBaseWithInjection(Configuration);
 
-            //services.AddControllersWithViews()
-            //     .AddDataAnnotationsLocalization()
-            //    .AddViewLocalization();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");

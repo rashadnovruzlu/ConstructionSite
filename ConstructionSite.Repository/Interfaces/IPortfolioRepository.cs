@@ -5,6 +5,5 @@ namespace ConstructionSite.Repository.Interfaces
 {
     public interface IPortfolioRepository : IGenericRepository<Portfolio>
     {
-
     }
 }

@@ -17,20 +17,24 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class PortfolioController : Controller
     {
         #region Fields
+
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        #endregion
+
+        #endregion Fields
 
         #region CTOR
+
         public PortfolioController(IUnitOfWork unitOfWork,
                                    IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
         }
-        #endregion
+
+        #endregion CTOR
 
         #region INDEX
 
@@ -56,7 +60,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(result);
         }
 
-        #endregion
+        #endregion INDEX
 
         #region CREATE
 
@@ -98,7 +102,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion CREATE
 
         #region UPDATE
 
@@ -137,7 +141,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             var portfoliUpdateViewModelresult = new Portfolio
             {
-                Id     = portfoliUpdateViewModel.id,
+                Id = portfoliUpdateViewModel.id,
                 NameAz = portfoliUpdateViewModel.NameAz,
                 NameEn = portfoliUpdateViewModel.NameEn,
                 NameRu = portfoliUpdateViewModel.NameRu
@@ -146,7 +150,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!result.IsDone)
             {
                 _unitOfWork.Rollback();
-              
+
                 ModelState.AddModelError("", "This is not successfull update");
             }
             else
@@ -157,9 +161,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(portfoliUpdateViewModel);
         }
 
-        #endregion
+        #endregion UPDATE
 
         #region DELETE
+
         public async Task<IActionResult> Delete(int id)
         {
             if (!ModelState.IsValid)
@@ -172,17 +177,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return RedirectToAction("Index");
             }
-           
+
             var portfolioDeleteResult = await _unitOfWork.portfolioRepository.DeleteAsync(portfolioResult);
             if (!portfolioDeleteResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "This portfolio was not delete");
             }
-             _unitOfWork.Dispose();
-             return RedirectToAction("Index");
+            _unitOfWork.Dispose();
+            return RedirectToAction("Index");
         }
 
-        #endregion
+        #endregion DELETE
     }
 }

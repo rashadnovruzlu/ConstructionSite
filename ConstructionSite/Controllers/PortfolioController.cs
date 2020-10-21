@@ -26,9 +26,11 @@ namespace ConstructionSite.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
-            _lang = _httpContextAccessor.getLanguages();
+            _lang = _httpContextAccessor.GetLanguages();
             _sharedLocalizationService = sharedLocalizationService;
         }
+
+        #region Index
 
         public IActionResult Index()
         {
@@ -48,6 +50,10 @@ namespace ConstructionSite.Controllers
                 .ToList();
             return View(portfolioViewModelResult);
         }
+
+        #endregion Index
+
+        #region Detail
 
         public IActionResult Detail(int id)
         {
@@ -75,6 +81,10 @@ namespace ConstructionSite.Controllers
                    .FirstOrDefault(x => x.ID == id);
             return View(projectViewDetailsModelResult);
         }
+
+        #endregion Detail
+
+        #region Project
 
         [HttpGet]
         public PartialViewResult Project(int id = 0)
@@ -117,6 +127,10 @@ namespace ConstructionSite.Controllers
             return PartialView(projectViewModelResult);
         }
 
+        #endregion Project
+
+        #region All
+
         [HttpGet]
         public PartialViewResult All()
         {
@@ -139,5 +153,7 @@ namespace ConstructionSite.Controllers
                   .ToList();
             return PartialView(projectViewModelResult);
         }
+
+        #endregion All
     }
 }

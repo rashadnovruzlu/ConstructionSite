@@ -1,4 +1,5 @@
-﻿using ConstructionSite.Resources;
+﻿using ConstructionSite.Extensions.Text;
+using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,12 @@ namespace ConstructionSite.Localization
         public string GetLocalizedHtmlString(string key)
         {
           
-            string Result = _localizer[key].Value;
-            if (!string.IsNullOrEmpty(Result))
+            string languagesResult = _localizer[key].Value;
+            if (!string.IsNullOrEmpty(languagesResult))
             {
-                return Result;
-            }
+                 return languagesResult.ToUpper();
+             }
+           
             return key;
            
         }

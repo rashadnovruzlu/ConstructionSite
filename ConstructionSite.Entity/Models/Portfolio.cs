@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConstructionSite.Entity.Models
 {
-    public class Portfolio:Name
+    public class Portfolio : Name
     {
         public int Id { get; set; }
 

@@ -22,7 +22,7 @@ namespace ConstructionSite.Extensions.Identity
                     //options.Password.RequireUppercase = false;
                     //options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase =false;
+                    options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequiredLength = 6;
@@ -32,7 +32,6 @@ namespace ConstructionSite.Extensions.Identity
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                     options.Lockout.MaxFailedAccessAttempts = 5;
                     options.Lockout.AllowedForNewUsers = true;
-
 
                     // User settings.
                     options.User.AllowedUserNameCharacters =

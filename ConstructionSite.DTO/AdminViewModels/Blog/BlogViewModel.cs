@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.DTO.AdminViewModels.Blog
 {
-   public class BlogViewModel
+    public class BlogViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

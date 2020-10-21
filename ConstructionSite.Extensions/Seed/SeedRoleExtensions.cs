@@ -13,7 +13,7 @@ namespace ConstructionSite.Extensions.Seed
         public async static void SeedRole(this IApplicationBuilder builder)
         {
             RoleManager<IdentityRole> role = builder.ApplicationServices.GetRequiredService<RoleManager<IdentityRole>>();
-            UserManager<ApplicationUser> db = builder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>(); 
+            UserManager<ApplicationUser> db = builder.ApplicationServices.GetRequiredService<UserManager<ApplicationUser>>();
             if (role.Roles.Count() == 0)
             {
                 var result = await role.CreateAsync(new IdentityRole
@@ -28,9 +28,9 @@ namespace ConstructionSite.Extensions.Seed
                 {
                     Name = "Construction Site",
                     Email = "nurane@pragmatech.az",
-                    UserName="Const_Site",
-                    PhoneNumber= "88(02) 123456",
-                    Address= "1 Beverly Hills, Los Angeles, California, 90210, United States"
+                    UserName = "Const_Site",
+                    PhoneNumber = "88(02) 123456",
+                    Address = "1 Beverly Hills, Los Angeles, California, 90210, United States"
                 };
                 IdentityResult identityResult = db.CreateAsync(app, "Nurane_29").GetAwaiter().GetResult();
                 if (identityResult.Succeeded)

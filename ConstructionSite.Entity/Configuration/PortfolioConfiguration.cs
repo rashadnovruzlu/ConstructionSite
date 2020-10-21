@@ -8,8 +8,8 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<Portfolio> builder)
         {
-            builder.HasKey(x=>x.Id);
-            builder.Property(x=>x.NameAz)
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.NameAz)
                 .IsRequired()
                 .HasMaxLength(75);
 
@@ -20,12 +20,4 @@ namespace ConstructionSite.Entity.Configuration
               .HasMaxLength(75);
         }
     }
-   
-
-
-
-
-
-
-
 }

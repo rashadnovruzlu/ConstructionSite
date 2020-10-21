@@ -5,6 +5,5 @@ namespace ConstructionSite.Repository.Interfaces
 {
     public interface ISubServiceRepository : IGenericRepository<SubService>
     {
-
     }
 }
