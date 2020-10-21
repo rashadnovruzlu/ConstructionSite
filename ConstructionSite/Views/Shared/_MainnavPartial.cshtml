@@ -8,15 +8,13 @@
     var cultureItems = LocOptions.Value.SupportedUICultures
                                     .ToList();
 }
-
-@*@section head{
-        <style>
-            .langdata {
-                padding: 10px;
-            }
-        </style>
-    }*@
-
+@section head{
+    <style>
+        .langdata {
+            padding: 10px;
+        }
+    </style>
+}
 <nav id="main-nav" class="main-nav">
     <ul class="menu">
         <li class="@Html.Active("Home","Index")"><a asp-controller="Home" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Home)</a></li>
@@ -26,20 +24,31 @@
             <a href="/Services/Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Services)</a>
             @await Component.InvokeAsync("ServiceMenu")
         </li>
-        <li class="@Html.Active("Portfolio","Index")"><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
-        <li class="@Html.Active("Blog","Index")"><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
-        <li class="@Html.Active("Message","Index")"><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
-        <div class="langu">
-            @foreach (var item in cultureItems)
-            {
-                <li id="@item.Name" class="langss" data-name="@item.Name" data-id="@item.Name" style="margin-top:11px; cursor: pointer;">
-                    <a class="datas_item langdata" data-id="@item.Name">
-                        <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
-                    </a>
-                </li>
-            }
-        </div>
+
+        <li><a asp-controller="Portfolio" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
+        <li><a asp-controller="Galery" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Galery)</a></li>
+        <li><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
+        <li><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
+
+        @*@foreach (var item in cultureItems)
+        {
+
+            <li>
+                <a class="datas_item langdata" data-id="@item.Name">
+                    <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
+                </a>
+            </li>
+        }*@
+
+
     </ul>
+    @*<select style="width:auto;color:red;border:none;background:none">
+            <option>AZ</option>
+            <option>EN</option>
+            <option>RU</option>
+        </select>*@
+  
+
 </nav>
 <!-- /#main-nav -->
  

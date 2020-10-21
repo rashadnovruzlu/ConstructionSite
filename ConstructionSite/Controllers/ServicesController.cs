@@ -48,7 +48,7 @@ namespace ConstructionSite.Controllers
                    Id = x.Id,
                    Name = x.FindName(_lang),
                    Tittle = x.FindName(_lang),
-                   image = x.Image.Path
+                   //image = x.Image.Path
                })
                .ToList();
             if (allServiceViewModelResult == null)

@@ -7,19 +7,19 @@ namespace ConstructionSite.Cores.Queryes
 {
     public static class ServiceQuery
     {
-        public static SingleService ServiceRepositoryQuery(this IUnitOfWork unitOfWork, int id, string lang)
+        public static SingleService ServiceRepositoryQuery(this IUnitOfWork _unitOfWork, int id, string _lang)
         {
-            var SingleServiceResult = unitOfWork.ServiceRepository
-                         .GetAll()
-                         .Include(x => x.Image)
-                         .Select(x => new SingleService
-                         {
-                             Id = x.Id,
-                             Name = x.FindName(lang),
-                             Title = x.FindTitle(lang),
-                             ImagePath = x.Image.Path
-                         }).FirstOrDefault(x => x.Id == id);
-            return SingleServiceResult;
+          return  _unitOfWork.ServiceRepository
+                       .GetAll()
+                       .Include(x => x.ServiceImages)
+                       .Select(x => new SingleService
+                       {
+                           Id = x.Id,
+                           Name = x.FindName(_lang),
+                           Title = x.FindTitle(_lang),
+                           
+                           //ImagePath = x.Image.Path
+                       }).FirstOrDefault(x => x.Id == id);
         }
     }
 }

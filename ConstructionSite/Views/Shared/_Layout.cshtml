@@ -19,6 +19,15 @@
     <partial name="_LinkPartialStyle" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @await RenderSectionAsync("head", false)
+
+    <style>
+        .header-style-5 #site-header {
+            background-color: transparent !important;
+            width: 100% !important;
+            height: 87px !important;
+        }
+    </style>
+
 </head>
 
 <body class="front-page no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
@@ -27,7 +36,27 @@
         <div id="page" class="clearfix">
             <div id="site-header-wrap">
                 <!-- Header -->
-                <partial name="_HeaderPartial" />
+                <header id="site-header" class="header-front-page style-5">
+                    <div id="site-header-inner" class="container" style="padding-top: 1%; padding-bottom: 2%;">
+                        <div class="wrap-inner">
+                            <div id="site-logo" class="clearfix">
+                                <div id="site-logo-inner">
+                                    <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
+                                        <img src="~/Assets/Img/pdc.svg" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; height: 75px; top: 5px;">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /#site-logo -->
+
+                            <div class="mobile-button"><span></span></div>
+                            <!-- //mobile menu button -->
+
+                            <partial name="_MainnavPartial" />
+                          
+                        </div>
+                        <!-- /#site-header-inner -->
+                    </div>
+                </header>
                 <!-- /#site-header -->
             </div>
 

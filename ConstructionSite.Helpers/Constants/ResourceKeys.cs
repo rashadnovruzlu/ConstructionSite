@@ -72,6 +72,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string Portfolio = "Portfolio";
         public const string Blog = "Blog";
         public const string Contact = "Contact";
+        public const string Galery = "Galery";
         #endregion
 
         #region About
