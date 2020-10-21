@@ -1,6 +1,6 @@
 ﻿namespace ConstructionSite.ViwModel.AdminViewModels.Galery
 {
-    public class GaleryViewModel
+    public class GaleryUpdateViewModel
     {
         public int Id { get; set; }
         public string TitleAz { get; set; }

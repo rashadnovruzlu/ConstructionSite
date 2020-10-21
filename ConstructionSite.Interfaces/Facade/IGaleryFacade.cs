@@ -8,8 +8,9 @@ namespace ConstructionSite.Interfaces.Facade
 {
     public interface IGaleryFacade
     {
-        Task<bool> Add(GaleryViewModel galeryViewModel);
+        Task<bool> Add(GaleryAddViewModel galeryAddViewModel);
         Task<bool> Delete(int id);
         Task<bool> Update(GaleryUpdateViewModel galeryUpdateViewModel);
+        Task<GaleryViewModel> GetAll();
     }
 }
