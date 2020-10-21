@@ -125,7 +125,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Errors occured while creating News");
             }
 
-            var addImageViewResult = await file.SaveImage(_env, "News", image, _unitOfWork);
+            var addImageViewResult = await file.SaveImageAsync(_env, "News", image, _unitOfWork);
             if (!addImageViewResult)
             {
                 ImageExtensions.DeleteAsyc(_env, image, "News", _unitOfWork);

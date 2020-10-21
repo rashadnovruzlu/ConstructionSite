@@ -132,6 +132,9 @@
   <data name="All" xml:space="preserve">
     <value>Hamısı</value>
   </data>
+  <data name="AllServices" xml:space="preserve">
+    <value>Bütün xidmətlər</value>
+  </data>
   <data name="AnErrorOccurred" xml:space="preserve">
     <value />
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="FormIsNotValid" xml:space="preserve">
     <value />
+  </data>
+  <data name="Galery" xml:space="preserve">
+    <value>Qalereya</value>
   </data>
   <data name="GalleryProject" xml:space="preserve">
     <value>QALEREYA LAYİHƏSİ</value>
@@ -283,7 +289,7 @@
     <value>Layihədən sonra keyfiyyətli tikinti davam edir</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
-    <value>DAHA ÇOX OXU</value>
+    <value>DAHA ÇOX</value>
   </data>
   <data name="Renovation" xml:space="preserve">
     <value>Yeniləmə</value>

@@ -47,7 +47,7 @@
     <header class="panel-heading">
         SubService Table
     </header>
-    <hr />
+  
     <div class="panel-body">
         <div class="button-create">
             <a asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New SubService Element</a>
@@ -59,7 +59,9 @@
                 <table class="table table-striped table-hover table-bordered dataTable" id="myTable editable-sample" aria-describedby="editable-sample_info">
                     <thead>
                         <tr role="row">
-                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Name</th>
+                            <th class="sorting" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Service Name</th>
+
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">SubService Name</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Content</th>
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
                             <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
@@ -72,6 +74,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr class="odd">
+                                    <td></td>
                                     <td class="sorting_1 img-style">@item.Name</td>
                                     <td class="img-style">SubService Content</td>
                                     <td class="img-style">

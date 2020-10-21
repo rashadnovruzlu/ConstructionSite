@@ -72,6 +72,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string Portfolio = "Portfolio";
         public const string Blog = "Blog";
         public const string Contact = "Contact";
+        public const string Galery = "Galery";
         #endregion
 
         #region About
@@ -97,6 +98,7 @@ namespace ConstructionSite.Helpers.Constants
         public const string OurServices = "OurServices";
         public const string Services = "Services";
         public const string SeeAll = "SeeAll";
+        public const string AllServices = "AllServices";
         #endregion
 
         #region Region

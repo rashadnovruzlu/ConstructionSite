@@ -2,23 +2,23 @@
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("p")]
+    [HtmlTargetElement("p",Attributes ="service-index")]
     public class ServiceIndexTagHelper : TagHelper
     {
-        [HtmlAttributeName("indextext")]
-        public string indextext { get; set; }
+        
+        public string ServiceIndex { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (!string.IsNullOrEmpty(indextext))
+            if (!string.IsNullOrEmpty(ServiceIndex))
             {
-                if (indextext.Length < 100)
+                if (ServiceIndex.Length < 100)
                 {
-                    output.Content.SetHtmlContent(indextext.ToString());
+                    output.Content.SetHtmlContent(ServiceIndex.ToString());
                 }
                 else
                 {
-                    output.Content.SetHtmlContent(indextext.Substring(0, 100).ToString());
+                    output.Content.SetHtmlContent(ServiceIndex.Substring(0, 100).ToString());
                 }
             }
         }

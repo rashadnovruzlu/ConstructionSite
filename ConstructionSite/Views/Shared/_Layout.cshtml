@@ -1,36 +1,64 @@
-﻿@inject SharedLocalizationService Localizer
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-
+@inject SharedLocalizationService Localizer
 <head>
     <!-- Basic Page Needs -->
     <meta charset="UTF-8" />
 
-    <title>PDC.az</title>
+    <title>@ViewData["Title"]</title>
 
     <meta name="description" descriptions />
     <meta name="keywords" metapage />
     <meta name="author" content="PDC.az" />
+    <meta name="yandex-verification" content="6b4f86d4e9e888c0" />
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!-- Theme Style -->
     <partial name="_LinkPartialStyle" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     @await RenderSectionAsync("head", false)
+
+    <style>
+        .header-style-5 #site-header {
+            background-color: transparent !important;
+            width: 100% !important;
+            height: 87px !important;
+        }
+    </style>
+
 </head>
 
-<body class="front-page   no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
+<body class="front-page no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
     <div id="top"></div>
     <div id="wrapper" class="animsition">
         <div id="page" class="clearfix">
             <div id="site-header-wrap">
                 <!-- Header -->
-                <partial name="_HeaderPartial" />
+                <header id="site-header" class="header-front-page style-5">
+                    <div id="site-header-inner" class="container" style="padding-top: 1%; padding-bottom: 2%;">
+                        <div class="wrap-inner">
+                            <div id="site-logo" class="clearfix">
+                                <div id="site-logo-inner">
+                                    <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
+                                        <img src="~/Assets/Img/pdc.svg" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; height: 75px; top: 5px;">
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /#site-logo -->
+
+                            <div class="mobile-button"><span></span></div>
+                            <!-- //mobile menu button -->
+
+                            <partial name="_MainnavPartial" />
+                          
+                        </div>
+                        <!-- /#site-header-inner -->
+                    </div>
+                </header>
                 <!-- /#site-header -->
             </div>
-
+            <h1>Comming Soon</h1>
             @RenderBody()
 
             <!-- Footer -->
@@ -48,15 +76,14 @@
     </div>
     <!-- /#wrapper -->
 
-    <a id="scroll-top"><i class="fa fa-arrow-up" style="font-size: 1.9em;margin-top: 22%;"></i></a>
+    <a id="scroll-top"><i class="fa fa-arrow-up" style="font-size: 1.9em; margin-top: 22%;"></i></a>
 
     <!-- Javascript -->
     <partial name="_JavascriptPartial" />
 
     <!-- Revolution Slider -->
     <partial name="_RevolutionPartialScripts" />
-    <script type="text/javascript" src="~/Custom/Js/component.js"
-            asp-append-version="true">
+    <script type="text/javascript" src="~/Custom/Js/component.js" asp-append-version="true">
     </script>
 
     @await RenderSectionAsync("Scrips", false)

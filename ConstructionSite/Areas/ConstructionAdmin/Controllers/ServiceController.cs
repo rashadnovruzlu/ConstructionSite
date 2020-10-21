@@ -53,14 +53,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _unitOfWork.ServiceRepository.GetAll()
-                .Include(x => x.Image)
+                .Include(x => x.ServiceImages)
                 .Include(x => x.SubServices)
                 .Select(x => new ServiceViewModel
                 {
                     Id = x.Id,
                     Name = x.FindName(_lang),
                     Tittle = x.FindTitle(_lang),
-                    Image = x.Image.Path
+                    //Image = x.Image.Path
                 })
                 .ToList();
             return View(result);
@@ -101,7 +101,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "NULL");
             }
-            var imageResultID = await FileData.SaveImage(_env, "service", image, _unitOfWork);
+            var imageResultID = await FileData.SaveImageAsync(_env, "service", image, _unitOfWork);
             if (!imageResultID)
             {
                 Response.StatusCode = (int)HttpStatusCode.SeeOther;
@@ -114,10 +114,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 NameAz = serviceAddViewModel.NameAz,
                 NameRu = serviceAddViewModel.NameRu,
                 NameEn = serviceAddViewModel.NameEn,
-                TittleAz = serviceAddViewModel.TittleAz,
-                TittleEn = serviceAddViewModel.TittleEn,
-                TittleRu = serviceAddViewModel.TittleRu,
-                ImageId = image.Id
+                TitleAz = serviceAddViewModel.TittleAz,
+                TitleEn = serviceAddViewModel.TittleEn,
+                TitleRu = serviceAddViewModel.TittleRu,
+                //ImageId = image.Id
             };
             var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(serviceAddViewModelResult);
             if (!serviceResult.IsDone)
@@ -156,14 +156,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var data = new ServiceUpdateViewModel
             {
                 id = result.Id,
-                TittleAz = result.TittleAz,
-                TittleEn = result.TittleEn,
-                TittleRu = result.TittleRu,
+                TittleAz = result.TitleAz,
+                TittleEn = result.TitleEn,
+                TittleRu = result.TitleRu,
                 NameAz = result.NameAz,
                 NameEn = result.NameEn,
                 NameRu = result.NameRu,
-                path = result.Image.Path,
-                ImageId = result.ImageId
+                //path = result.ServiceImages,
+                //ImageId = result.ImageId
             };
 
             return View(data);
@@ -208,10 +208,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 NameAz = serviceUpdateViewModel.NameAz,
                 NameEn = serviceUpdateViewModel.NameEn,
                 NameRu = serviceUpdateViewModel.NameRu,
-                TittleAz = serviceUpdateViewModel.TittleAz,
-                TittleEn = serviceUpdateViewModel.TittleEn,
-                TittleRu = serviceUpdateViewModel.TittleRu,
-                ImageId = serviceUpdateViewModel.ImageId,
+                TitleAz = serviceUpdateViewModel.TittleAz,
+                TitleEn = serviceUpdateViewModel.TittleEn,
+                TitleRu = serviceUpdateViewModel.TittleRu,
+                //ImageId = serviceUpdateViewModel.ImageId,
             };
             var result = await _unitOfWork.ServiceRepository.UpdateAsync(serviceAddViewModelResult);
             if (result.IsDone)

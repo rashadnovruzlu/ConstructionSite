@@ -2,23 +2,23 @@
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("a")]
+    [HtmlTargetElement("h1",Attributes = "blog-title")]
     public class BlogTitleTagHelpers : TagHelper
     {
-        [HtmlAttributeName("blogtitle")]
-        public string size { get; set; }
+        
+        public string BlogTitle { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (!string.IsNullOrEmpty(size))
+            if (!string.IsNullOrEmpty(BlogTitle))
             {
-                if (size.Length < 27)
+                if (BlogTitle.Length < 27)
                 {
-                    output.Content.SetHtmlContent(size.ToString());
+                    output.Content.SetHtmlContent(BlogTitle.ToString());
                 }
                 else
                 {
-                    output.Content.SetHtmlContent(size.Substring(0, 26).ToString());
+                    output.Content.SetHtmlContent(BlogTitle.Substring(0, 26).ToString());
                 }
             }
         }
