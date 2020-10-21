@@ -98,6 +98,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.Facade\ConstructionSite.Facade.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Interfaces\ConstructionSite.Interfaces.csproj" />
     <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
   </ItemGroup>
 
