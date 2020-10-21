@@ -11,6 +11,6 @@ namespace ConstructionSite.Interfaces.Facade
         Task<bool> Add(PortfolioImageAddViewModel portfolioImageAddViewModel);
         Task<bool> Delete(int id);
         Task<bool> Update(PortfolioImageUpdateViewModel portfolioImageUpdateViewModel);
-        Task<bool> GetAll();
+        Task<List<PortfolioImageViewModel>> GetAll(string _lang);
     }
 }

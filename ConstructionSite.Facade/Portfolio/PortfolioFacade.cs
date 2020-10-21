@@ -3,6 +3,9 @@ using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Interfaces.Facade;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Portfolio
@@ -35,6 +38,8 @@ namespace ConstructionSite.Facade.Portfolio
 
         }
 
+
+
         #endregion
 
         #region ::UPDATE::
@@ -48,7 +53,24 @@ namespace ConstructionSite.Facade.Portfolio
         #endregion
 
         #region ::GETALL::
+        public async Task<List<PortfolioImageViewModel>> GetAll(string _lang)
+        {
+            return await _unitOfWork.PortfolioImageRepostory
+                  .GetAll()
+                  .Include(x => x.Image)
+                  .Include(x => x.Portfolio)
+                 .Select(x => new PortfolioImageViewModel
+                 {
+                     Id = x.Id,
+                     Title = x.Image.Title,
+                     Path = x.Image.Path,
+                     VideoPath = x.Image.VideoPath,
+                     Name = x.Portfolio.FindName(_lang),
+                     Content = x.Portfolio.FindName(_lang),
 
+                 })
+                 .ToListAsync();
+        }
         #endregion
 
 
