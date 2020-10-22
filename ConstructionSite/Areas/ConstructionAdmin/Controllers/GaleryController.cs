@@ -1,21 +1,26 @@
-﻿using ConstructionSite.Entity.Models;
-using ConstructionSite.Interface.Facade.Galery;
+﻿using ConstructionSite.Interface.Facade.Galery;
+using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class GaleryController : CoreController
     {
         #region ::FILDS::
+
         private readonly IGaleryFacade _galeryFacade;
-        #endregion
+
+        #endregion ::FILDS::
 
         #region ::CTOR::
+
         public GaleryController(IGaleryFacade galeryFacade)
         {
             _galeryFacade = galeryFacade;
         }
-        #endregion
+
+        #endregion ::CTOR::
 
         public IActionResult Index()
         {
@@ -23,48 +28,71 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #region ::ADD::
-        public IActionResult Add(Galery galery)
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+            }
+            if (galeryAddViewModel == null)
+            {
+            }
+            var result = await _galeryFacade.Add(galeryAddViewModel);
+            if (result)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        #endregion ::ADD::
+
+        #region ::UPDATE::
+
+        public async Task<IActionResult> Update(int id)
         {
 
+            var resultFindById = await _galeryFacade.FindUpdate(id);
+            return View(resultFindById);
+        }
+
+        public async Task<IActionResult> Update(GaleryUpdateViewModel galeryUpdateViewModel)
+        {
             if (!ModelState.IsValid)
             {
 
             }
-            if (galery == null)
+            var result = await _galeryFacade.Update(galeryUpdateViewModel);
+            if (result)
             {
-
+                return RedirectToAction("Index");
             }
-            ///_galeryFacade.Add()
-
-
-
-            return View();
-
+            return View(galeryUpdateViewModel);
         }
 
-        [HttpPost]
-        public IActionResult Add(string str)
-        {
-            return View();
-        }
-        #endregion
-        #region ::UPDATE::
-        public IActionResult Update(int id)
-        {
-            return View();
-        }
-        public IActionResult Update()
-        {
-            return View();
-        }
-        #endregion
+        #endregion ::UPDATE::
+
         #region ::DELETE::
-        public IActionResult Delete(int id)
+
+        public async Task<IActionResult> Delete(int id)
         {
+            if (id > 0)
+            {
+            }
+            var result = await _galeryFacade.Delete(id);
+            if (result)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
-        #endregion
 
-
+        #endregion ::DELETE::
     }
 }

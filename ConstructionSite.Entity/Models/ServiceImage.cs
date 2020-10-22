@@ -9,6 +9,7 @@ namespace ConstructionSite.Entity.Models
         public int Id { get; set; }
 
         public virtual Service Service { get; set; }
+
         public int ServiceId { get; set; }
 
         public virtual Image Image { get; set; }

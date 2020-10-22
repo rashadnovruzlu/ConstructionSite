@@ -80,6 +80,11 @@ namespace ConstructionSite.Facade.Galerys
             return await _unitOfWork.CommitAsync() > 0;
         }
 
+        public async Task<GaleryUpdateViewModel> FindUpdate(int id)
+        {
+         return  await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
+        }
+
         #endregion CECHEDTRANSACTION::
     }
 }
