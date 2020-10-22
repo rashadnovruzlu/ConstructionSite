@@ -47,7 +47,7 @@ namespace ConstructionSite.Controllers
 
         public IActionResult SendEmail(string EmailViewModel)
         {
-           
+
 
             using (SmtpClient smtpClient = new SmtpClient())
             {
