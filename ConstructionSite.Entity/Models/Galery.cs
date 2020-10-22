@@ -8,6 +8,6 @@ namespace ConstructionSite.Entity.Models
     public class Galery : Title
     {
         public int Id { get; set; }
-        public ICollection<GaleryFile> GaleryFiles { get; set; }
+        public virtual ICollection<GaleryFile> GaleryFiles { get; set; }
     }
 }
