@@ -1,4 +1,4 @@
-(function($) {
+;(function($) {
     'use strict'
 
     var wprtTheme = {
@@ -118,28 +118,7 @@
                 self.inViewport();
             } );
         },
-        //language start
-        const select = document.querySelectorAll('.selectBtn');
-        const option = document.querySelectorAll('.option');
-        let index = 1;
 
-        select.forEach(a => {
-            a.addEventListener('click', b => {
-                const next = b.target.nextElementSibling;
-                next.classList.toggle('toggle');
-                next.style.zIndex = index++;
-            })
-        })
-option.forEach(a => {
-            a.addEventListener('click', b => {
-                b.target.parentElement.classList.remove('toggle');
-
-                const parent = b.target.closest('.select').children[0];
-                parent.setAttribute('data-type', b.target.getAttribute('data-type'));
-                parent.innerText = b.target.innerText;
-            })
-        })
-        //language end
         preLoader: function() {
             if ( $().animsition ) {
                 $(".animsition").animsition({
@@ -148,7 +127,7 @@ option.forEach(a => {
                     inDuration: 1500,
                     outDuration: 800,
                     loading: true,
-                    loadingParentElement: 'body',
+                    loadingParentElement: '',
                     loadingClass: 'animsition-loading',
                     timeout: false,
                     timeoutCountdown: 5000,
@@ -971,3 +950,7 @@ option.forEach(a => {
     wprtTheme.init();
 
 })(jQuery);
+
+setTimeout(function(){
+    $('#preloader').fadeToggle();
+}, 500)

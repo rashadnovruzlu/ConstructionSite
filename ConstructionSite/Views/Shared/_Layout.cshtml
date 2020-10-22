@@ -31,18 +31,25 @@
 </head>
 
 <body class="front-page no-sidebar site-layout-full-width menu-has-cart header-sticky header-style-5">
+    <div class="preloaderBg" id="preloader" onload="preloader()">
+        <div class="preloader"></div>
+        <div class="preloader2"></div>
+    </div>
     <div id="top"></div>
     <div id="wrapper" class="animsition">
         <div id="page" class="clearfix">
             <div id="site-header-wrap">
+
+                <partial name="_TopHeader" />
+
                 <!-- Header -->
                 <header id="site-header" class="header-front-page style-5">
-                    <div id="site-header-inner" class="container" style="padding-top: 1%; padding-bottom: 2%;">
+                    <div id="site-header-inner" class="container">
                         <div class="wrap-inner">
                             <div id="site-logo" class="clearfix">
                                 <div id="site-logo-inner">
                                     <a asp-controller="Home" asp-action="Index" title="Construction" rel="home" class="main-logo">
-                                        <img src="~/Assets/Img/pdc.svg" alt="Construction"  data-width="204" data-height="30" style=" position: absolute; height: 75px; top: 5px;">
+                                        <img src="~/Assets/Img/pdc.svg" alt="Construction" data-width="204" data-height="30" style=" position: absolute; height: 75px; top: 5px;">
                                     </a>
                                 </div>
                             </div>
@@ -52,7 +59,7 @@
                             <!-- //mobile menu button -->
 
                             <partial name="_MainnavPartial" />
-                          
+
                         </div>
                         <!-- /#site-header-inner -->
                     </div>
