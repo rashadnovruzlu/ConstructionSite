@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.ViwModel",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Facade", "ConstructionSite.Facade\ConstructionSite.Facade.csproj", "{04CD9CEC-E5DE-4948-A407-9BE1452E8796}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConstructionSite.Interface", "ConstructionSite.Interface\ConstructionSite.Interface.csproj", "{5DEBFA40-0FC9-4E4C-8FBC-B5E860A928ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConstructionSite.Interface", "ConstructionSite.Interface\ConstructionSite.Interface.csproj", "{5DEBFA40-0FC9-4E4C-8FBC-B5E860A928ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
