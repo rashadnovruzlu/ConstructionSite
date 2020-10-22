@@ -1,5 +1,4 @@
 ﻿using ConstructionSite.Repository.Abstract;
-using ConstructionSite.ViwModel.FrontViewModels.Email;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +12,7 @@ namespace ConstructionSite.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
-        
+
         public IActionResult Index()
         {
             return View();
@@ -29,7 +28,7 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
-        public IActionResult SendEmail(EmailViewModel yandexViewModelEmailSender)
+        public IActionResult SendEmail(string EmailViewModel)
         {
 
             MimeMessage message = new MimeMessage();
