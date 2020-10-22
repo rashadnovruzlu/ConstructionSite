@@ -15,6 +15,7 @@ namespace ConstructionSite.Extensions.Images
         private const string _IMAGE = "images";
 
         #region ::Save::
+
         public async static Task<bool> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -45,7 +46,6 @@ namespace ConstructionSite.Extensions.Images
                         {
                             IsResult = false;
                         }
-
                     }
                     IsResult = true;
                 }
@@ -53,7 +53,6 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
-
 
         public async static Task<bool> SaveImageAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
@@ -86,10 +85,8 @@ namespace ConstructionSite.Extensions.Images
             return IsResult;
         }
 
-
         public async static Task<List<RESULT<Image>>> SaveImageCollectionForAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
-
             List<RESULT<Image>> imagesForm = new List<RESULT<Image>>();
 
             if (files != null)
@@ -103,7 +100,7 @@ namespace ConstructionSite.Extensions.Images
                              .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
 
                         bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
-                       
+
                         await using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await file.CopyToAsync(stream);
@@ -112,21 +109,16 @@ namespace ConstructionSite.Extensions.Images
                         image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
                         var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
                         imagesForm.Add(imageSaveFile);
-                      
-
                     }
-                   
                 }
-                
             }
             return imagesForm;
         }
 
-
-        #endregion
-
+        #endregion ::Save::
 
         #region ::UPDATE::
+
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -161,9 +153,10 @@ namespace ConstructionSite.Extensions.Images
             return IsResult;
         }
 
-        #endregion
+        #endregion ::UPDATE::
 
         #region ::DELETE::
+
         public static bool DeleteAsyc(IWebHostEnvironment _env, Image image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool isResult = false;
@@ -188,10 +181,10 @@ namespace ConstructionSite.Extensions.Images
             return result.IsDone;
         }
 
-        #endregion
-
+        #endregion ::DELETE::
 
         #region ::FILETYPE::
+
         private static bool IsImage(this IFormFile file)
         {
             return file.ContentType == "image/jpeg" ||
@@ -200,9 +193,7 @@ namespace ConstructionSite.Extensions.Images
                    file.ContentType == "image/x-png" ||
                    file.ContentType == "image/gif";
         }
-        #endregion
 
-
-
+        #endregion ::FILETYPE::
     }
 }

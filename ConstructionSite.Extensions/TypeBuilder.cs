@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace ConstructionSite.Extensions
 {

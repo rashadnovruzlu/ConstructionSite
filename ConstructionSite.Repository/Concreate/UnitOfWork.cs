@@ -26,6 +26,10 @@ namespace ConstructionSite.Repository.Concreate
         private IStaticFieldRepository _staticFieldRepository;
         private ISubServiceImageRepository _subServiceImageRepository;
         private ISubServiceRepository _SubServiceRepository;
+        private IGaleryFileRepstory _galeryFileRepstory;
+        private IGaleryRepstory _galeryRepstory;
+        private IPortfolioImageRepostory _portfolioImageRepostory;
+        private IServiceImageRepstory _serviceImageRepstory;
 
         private readonly ConstructionDbContext _context;
 
@@ -159,6 +163,38 @@ namespace ConstructionSite.Repository.Concreate
             get
             {
                 return _SubServiceRepository ?? (_SubServiceRepository = new SubServiceRepository(_context));
+            }
+        }
+
+        public IGaleryFileRepstory GaleryFileRepstory
+        {
+            get
+            {
+                return _galeryFileRepstory ?? (_galeryFileRepstory = new GaleryFileRepstory(_context));
+            }
+        }
+
+        public IGaleryRepstory GaleryRepstory
+        {
+            get
+            {
+                return _galeryRepstory ?? (_galeryRepstory = new GaleryRepstory(_context));
+            }
+        }
+
+        public IPortfolioImageRepostory PortfolioImageRepostory
+        {
+            get
+            {
+                return _portfolioImageRepostory ?? (_portfolioImageRepostory = new PortfolioImageRepstory(_context));
+            }
+        }
+
+        public IServiceImageRepstory ServiceImageRepstory
+        {
+            get
+            {
+                return _serviceImageRepstory ?? (_serviceImageRepstory = new ServiceImageRepstory(_context));
             }
         }
 

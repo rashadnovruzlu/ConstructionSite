@@ -1,6 +1,7 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
+using ConstructionSite.Extensions.ServiceFacade;
 using ConstructionSite.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,7 @@ namespace ConstructionSite
             services.IdentityLoad(Configuration);
 
             services.ServiceDataBaseWithInjection(Configuration);
-
+            services.LoadFacade();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
