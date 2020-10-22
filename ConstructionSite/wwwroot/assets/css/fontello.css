@@ -1,11 +1,10 @@
 @font-face {
-  font-family: 'fontello';
-  src: url('../font/construction/fontello.eot?90427048');
-  src: url('../font/construction/fontello.eot?90427048#iefix') format('embedded-opentype'),
-       url('../font/construction/fontello.woff2?90427048') format('woff2'),
-       url('../font/construction/fontello.woff?90427048') format('woff'),
-       url('../font/construction/fontello.ttf?90427048') format('truetype'),
-       url('../font/construction/fontello.svg?90427048#fontello') format('svg');
+  font-family: "Lato";
+  src: url('698242188-Lato-Bla.eot');
+  src: url('698242188-Lato-Bla.eot?#iefix') format('embedded-opentype'),
+  url('698242188-Lato-Bla.svg#Lato Black') format('svg'),
+  url('698242188-Lato-Bla.woff') format('woff'),
+  url('698242188-Lato-Bla.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,14 +13,14 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'fontello';
-    src: url('../font/fontello.svg?90427048#fontello') format('svg');
+    font-family: 'Lato';
+    src: url('../font/Lato.svg?90427048#Lato') format('svg');
   }
 }
 */
  
  [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "fontello";
+  font-family: "Lato";
   font-style: normal;
   font-weight: normal;
   speak: none;
