@@ -3,6 +3,7 @@ using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
 using ConstructionSite.FacadeInjection;
 using ConstructionSite.Localization;
+using ConstructionSite.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,10 @@ namespace ConstructionSite
 
             services.AddMvc();
             services.Localization();
-
+            var notificationMetadata =
+             Configuration.GetSection("NotificationMetadata").
+             Get<NotificationMetadata>();
+            services.AddSingleton(notificationMetadata);
             services.IdentityLoad(Configuration);
 
             services.ServiceDataBaseWithInjection(Configuration);
