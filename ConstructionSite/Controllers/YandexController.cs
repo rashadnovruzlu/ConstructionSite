@@ -1,5 +1,5 @@
-﻿using ConstructionSite.Repository.Abstract;
-using ConstructionSite.ViwModel.FrontViewModels.Email;
+﻿using ConstructionSite.Models;
+using ConstructionSite.Repository.Abstract;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,8 +12,13 @@ namespace ConstructionSite.Controllers
     public class YandexController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly NotificationMetadata _notificationMetadata;
         private readonly IWebHostEnvironment _env;
-        
+        public YandexController(NotificationMetadata notificationMetadata)
+        {
+            _notificationMetadata = notificationMetadata;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -28,29 +33,33 @@ namespace ConstructionSite.Controllers
 
             return View();
         }
-
-        public IActionResult SendEmail(EmailViewModel yandexViewModelEmailSender)
+        private MimeMessage CreateMimeMessageFromEmailMessage(EmailMessage message)
         {
+            var mimeMessage = new MimeMessage();
+            mimeMessage.From.Add(message.Sender);
+            mimeMessage.To.Add(message.Reciever);
+            mimeMessage.Subject = message.Subject;
+            mimeMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text)
+            { Text = message.Content };
+            return mimeMessage;
 
-            MimeMessage message = new MimeMessage();
+        }
 
-            MailboxAddress from = new MailboxAddress("Admin",
-            "residovnaib77@gmail.com");
-            message.From.Add(from);
+        public IActionResult SendEmail(string EmailViewModel)
+        {
+           
 
-            MailboxAddress to = new MailboxAddress("User",
-            "user@example.com");
-            message.To.Add(to);
+            using (SmtpClient smtpClient = new SmtpClient())
+            {
+                smtpClient.Connect(_notificationMetadata.SmtpServer,
+                _notificationMetadata.Port, true);
+                smtpClient.Authenticate(_notificationMetadata.UserName,
+                _notificationMetadata.Password);
 
-            message.Subject = "This is email subject";
+                smtpClient.Send(null);
+                smtpClient.Disconnect(true);
+            }
 
-            SmtpClient client = new SmtpClient();
-            client.Connect("smtp_address_here", 100, true);
-            client.Authenticate("user_name_here", "pwd_here");
-
-            client.Send(message);
-            client.Disconnect(true);
-            client.Dispose();
 
             return View();
         }

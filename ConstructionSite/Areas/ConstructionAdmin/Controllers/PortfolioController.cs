@@ -2,7 +2,9 @@
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,25 +14,27 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = ROLESNAME.Admin)]
-    public class PortfolioController : Controller
+
+    public class PortfolioController : CoreController
     {
         #region Fields
 
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IPortfolioImageFacade _portfolioImageFacade;
 
         #endregion Fields
 
         #region CTOR
 
         public PortfolioController(IUnitOfWork unitOfWork,
-                                   IHttpContextAccessor httpContextAccessor)
+                                   IHttpContextAccessor httpContextAccessor,
+                                   IPortfolioImageFacade portfolioImageFacade)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
+            _portfolioImageFacade = portfolioImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
         }
 
@@ -77,7 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Portfolio portfolio)
+        public async Task<IActionResult> Add(Portfolio portfolio,IFormFile formFile)
         {
             if (!ModelState.IsValid)
             {
@@ -88,7 +92,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Portfolio is NULL");
             }
+
             var portfolioResult = await _unitOfWork.portfolioRepository.AddAsync(portfolio);
+            PortfolioImageAddViewModel portfolioImageAddViewModel = new PortfolioImageAddViewModel();
+            portfolioImageAddViewModel.PortfolioId = portfolio.Id;
+
             if (portfolioResult.IsDone)
             {
                 _unitOfWork.Dispose();

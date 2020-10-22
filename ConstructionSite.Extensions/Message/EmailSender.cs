@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.Helpers.Emails
+namespace ConstructionSite.Extensions.Message
 {
-   public class EmailContent
+   public  class EmailSender
     {
     }
 }

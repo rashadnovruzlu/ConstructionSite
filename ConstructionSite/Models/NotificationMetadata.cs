@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ConstructionSite.Helpers.Emails
+namespace ConstructionSite.Models
 {
-    public class EmailConfiguration
+    public class NotificationMetadata
     {
-        public string From { get; set; }
+        public string Sender { get; set; }
+        public string Reciever { get; set; }
         public string SmtpServer { get; set; }
         public int Port { get; set; }
         public string UserName { get; set; }

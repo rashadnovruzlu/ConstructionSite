@@ -3,6 +3,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Service;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
+        private readonly IServiceImageFacade _serviceImageFacade;
 
         #endregion Fields
 
@@ -31,11 +33,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public ServiceController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
-                                 IHttpContextAccessor httpContextAccessor)
+                                 IHttpContextAccessor httpContextAccessor,
+                                 IServiceImageFacade serviceImageFacade)
         {
             _unitOfWork = unitOfWork;
             _env = env;
             _httpContextAccessor = httpContextAccessor;
+            _serviceImageFacade = serviceImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
         }
 
