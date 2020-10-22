@@ -1,6 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
-using ConstructionSite.Interfaces.Facade;
+using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.EntityFrameworkCore;

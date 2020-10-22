@@ -1,10 +1,12 @@
 ﻿using ConstructionSite.Facade.Galerys;
-using ConstructionSite.Interfaces.Facade;
+using ConstructionSite.Interface.Facade.Galery;
+using ConstructionSite.Interface.Facade.About;
+using ConstructionSite.Interface.Facade.Portfolio;
+using ConstructionSite.Interface.Facade.Service;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ConstructionSite.Facade.About;
+using ConstructionSite.Facade.Portfolio;
+using ConstructionSite.Facade.ServiceImages;
 
 namespace ConstructionSite.FacadeInjection
 {
@@ -13,6 +15,9 @@ namespace ConstructionSite.FacadeInjection
         public static void LoadFacade(this IServiceCollection services)
         {
             services.AddTransient<IGaleryFacade, GaleryFacade>();
+            services.AddTransient<IAboutFacade, AboutFacade>();
+            services.AddTransient<IPortfolioImageFacade, PortfolioImageFacade>();
+            services.AddTransient<IServiceImageFacade, ServiceImageFacade>();
         }
     }
 }

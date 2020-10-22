@@ -45,12 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
-    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
-    <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
   </ItemGroup>
 
@@ -96,9 +90,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Facade\ConstructionSite.Facade.csproj" />
     <ProjectReference Include="..\ConstructionSite.Helpers\ConstructionSite.Helpers.csproj" />
-    <ProjectReference Include="..\ConstructionSite.Interfaces\ConstructionSite.Interfaces.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Interface\ConstructionSite.Interface.csproj" />
     <ProjectReference Include="..\ConstructionSite.Repository\ConstructionSite.Repository.csproj" />
   </ItemGroup>
 
