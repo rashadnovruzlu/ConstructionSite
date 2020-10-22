@@ -30,6 +30,8 @@ namespace ConstructionSite.Controllers
         public IActionResult SendEmail(MailSend email)
         {
             email.To = "naib.reshidov@pragmatech.az";
+            email.To = "residovnaib77@gmail.com";
+
             email.Subject = "Salam";
             email.Body = "Salama necesen";
             MailMessage mailMessage = new MailMessage();
