@@ -7,7 +7,7 @@ namespace ConstructionSite.Extensions.ServiceFacade
     {
         public static void LoadFacade(this IServiceCollection services)
         {
-            services.AddTransient<IGaleryFacade, GaleryFacade>();
+            services.AddTransient<IGaleryFacade,GaleryFacade>();
         }
     }
 }
