@@ -1,7 +1,7 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
-using ConstructionSite.Extensions.ServiceFacade;
+using ConstructionSite.FacadeInjection;
 using ConstructionSite.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
