@@ -1,5 +1,4 @@
-﻿using ConstructionSite.Interfaces.Facade;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ConstructionSite.Extensions.ServiceFacade
 {

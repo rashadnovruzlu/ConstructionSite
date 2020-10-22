@@ -1,7 +1,6 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
-using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
-using ConstructionSite.Interfaces.Facade;
+using ConstructionSite.Interface.Facade.Service;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Service;
 using Microsoft.EntityFrameworkCore;

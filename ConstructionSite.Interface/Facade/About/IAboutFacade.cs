@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConstructionSite.Interfaces.Facade
+namespace ConstructionSite.Interface.Facade.About
 {
     public interface IAboutFacade
     {

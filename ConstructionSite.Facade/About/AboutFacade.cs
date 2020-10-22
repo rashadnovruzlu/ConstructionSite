@@ -1,7 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
-using ConstructionSite.Interfaces.Facade;
+using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
