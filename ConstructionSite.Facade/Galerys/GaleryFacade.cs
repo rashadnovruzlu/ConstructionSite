@@ -82,7 +82,8 @@ namespace ConstructionSite.Facade.Galerys
 
         public async Task<GaleryUpdateViewModel> FindUpdate(int id)
         {
-         return  await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
+            var result = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
+            return await result.MappedAsync<GaleryUpdateViewModel>();
         }
 
         #endregion CECHEDTRANSACTION::
