@@ -5,6 +5,7 @@ using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Service;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,8 +17,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-  
-    public class ServiceController :CoreController
+
+    public class ServiceController : CoreController
     {
         #region Fields
 
@@ -26,6 +27,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
         private readonly IServiceImageFacade _serviceImageFacade;
+        private readonly IServiceFacade _serviceFacade;
 
         #endregion Fields
 
@@ -34,12 +36,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         public ServiceController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
+                                 IServiceFacade serviceFacade,
                                  IServiceImageFacade serviceImageFacade)
         {
             _unitOfWork = unitOfWork;
             _env = env;
             _httpContextAccessor = httpContextAccessor;
-            _serviceImageFacade = serviceImageFacade;
+            _serviceFacade = serviceFacade;
             _lang = _httpContextAccessor.GetLanguages();
         }
 
@@ -86,9 +89,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ServiceAddViewModel serviceAddViewModel, IFormFile FileData)
+        public async Task<IActionResult> Add(ServiceAddViewModel serviceAddViewModel)
         {
-            Image image = new Image();
+
             if (serviceAddViewModel == null)
             {
                 return RedirectToAction("Index");
@@ -99,40 +102,41 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (FileData == null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                ModelState.AddModelError("", "NULL");
-            }
-            var imageResultID = await FileData.SaveImageAsync(_env, "service", image, _unitOfWork);
-            if (!imageResultID)
-            {
-                Response.StatusCode = (int)HttpStatusCode.SeeOther;
-                ModelState.AddModelError("", "Images are not saved");
-            }
 
-            var serviceAddViewModelResult = new Service
+
+            ServiceAddViewModel serviceAddViewModelForFacade = new ServiceAddViewModel
             {
-                Id = serviceAddViewModel.ID,
+                ID = serviceAddViewModel.ID,
                 NameAz = serviceAddViewModel.NameAz,
                 NameRu = serviceAddViewModel.NameRu,
                 NameEn = serviceAddViewModel.NameEn,
-                TitleAz = serviceAddViewModel.TittleAz,
-                TitleEn = serviceAddViewModel.TittleEn,
-                TitleRu = serviceAddViewModel.TittleRu,
-                //ImageId = image.Id
+                TittleAz = serviceAddViewModel.TittleAz,
+                TittleEn = serviceAddViewModel.TittleEn,
+                TittleRu = serviceAddViewModel.TittleRu,
             };
-            var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(serviceAddViewModelResult);
-            if (!serviceResult.IsDone)
+
+            var serviceResult = await _serviceFacade.Add(serviceAddViewModelForFacade);
+            var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+            if (serviceResult && resultImageID.Count > 0)
             {
-                _unitOfWork.Rollback();
+                foreach (var item in resultImageID)
+                {
+                    ServiceImageAddViewModel ResultServiceImageAddViewModel = new ServiceImageAddViewModel
+                    {
+                        ImageId = item,
+                        ServiceId = serviceAddViewModelForFacade.ID
+                    };
+
+                    await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
+                }
                 return RedirectToAction("Index");
             }
             else
             {
-                _unitOfWork.Dispose();
-                return RedirectToAction("Index");
+                return View();
             }
+
+
         }
 
         #endregion CREATE
@@ -165,8 +169,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 NameAz = result.NameAz,
                 NameEn = result.NameEn,
                 NameRu = result.NameRu,
-                //path = result.ServiceImages,
-                //ImageId = result.ImageId
+
             };
 
             return View(data);

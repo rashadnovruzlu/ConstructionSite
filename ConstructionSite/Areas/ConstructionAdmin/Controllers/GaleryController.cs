@@ -8,6 +8,7 @@ using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -72,19 +73,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
 
-        private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
-        {
-            foreach (var item in resultImage)
-            {
-                GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
-                {
-                    ImageId = item,
-                    GaleryId = resultGalery.Data.Id
 
-                };
-                await _galeryFileFacde.Add(galeryFileAddViewModel);
-            }
-        }
 
         #endregion ::ADD::
 
@@ -127,5 +116,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion ::DELETE::
+
+        #region ::private::
+
+        private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
+        {
+            foreach (var item in resultImage)
+            {
+                GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
+                {
+                    ImageId = item,
+                    GaleryId = resultGalery.Data.Id
+
+                };
+                await _galeryFileFacde.Add(galeryFileAddViewModel);
+            }
+        }
+        #endregion
     }
 }
