@@ -61,13 +61,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
             var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", image, _unitOfWork);
-            GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
+            foreach (var item in resultImage)
             {
-                ImageId = image.Id,
-                GaleryId = resultGalery.Data.Id
+                GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
+                {
+                    ImageId = item,
+                    GaleryId = resultGalery.Data.Id
 
-            };
-            await _galeryFileFacde.Add(galeryFileAddViewModel);
+                };
+                await _galeryFileFacde.Add(galeryFileAddViewModel);
+            }
+
             return View();
         }
 
