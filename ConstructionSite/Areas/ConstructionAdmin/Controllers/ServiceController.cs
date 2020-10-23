@@ -102,8 +102,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-           var serviceAddViewModelForFacade = ConvertToServiceDTO(serviceAddViewModel);
-
+            var serviceAddViewModelForFacade = ConvertToServiceDTO(serviceAddViewModel);
+            if (serviceAddViewModel==null)
+            {
+                ModelState.AddModelError("", "data is null");
+            }
             var serviceResult = await _serviceFacade.Add(serviceAddViewModelForFacade);
             var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
             if (serviceResult.IsDone && resultImageID.Count > 0)
@@ -119,19 +122,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         }
 
-        private static ServiceAddViewModel ConvertToServiceDTO(ServiceAddViewModel serviceAddViewModel)
-        {
-            return new ServiceAddViewModel
-            {
-                ID = serviceAddViewModel.ID,
-                NameAz = serviceAddViewModel.NameAz,
-                NameRu = serviceAddViewModel.NameRu,
-                NameEn = serviceAddViewModel.NameEn,
-                TittleAz = serviceAddViewModel.TittleAz,
-                TittleEn = serviceAddViewModel.TittleEn,
-                TittleRu = serviceAddViewModel.TittleRu,
-            };
-        }
+
 
 
 
@@ -252,6 +243,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion DELETE
+
+
         #region ::private ::
         private async Task SaveServiceAndImages(ServiceAddViewModel serviceAddViewModelForFacade, List<int> resultImageID)
         {
@@ -265,6 +258,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
             }
+        }
+        private static ServiceAddViewModel ConvertToServiceDTO(ServiceAddViewModel serviceAddViewModel)
+        {
+            return new ServiceAddViewModel
+            {
+                ID = serviceAddViewModel.ID,
+                NameAz = serviceAddViewModel.NameAz,
+                NameRu = serviceAddViewModel.NameRu,
+                NameEn = serviceAddViewModel.NameEn,
+                TittleAz = serviceAddViewModel.TittleAz,
+                TittleEn = serviceAddViewModel.TittleEn,
+                TittleRu = serviceAddViewModel.TittleRu,
+            };
         }
         #endregion
 
