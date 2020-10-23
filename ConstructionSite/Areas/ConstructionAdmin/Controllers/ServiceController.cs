@@ -39,11 +39,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                  IServiceFacade serviceFacade,
                                  IServiceImageFacade serviceImageFacade)
         {
+            _serviceFacade = serviceFacade;
+            _serviceImageFacade = serviceImageFacade;
             _unitOfWork = unitOfWork;
             _env = env;
             _httpContextAccessor = httpContextAccessor;
-            _serviceFacade = serviceFacade;
-            _serviceImageFacade = serviceImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
         }
 
