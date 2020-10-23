@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,6 +26,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return soruces;
         }
+
         public static Task<T> MappedAsync<T>(this object query)
         {
             Type TargetType = typeof(T);
@@ -45,6 +45,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return Task.FromResult(soruces);
         }
+
         public static T Mapped<T>(this IEnumerable<T> query)
         {
             Type TargetType = typeof(T);
@@ -63,6 +64,7 @@ namespace ConstructionSite.Extensions.Mapping
             }
             return soruces;
         }
+
         public static Task<T> MappedAsync<T>(this IEnumerable<T> query)
         {
             Type TargetType = typeof(T);
@@ -82,5 +84,23 @@ namespace ConstructionSite.Extensions.Mapping
             return Task.FromResult(soruces);
         }
 
+        public async static Task<T> MappedAsync<T>(this IQueryable<T> query)
+        {
+            Type TargetType = typeof(T);
+            Type SoruceType = query.GetType();
+            T soruces = Activator.CreateInstance<T>();
+            PropertyInfo[] propertyInfo = TargetType.GetProperties();
+            foreach (var item in SoruceType.GetProperties())
+            {
+                var target = TargetType.GetProperties()
+                       .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
+                if (target != null)
+                {
+                    object data = item.GetValue(query);
+                    target.SetValue(soruces, data);
+                }
+            }
+            return await Task.FromResult(soruces);
+        }
     }
 }

@@ -124,5 +124,10 @@ namespace ConstructionSite.Controllers
             }
             return View(serviceSubServiceResult);
         }
+
+        public IActionResult Details(int id)
+        {
+            return View();
+        }
     }
 }

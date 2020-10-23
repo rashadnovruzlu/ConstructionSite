@@ -1,7 +1,9 @@
 using ConstructionSite.Extensions.DataBase;
 using ConstructionSite.Extensions.Identity;
 using ConstructionSite.Extensions.Seed;
+using ConstructionSite.FacadeInjection;
 using ConstructionSite.Localization;
+using ConstructionSite.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,11 +31,14 @@ namespace ConstructionSite
 
             services.AddMvc();
             services.Localization();
-
+            var notificationMetadata =
+             Configuration.GetSection("NotificationMetadata").
+             Get<NotificationMetadata>();
+            services.AddSingleton(notificationMetadata);
             services.IdentityLoad(Configuration);
 
             services.ServiceDataBaseWithInjection(Configuration);
-
+            services.LoadFacade();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/ConstructionAdmin/Account/Login");
@@ -83,7 +88,7 @@ namespace ConstructionSite
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Soon}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
             });
 

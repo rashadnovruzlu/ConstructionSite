@@ -30,6 +30,41 @@
         <li><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
         <li><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
 
+        <div class="primary-menu">
+            <nav style="margin-top: 12px;">
+                <ul>
+
+                    <li class="menu-item menu-item-has-children">
+                        <a style="color: #ffffff;" href="#">AZ</a>
+                        <ul class="sub-menu" style="width: 100px;">
+                            @foreach (var item in cultureItems)
+                            {
+                                <li>
+                                    <a class="datas_item langdata" data-id="@item.Name">
+                                        <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
+        <div class="primarymenu">
+            @foreach (var item in cultureItems)
+            {
+                <a class="datas_item langdata" data-id="@item.Name">
+                    <input class="contexts" type="hidden" data-id="@Context.Request.Path" />@item.NativeName.Substring(0, 2).ToUpper()
+                </a>
+            }
+
+            @*<a class="lang-a" href="#">EN</a>
+        <a class="lang-a" href="#">RU</a>
+        <a class="lang-a" href="#">AZ</a>*@
+        </div>
+
         @*@foreach (var item in cultureItems)
         {
 

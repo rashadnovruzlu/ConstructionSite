@@ -1,11 +1,8 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
-using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
-using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
-using ConstructionSite.Interfaces.Facade;
+using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
