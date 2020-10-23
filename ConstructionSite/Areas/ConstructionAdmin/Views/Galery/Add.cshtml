@@ -1,7 +1,82 @@
-﻿
+﻿@model GaleryAddViewModel
 @{
     ViewData["Title"] = "Add";
 }
 
-<h2>Add</h2>
+
+
+<style>
+    .add-model {
+        background-color: rgb(241,242, 247);
+        padding-left: 7%;
+    }
+
+        .add-model header {
+            height: 30px;
+            margin-top: 15px;
+        }
+
+    .add-body {
+        margin-top: -10px;
+    }
+
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel add-model">
+                <header class="panel-heading">
+                    Create News Elements
+                </header>
+                <hr />
+                <div class="panel-body add-body">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Add" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="text" asp-for="TitleAz" id="f-name" class="form-control" placeholder="Title AZE" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input asp-for="TitleEn" id="f-name" class="form-control" placeholder="Title ENG" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input asp-for="TitleRu" id="f-name" class="form-control" placeholder="Title RU" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input asp-for="files" multiple="multiple" id="f-name" class="form-control" placeholder="Title RU" required>
+                            </div>
+                        </div>
+
+                     
+                        <div class="form-group" style="margin-left: 72%;">
+                            <div class="col-lg-offset-2 col-lg-11">
+                                <button class="btn btn-success about-button" type="submit">Save</button>
+                                <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Blog/Index";
+        })
+    </script>
+}
 

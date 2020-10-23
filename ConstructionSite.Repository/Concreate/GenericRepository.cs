@@ -79,6 +79,7 @@ namespace ConstructionSite.Repository.Concreate
             {
                 await _context.Set<T>().AddAsync(entity);
                 await _context.SaveChangesAsync();
+                result.IsDone = true;
                 result.Data = entity;
             }
             catch (Exception ex)

@@ -16,6 +16,7 @@ namespace ConstructionSite.FacadeInjection
         {
             services.AddTransient<IAboutFacade, AboutFacade>();
             services.AddTransient<IGaleryFacade, GaleryFacade>();
+            services.AddTransient<IGaleryFileFacde, GaleryFileFacde>();
             services.AddTransient<IAboutFacade, AboutFacade>();
             services.AddTransient<IPortfolioImageFacade, PortfolioImageFacade>();
             services.AddTransient<IServiceImageFacade, ServiceImageFacade>();

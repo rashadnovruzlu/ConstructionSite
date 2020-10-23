@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
   </ItemGroup>
 
 </Project>
