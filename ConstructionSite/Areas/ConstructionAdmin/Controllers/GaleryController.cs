@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
@@ -7,6 +8,7 @@ using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -57,10 +59,21 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
         {
-            Image image = new Image();
-
             var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
-            var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", image, _unitOfWork);
+            var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
+            if (resultGalery.IsDone && resultImage.Count > 0)
+            {
+                await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+
+
+        private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
+        {
             foreach (var item in resultImage)
             {
                 GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
@@ -71,8 +84,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 };
                 await _galeryFileFacde.Add(galeryFileAddViewModel);
             }
-
-            return View();
         }
 
         #endregion ::ADD::
