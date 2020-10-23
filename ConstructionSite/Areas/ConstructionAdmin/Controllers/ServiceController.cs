@@ -43,6 +43,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _env = env;
             _httpContextAccessor = httpContextAccessor;
             _serviceFacade = serviceFacade;
+            _serviceImageFacade = serviceImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
         }
 

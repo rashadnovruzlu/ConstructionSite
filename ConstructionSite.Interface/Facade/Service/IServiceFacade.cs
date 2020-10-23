@@ -11,6 +11,6 @@ namespace ConstructionSite.Interface.Facade.Service
     {
         Task<bool> Add(ServiceAddViewModel serviceAddViewModel);
         Task<List<ServiceImageViewModel>> GetAll(string _lang);
-        Task<bool> Update()
+        Task<bool> Update();
     }
 }
