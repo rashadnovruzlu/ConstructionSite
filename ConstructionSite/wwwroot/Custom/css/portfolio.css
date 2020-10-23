@@ -31,7 +31,7 @@
 
 .effect-zoes:hover .hoverDiv {
     bottom: 0px !important;
-    visibility: visible;
+    visibility: hidden;
 }
 
 .effect-zoes .hoverDiv p {
