@@ -5,6 +5,7 @@ using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -35,12 +36,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
             var result = await _galeryFileFacde.GetAll(_lang);
-           // result.Include(x=>x.)
-
-                
-
-
-            return View();
+            return View(result);
         }
 
         #region ::ADD::
