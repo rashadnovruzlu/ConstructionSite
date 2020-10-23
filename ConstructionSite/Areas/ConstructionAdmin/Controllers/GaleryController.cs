@@ -41,9 +41,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region ::ADD::
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add(GaleryFileAddViewModel galeryFileAddViewModel)
         {
-
             return View();
         }
 
@@ -52,16 +51,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
+
             }
             if (galeryAddViewModel == null)
             {
+
             }
-            var result = await _galeryFacade.Add(galeryAddViewModel);
-            if (result)
+            var isResult = await _galeryFacade.Add(galeryAddViewModel);
+            if (isResult)
             {
                 return RedirectToAction("Index");
+
             }
-            return View();
+
+            return View(galeryAddViewModel);
         }
 
         #endregion ::ADD::
