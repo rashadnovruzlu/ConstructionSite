@@ -30,10 +30,11 @@ namespace ConstructionSite.Facade.ServiceImages
 
         public async Task<bool> Delete(int id)
         {
-            var resultServiceImage = _unitOfWork.ServiceImageRepstory.FindAllAsync(x => x.Id == id);
+            var resultServiceImage = await _unitOfWork.ServiceImageRepstory.FindAsync(x => x.Id == id);
             var resultServiceImageMapped = await resultServiceImage.MappedAsync<ServiceImage>();
-            await _unitOfWork.ServiceImageRepstory.DeleteAsync(resultServiceImageMapped);
-            return await CeckedTransaction();
+            var result = await _unitOfWork.ServiceImageRepstory.DeleteAsync(resultServiceImageMapped);
+            return result.IsDone;
+
         }
 
         public Task<List<ServiceImageViewModel>> GetAll(string _lang)
