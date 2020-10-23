@@ -1,6 +1,10 @@
-﻿using ConstructionSite.Interface.Facade.Galery;
+﻿using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Galery;
+using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -8,22 +12,34 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     public class GaleryController : CoreController
     {
         #region ::FILDS::
-
+        private string _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IGaleryFacade _galeryFacade;
+        private readonly IGaleryFileFacde _galeryFileFacde;
 
         #endregion ::FILDS::
 
         #region ::CTOR::
 
-        public GaleryController(IGaleryFacade galeryFacade)
+        public GaleryController(IGaleryFacade galeryFacade, IGaleryFileFacde galeryFileFacde)
         {
             _galeryFacade = galeryFacade;
+            _galeryFileFacde = galeryFileFacde;
+            _lang = _httpContextAccessor.GetLanguages();
         }
 
         #endregion ::CTOR::
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+
+
+            var result = await _galeryFileFacde.GetAll(_lang);
+           // result.Include(x=>x.)
+
+                
+
+
             return View();
         }
 
@@ -31,6 +47,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Add()
         {
+
             return View();
         }
 
