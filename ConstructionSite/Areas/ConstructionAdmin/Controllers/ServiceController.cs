@@ -4,6 +4,7 @@ using ConstructionSite.Extensions.Images;
 using ConstructionSite.Facade.Services;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Service;
+using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Service;
 using Microsoft.AspNetCore.Hosting;
@@ -102,16 +103,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var serviceAddViewModelForFacade = ConvertToServiceDTO(serviceAddViewModel);
-            if (serviceAddViewModel==null)
-            {
-                ModelState.AddModelError("", "data is null");
-            }
-            var serviceResult = await _serviceFacade.Add(serviceAddViewModelForFacade);
+
+            var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
             var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
             if (serviceResult.IsDone && resultImageID.Count > 0)
             {
-                await SaveServiceAndImages(serviceAddViewModelForFacade, resultImageID);
+                await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
                 return RedirectToAction("Index");
             }
             else
@@ -246,32 +243,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
 
         #region ::private ::
-        private async Task SaveServiceAndImages(ServiceAddViewModel serviceAddViewModelForFacade, List<int> resultImageID)
+        private async Task SaveServiceAndImages(int id, List<int> resultImageID)
         {
             foreach (var item in resultImageID)
             {
                 ServiceImageAddViewModel ResultServiceImageAddViewModel = new ServiceImageAddViewModel
                 {
                     ImageId = item,
-                    ServiceId = serviceAddViewModelForFacade.ID
+                    ServiceId = id
                 };
 
                 await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
             }
         }
-        private static ServiceAddViewModel ConvertToServiceDTO(ServiceAddViewModel serviceAddViewModel)
-        {
-            return new ServiceAddViewModel
-            {
-                ID = serviceAddViewModel.ID,
-                NameAz = serviceAddViewModel.NameAz,
-                NameRu = serviceAddViewModel.NameRu,
-                NameEn = serviceAddViewModel.NameEn,
-                TittleAz = serviceAddViewModel.TittleAz,
-                TittleEn = serviceAddViewModel.TittleEn,
-                TittleRu = serviceAddViewModel.TittleRu,
-            };
-        }
+
         #endregion
 
     }

@@ -9,7 +9,7 @@ namespace ConstructionSite.Interface.Facade.Servics
     public interface IServiceFacade
     {
         Task<RESULT<ConstructionSite.Entity.Models.Service>> Add(ServiceAddViewModel serviceAddViewModel);
-        Task<List<ServiceImageViewModel>> GetAll(string _lang);
+
         Task<bool> Update();
     }
 }
