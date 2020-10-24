@@ -81,7 +81,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Portfolio portfolio,IFormFile formFile)
+        public async Task<IActionResult> Add(Portfolio portfolio, IFormFile formFile)
         {
             if (!ModelState.IsValid)
             {

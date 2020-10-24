@@ -51,7 +51,7 @@ namespace ConstructionSite.Extensions.Mapping
                 }
                 return Task.FromResult(soruces);
             }
-            return null;
+            return Task.FromResult(default(T)); ;
 
         }
 
@@ -98,7 +98,7 @@ namespace ConstructionSite.Extensions.Mapping
                 }
                 return Task.FromResult(soruces);
             }
-            return default(T);
+            return Task.FromResult(default(T));
         }
 
         public async static Task<T> MappedAsync<T>(this IQueryable<T> query)
