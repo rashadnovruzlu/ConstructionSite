@@ -9,6 +9,7 @@ using ConstructionSite.Facade.Portfolio;
 using ConstructionSite.Facade.ServiceImages;
 using ConstructionSite.Facade.Services;
 using ConstructionSite.Interface.Facade.Servics;
+using ConstructionSite.Interface.Facade.Services;
 
 namespace ConstructionSite.FacadeInjection
 {
@@ -21,8 +22,9 @@ namespace ConstructionSite.FacadeInjection
             services.AddTransient<IGaleryFileFacde, GaleryFileFacde>();
             services.AddTransient<IAboutFacade, AboutFacade>();
             services.AddTransient<IPortfolioImageFacade, PortfolioImageFacade>();
-            services.AddTransient<IServiceFacade,ServiceFacade>();
+            services.AddTransient<IServiceFacade, ServiceFacade>();
             services.AddTransient<IServiceImageFacade, ServiceImageFacade>();
+            services.AddTransient<IServiceQueryFacade, ServiceQueryFacade>();
         }
     }
 }
