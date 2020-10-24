@@ -1,11 +1,11 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.Entity.Models;
-using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -14,15 +14,16 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
     public class PortfolioController : CoreController
     {
         #region Fields
 
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPortfolioImageFacade _portfolioImageFacade;
+        private readonly IPortfolioFacade _portfolioFacade;
 
         #endregion Fields
 
@@ -30,9 +31,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public PortfolioController(IUnitOfWork unitOfWork,
                                    IHttpContextAccessor httpContextAccessor,
-                                   IPortfolioImageFacade portfolioImageFacade)
+                                   IPortfolioImageFacade portfolioImageFacade,
+                                   IPortfolioFacade portfolioFacade,
+                                   IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _env = env;
+            _portfolioFacade = portfolioFacade;
             _httpContextAccessor = httpContextAccessor;
             _portfolioImageFacade = portfolioImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
@@ -81,31 +86,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Portfolio portfolio, IFormFile formFile)
+        public async Task<IActionResult> Add(PortfolioAddModel portfolioAddModel)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (portfolio == null)
+            if (portfolioAddModel == null)
             {
                 ModelState.AddModelError("", "Portfolio is NULL");
             }
 
-            var portfolioResult = await _unitOfWork.portfolioRepository.AddAsync(portfolio);
-            PortfolioImageAddViewModel portfolioImageAddViewModel = new PortfolioImageAddViewModel();
-            portfolioImageAddViewModel.PortfolioId = portfolio.Id;
-
-            if (portfolioResult.IsDone)
+            var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
+            var imageColelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+            foreach (var item in imageColelction)
             {
-                _unitOfWork.Dispose();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Data is Not Saved.");
+                await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
+                {
+                    ImageId = item,
+                    PortfolioId = portfolioResult.Data.Id
+                });
             }
             return RedirectToAction("Index");
         }
