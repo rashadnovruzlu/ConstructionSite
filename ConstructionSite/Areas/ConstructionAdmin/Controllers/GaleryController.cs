@@ -44,11 +44,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion ::CTOR::
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var result = await _galeryFileFacde.GetAll(_lang);
-            return View(result);
+            return View();
         }
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    var result = await _galeryFileFacde.GetAll(_lang);
+        //    return View(result);
+        //}
 
         #region ::ADD::
 
