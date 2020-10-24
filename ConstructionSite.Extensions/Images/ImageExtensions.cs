@@ -16,25 +16,23 @@ namespace ConstructionSite.Extensions.Images
 
         #region ::Save::
 
-        public async static Task<bool> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {
-            bool IsResult = false;
 
+            List<int> imageResultID = new List<int>();
             if (files != null)
             {
                 foreach (var file in files)
                 {
                     if (file != null)
                     {
+                        var image = new Image();
                         string FileNameAfterReName = Helper.reNameFileName(file);
                         string filePath = Paths
                              .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
 
                         bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
-                        if (!folderIsCreatedSuccess)
-                        {
-                            IsResult = false;
-                        }
+
                         await using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await file.CopyToAsync(stream);
@@ -42,16 +40,55 @@ namespace ConstructionSite.Extensions.Images
                         image.Title = FileNameAfterReName;
                         image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
                         var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
-                        if (!imageSaveFile.IsDone)
+                        if (imageSaveFile.IsDone)
                         {
-                            IsResult = false;
+                            imageResultID.Add(imageSaveFile.Data.Id);
+
                         }
                     }
-                    IsResult = true;
+
                 }
-                IsResult = true;
+
             }
-            return IsResult;
+            return imageResultID;
+        }
+
+
+        public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
+        {
+
+            List<int> imageResultID = new List<int>();
+            if (files != null)
+            {
+                foreach (var file in files)
+                {
+                    if (file != null)
+                    {
+                        image = new Image();
+                        string FileNameAfterReName = Helper.reNameFileName(file);
+                        string filePath = Paths
+                             .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+
+                        bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+
+                        await using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        image.Title = FileNameAfterReName;
+                        image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                        var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
+                        if (imageSaveFile.IsDone)
+                        {
+                            imageResultID.Add(imageSaveFile.Data.Id);
+
+                        }
+                    }
+
+                }
+
+            }
+            return imageResultID;
         }
 
         public async static Task<bool> SaveImageAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)

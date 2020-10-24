@@ -10,97 +10,118 @@ namespace ConstructionSite.Extensions.Mapping
     {
         public static T Mapped<T>(this object query)
         {
-            Type TargetType = typeof(T);
-            Type SoruceType = query.GetType();
-            T soruces = Activator.CreateInstance<T>();
-            PropertyInfo[] propertyInfo = TargetType.GetProperties();
-            foreach (var item in SoruceType.GetProperties())
+            if (query != null)
             {
-                var target = TargetType.GetProperties()
-                       .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
-                if (target != null)
+                Type TargetType = typeof(T);
+                Type SoruceType = query.GetType();
+                T soruces = Activator.CreateInstance<T>();
+                PropertyInfo[] propertyInfo = TargetType.GetProperties();
+                foreach (var item in SoruceType.GetProperties())
                 {
-                    object data = item.GetValue(query);
-                    target.SetValue(soruces, data);
+                    var target = TargetType.GetProperties()
+                           .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
+                    if (target != null)
+                    {
+                        object data = item.GetValue(query);
+                        target.SetValue(soruces, data);
+                    }
                 }
+                return soruces;
             }
-            return soruces;
+            return default(T);
         }
 
         public static Task<T> MappedAsync<T>(this object query)
         {
-            Type TargetType = typeof(T);
-            Type SoruceType = query.GetType();
-            T soruces = Activator.CreateInstance<T>();
-            PropertyInfo[] propertyInfo = TargetType.GetProperties();
-            foreach (var item in SoruceType.GetProperties())
+            if (query != null)
             {
-                var target = TargetType.GetProperties()
-                       .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
-                if (target != null)
+                Type TargetType = typeof(T);
+                Type SoruceType = query.GetType();
+                T soruces = Activator.CreateInstance<T>();
+                PropertyInfo[] propertyInfo = TargetType.GetProperties();
+                foreach (var item in SoruceType.GetProperties())
                 {
-                    object data = item.GetValue(query);
-                    target.SetValue(soruces, data);
+                    var target = TargetType.GetProperties()
+                           .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
+                    if (target != null)
+                    {
+                        object data = item.GetValue(query);
+                        target.SetValue(soruces, data);
+                    }
                 }
+                return Task.FromResult(soruces);
             }
-            return Task.FromResult(soruces);
+            return Task.FromResult(default(T)); ;
+
         }
 
         public static T Mapped<T>(this IEnumerable<T> query)
         {
-            Type TargetType = typeof(T);
-            Type SoruceType = query.GetType();
-            T soruces = Activator.CreateInstance<T>();
-            PropertyInfo[] propertyInfo = TargetType.GetProperties();
-            foreach (var item in SoruceType.GetProperties())
+            if (query != null)
             {
-                var target = TargetType.GetProperties()
-                       .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
-                if (target != null)
+                Type TargetType = typeof(T);
+                Type SoruceType = query.GetType();
+                T soruces = Activator.CreateInstance<T>();
+                PropertyInfo[] propertyInfo = TargetType.GetProperties();
+                foreach (var item in SoruceType.GetProperties())
                 {
-                    object data = item.GetValue(query);
-                    target.SetValue(soruces, data);
+                    var target = TargetType.GetProperties()
+                           .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
+                    if (target != null)
+                    {
+                        object data = item.GetValue(query);
+                        target.SetValue(soruces, data);
+                    }
                 }
+                return soruces;
             }
-            return soruces;
+            return default(T);
         }
 
         public static Task<T> MappedAsync<T>(this IEnumerable<T> query)
         {
-            Type TargetType = typeof(T);
-            Type SoruceType = query.GetType();
-            T soruces = Activator.CreateInstance<T>();
-            PropertyInfo[] propertyInfo = TargetType.GetProperties();
-            foreach (var item in SoruceType.GetProperties())
+            if (query != null)
             {
-                var target = TargetType.GetProperties()
-                       .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
-                if (target != null)
+                Type TargetType = typeof(T);
+                Type SoruceType = query.GetType();
+                T soruces = Activator.CreateInstance<T>();
+                PropertyInfo[] propertyInfo = TargetType.GetProperties();
+                foreach (var item in SoruceType.GetProperties())
                 {
-                    object data = item.GetValue(query);
-                    target.SetValue(soruces, data);
+                    var target = TargetType.GetProperties()
+                           .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
+                    if (target != null)
+                    {
+                        object data = item.GetValue(query);
+                        target.SetValue(soruces, data);
+                    }
                 }
+                return Task.FromResult(soruces);
             }
-            return Task.FromResult(soruces);
+            return Task.FromResult(default(T));
         }
 
         public async static Task<T> MappedAsync<T>(this IQueryable<T> query)
         {
-            Type TargetType = typeof(T);
-            Type SoruceType = query.GetType();
-            T soruces = Activator.CreateInstance<T>();
-            PropertyInfo[] propertyInfo = TargetType.GetProperties();
-            foreach (var item in SoruceType.GetProperties())
+            if (query != null)
             {
-                var target = TargetType.GetProperties()
-                       .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
-                if (target != null)
+                Type TargetType = typeof(T);
+                Type SoruceType = query.GetType();
+                T soruces = Activator.CreateInstance<T>();
+                PropertyInfo[] propertyInfo = TargetType.GetProperties();
+                foreach (var item in SoruceType.GetProperties())
                 {
-                    object data = item.GetValue(query);
-                    target.SetValue(soruces, data);
+                    var target = TargetType.GetProperties()
+                           .FirstOrDefault(x => x.Name.ToUpper() == item.Name.ToUpper());
+                    if (target != null)
+                    {
+                        object data = item.GetValue(query);
+                        target.SetValue(soruces, data);
+                    }
                 }
+                return await Task.FromResult(soruces);
             }
-            return await Task.FromResult(soruces);
+            return default(T);
         }
     }
 }

@@ -1,23 +1,15 @@
-﻿using ConstructionSite.Models;
-using ConstructionSite.Repository.Abstract;
-using MailKit.Net.Smtp;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
+using System.Net;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MimeKit;
-
+using ConstructionSite.ViwModel.AdminViewModels.Mail;
 
 namespace ConstructionSite.Controllers
 {
     public class YandexController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly NotificationMetadata _notificationMetadata;
-        private readonly IWebHostEnvironment _env;
-        public YandexController(NotificationMetadata notificationMetadata)
-        {
-            _notificationMetadata = notificationMetadata;
-        }
+
+
 
         public IActionResult Index()
         {
@@ -33,33 +25,31 @@ namespace ConstructionSite.Controllers
 
             return View();
         }
-        private MimeMessage CreateMimeMessageFromEmailMessage(EmailMessage message)
+
+
+        public IActionResult SendEmail(MailSend email)
         {
-            var mimeMessage = new MimeMessage();
-            mimeMessage.From.Add(message.Sender);
-            mimeMessage.To.Add(message.Reciever);
-            mimeMessage.Subject = message.Subject;
-            mimeMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text)
-            { Text = message.Content };
-            return mimeMessage;
+            email.To = "naib.reshidov@pragmatech.az";
+            email.To = "residovnaib77@gmail.com";
 
-        }
+            email.Subject = "Salam";
+            email.Body = "Salama necesen";
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.To.Add(email.To);
+            mailMessage.Subject = email.Subject;
+            mailMessage.Body = email.Body;
+            mailMessage.From = new MailAddress("residovnaib77@gmail.com");
+            mailMessage.IsBodyHtml = false;
 
-        public IActionResult SendEmail(string EmailViewModel)
-        {
-           
 
-            using (SmtpClient smtpClient = new SmtpClient())
+            using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
             {
-                smtpClient.Connect(_notificationMetadata.SmtpServer,
-                _notificationMetadata.Port, true);
-                smtpClient.Authenticate(_notificationMetadata.UserName,
-                _notificationMetadata.Password);
-
-                smtpClient.Send(null);
-                smtpClient.Disconnect(true);
+                smtpClient.Port = 587;
+                smtpClient.UseDefaultCredentials = true;
+                smtpClient.EnableSsl = true;
+                smtpClient.Credentials = new NetworkCredential("residovnaib77@gmail.com", "7505020r");
+                smtpClient.Send(mailMessage);
             }
-
 
             return View();
         }
