@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
@@ -42,11 +43,11 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::ADD::
 
-        public async Task<bool> Add(GaleryAddViewModel galeryAddViewModel)
+        public async Task<RESULT<Galery>> Add(GaleryAddViewModel galeryAddViewModel)
         {
             var resultGaleryViewModel = await galeryAddViewModel.MappedAsync<Galery>();
-            await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
-            return await CeckedTransaction();
+            var resultGalery = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
+            return resultGalery;
         }
 
         #endregion ::ADD::
@@ -57,7 +58,7 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
             await _unitOfWork.GaleryRepstory.DeleteAsync(resultGaleryFind);
-            return await CeckedTransaction();
+            return await CeckedTransactionAsync();
         }
 
         #endregion ::DELETE::
@@ -68,16 +69,31 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryUpdateViewModel = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
             await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModel);
-            return await CeckedTransaction();
+            return await CeckedTransactionAsync();
         }
 
         #endregion ::UPDATE::
 
         #region CECHEDTRANSACTION::
 
-        private async Task<bool> CeckedTransaction()
+        private async Task<bool> CeckedTransactionAsync()
         {
-            return await _unitOfWork.CommitAsync() > 0;
+            bool isResult = false;
+            isResult = await _unitOfWork.CommitAsync() > 0;
+            return isResult;
+        }
+        private bool CeckedTransaction()
+        {
+            try
+            {
+                return _unitOfWork.Commit() > 0;
+            }
+            catch (System.Exception ex)
+            {
+                var str = ex.InnerException;
+
+                return false;
+            }
         }
 
         public async Task<GaleryUpdateViewModel> FindUpdate(int id)

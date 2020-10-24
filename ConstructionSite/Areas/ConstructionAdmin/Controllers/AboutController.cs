@@ -93,56 +93,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "errors");
             }
-            //var aboutAddViewModelResult = new About
-            //{
-            //    Id = aboutAddViewModel.Id,
-            //    TittleAz = aboutAddViewModel.TittleAz,
-            //    TittleRu = aboutAddViewModel.TittleRu,
-            //    TittleEn = aboutAddViewModel.TittleEn,
-            //    ContentAz = aboutAddViewModel.ContentAz,
-            //    ContentEn = aboutAddViewModel.ContentEn,
-            //    ContentRu = aboutAddViewModel.ContentRu
-            //};
-            //var aboutSaveResult = await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
-
-            //if (!aboutSaveResult.IsDone)
-            //{
-            //    ModelState.AddModelError("", "Data is not saved.");
-            //}
-            //if (FileData == null)
-            //{
-            //    ModelState.AddModelError("", "File not exists");
-            //    return RedirectToAction("Index");
-            //}
-            //bool imageSaveResult = await FileData.SaveImageAsync(_env, "about", image, _unitOfWork);
-            //if (!imageSaveResult)
-            //{
-            //    //ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-
-            //    ModelState.AddModelError("", "File is not saved.");
-            //}
-
-            //if (aboutSaveResult.IsDone && imageSaveResult)
-            //{
-            //    aboutImage.ImageId = image.Id;
-            //    aboutImage.AboutId = aboutAddViewModelResult.Id;
-
-            //    var aboutImageResult = await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
-
-            //    if (aboutImageResult.IsDone)
-            //    {
-            //        _unitOfWork.Dispose();
-            //        return RedirectToAction("Index");
-            //    }
-            //    else
-            //    {
-            //        ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-
-            //        _unitOfWork.Rollback();
-            //        ModelState.AddModelError("", "File is not saved");
-            //    }
-            //}
-            //_unitOfWork.Dispose();
+         
             return RedirectToAction("Index");
         }
 

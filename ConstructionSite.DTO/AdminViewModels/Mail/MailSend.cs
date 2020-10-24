@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace ConstructionSite.Cores.SendMail
+namespace ConstructionSite.ViwModel.AdminViewModels.Mail
 {
-    public class Email
+    public class MailSend
     {
         public string To { get; set; }
         public string Subject { get; set; }
+        public string From { get; set; }
         public string Body { get; set; }
     }
 }

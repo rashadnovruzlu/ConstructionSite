@@ -58,24 +58,25 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::GETALL::
 
-        public async Task<List<GaleryFileViewModel>> GetAll(string _lang)
+        public async Task<IQueryable<GaleryFileViewModel>> GetAll(string _lang)
         {
-            return await _unitOfWork.GaleryFileRepstory
-                   .GetAll()
-                   .Include(x => x.Image)
-                   .Include(x => x.Galery)
-                   .Select(x => new GaleryFileViewModel
-                   {
-                       Id = x.Id,
-                       GaleryId = x.GaleryId,
-                       ImageId = x.ImageId,
-                       Path = x.Image.Path,
-                       Title = x.Image.Title,
+            var result = _unitOfWork.GaleryFileRepstory
+                    .GetAll()
+                    .Include(x => x.Image)
+                    .Include(x => x.Galery)
+                    .Select(x => new GaleryFileViewModel
+                    {
+                        Id = x.Id,
+                        GaleryId = x.GaleryId,
+                        ImageId = x.ImageId,
+                        Path = x.Image.Path,
+                        Title = x.Image.Title,
 
-                       VideoPath = x.Image.VideoPath,
-                       GaleryTitle = x.Galery.FindTitle(_lang)
-                   })
-                   .ToListAsync();
+                        VideoPath = x.Image.VideoPath,
+                        GaleryTitle = x.Galery.FindTitle(_lang)
+                    });
+            return await Task.FromResult(result);
+
         }
 
         #endregion ::GETALL::

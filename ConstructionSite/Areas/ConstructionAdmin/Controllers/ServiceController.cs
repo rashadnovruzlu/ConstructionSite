@@ -1,14 +1,16 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
-using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Facade.Services;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Service;
+using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
+using ConstructionSite.ViwModel.AdminViewModels.Service;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -16,8 +18,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-  
-    public class ServiceController :CoreController
+    public class ServiceController : CoreController
     {
         #region Fields
 
@@ -26,6 +27,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
         private readonly IServiceImageFacade _serviceImageFacade;
+        private readonly IServiceFacade _serviceFacade;
 
         #endregion Fields
 
@@ -34,12 +36,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         public ServiceController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
+                                 IServiceFacade serviceFacade,
                                  IServiceImageFacade serviceImageFacade)
         {
+            _serviceFacade = serviceFacade;
+            _serviceImageFacade = serviceImageFacade;
             _unitOfWork = unitOfWork;
             _env = env;
             _httpContextAccessor = httpContextAccessor;
-            _serviceImageFacade = serviceImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
         }
 
@@ -86,9 +90,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ServiceAddViewModel serviceAddViewModel, IFormFile FileData)
+        public async Task<IActionResult> Add(ServiceAddViewModel serviceAddViewModel)
         {
-            Image image = new Image();
             if (serviceAddViewModel == null)
             {
                 return RedirectToAction("Index");
@@ -99,41 +102,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (FileData == null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                ModelState.AddModelError("", "NULL");
-            }
-            var imageResultID = await FileData.SaveImageAsync(_env, "service", image, _unitOfWork);
-            if (!imageResultID)
-            {
-                Response.StatusCode = (int)HttpStatusCode.SeeOther;
-                ModelState.AddModelError("", "Images are not saved");
-            }
 
-            var serviceAddViewModelResult = new Service
+
+            var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
+            var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+            if (serviceResult.IsDone && resultImageID.Count > 0)
             {
-                Id = serviceAddViewModel.ID,
-                NameAz = serviceAddViewModel.NameAz,
-                NameRu = serviceAddViewModel.NameRu,
-                NameEn = serviceAddViewModel.NameEn,
-                TitleAz = serviceAddViewModel.TittleAz,
-                TitleEn = serviceAddViewModel.TittleEn,
-                TitleRu = serviceAddViewModel.TittleRu,
-                //ImageId = image.Id
-            };
-            var serviceResult = await _unitOfWork.ServiceRepository.AddAsync(serviceAddViewModelResult);
-            if (!serviceResult.IsDone)
-            {
-                _unitOfWork.Rollback();
+                await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
                 return RedirectToAction("Index");
             }
             else
             {
-                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
+
+
         }
+
+
+
+
 
         #endregion CREATE
 
@@ -165,8 +153,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 NameAz = result.NameAz,
                 NameEn = result.NameEn,
                 NameRu = result.NameRu,
-                //path = result.ServiceImages,
-                //ImageId = result.ImageId
             };
 
             return View(data);
@@ -237,46 +223,41 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            if (!ModelState.IsValid)
+            if (id < 0)
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
+                ModelState.AddModelError("", "data not exists");
             }
-            Service serviceResult = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
-            if (serviceResult == null)
+            var result = await _serviceImageFacade.Delete(id);
+            if (result)
             {
                 return RedirectToAction("Index");
             }
-            var serviceDeleteResult = await _unitOfWork.ServiceRepository
-                                                        .DeleteAsync(serviceResult);
-            if (!serviceDeleteResult.IsDone)
+            else
             {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This portfolio was not delete");
+                ModelState.AddModelError("", "can be deleted");
+                return RedirectToAction("Index");
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
-
-            //if (id < 1)
-            //{
-            //    ModelState.AddModelError("", "Data is not exists");
-            //}
-            //var serviceIDResult = await _unitOfWork.ServiceRepository.GetByIdAsync(id);
-            //if (serviceIDResult == null)
-            //{
-            //    ModelState.AddModelError("", "NULL");
-            //}
-            //var result = await _unitOfWork.ServiceRepository.DeleteAsync(serviceIDResult);
-            //if (!result.IsDone)
-            //{
-            //    ModelState.AddModelError("", "Data cannot delete");
-
-            //    _unitOfWork.Rollback();
-            //}
-            //_unitOfWork.Dispose();
-            //return RedirectToAction("Index");
         }
 
         #endregion DELETE
+
+
+        #region ::private ::
+        private async Task SaveServiceAndImages(int id, List<int> resultImageID)
+        {
+            foreach (var item in resultImageID)
+            {
+                ServiceImageAddViewModel ResultServiceImageAddViewModel = new ServiceImageAddViewModel
+                {
+                    ImageId = item,
+                    ServiceId = id
+                };
+
+                await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
+            }
+        }
+
+        #endregion
+
     }
 }
