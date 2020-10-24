@@ -1,8 +1,5 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Service;
-using ConstructionSite.Helpers.Core;
-using System;
+﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Interface.Facade.Services

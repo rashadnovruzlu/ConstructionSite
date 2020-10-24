@@ -1,12 +1,10 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
-using ConstructionSite.Helpers.Constants;
+﻿using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -41,7 +39,8 @@ namespace ConstructionSite.ViewComponents
 
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var result = await _serviceQueryFacade.GetAll(_lang);
+            var result = await _serviceQueryFacade.GetAll(_lang)
+                ;
             //var result = _unitOfWork.ServiceRepository.GetAll()
             //    .Include(x => x.SubServices)
             //    .Include(x => x.ServiceImages)
@@ -57,7 +56,7 @@ namespace ConstructionSite.ViewComponents
             //{
             //    ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
             //}
-            return await Task.FromResult<IViewComponentResult>(View(result));
+            return await Task.FromResult<IViewComponentResult>(View(result.AsEnumerable()));
         }
     }
 }

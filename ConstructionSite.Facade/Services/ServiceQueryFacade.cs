@@ -1,5 +1,4 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Service;
-using ConstructionSite.Helpers.Core;
+﻿using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +25,16 @@ namespace ConstructionSite.Facade.Services
                 .Select(x => new ServiceViewModel
                 {
                     Id = x.Id,
-                    Image = x.Image.Path,
+                    image = x.Image.Path,
                     Name = x.Service.FindName(_lang),
-                    Tittle = x.Service.FindTitle(_lang)
+                    Tittle = x.Service.FindContent(_lang)
 
                 })
                  .ToListAsync();
 
             return result;
         }
+
+
     }
 }
