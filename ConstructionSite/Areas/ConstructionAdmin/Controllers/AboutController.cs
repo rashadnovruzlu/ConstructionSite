@@ -146,49 +146,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            //About UpdateAbout = new About
-            //{
-            //    Id = aboutUpdateViewModel.aboutID,
-            //    ContentAz = aboutUpdateViewModel.ContentAz,
-            //    ContentEn = aboutUpdateViewModel.ContentEn,
-            //    ContentRu = aboutUpdateViewModel.ContentRu,
-            //    TittleAz = aboutUpdateViewModel.TittleAz,
-            //    TittleEn = aboutUpdateViewModel.TittleEn,
-            //    TittleRu = aboutUpdateViewModel.TittleRu,
-            //};
-            //var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
-            //if (!aboutResult.IsDone)
-            //{
-            //    ModelState.AddModelError("", "Errors occured while updating About");
-            //}
-            //if (file != null)
-            //{
-            //    Image image = _unitOfWork.imageRepository.GetById(aboutUpdateViewModel.imageId);
-            //    if (image == null)
-            //    {
-            //        ModelState.AddModelError("", "NULL");
-            //    }
-            //    var imageUpdateAfterResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
-            //    if (!imageUpdateAfterResult)
-            //    {
-            //        ModelState.AddModelError("", "NULL");
-            //    }
-            //}
-
-            //var updateAboutImage = new AboutImage
-            //{
-            //    Id = aboutUpdateViewModel.Id,
-            //    ImageId = aboutUpdateViewModel.imageId,
-            //    AboutId = UpdateAbout.Id,
-            //};
-            //var AboutImageResult =
-            // await _unitOfWork.AboutImageRepository.UpdateAsync(updateAboutImage);
-            //if (!AboutImageResult.IsDone)
-            //{
-            //    _unitOfWork.Rollback();
-            //    ModelState.AddModelError("", "Errors occured while updating About");
-            //}
-            //_unitOfWork.Dispose();
+           
+           
             var result = await _aboutFacade.Update(aboutUpdateViewModel, file);
             if (result)
             {
