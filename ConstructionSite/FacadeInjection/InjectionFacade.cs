@@ -12,6 +12,11 @@ using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Interface.Facade.Projects;
 using ConstructionSite.Facade.Projects;
+using ConstructionSite.Interface.Facade.Blogs;
+using ConstructionSite.Facade.Blogs;
+using ConstructionSite.Interface.Facade.Email;
+using ConstructionSite.Facade.Email;
+using ConstructionSite.Interface.Facade.News;
 
 namespace ConstructionSite.FacadeInjection
 {
@@ -21,8 +26,15 @@ namespace ConstructionSite.FacadeInjection
         {
             services.AddTransient<IAboutFacade, AboutFacade>();
             services.AddTransient<IAboutImageFacade, AboutImageFacade>();
+            services.AddTransient<IBlogFacade, BlogFacade>();
+            services.AddTransient<IBlogImageFacade, BlogImageFacade>();
             services.AddTransient<IGaleryFacade, GaleryFacade>();
             services.AddTransient<IGaleryFileFacde, GaleryFileFacde>();
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IPortfolioFacade, PortfolioFacade>();
+
+            services.AddTransient<IBlogFacade, BlogFacade>();
+            services.AddTransient<IBlogImageFacade, BlogImageFacade>();
 
             services.AddTransient<IPortfolioImageFacade, PortfolioImageFacade>();
             services.AddTransient<IServiceFacade, ServiceFacade>();

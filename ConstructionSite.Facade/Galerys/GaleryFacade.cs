@@ -45,7 +45,13 @@ namespace ConstructionSite.Facade.Galerys
 
         public async Task<RESULT<Galery>> Add(GaleryAddViewModel galeryAddViewModel)
         {
-            var resultGaleryViewModel = await galeryAddViewModel.MappedAsync<Galery>();
+            var resultGaleryViewModel = new Galery
+            {
+                Id = galeryAddViewModel.Id,
+                TitleAz = galeryAddViewModel.TitleAz,
+                TitleEn = galeryAddViewModel.TitleEn,
+                TitleRu = galeryAddViewModel.TitleRu
+            };
             var resultGalery = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
             return resultGalery;
         }

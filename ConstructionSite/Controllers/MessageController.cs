@@ -1,12 +1,11 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Maps;
-using ConstructionSite.DTO.FrontViewModels.Message;
-using ConstructionSite.Entity.Models;
-using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Facade.Email;
 using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.Mail;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Net;
 
@@ -18,14 +17,16 @@ namespace ConstructionSite.Controllers
     public class MessageController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-
+        private readonly IEmailSender _emailSender;
         private readonly SharedLocalizationService _localizationHandle;
 
         public MessageController(IUnitOfWork unitOfWork,
-                                  SharedLocalizationService localizationHandle)
+                                  SharedLocalizationService localizationHandle,
+                                  IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
             _localizationHandle = localizationHandle;
+            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -49,31 +50,31 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
-        [HttpPost]
-        // [ValidateAntiForgeryToken]
-        public IActionResult Add(MessageAddViewModel messageAddViewModel)
+
+        public IActionResult Add()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            if (messageAddViewModel == null)
+
+
+
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+
+        public IActionResult Add(MailSend emailSender)
+        {
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            messageAddViewModel.SendDate = DateTime.Now;
-            messageAddViewModel.IsAnswerd = false;
-            var messageAddViewModelResult = messageAddViewModel.Mapped<Message>();
-            var messageDataResult = _unitOfWork
-                .messageRepository
-                .Add(messageAddViewModelResult);
-            if (!messageDataResult.IsDone)
-            {
-                ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
-                return RedirectToAction("Index", "Home");
-            }
-            _unitOfWork.Dispose();
+
+            _emailSender.Send(emailSender);
+
             return RedirectToAction("Index", "Home");
         }
     }

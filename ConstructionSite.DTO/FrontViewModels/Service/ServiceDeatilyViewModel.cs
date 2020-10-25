@@ -1,6 +1,6 @@
 ﻿namespace ConstructionSite.DTO.FrontViewModels.Service
 {
-    public class ServiceDetailsViewModel
+    public class ServiceDeatilyViewModel
     {
         public int Id { get; set; }
 

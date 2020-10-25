@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConstructionSite.ViwModel.AdminViewModels.Galery
+namespace ConstructionSite.ViwModel.FrontViewModels.Galery
 {
-    public class GaleryFileViewModel
+    public class GaleryFileFrontViewModel
     {
         public int Id { get; set; }
 
@@ -16,9 +16,8 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Galery
 
         public string VideoPath { get; set; }
 
-
-
         public int ImageId { get; set; }
+
 
     }
 }

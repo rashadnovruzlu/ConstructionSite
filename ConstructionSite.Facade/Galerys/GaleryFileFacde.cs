@@ -4,6 +4,7 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
+using ConstructionSite.ViwModel.FrontViewModels.Galery;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,23 +60,22 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::GETALL::
 
-        public  List<GaleryFileViewModel> GetAll(string _lang)
+        public List<GaleryFileFrontViewModel> GetAll(string _lang)
         {
-            var result = _unitOfWork.GaleryFileRepstory
-                    .GetAll()
-                    .Include(x => x.Image)
-                    .Include(x => x.Galery)
-                    .Select(x => new GaleryFileViewModel
-                    {
-                        Id = x.Id,
-                        GaleryId = x.GaleryId,
-                        ImageId = x.ImageId,
-                        Path = x.Image.Path,
-                        Title = x.Image.Title,
+            var result = _unitOfWork.GaleryRepstory.GetAll()
+                .Include(x => x.GaleryFiles)
+                .Select(x => new GaleryFileFrontViewModel
+                {
+                    Id = x.Id,
+                    GaleryTitle = x.FindTitle(_lang),
+                    ImageId = x.GaleryFiles.Select(x => x.Image.Id).FirstOrDefault(),
+                    Path = x.GaleryFiles.Select(x => x.Image.Path).ToArray(),
+                    VideoPath = x.GaleryFiles.Select(x => x.Image.VideoPath).FirstOrDefault()
+                    ,
+                    Title = x.FindTitle(_lang)
 
-                        VideoPath = x.Image.VideoPath,
-                        GaleryTitle = x.Galery.FindTitle(_lang)
-                    });
+
+                });
             return result.ToList();
 
         }
