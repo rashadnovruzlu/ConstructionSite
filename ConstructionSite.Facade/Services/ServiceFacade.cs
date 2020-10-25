@@ -50,23 +50,17 @@ namespace ConstructionSite.Facade.Services
 
 
         }
-        public Task<front.ServiceDeatilyViewModel> GetDeaiy(int id, string _lang)
+        public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
         {
-            var result = _unitOfWork.ServiceImageRepstory.GetAll()
-                .Where(x => x.ServiceId == id)
-               .Include(x => x.Service)
-               .Include(x => x.Image)
-               .Select(x => new front.ServiceDeatilyViewModel
-               {
-                   Id = x.Id,
-                   Name = x.Service.FindName(_lang),
-                   Tittle = x.Service.FindName(_lang),
-                   Image = x.Service.ServiceImages.Select(x => x.Image.Path).ToArray()
-               })
-               .FirstOrDefaultAsync();
+            //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
+            //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
+            //{
+            //    Id = result.Id,
 
 
-            return result;
+            //};
+            return null;
+
         }
 
         public Task<bool> Update()

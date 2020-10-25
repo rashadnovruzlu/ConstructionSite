@@ -73,7 +73,14 @@ namespace ConstructionSite.Facade.Galerys
 
         public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
-            var resultGaleryUpdateViewModel = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
+            var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
+            var resultGaleryUpdateViewModel = new Galery
+            {
+                Id = resultGaleryUpdateViewModelFind.Id,
+                TitleAz = resultGaleryUpdateViewModelFind.TitleAz,
+                TitleEn = resultGaleryUpdateViewModelFind.TitleEn,
+                TitleRu = resultGaleryUpdateViewModelFind.TitleRu
+            };
             return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModel);
 
         }
@@ -88,7 +95,14 @@ namespace ConstructionSite.Facade.Galerys
         public async Task<GaleryUpdateViewModel> FindUpdate(int id)
         {
             var result = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
-            return await result.MappedAsync<GaleryUpdateViewModel>();
+            GaleryUpdateViewModel galeryUpdateViewModel = new GaleryUpdateViewModel
+            {
+                Id = result.Id,
+                TitleAz = result.TitleAz,
+                TitleEn = result.TitleEn,
+                TitleRu = result.TitleRu
+            };
+            return await Task.FromResult(galeryUpdateViewModel);
         }
 
         #endregion CECHEDTRANSACTION::

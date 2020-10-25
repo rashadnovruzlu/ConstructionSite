@@ -52,6 +52,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return imageResultID;
         }
+
         public async static Task<List<Image>> ImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {
             List<Image> imageResultID = new List<Image>();
@@ -220,6 +221,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, List<Image> image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -254,15 +256,14 @@ namespace ConstructionSite.Extensions.Images
                             else
                             {
                                 return false;
-
                             }
-
                         }
                     }
                 }
             }
             return IsResult;
         }
+
         public async static Task<bool> UpdateAsyc(this IList<IFormFile> file, IWebHostEnvironment _env, List<Image> image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -299,9 +300,7 @@ namespace ConstructionSite.Extensions.Images
                                 else
                                 {
                                     return false;
-
                                 }
-
                             }
                         }
                     }
@@ -332,10 +331,47 @@ namespace ConstructionSite.Extensions.Images
         {
             Image imageResult = _unitOfWork.imageRepository.GetById(imageId);
 
-            var imageDeleteFormHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
+            var imageDeleteFormHardDisk = Paths.DeletePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
             var result = _unitOfWork.imageRepository.Delete(imageResult);
             Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
+
             return result.IsDone;
+        }
+        public static bool Delete(this IWebHostEnvironment _env, int[] imageId, string subFolder, IUnitOfWork _unitOfWork)
+        {
+            bool isResult = false;
+            foreach (var item in imageId)
+            {
+                Image imageResult = _unitOfWork.imageRepository.GetById(item);
+                if (imageResult != null)
+                {
+
+                    var imageDeleteFormHardDisk = Paths.DeletePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
+                    var result = _unitOfWork.imageRepository.Delete(imageResult);
+                    _unitOfWork.Commit();
+                    Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
+                    isResult = result.IsDone; ;
+                }
+            }
+            return isResult;
+        }
+        public static bool Delete(this IWebHostEnvironment _env, Image [] image , string subFolder, IUnitOfWork _unitOfWork)
+        {
+            bool isResult = false;
+            foreach (var item in image)
+            {
+                Image imageResult = _unitOfWork.imageRepository.GetById(item.Id);
+                if (imageResult != null)
+                {
+
+                    var imageDeleteFormHardDisk = Paths.DeletePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
+                    var result = _unitOfWork.imageRepository.Delete(imageResult);
+                    _unitOfWork.Commit();
+                    Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
+                    isResult = result.IsDone; ;
+                }
+            }
+            return isResult;
         }
 
         #endregion ::DELETE::

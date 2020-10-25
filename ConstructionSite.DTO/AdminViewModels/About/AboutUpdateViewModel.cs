@@ -5,6 +5,8 @@ namespace ConstructionSite.DTO.AdminViewModels.About
 {
     public class AboutUpdateViewModel
     {
+
+
         public int Id { get; set; }
 
         public string TittleAz { get; set; }
@@ -16,7 +18,7 @@ namespace ConstructionSite.DTO.AdminViewModels.About
         public string Image { get; set; }
         public int imageId { get; set; }
         public IList<IFormFile> files { get; set; }
-        public int aboutID { get; set; }
+        public int aboutId { get; set; }
 
     }
 }

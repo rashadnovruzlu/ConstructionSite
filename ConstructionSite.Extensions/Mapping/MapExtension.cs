@@ -52,7 +52,6 @@ namespace ConstructionSite.Extensions.Mapping
                 return Task.FromResult(soruces);
             }
             return Task.FromResult(default(T)); ;
-
         }
 
         public static T Mapped<T>(this IEnumerable<T> query)

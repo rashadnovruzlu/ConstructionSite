@@ -19,8 +19,10 @@ namespace ConstructionSite.Extensions.Images
             var imageDeleteFormHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
             var result = _unitOfWork.imageRepository.Delete(imageResult);
             Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
+            _unitOfWork.Commit();
             return result.IsDone;
         }
+       
 
         public async static Task<bool> DeleteAsyc(this IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
@@ -31,6 +33,7 @@ namespace ConstructionSite.Extensions.Images
             Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
             return result.IsDone;
         }
+
         public async static Task<bool> UpdateAsyc(this IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
             Image imageResult = await _unitOfWork.imageRepository.GetByIdAsync(imageId);
@@ -40,6 +43,7 @@ namespace ConstructionSite.Extensions.Images
             Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
             return result.IsDone;
         }
+
         public async static Task<bool> UpdateAsyc(ICollection<IFormFile> formFiles, int imageID, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool isSuccess = false;
@@ -57,8 +61,6 @@ namespace ConstructionSite.Extensions.Images
                         isSuccess = true;
                     }
                     isSuccess = false;
-
-
                 }
                 else
                 {

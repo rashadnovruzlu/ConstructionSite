@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConstructionSite.Extensions.Images
+﻿namespace ConstructionSite.Extensions.Images
 {
     public class ImageUpdateExtension
     {

@@ -39,7 +39,7 @@ namespace ConstructionSite.Repository.Concreate
         }
         public async Task<bool> CommitAsync()
         {
-            return await _context.SaveChangesAsync()>0;
+            return await _context.SaveChangesAsync() > 0;
 
         }
 

@@ -35,10 +35,7 @@ namespace ConstructionSite.Controllers
             _localizationHandle = localizationHandle;
         }
 
-        /// <summary>
-        /// IActionResult Index
-        /// </summary>
-        /// <returns></returns>
+
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -56,7 +53,7 @@ namespace ConstructionSite.Controllers
                    Id = x.Id,
                    Name = x.FindName(_lang),
                    Tittle = x.FindName(_lang),
-                  
+
                    image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
                })
                .OrderByDescending(x => x.Id)
@@ -138,8 +135,12 @@ namespace ConstructionSite.Controllers
         public async Task<IActionResult> Details(int id)
         {
 
-            var result = await _serviceFacade.GetDeaiy(id, _lang);
-            return View(result);
+            var resultServiceDeatilyViewModel = await _serviceFacade.GetDeaiy(id, _lang);
+            if (resultServiceDeatilyViewModel != null)
+            {
+                return View(resultServiceDeatilyViewModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

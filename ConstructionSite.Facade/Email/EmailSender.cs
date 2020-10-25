@@ -9,11 +9,11 @@ namespace ConstructionSite.Facade.Email
     {
         public void Send(MailSend email)
         {
-            
+
             email.To = "naib.reshidov@pragmatech.az";
             email.To = "residovnaib77@gmail.com";
 
-            
+
             MailMessage mailMessage = new MailMessage();
             mailMessage.To.Add(email.To);
             mailMessage.Subject = email.Subject;

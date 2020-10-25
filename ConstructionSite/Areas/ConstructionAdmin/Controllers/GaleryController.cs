@@ -47,8 +47,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-
-
         #region ::ADD::
 
         public IActionResult Add()
@@ -80,17 +78,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(resultFindById);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
             }
-            var result = await _galeryFacade.Update(galeryUpdateViewModel);
-            if (result.IsDone)
+            var resultGaleryUpdateViewModelFind = await _galeryFacade.Update(galeryUpdateViewModel);
+            var resultGaleryUpdateViewModel = await _unitOfWork.GaleryFileRepstory
+                .FindAsync(x => x.GaleryId == resultGaleryUpdateViewModelFind.Data.Id);
+            foreach (var item in galeryUpdateViewModel.files)
+            {
+                if (item != null)
+                {
+                    await item.UpdateAsyc(_env, resultGaleryUpdateViewModel.Image, "galery", _unitOfWork);
+                }
+            }
+            if (await _unitOfWork.CommitAsync())
             {
                 return RedirectToAction("Index");
             }
-            return View(galeryUpdateViewModel);
+            return View(galeryUpdateViewModel.Id);
         }
 
         #endregion ::UPDATE::

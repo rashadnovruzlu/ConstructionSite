@@ -78,14 +78,14 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 await _context.Set<T>().AddAsync(entity);
-               
+
                 result.IsDone = true;
                 result.Data = entity;
             }
             catch (Exception ex)
             {
                 _context.Dispose();
-               
+
                 string mesage = ex.Message;
                 result.IsDone = false;
             }
@@ -171,9 +171,10 @@ namespace ConstructionSite.Repository.Concreate
             }
             try
             {
-                _context.Set<T>().Attach(entity);
-                _context.Entry(entity).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+
+                _context.Update(entity);
+                result.Data = entity;
+
             }
             catch (DbEntityValidationException ex)
             {
@@ -243,7 +244,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 _context.Set<T>().Remove(entity);
-                _context.SaveChanges();
+                result.Data = entity;
             }
             catch
             {

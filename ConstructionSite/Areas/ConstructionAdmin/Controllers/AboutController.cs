@@ -1,4 +1,5 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
+using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
@@ -96,30 +97,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return await SaveAll(resultAbout, resultImage);
         }
 
-        private async Task<IActionResult> SaveAll(RESULT<Entity.Models.About> resultAbout, List<int> resultImage)
-        {
-            if (resultAbout.IsDone && resultImage.Count > 0)
-            {
-                foreach (var item in resultImage)
-                {
-                    var resultAboutImageAddViewModel = new AboutImageAddViewModel
-                    {
-                        ImageId = item,
-                        AboutId = resultAbout.Data.Id
-                    };
-                    await _aboutImageFacade.AddAsync(resultAboutImageAddViewModel);
-                }
-                if (await _unitOfWork.CommitAsync())
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    _unitOfWork.Rollback();
-                }
-            }
-            return View();
-        }
+
 
         #endregion CREATE
 
@@ -149,7 +127,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                             ContentRu = x.About.ContentRu,
                             Image = x.Image.Path,
                             imageId = x.Image.Id,
-                            aboutID = x.AboutId
+                            aboutId = x.AboutId
                         })
                           .FirstOrDefault(x => x.Id == id);
             if (result != null)
@@ -170,7 +148,32 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Models are not valid.");
             }
+            var resultaboutUpdateViewModel = await _aboutFacade.Update(aboutUpdateViewModel);
+            var result = _unitOfWork.AboutImageRepository.GetAll().Where(x => x.AboutId == resultaboutUpdateViewModel.Data.Id)
+               .Take(aboutUpdateViewModel.files.Count)
+               .Select(x => x.Image).ToArray();
 
+
+            if (resultaboutUpdateViewModel.IsDone && aboutUpdateViewModel.files.Count > 0)
+            {
+                _env.Delete(result, "about", _unitOfWork);
+                var resultListImageId = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "about", _unitOfWork);
+                foreach (var ImageID in resultListImageId)
+                {
+                    AboutImage resultAboutImage = new AboutImage
+                    {
+                        ImageId = ImageID,
+                        AboutId = resultaboutUpdateViewModel.Data.Id
+
+                    };
+                    await _unitOfWork.AboutImageRepository.UpdateAsync(resultAboutImage);
+                }
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+
+            }
             return View();
         }
 
@@ -216,5 +219,32 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion DELETE
+
+        #region ::private::
+        private async Task<IActionResult> SaveAll(RESULT<Entity.Models.About> resultAbout, List<int> resultImage)
+        {
+            if (resultAbout.IsDone && resultImage.Count > 0)
+            {
+                foreach (var item in resultImage)
+                {
+                    var resultAboutImageAddViewModel = new AboutImageAddViewModel
+                    {
+                        ImageId = item,
+                        AboutId = resultAbout.Data.Id
+                    };
+                    await _aboutImageFacade.AddAsync(resultAboutImageAddViewModel);
+                }
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                }
+            }
+            return View();
+        }
+        #endregion
     }
 }

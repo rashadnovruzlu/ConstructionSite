@@ -175,11 +175,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                          ServerId = x.SubService.ServiceId
                      })
                      .FirstOrDefault(x => x.Id == id);
+
             if (subserviceUpdateImageResult == null)
             {
                 ModelState.AddModelError("", "This is empty");
                 return RedirectToAction("Index");
             }
+          
             _unitOfWork.Dispose();
             return View(subserviceUpdateImageResult);
         }
@@ -234,17 +236,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ModelState.AddModelError("", "Errors occured while editing Sub Service Images");
                 }
             }
-            //SubServiceImage subServiceImage = new SubServiceImage
-            //{
-            //    Id= subServiceUpdateViewModel.Id,
-            //    SubServiceId = subServiceUpdateViewModel.SubServiceId,
-            //    ImageId = subServiceUpdateViewModel.imageId
-            //};
-            //var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImage);
-            //if (!subServiceImageResult.IsDone)
-            //{
-            //    ModelState.AddModelError("", "File is not exists");
-            //}
+            _unitOfWork.Commit();
+           
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }

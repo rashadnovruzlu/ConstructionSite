@@ -68,21 +68,13 @@ namespace ConstructionSite.Facade.About
 
         public async Task<RESULT<data.About>> Update(AboutUpdateViewModel aboutImageUpdateViewModel)
         {
-            data.About about = new data.About
-            {
-                Id = aboutImageUpdateViewModel.Id,
-                ContentAz = aboutImageUpdateViewModel.ContentAz,
-                ContentEn = aboutImageUpdateViewModel.ContentEn,
-                ContentRu = aboutImageUpdateViewModel.ContentRu,
-                TittleAz = aboutImageUpdateViewModel.TittleAz,
-                TittleEn = aboutImageUpdateViewModel.TittleEn,
-                TittleRu = aboutImageUpdateViewModel.TittleRu
-            };
 
-            return await _unitOfWork.AboutRepository.UpdateAsync(about);
+            var result = await _unitOfWork.AboutRepository.FindAsync(x => x.Id == aboutImageUpdateViewModel.aboutId);
+            var resultAbout = await _unitOfWork.AboutRepository.UpdateAsync(result);
+            return resultAbout;
 
         }
-        
+
         public async Task<List<Image>> FindImageByAboutID(int aboutID)
         {
             var resultImageUpdateViewModel = await _unitOfWork.AboutImageRepository.GetAll()
