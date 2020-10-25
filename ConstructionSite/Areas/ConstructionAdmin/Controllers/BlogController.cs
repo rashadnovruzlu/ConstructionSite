@@ -115,17 +115,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "News is empty");
             }
-            var newsAddModelResult = new News
-            {
-                Id = blogAddViewModel.Id,
-                TittleAz = blogAddViewModel.TittleAz,
-                TittleEn = blogAddViewModel.TittleEn,
-                TittleRu = blogAddViewModel.TittleRu,
-                ContentAz = blogAddViewModel.ContentAz,
-                ContentEn = blogAddViewModel.ContentEn,
-                ContentRu = blogAddViewModel.ContentRu,
-                CreateDate = DateTime.Now
-            };
+           
             var resulBlogAddViewModel = await _blogFacade.Add(blogAddViewModel);
             var resultImage = await blogAddViewModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
             if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)

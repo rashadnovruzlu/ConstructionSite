@@ -14,7 +14,7 @@ namespace ConstructionSite.Interface.Facade.Galery
         Task<RESULT<GaleryFile>> Add(GaleryFileAddViewModel galeryFileAddViewModel);
         Task<RESULT<GaleryFile>> Delete(int id);
         Task<RESULT<GaleryFile>> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel);
-        Task<IQueryable<GaleryFileViewModel>> GetAll(string _lang);
+        List<GaleryFileViewModel> GetAll(string _lang);
 
 
 

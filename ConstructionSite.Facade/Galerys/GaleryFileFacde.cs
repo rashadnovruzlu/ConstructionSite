@@ -59,7 +59,7 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::GETALL::
 
-        public async Task<IQueryable<GaleryFileViewModel>> GetAll(string _lang)
+        public  List<GaleryFileViewModel> GetAll(string _lang)
         {
             var result = _unitOfWork.GaleryFileRepstory
                     .GetAll()
@@ -76,7 +76,7 @@ namespace ConstructionSite.Facade.Galerys
                         VideoPath = x.Image.VideoPath,
                         GaleryTitle = x.Galery.FindTitle(_lang)
                     });
-            return await Task.FromResult(result);
+            return result.ToList();
 
         }
 
