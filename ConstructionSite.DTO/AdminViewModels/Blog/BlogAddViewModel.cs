@@ -1,4 +1,7 @@
-﻿namespace ConstructionSite.DTO.AdminViewModels.Blog
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+
+namespace ConstructionSite.DTO.AdminViewModels.Blog
 {
     public class BlogAddViewModel
     {
@@ -12,5 +15,6 @@
         public string ContentAz { get; set; }
         public string ContentEn { get; set; }
         public string ContentRu { get; set; }
+        public IList<IFormFile> file { get; set; }
     }
 }

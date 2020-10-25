@@ -4,6 +4,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IBlogFacade _blogFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
@@ -36,9 +38,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         public BlogController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
-                                 ConstructionDbContext dbContext)
+                                 ConstructionDbContext dbContext,
+                                 IBlogFacade blogFacade)
         {
             _unitOfWork = unitOfWork;
+            _blogFacade = blogFacade;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
@@ -94,7 +98,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BlogAddViewModel blogAddViewModel, IFormFile file)
+        public async Task<IActionResult> Create(BlogAddViewModel blogAddViewModel)
         {
             Image image = new Image();
 
@@ -118,32 +122,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ContentRu = blogAddViewModel.ContentRu,
                 CreateDate = DateTime.Now
             };
-            var addNewViewResult = await _unitOfWork.newsRepository.AddAsync(newsAddModelResult);
-            if (!addNewViewResult.IsDone)
+            var resulBlogAddViewModel = await _blogFacade.Add(blogAddViewModel);
+            var resultImage = await blogAddViewModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
+            if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
             {
-                _unitOfWork.Dispose();
-                ModelState.AddModelError("", "Errors occured while creating News");
-            }
 
-            var addImageViewResult = await file.SaveImageAsync(_env, "News", image, _unitOfWork);
-            if (!addImageViewResult)
-            {
-                ImageExtensions.DeleteAsyc(_env, image, "News", _unitOfWork);
-                ModelState.AddModelError("", "Errors occured while creating Images");
             }
-            NewsImage newsImageData = new NewsImage
-            {
-                ImageId = image.Id,
-                NewsId = newsAddModelResult.Id
-            };
-
-            var newsImageResult = await _unitOfWork.newsImageRepository.AddAsync(newsImageData);
-            if (!newsImageResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Errors occured while creating News Images");
-            }
-            _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 
