@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -115,26 +114,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "News is empty");
             }
-           
+
             var resulBlogAddViewModel = await _blogFacade.Add(blogAddViewModel);
             var resultImage = await blogAddViewModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
             if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
             {
                 foreach (var item in resultImage)
                 {
-                  var result=  new NewsImageAddViewModel
+                    var result = new NewsImageAddViewModel
                     {
                         ImageID = item,
                         NewsID = resulBlogAddViewModel.Data.Id
                     };
-                   await _blogImageFacade.Add(result);
+                    await _blogImageFacade.Add(result);
                 }
                 if (await _unitOfWork.CommitAsync())
                 {
                     return RedirectToAction("Index");
                 }
             }
-            return View() ;
+            return View();
         }
 
         #endregion CREATE

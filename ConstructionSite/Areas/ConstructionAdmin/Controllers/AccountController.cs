@@ -113,10 +113,12 @@ namespace ConstructionSite.Areas.Admin.Controllers
             ViewBag.returnUrl = returnUrl;
             return View();
         }
+
         public IActionResult Soon()
         {
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

@@ -8,10 +8,8 @@ using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -76,10 +74,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-
-
-
-
         #endregion ::ADD::
 
         #region ::UPDATE::
@@ -132,11 +126,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     ImageId = item,
                     GaleryId = resultGalery.Data.Id
-
                 };
                 await _galeryFileFacde.Add(galeryFileAddViewModel);
             }
         }
-        #endregion
+
+        #endregion ::private::
     }
 }

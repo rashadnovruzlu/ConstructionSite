@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
     public class AboutController : CoreController
     {
         #region Fields
@@ -76,7 +75,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-
             return View();
         }
 
@@ -84,7 +82,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(AboutAddViewModel aboutAddViewModel)
         {
-
             if (aboutAddViewModel == null)
             {
                 ModelState.AddModelError("", "Data is null");
@@ -97,7 +94,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var resultAbout = await _aboutFacade.AddAsync(aboutAddViewModel);
             var resultImage = await aboutAddViewModel.FileData.SaveImageCollectionAsync(_env, "About", _unitOfWork);
             return await SaveAll(resultAbout, resultImage);
-
         }
 
         private async Task<IActionResult> SaveAll(RESULT<Entity.Models.About> resultAbout, List<int> resultImage)
@@ -174,12 +170,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Models are not valid.");
             }
-           
-
-
 
             return View();
-
         }
 
         #endregion UPDATE

@@ -8,6 +8,5 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     [Authorize(Roles = ROLESNAME.Admin)]
     public class CoreController : Controller
     {
-
     }
 }

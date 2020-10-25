@@ -47,7 +47,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _lang = _httpContextAccessor.GetLanguages();
             _projectFacade = projectFacade;
             _projectImageFacade = projectImageFacade;
-
         }
 
         #endregion CTOR
@@ -104,13 +103,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Project project, List<IFormFile> file)
         {
-
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -125,7 +121,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var resultimage = await file.SaveImageCollectionAsync(_env, "project", _unitOfWork);
 
             return await AllSave(resultProject, resultimage);
-
         }
 
         private async Task<IActionResult> AllSave(RESULT<Project> resultProject, List<int> resultimage)
@@ -142,11 +137,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     _unitOfWork.Rollback();
                     return View();
                 }
-
             }
             else
             {
-
                 return View();
             }
         }

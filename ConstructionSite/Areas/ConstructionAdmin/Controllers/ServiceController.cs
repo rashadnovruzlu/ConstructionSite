@@ -1,7 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
-using ConstructionSite.Facade.Services;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Service;
 using ConstructionSite.Interface.Facade.Servics;
@@ -103,7 +102,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-
             var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
             var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
             if (serviceResult.IsDone && resultImageID.Count > 0)
@@ -118,19 +116,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     _unitOfWork.Rollback();
                     return View();
                 }
-
             }
             else
             {
                 return View();
             }
-
-
         }
-
-
-
-
 
         #endregion CREATE
 
@@ -250,8 +241,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #endregion DELETE
 
-
         #region ::private ::
+
         private async Task SaveServiceAndImages(int id, List<int> resultImageID)
         {
             foreach (var item in resultImageID)
@@ -266,7 +257,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
         }
 
-        #endregion
-
+        #endregion ::private ::
     }
 }
