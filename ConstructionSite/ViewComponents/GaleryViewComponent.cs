@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class TestimonialViewComponent : ViewComponent
+    public class GaleryViewComponent : ViewComponent
     {
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TestimonialViewComponent(IUnitOfWork unitOfWork,
+        public GaleryViewComponent(IUnitOfWork unitOfWork,
                                          IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
