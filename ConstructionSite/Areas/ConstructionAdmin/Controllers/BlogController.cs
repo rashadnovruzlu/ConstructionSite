@@ -6,6 +6,7 @@ using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.News;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBlogFacade _blogFacade;
+        private readonly IBlogImageFacade _blogImageFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
@@ -39,10 +41,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                  IWebHostEnvironment env,
                                  IHttpContextAccessor httpContextAccessor,
                                  ConstructionDbContext dbContext,
-                                 IBlogFacade blogFacade)
+                                 IBlogFacade blogFacade,
+                                 IBlogImageFacade blogImageFacade)
         {
             _unitOfWork = unitOfWork;
             _blogFacade = blogFacade;
+            _blogImageFacade = blogImageFacade;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
@@ -126,9 +130,21 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var resultImage = await blogAddViewModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
             if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
             {
-
+                foreach (var item in resultImage)
+                {
+                  var result=  new NewsImageAddViewModel
+                    {
+                        ImageID = item,
+                        NewsID = resulBlogAddViewModel.Data.Id
+                    };
+                   await _blogImageFacade.Add(result);
+                }
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            return RedirectToAction("Index");
+            return View() ;
         }
 
         #endregion CREATE
