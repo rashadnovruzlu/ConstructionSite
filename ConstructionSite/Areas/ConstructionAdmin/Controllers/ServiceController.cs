@@ -109,11 +109,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (serviceResult.IsDone && resultImageID.Count > 0)
             {
                 await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
-                return RedirectToAction("Index");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View();
+                }
+
             }
             else
             {
-                return RedirectToAction("Index");
+                return View();
             }
 
 
@@ -228,7 +237,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "data not exists");
             }
             var result = await _serviceImageFacade.Delete(id);
-            if (result)
+            if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }

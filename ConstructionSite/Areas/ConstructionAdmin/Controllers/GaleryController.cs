@@ -96,7 +96,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
             }
             var result = await _galeryFacade.Update(galeryUpdateViewModel);
-            if (result)
+            if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }
@@ -113,7 +113,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
             }
             var result = await _galeryFacade.Delete(id);
-            if (result)
+            if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }

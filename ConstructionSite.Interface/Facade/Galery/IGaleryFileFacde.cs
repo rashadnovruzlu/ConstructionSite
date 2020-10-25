@@ -1,4 +1,6 @@
-﻿using ConstructionSite.ViwModel.AdminViewModels.Galery;
+﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Core;
+using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,9 @@ namespace ConstructionSite.Interface.Facade.Galery
 {
     public interface IGaleryFileFacde
     {
-        Task<bool> Add(GaleryFileAddViewModel galeryFileAddViewModel);
-        Task<bool> Delete(int id);
-        Task<bool> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel);
+        Task<RESULT<GaleryFile>> Add(GaleryFileAddViewModel galeryFileAddViewModel);
+        Task<RESULT<GaleryFile>> Delete(int id);
+        Task<RESULT<GaleryFile>> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel);
         Task<IQueryable<GaleryFileViewModel>> GetAll(string _lang);
 
 

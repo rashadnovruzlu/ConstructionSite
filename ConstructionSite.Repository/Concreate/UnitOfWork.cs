@@ -37,11 +37,9 @@ namespace ConstructionSite.Repository.Concreate
         {
             _context = context ?? throw new ArgumentNullException("is null");
         }
-        public async Task<int> CommitAsync()
+        public async Task<bool> CommitAsync()
         {
-
-
-            return await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync()>0;
 
         }
 

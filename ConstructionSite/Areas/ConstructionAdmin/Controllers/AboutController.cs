@@ -1,11 +1,14 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.About;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -23,6 +26,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IAboutFacade _aboutFacade;
+        private readonly IAboutImageFacade _aboutImageFacade;
 
         #endregion Fields
 
@@ -31,13 +35,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         public AboutController(IUnitOfWork unitOfWork,
                                IWebHostEnvironment env,
                                IHttpContextAccessor httpContextAccessor,
-                               IAboutFacade aboutFacade)
+                               IAboutFacade aboutFacade,
+                               IAboutImageFacade aboutImageFacade)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
             _aboutFacade = aboutFacade;
+            _aboutImageFacade = aboutImageFacade;
         }
 
         #endregion CTOR
@@ -76,7 +82,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(AboutAddViewModel aboutAddViewModel, IFormFile FileData)
+        public async Task<IActionResult> Add(AboutAddViewModel aboutAddViewModel)
         {
 
             if (aboutAddViewModel == null)
@@ -88,13 +94,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var resultAfterInsert = await _aboutFacade.Insert(aboutAddViewModel, FileData);
-            if (!resultAfterInsert)
+            var resultAbout = await _aboutFacade.AddAsync(aboutAddViewModel);
+            var resultImage = await aboutAddViewModel.FileData.SaveImageCollectionAsync(_env, "About", _unitOfWork);
+            return await SaveAll(resultAbout, resultImage);
+
+        }
+
+        private async Task<IActionResult> SaveAll(RESULT<Entity.Models.About> resultAbout, List<int> resultImage)
+        {
+            if (resultAbout.IsDone && resultImage.Count > 0)
             {
-                ModelState.AddModelError("", "errors");
+                foreach (var item in resultImage)
+                {
+                    var resultAboutImageAddViewModel = new AboutImageAddViewModel
+                    {
+                        ImageId = item,
+                        AboutId = resultAbout.Data.Id
+                    };
+                    await _aboutImageFacade.AddAsync(resultAboutImageAddViewModel);
+                }
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                }
             }
-         
-            return RedirectToAction("Index");
+            return View();
         }
 
         #endregion CREATE
@@ -136,7 +164,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(AboutUpdateViewModel aboutUpdateViewModel, IFormFile file)
+        public async Task<IActionResult> Update(AboutUpdateViewModel aboutUpdateViewModel)
         {
             if (aboutUpdateViewModel == null)
             {
@@ -147,16 +175,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
            
-           
-            var result = await _aboutFacade.Update(aboutUpdateViewModel, file);
-            if (result)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
-            }
+
+
+
+            return View();
 
         }
 

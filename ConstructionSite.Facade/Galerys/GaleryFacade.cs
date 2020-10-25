@@ -54,47 +54,30 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::DELETE::
 
-        public async Task<bool> Delete(int id)
+        public async Task<RESULT<Galery>> Delete(int id)
         {
             var resultGaleryFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
-            await _unitOfWork.GaleryRepstory.DeleteAsync(resultGaleryFind);
-            return await CeckedTransactionAsync();
+            return await _unitOfWork.GaleryRepstory.DeleteAsync(resultGaleryFind);
+
         }
 
         #endregion ::DELETE::
 
         #region ::UPDATE::
 
-        public async Task<bool> Update(GaleryUpdateViewModel galeryUpdateViewModel)
+        public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             var resultGaleryUpdateViewModel = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
-            await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModel);
-            return await CeckedTransactionAsync();
+            return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModel);
+
         }
 
         #endregion ::UPDATE::
 
         #region CECHEDTRANSACTION::
 
-        private async Task<bool> CeckedTransactionAsync()
-        {
-            bool isResult = false;
-            isResult = await _unitOfWork.CommitAsync() > 0;
-            return isResult;
-        }
-        private bool CeckedTransaction()
-        {
-            try
-            {
-                return _unitOfWork.Commit() > 0;
-            }
-            catch (System.Exception ex)
-            {
-                var str = ex.InnerException;
 
-                return false;
-            }
-        }
+
 
         public async Task<GaleryUpdateViewModel> FindUpdate(int id)
         {

@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
@@ -24,34 +25,34 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::ADD::
 
-        public async Task<bool> Add(GaleryFileAddViewModel galeryFileAddViewModel)
+        public async Task<RESULT<GaleryFile>> Add(GaleryFileAddViewModel galeryFileAddViewModel)
         {
             var resultGaleryFileAddViewModel = await galeryFileAddViewModel.MappedAsync<GaleryFile>();
-            await _unitOfWork.GaleryFileRepstory.AddAsync(resultGaleryFileAddViewModel);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryFileRepstory.AddAsync(resultGaleryFileAddViewModel);
+
         }
 
         #endregion ::ADD::
 
         #region ::DELETE::
 
-        public async Task<bool> Delete(int id)
+        public async Task<RESULT<GaleryFile>> Delete(int id)
         {
             var resultgaleryFileViewModel = await _unitOfWork.GaleryFileRepstory.FindAsync(x => x.Id == id);
             var resultgaerlyFileViewModelMapping = await resultgaleryFileViewModel.MappedAsync<GaleryFile>();
-            await _unitOfWork.GaleryFileRepstory.DeleteAsync(resultgaerlyFileViewModelMapping);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryFileRepstory.DeleteAsync(resultgaerlyFileViewModelMapping);
+
         }
 
         #endregion ::DELETE::
 
         #region ::UPDATE::
 
-        public async Task<bool> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel)
+        public async Task<RESULT<GaleryFile>> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel)
         {
             var resultGaleryFileUpdateViewModel = await _unitOfWork.GaleryFileRepstory.FindAsync(x => x.Id == galeryFileUpdateViewModel.Id);
-            await _unitOfWork.GaleryFileRepstory.UpdateAsync(resultGaleryFileUpdateViewModel);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryFileRepstory.UpdateAsync(resultGaleryFileUpdateViewModel);
+
         }
 
         #endregion ::UPDATE::
@@ -81,13 +82,8 @@ namespace ConstructionSite.Facade.Galerys
 
         #endregion ::GETALL::
 
-        #region CECHEDTRANSACTION::
 
-        private async Task<bool> CeckedTransaction()
-        {
-            return await _unitOfWork.CommitAsync() > 0;
-        }
 
-        #endregion CECHEDTRANSACTION::
+
     }
 }

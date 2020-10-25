@@ -78,13 +78,14 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 await _context.Set<T>().AddAsync(entity);
-                await _context.SaveChangesAsync();
-                //  await _context.DisposeAsync();
+               
                 result.IsDone = true;
                 result.Data = entity;
             }
             catch (Exception ex)
             {
+                _context.Dispose();
+               
                 string mesage = ex.Message;
                 result.IsDone = false;
             }

@@ -1,9 +1,13 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
+using data = ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Core;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ConstructionSite.Entity.Models;
+using ConstructionSite.ViwModel.AdminViewModels.About;
 
 namespace ConstructionSite.Interface.Facade.About
 {
@@ -11,7 +15,9 @@ namespace ConstructionSite.Interface.Facade.About
     {
 
         IEnumerable<AboutViewModel> GetAll(string _lang);
-        Task<bool> Insert(AboutAddViewModel aboutAddViewModel, IFormFile FileData);
-        Task<bool> Update(AboutUpdateViewModel aboutUpdateViewModel, IFormFile file);
+        Task<RESULT<data.About>> AddAsync(AboutAddViewModel aboutAddViewModel);
+        Task<RESULT<data.About>> Update(AboutUpdateViewModel aboutImageUpdateViewModel);
+        Task<List<Image>> FindImageByAboutID(int id);
+
     }
 }
