@@ -65,18 +65,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var newsImageResult = _unitOfWork.newsRepository.GetAll()
-
-
-                                            .Select(x => new BlogViewModel
-                                            {
-                                                Id = x.Id,
-                                                Title = x.FindTitle(_lang),
-                                                Content = x.FindContent(_lang),
-                                                Imagepath = x.NewsImages.Select(x => x.Image.Path).First(),
-                                                CreateDate = x.CreateDate,
-                                            }).OrderByDescending(x => x.Id)
-                                            .ToList();
+            var newsImageResult = _blogFacade.GetAll(_lang);
             if (newsImageResult.Count < 1 | newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");
