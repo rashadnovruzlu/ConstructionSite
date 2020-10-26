@@ -32,8 +32,7 @@
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" method="post" enctype="multipart/form-data">
                         @*<input type="hidden" name="Id" value="@Model.Id" /> *@
-                        <input type="hidden" name="NewsId" value="@Model.NewsId" />
-                        <input type="hidden" name="imageId" value="@Model.ImageId" />
+                        
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
@@ -64,15 +63,28 @@
                                 <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment" placeholder="Content RU"></textarea>
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="col-lg-11">
-                                <img src="@Model.Image" width="240" height="280" alt="Alternate Text" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <input type="file" name="file" placeholder="Images" id="f-name" class="form-control">
-                            </div>
+                        <div class="wrapper--preview">
+
+                            @foreach (var item in Model.Images)
+                            {
+                                <div class="box">
+                                    <div class="js--image-preview">
+                                        <img src="@item.Path" alt="Alternate Text" />
+                                    </div>
+                                    <div class="upload-options">
+
+                                        <label>
+                                            <input type="file" class="image-upload" accept="image/*" />
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+
+
+                         
+
+                           
+
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
@@ -89,8 +101,8 @@
 
 @section scripts{
     <script>
-            $(".cancel-button").click(function () {
-                window.location.href = "/ConstructionAdmin/Blog/Index";
-            })
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Blog/Index";
+        })
     </script>
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ConstructionSite.DTO.AdminViewModels.Blog
 {
@@ -8,7 +9,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
         public string Title { get; set; }
         public string Content { get; set; }
         public string Imagepath { get; set; }
-        public int NewsId { get; set; }
+
         public DateTime CreateDate { get; set; }
     }
 }
