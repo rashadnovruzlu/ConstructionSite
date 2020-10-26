@@ -70,8 +70,18 @@ namespace ConstructionSite.Facade.About
         {
 
             var result = await _unitOfWork.AboutRepository.FindAsync(x => x.Id == aboutImageUpdateViewModel.aboutId);
+
+            result.ContentAz = aboutImageUpdateViewModel.ContentAz;
+            result.ContentEn = aboutImageUpdateViewModel.ContentEn;
+            result.ContentEn = aboutImageUpdateViewModel.ContentEn;
+            result.TittleAz = aboutImageUpdateViewModel.TittleAz;
+            result.TittleEn = aboutImageUpdateViewModel.TittleEn;
+            result.TittleRu = aboutImageUpdateViewModel.TittleRu;
             var resultAbout = await _unitOfWork.AboutRepository.UpdateAsync(result);
+           
             return resultAbout;
+
+
 
         }
 

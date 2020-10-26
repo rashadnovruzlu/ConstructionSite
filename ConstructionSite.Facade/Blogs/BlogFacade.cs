@@ -20,5 +20,18 @@ namespace ConstructionSite.Facade.Blogs
             var result = await blogAddViewModel.MappedAsync<News>();
             return await _unitOfWork.newsRepository.AddAsync(result);
         }
+        public async Task<RESULT<News>> Update(BlogEditModel blogEditModel)
+        {
+          var resultBlogEditModel=await  _unitOfWork.newsRepository.FindAsync(x => x.Id == blogEditModel.NewsId);
+            resultBlogEditModel.TittleAz = blogEditModel.TittleAz;
+            resultBlogEditModel.TittleEn = blogEditModel.TittleEn;
+            resultBlogEditModel.TittleRu = blogEditModel.TittleRu;
+            resultBlogEditModel.ContentAz = blogEditModel.ContentAz;
+            resultBlogEditModel.ContentEn = blogEditModel.ContentEn;
+            resultBlogEditModel.ContentRu = blogEditModel.ContentRu;
+            return await _unitOfWork.newsRepository.UpdateAsync(resultBlogEditModel);
+            
+            
+        }
     }
 }

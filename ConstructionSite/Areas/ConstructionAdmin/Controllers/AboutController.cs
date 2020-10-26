@@ -114,8 +114,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _unitOfWork.AboutImageRepository.GetAll()
-                   .Include(x => x.About)
-                      .Include(x => x.Image)
+                        .Include(x => x.About)
+                        .Include(x => x.Image)
                         .Select(x => new AboutUpdateViewModel
                         {
                             Id = x.Id,
@@ -149,30 +149,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
             var resultaboutUpdateViewModel = await _aboutFacade.Update(aboutUpdateViewModel);
-            var result = _unitOfWork.AboutImageRepository.GetAll().Where(x => x.AboutId == resultaboutUpdateViewModel.Data.Id)
-               .Take(aboutUpdateViewModel.files.Count)
-               .Select(x => x.Image).ToArray();
-
-
-            if (resultaboutUpdateViewModel.IsDone && aboutUpdateViewModel.files.Count > 0)
+            if (aboutUpdateViewModel.files != null)
             {
-                _env.Delete(result, "about", _unitOfWork);
-                var resultListImageId = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "about", _unitOfWork);
-                foreach (var ImageID in resultListImageId)
+                var result = _unitOfWork.AboutImageRepository.GetAll().Where(x => x.AboutId == resultaboutUpdateViewModel.Data.Id)
+              .Take(aboutUpdateViewModel.files.Count)
+              .Select(x => x.Image).ToArray();
+                if (resultaboutUpdateViewModel.IsDone && aboutUpdateViewModel.files.Count > 0)
                 {
-                    AboutImage resultAboutImage = new AboutImage
+                    _env.Delete(result, "about", _unitOfWork);
+                    var resultListImageId = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "about", _unitOfWork);
+                    foreach (var ImageID in resultListImageId)
                     {
-                        ImageId = ImageID,
-                        AboutId = resultaboutUpdateViewModel.Data.Id
+                        AboutImage resultAboutImage = new AboutImage
+                        {
+                            ImageId = ImageID,
+                            AboutId = resultaboutUpdateViewModel.Data.Id
 
-                    };
-                    await _unitOfWork.AboutImageRepository.UpdateAsync(resultAboutImage);
-                }
-                if (await _unitOfWork.CommitAsync())
-                {
-                    return RedirectToAction("Index");
-                }
+                        };
+                        await _unitOfWork.AboutImageRepository.UpdateAsync(resultAboutImage);
+                    }
 
+
+                }
+            }
+
+
+            var issuccess = await _unitOfWork.CommitAsync();
+            if (issuccess)
+            {
+                return RedirectToAction("Index");
             }
             return View();
         }
