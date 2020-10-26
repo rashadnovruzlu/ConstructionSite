@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using data = ConstructionSite.Entity.Models;
 
 namespace ConstructionSite.DTO.AdminViewModels.Blog
 {
@@ -11,9 +13,9 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
         public string ContentAz { get; set; }
         public string ContentEn { get; set; }
         public string ContentRu { get; set; }
-        public string Image { get; set; }
-        public int ImageId { get; set; }
+        public List<data.Image> Images { get; set; }
+
         public DateTime DateTime { get; set; }
-        public int NewsId { get; set; }
+
     }
 }

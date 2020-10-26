@@ -8,13 +8,16 @@
     .button-create {
         margin-bottom: 10px;
     }
+
     .text-style {
         text-align: center;
         font-size: 1.2em;
     }
+
     .common {
         background-color: RGB(241, 242, 247) !important;
     }
+
     .edit-delete {
         text-align: center;
     }
@@ -24,14 +27,17 @@
         border-color: black;
         color: #fff;
     }
+
     .img-style {
         text-align: center;
     }
+
     .edit-icon {
         color: #6E90EC;
         padding-right: 7%;
         font-size: 1.3em;
     }
+
     .delete-icon {
         color: #F0636A;
         font-size: 1.3em;
@@ -42,7 +48,7 @@
     <header class="panel-heading">
         News Elements Table
     </header>
-    
+
     <div class="panel-body">
         <div class="button-create">
             <a asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Create" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New News Element</a>
@@ -99,7 +105,7 @@
                 type: 'GET',
                 url: '/ConstructionAdmin/Blog/Delete/' + id,
                 success: function () {
-                    window.location.href ="/ConstructionAdmin/Blog"
+                    window.location.href = "/ConstructionAdmin/Blog"
                 }
             })
         });
