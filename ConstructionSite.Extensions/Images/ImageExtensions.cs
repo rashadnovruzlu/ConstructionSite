@@ -355,7 +355,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return isResult;
         }
-        public static bool Delete(this IWebHostEnvironment _env, Image [] image , string subFolder, IUnitOfWork _unitOfWork)
+        public static bool Delete(this IWebHostEnvironment _env, Image[] image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool isResult = false;
             foreach (var item in image)

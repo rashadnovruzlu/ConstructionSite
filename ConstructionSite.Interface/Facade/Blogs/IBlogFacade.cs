@@ -8,6 +8,8 @@ namespace ConstructionSite.Interface.Facade.Blogs
 {
     public interface IBlogFacade
     {
-        public Task<RESULT<data.News>> Add(BlogAddViewModel blogAddViewModel);
+        Task<RESULT<data.News>> Add(BlogAddViewModel blogAddViewModel);
+        Task<RESULT<data.News>> Update(BlogEditModel blogEditModel);
+
     }
 }

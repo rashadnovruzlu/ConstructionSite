@@ -3,6 +3,7 @@ using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
@@ -179,7 +180,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BlogEditModel blogEditModel, IFormFile file)
+        public async Task<IActionResult> Edit(BlogEditModel blogEditModel)
         {
             if (!ModelState.IsValid)
             {
@@ -189,54 +190,40 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
-
-            var resultViewModel = new News
+            var resultUpdateNews = await _blogFacade.Update(blogEditModel);
+            await UpdateAll(blogEditModel, resultUpdateNews);
+            if (await _unitOfWork.CommitAsync())
             {
-                Id = blogEditModel.NewsId,
-
-                ContentAz = blogEditModel.ContentAz,
-                ContentEn = blogEditModel.ContentEn,
-                ContentRu = blogEditModel.ContentRu,
-                TittleAz = blogEditModel.TittleAz,
-                TittleEn = blogEditModel.TittleEn,
-                TittleRu = blogEditModel.TittleRu,
-                CreateDate = blogEditModel.DateTime
-            };
-            var newsResult = await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
-            if (newsResult == null)
-            {
-            }
-            if (file != null)
-            {
-                var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
-                if (imageResult == null)
-                {
-                    ModelState.AddModelError("", "file is null");
-                }
-                var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
-                if (!resultUpdateAsyc)
-                {
-                    ModelState.AddModelError("", "File is NULL");
-                }
-            }
-
-            var newsImageSelectResult = await _unitOfWork.newsImageRepository.GetByIdAsync(blogEditModel.Id);
-            if (newsImageSelectResult == null)
-            {
-                ModelState.AddModelError("", "data is NULL");
-            }
-            newsImageSelectResult.NewsId = resultViewModel.Id;
-            newsImageSelectResult.ImageId = blogEditModel.ImageId;
-
-            var result = await _unitOfWork.newsImageRepository.UpdateAsync(newsImageSelectResult);
-            if (!result.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "data can be update");
                 return RedirectToAction("Index");
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            return View(blogEditModel.Id);
+
+
+        }
+
+        private async Task UpdateAll(BlogEditModel blogEditModel, RESULT<News> result)
+        {
+            if (blogEditModel.file != null)
+            {
+                var resultImaage = _unitOfWork.newsImageRepository.GetAll()
+              .Where(x => x.NewsId == blogEditModel.NewsId)
+              .Take(blogEditModel.file.Count)
+              .Select(x => x.Image).ToArray();
+                if (result.IsDone && blogEditModel.file.Count > 0)
+                {
+                    _env.Delete(resultImaage, "blog", _unitOfWork);
+                    var resultImageAdd = await blogEditModel.file.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                    foreach (var item in resultImageAdd)
+                    {
+                        NewsImage newsImage = new NewsImage
+                        {
+                            ImageId = item,
+                            NewsId = result.Data.Id
+                        };
+                        _unitOfWork.newsImageRepository.Update(newsImage);
+                    }
+                }
+            }
         }
 
         #endregion UPDATE

@@ -154,23 +154,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 var result = _unitOfWork.AboutImageRepository.GetAll().Where(x => x.AboutId == resultaboutUpdateViewModel.Data.Id)
               .Take(aboutUpdateViewModel.files.Count)
               .Select(x => x.Image).ToArray();
-                if (resultaboutUpdateViewModel.IsDone && aboutUpdateViewModel.files.Count > 0)
-                {
-                    _env.Delete(result, "about", _unitOfWork);
-                    var resultListImageId = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "about", _unitOfWork);
-                    foreach (var ImageID in resultListImageId)
-                    {
-                        AboutImage resultAboutImage = new AboutImage
-                        {
-                            ImageId = ImageID,
-                            AboutId = resultaboutUpdateViewModel.Data.Id
-
-                        };
-                        await _unitOfWork.AboutImageRepository.UpdateAsync(resultAboutImage);
-                    }
-
-
-                }
+                await SaveAll(aboutUpdateViewModel, resultaboutUpdateViewModel, result);
             }
 
 
@@ -180,6 +164,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        private async Task SaveAll(AboutUpdateViewModel aboutUpdateViewModel, RESULT<About> resultaboutUpdateViewModel, Image[] result)
+        {
+            if (resultaboutUpdateViewModel.IsDone && aboutUpdateViewModel.files.Count > 0)
+            {
+                _env.Delete(result, "about", _unitOfWork);
+                var resultListImageId = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "about", _unitOfWork);
+                foreach (var ImageID in resultListImageId)
+                {
+                    AboutImage resultAboutImage = new AboutImage
+                    {
+                        ImageId = ImageID,
+                        AboutId = resultaboutUpdateViewModel.Data.Id
+
+                    };
+                    await _unitOfWork.AboutImageRepository.UpdateAsync(resultAboutImage);
+                }
+
+
+            }
         }
 
         #endregion UPDATE
