@@ -11,12 +11,11 @@ using ConstructionSite.Facade.Services;
 using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Interface.Facade.Projects;
-using ConstructionSite.Facade.Projects;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Facade.Blogs;
 using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.Facade.Email;
-using ConstructionSite.Interface.Facade.News;
+using ConstructionSite.Facade.Projects;
 
 namespace ConstructionSite.FacadeInjection
 {

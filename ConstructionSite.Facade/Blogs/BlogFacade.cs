@@ -15,14 +15,14 @@ namespace ConstructionSite.Facade.Blogs
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<RESULT<News>> Add(BlogAddViewModel  blogAddViewModel)
+        public async Task<RESULT<News>> Add(BlogAddViewModel blogAddViewModel)
         {
             var result = await blogAddViewModel.MappedAsync<News>();
             return await _unitOfWork.newsRepository.AddAsync(result);
         }
         public async Task<RESULT<News>> Update(BlogEditModel blogEditModel)
         {
-          var resultBlogEditModel=await  _unitOfWork.newsRepository.FindAsync(x => x.Id == blogEditModel.NewsId);
+            var resultBlogEditModel = await _unitOfWork.newsRepository.FindAsync(x => x.Id == blogEditModel.Id);
             resultBlogEditModel.TittleAz = blogEditModel.TittleAz;
             resultBlogEditModel.TittleEn = blogEditModel.TittleEn;
             resultBlogEditModel.TittleRu = blogEditModel.TittleRu;
@@ -30,8 +30,8 @@ namespace ConstructionSite.Facade.Blogs
             resultBlogEditModel.ContentEn = blogEditModel.ContentEn;
             resultBlogEditModel.ContentRu = blogEditModel.ContentRu;
             return await _unitOfWork.newsRepository.UpdateAsync(resultBlogEditModel);
-            
-            
+
+
         }
     }
 }

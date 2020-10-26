@@ -185,61 +185,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
-            var resultUpdateNews = await _blogFacade.Update(blogEditModel);
-            await UpdateAll(blogEditModel, resultUpdateNews);
-            if (await _unitOfWork.CommitAsync())
-            {
-                return RedirectToAction("Index");
-            }
-            return View(blogEditModel.Id);
-
-            var resultViewModel = new News
-            {
-
-                Id = blogEditModel.Id,
-                ContentAz = blogEditModel.ContentAz,
-                ContentEn = blogEditModel.ContentEn,
-                ContentRu = blogEditModel.ContentRu,
-                TittleAz = blogEditModel.TittleAz,
-                TittleEn = blogEditModel.TittleEn,
-                TittleRu = blogEditModel.TittleRu,
-                CreateDate = blogEditModel.DateTime,
-
-
-            };
-            var newsResult = await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
-            if (newsResult == null)
-            {
-            }
-            if (file != null)
-            {
-                var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.Id);
-                if (imageResult == null)
-                {
-                    ModelState.AddModelError("", "file is null");
-                }
-                var resultUpdateAsyc = await file.UpdateAsyc(_env, imageResult, "News", _unitOfWork);
-                if (!resultUpdateAsyc)
-                {
-                    ModelState.AddModelError("", "File is NULL");
-                }
-            }
-
-            var newsImageSelectResult = await _unitOfWork.newsImageRepository.GetByIdAsync(blogEditModel.Id);
-            if (newsImageSelectResult == null)
-            {
-                ModelState.AddModelError("", "data is NULL");
-            }
-            newsImageSelectResult.NewsId = resultViewModel.Id;
-            newsImageSelectResult.ImageId = blogEditModel.Id;
-
-            var result = await _unitOfWork.newsImageRepository.UpdateAsync(newsImageSelectResult);
-            if (!result.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "data can be update");
-                return RedirectToAction("Index");
-            }
+            return View();
         }
 
         #endregion UPDATE
