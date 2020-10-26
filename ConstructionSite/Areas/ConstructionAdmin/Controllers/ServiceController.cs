@@ -139,28 +139,33 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Content is empty");
             }
-            Service result = _unitOfWork.ServiceRepository.GetById(id);
-            if (result == null)
-            {
-                ModelState.AddModelError("", "Service is NULL");
-            }
-            var data = new ServiceUpdateViewModel
-            {
-                id = result.Id,
-                TittleAz = result.TitleAz,
-                TittleEn = result.TitleEn,
-                TittleRu = result.TitleRu,
-                NameAz = result.NameAz,
-                NameEn = result.NameEn,
-                NameRu = result.NameRu,
-            };
+            var result = _unitOfWork.ServiceImageRepstory.GetAll()
+              .Include(x => x.Image)
+              .Include(x => x.Service)
+              .Select(x => new ServiceUpdateViewModel
+              {
+                  id = x.Service.Id,
+                  ContentAz = x.Service.ContentAz,
+                  ContentEn = x.Service.ContentEn,
+                  ContentRu = x.Service.ContentRu,
+                  NameAz = x.Service.NameAz,
+                  NameEn = x.Service.NameEn,
+                  NameRu = x.Service.NameRu,
+                  TittleAz = x.Service.TitleAz,
+                  TittleEn = x.Service.TitleEn,
+                  TittleRu = x.Service.TitleRu,
+                  path = x.Image.Path
 
-            return View(data);
+              })
+              .FirstOrDefault(x => x.id == id);
+
+
+            return View(result);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ServiceUpdateViewModel serviceUpdateViewModel, IFormFile file)
+        public async Task<IActionResult> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -172,49 +177,33 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "data is not exists");
                 return RedirectToAction("Index");
             }
-            var imageResult = _unitOfWork.imageRepository.GetById(serviceUpdateViewModel.ImageId);
+            var resultUpdateService = await _serviceFacade.Update(serviceUpdateViewModel);
 
-            if (imageResult == null)
+            if (serviceUpdateViewModel.file != null)
             {
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (file != null)
-            {
-                var imageUpdateResult = await file.UpdateAsyc(_env, imageResult, "service", _unitOfWork);
-                if (!imageUpdateResult)
+                var resultImage = _unitOfWork.ServiceImageRepstory.GetAll()
+                 .Where(x => x.ServiceId == serviceUpdateViewModel.id)
+                 .Select(x => x.Image)
+                 .Take(serviceUpdateViewModel.file.Count)
+                 .ToArray();
+
+                _env.Delete(resultImage, "service", _unitOfWork);
+                var resultServiceImageId = await serviceUpdateViewModel.file.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                foreach (var item in resultServiceImageId)
                 {
-                    ModelState.AddModelError("", "update is errors");
+                    ServiceImage serviceImage = new ServiceImage
+                    {
+                        ImageId = item,
+                        ServiceId = resultUpdateService.Data.Id
+                    };
+                    await _unitOfWork.ServiceImageRepstory.UpdateAsync(serviceImage);
                 }
             }
-            else
+            if (await _unitOfWork.CommitAsync())
             {
-                ModelState.AddModelError("", "FILE NULL");
-            }
-
-            var serviceAddViewModelResult = new Service
-            {
-                Id = serviceUpdateViewModel.id,
-                NameAz = serviceUpdateViewModel.NameAz,
-                NameEn = serviceUpdateViewModel.NameEn,
-                NameRu = serviceUpdateViewModel.NameRu,
-                TitleAz = serviceUpdateViewModel.TittleAz,
-                TitleEn = serviceUpdateViewModel.TittleEn,
-                TitleRu = serviceUpdateViewModel.TittleRu,
-                //ImageId = serviceUpdateViewModel.ImageId,
-            };
-            var result = await _unitOfWork.ServiceRepository.UpdateAsync(serviceAddViewModelResult);
-            if (result.IsDone)
-            {
-                _unitOfWork.Dispose();
                 return RedirectToAction("Index");
             }
-            else
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This is error");
-            }
-
-            return View(serviceUpdateViewModel);
+            return View(serviceUpdateViewModel.id);
         }
 
         #endregion UPDATE

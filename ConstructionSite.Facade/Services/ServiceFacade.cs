@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConstructionSite.DTO.AdminViewModels.Service;
 
 namespace ConstructionSite.Facade.Services
 {
@@ -63,9 +64,23 @@ namespace ConstructionSite.Facade.Services
 
         }
 
-        public Task<bool> Update()
+        public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == serviceUpdateViewModel.id);
+            result.TitleAz = serviceUpdateViewModel.TittleAz;
+            result.TitleEn = serviceUpdateViewModel.TittleEn;
+            result.TitleRu = serviceUpdateViewModel.TittleRu;
+            result.NameAz = serviceUpdateViewModel.NameAz;
+            result.NameEn = serviceUpdateViewModel.NameEn;
+            result.NameRu = serviceUpdateViewModel.NameRu;
+            result.ContentAz = serviceUpdateViewModel.ContentAz;
+            result.ContentEn = serviceUpdateViewModel.ContentEn;
+            result.ContentRu = serviceUpdateViewModel.ContentRu;
+            return await _unitOfWork.ServiceRepository.UpdateAsync(result);
+
+
+
+
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace ConstructionSite.DTO.AdminViewModels.Service
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+
+namespace ConstructionSite.DTO.AdminViewModels.Service
 {
     public class ServiceUpdateViewModel
     {
@@ -12,7 +15,11 @@
         public string TittleAz { get; set; }
         public string TittleEn { get; set; }
         public string TittleRu { get; set; }
+        public string ContentAz { get; set; }
+        public string ContentRu { get; set; }
+        public string ContentEn { get; set; }
         public string path { get; set; }
-        public int ImageId { get; set; }
+        public ICollection<IFormFile> file { get; set; }
+
     }
 }
