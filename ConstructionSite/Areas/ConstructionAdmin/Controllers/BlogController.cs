@@ -57,18 +57,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var newsImageResult = _unitOfWork.newsImageRepository.GetAll()
-                                    .Include(x => x.News)
-                                        .Include(x => x.Image)
+            var newsImageResult = _unitOfWork.newsRepository.GetAll()
+
+
                                             .Select(x => new BlogViewModel
                                             {
                                                 Id = x.Id,
-                                                NewsId = x.News.Id,
-                                                Title = x.News.FindTitle(_lang),
-                                                Content = x.News.FindContent(_lang),
-                                                Imagepath = x.Image.Path,
-                                                CreateDate = x.News.CreateDate,
-                                            }).OrderByDescending(x => x.NewsId)
+                                                Title = x.FindTitle(_lang),
+                                                Content = x.FindContent(_lang),
+                                                Imagepath = x.NewsImages.Select(x => x.Image.Path).First(),
+                                                CreateDate = x.CreateDate,
+                                            }).OrderByDescending(x => x.Id)
                                             .ToList();
             if (newsImageResult.Count < 1 | newsImageResult == null)
             {
@@ -163,23 +162,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var result = _unitOfWork.newsImageRepository.GetAll()
-                                    .Include(x => x.News)
-                                        .Include(x => x.Image)
+            var result = _unitOfWork.newsRepository.GetAll()
+                                    .Select(x => new BlogEditModel
+                                    {
+                                        Id = x.Id,
+                                        TittleAz = x.TittleAz,
+                                        TittleEn = x.TittleEn,
+                                        TittleRu = x.TittleRu,
+                                        ContentAz = x.ContentAz,
+                                        ContentEn = x.ContentEn,
+                                        ContentRu = x.ContentRu,
+                                        Images = x.NewsImages.Select(x => x.Image).ToList()
 
-                                            .Select(x => new BlogEditModel
-                                            {
-                                                Id = x.Id,
-                                                TittleAz = x.News.TittleAz,
-                                                TittleEn = x.News.TittleEn,
-                                                TittleRu = x.News.TittleRu,
-                                                ContentAz = x.News.ContentAz,
-                                                ContentEn = x.News.ContentEn,
-                                                ContentRu = x.News.ContentRu,
-                                                Image = x.Image.Path,
-                                                ImageId = x.Image.Id,
-                                                NewsId = x.News.Id
-                                            }).FirstOrDefault(x => x.Id == id);
+                                    }).SingleOrDefault(x => x.Id == id);
 
             if (result == null)
             {
@@ -203,15 +198,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             var resultViewModel = new News
             {
-                Id = blogEditModel.NewsId,
 
+                Id = blogEditModel.Id,
                 ContentAz = blogEditModel.ContentAz,
                 ContentEn = blogEditModel.ContentEn,
                 ContentRu = blogEditModel.ContentRu,
                 TittleAz = blogEditModel.TittleAz,
                 TittleEn = blogEditModel.TittleEn,
                 TittleRu = blogEditModel.TittleRu,
-                CreateDate = blogEditModel.DateTime
+                CreateDate = blogEditModel.DateTime,
+
+
             };
             var newsResult = await _unitOfWork.newsRepository.UpdateAsync(resultViewModel);
             if (newsResult == null)
@@ -219,7 +216,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (file != null)
             {
-                var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.ImageId);
+                var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(blogEditModel.Id);
                 if (imageResult == null)
                 {
                     ModelState.AddModelError("", "file is null");
@@ -237,7 +234,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "data is NULL");
             }
             newsImageSelectResult.NewsId = resultViewModel.Id;
-            newsImageSelectResult.ImageId = blogEditModel.ImageId;
+            newsImageSelectResult.ImageId = blogEditModel.Id;
 
             var result = await _unitOfWork.newsImageRepository.UpdateAsync(newsImageSelectResult);
             if (!result.IsDone)
