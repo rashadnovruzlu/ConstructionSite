@@ -100,7 +100,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             };
             var customerFeedbackAddedResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerAddViewModelResult);
 
-            if (! customerFeedbackAddedResult.IsDone)
+            if (!customerFeedbackAddedResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "This data is not added");

@@ -1,17 +1,16 @@
-﻿<form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Add">
+﻿@model MailSend
+<form class="wprt-contact-form" method="post" asp-controller="Message" asp-action="Add" >
     <div class="inner">
         <div class="left-side">
+           
             <div class="input-wrap">
-                <input type="text" value="" tabindex="1" placeholder="Name *" name="Name" id="name" required>
+                <input asp-for="From" type="email" tabindex="2" placeholder="Email *"  id="email" required>
             </div>
             <div class="input-wrap">
-                <input type="email" value="" tabindex="2" placeholder="Email *" name="Email" id="email" required>
-            </div>
-            <div class="input-wrap">
-                <input type="text" value="" tabindex="4" placeholder="Subject *" name="subject" id="subject" required>
+                <input asp-for="Subject" tabindex="4" placeholder="Subject *"  id="subject" required>
             </div>
             <div class="message-wrap">
-                <textarea class="" tabindex="5" placeholder="Message *" name="UserMessage" id="message" required></textarea>
+                <textarea class="" tabindex="5" placeholder="Message *"  asp-for="Body" id="message" required></textarea>
             </div>
             <div class="send-wrap">
                 <input type="submit" value="SEND MESSAGE" id="submit" name="submit" class="submit">

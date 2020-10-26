@@ -8,10 +8,8 @@ using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
@@ -49,12 +47,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-        //    var result = await _galeryFileFacde.GetAll(_lang);
-        //    return View(result);
-        //}
-
         #region ::ADD::
 
         public IActionResult Add()
@@ -76,10 +68,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-
-
-
-
         #endregion ::ADD::
 
         #region ::UPDATE::
@@ -90,17 +78,27 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View(resultFindById);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
             }
-            var result = await _galeryFacade.Update(galeryUpdateViewModel);
-            if (result)
+            var resultGaleryUpdateViewModelFind = await _galeryFacade.Update(galeryUpdateViewModel);
+            var resultGaleryUpdateViewModel = await _unitOfWork.GaleryFileRepstory
+                .FindAsync(x => x.GaleryId == resultGaleryUpdateViewModelFind.Data.Id);
+            foreach (var item in galeryUpdateViewModel.files)
+            {
+                if (item != null)
+                {
+                    await item.UpdateAsyc(_env, resultGaleryUpdateViewModel.Image, "galery", _unitOfWork);
+                }
+            }
+            if (await _unitOfWork.CommitAsync())
             {
                 return RedirectToAction("Index");
             }
-            return View(galeryUpdateViewModel);
+            return View(galeryUpdateViewModel.Id);
         }
 
         #endregion ::UPDATE::
@@ -113,7 +111,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
             }
             var result = await _galeryFacade.Delete(id);
-            if (result)
+            if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }
@@ -132,11 +130,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     ImageId = item,
                     GaleryId = resultGalery.Data.Id
-
                 };
                 await _galeryFileFacde.Add(galeryFileAddViewModel);
             }
         }
-        #endregion
+
+        #endregion ::private::
     }
 }

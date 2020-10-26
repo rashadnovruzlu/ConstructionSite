@@ -1,10 +1,8 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.SubService;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
-using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-   
     public class SubServiceController : CoreController
     {
         #region Fields
@@ -178,11 +175,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                          ServerId = x.SubService.ServiceId
                      })
                      .FirstOrDefault(x => x.Id == id);
+
             if (subserviceUpdateImageResult == null)
             {
                 ModelState.AddModelError("", "This is empty");
                 return RedirectToAction("Index");
             }
+          
             _unitOfWork.Dispose();
             return View(subserviceUpdateImageResult);
         }
@@ -237,17 +236,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     ModelState.AddModelError("", "Errors occured while editing Sub Service Images");
                 }
             }
-            //SubServiceImage subServiceImage = new SubServiceImage
-            //{
-            //    Id= subServiceUpdateViewModel.Id,
-            //    SubServiceId = subServiceUpdateViewModel.SubServiceId,
-            //    ImageId = subServiceUpdateViewModel.imageId
-            //};
-            //var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImage);
-            //if (!subServiceImageResult.IsDone)
-            //{
-            //    ModelState.AddModelError("", "File is not exists");
-            //}
+            _unitOfWork.Commit();
+           
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }

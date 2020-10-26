@@ -1,14 +1,17 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Service;
+﻿using data = ConstructionSite.DTO.AdminViewModels.Service;
+using front = ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
-using ConstructionSite.ViwModel.AdminViewModels.Service;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConstructionSite.DTO.AdminViewModels.Service;
 
 namespace ConstructionSite.Facade.Services
 {
@@ -19,17 +22,65 @@ namespace ConstructionSite.Facade.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<RESULT<Service>> Add(ServiceAddViewModel serviceAddViewModel)
+
+
+
+        public async Task<RESULT<Service>> Add(data.ServiceAddViewModel serviceAddViewModel)
         {
             var resultData = await serviceAddViewModel.MappedAsync<Service>();
             return await _unitOfWork.ServiceRepository.AddAsync(resultData);
         }
 
-       
-
-        public Task<bool> Update()
+        public Task<List<front.ServiceViewModel>> GetAll(string _lang)
         {
-            throw new NotImplementedException();
+            var result = _unitOfWork.ServiceImageRepstory.GetAll()
+                 .Include(x => x.Service)
+                 .Include(x => x.Image)
+                 .Select(x => new front.ServiceViewModel
+                 {
+                     Id = x.Id,
+                     Name = x.Service.FindName(_lang),
+                     Tittle = x.Service.FindName(_lang),
+                     image = x.Service.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
+                 })
+
+                .OrderByDescending(x => x.Id)
+                .ToListAsync();
+            return result;
+
+
+
+        }
+        public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
+        {
+            //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
+            //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
+            //{
+            //    Id = result.Id,
+
+
+            //};
+            return null;
+
+        }
+
+        public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
+        {
+            var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == serviceUpdateViewModel.id);
+            result.TitleAz = serviceUpdateViewModel.TittleAz;
+            result.TitleEn = serviceUpdateViewModel.TittleEn;
+            result.TitleRu = serviceUpdateViewModel.TittleRu;
+            result.NameAz = serviceUpdateViewModel.NameAz;
+            result.NameEn = serviceUpdateViewModel.NameEn;
+            result.NameRu = serviceUpdateViewModel.NameRu;
+            result.ContentAz = serviceUpdateViewModel.ContentAz;
+            result.ContentEn = serviceUpdateViewModel.ContentEn;
+            result.ContentRu = serviceUpdateViewModel.ContentRu;
+            return await _unitOfWork.ServiceRepository.UpdateAsync(result);
+
+
+
+
         }
     }
 }

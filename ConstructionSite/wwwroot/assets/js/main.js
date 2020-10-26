@@ -2,7 +2,6 @@
     'use strict'
 
     var wprtTheme = {
-
         // Main init function
         init: function () {
             this.config();
@@ -23,7 +22,6 @@
 
             // Run on document ready
             self.config.$document.on('ready', function () {
-
                 // Hero SlideShow
                 self.heroSection();
 
@@ -526,7 +524,6 @@
             });
         },
 
-
         searchIcon: function () {
             $('.header-search-icon').on('click', function () {
                 var searchForm = $(this).parent().find('.header-search-form'),
@@ -943,12 +940,10 @@
                     });
             }
         },
-
     }; // end wprtTheme
 
     // Start things up
     wprtTheme.init();
-
 })(jQuery);
 
 setTimeout(function () {

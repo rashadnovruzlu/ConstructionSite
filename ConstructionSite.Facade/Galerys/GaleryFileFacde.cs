@@ -1,8 +1,10 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
+using ConstructionSite.ViwModel.FrontViewModels.Galery;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,70 +26,64 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::ADD::
 
-        public async Task<bool> Add(GaleryFileAddViewModel galeryFileAddViewModel)
+        public async Task<RESULT<GaleryFile>> Add(GaleryFileAddViewModel galeryFileAddViewModel)
         {
             var resultGaleryFileAddViewModel = await galeryFileAddViewModel.MappedAsync<GaleryFile>();
-            await _unitOfWork.GaleryFileRepstory.AddAsync(resultGaleryFileAddViewModel);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryFileRepstory.AddAsync(resultGaleryFileAddViewModel);
+
         }
 
         #endregion ::ADD::
 
         #region ::DELETE::
 
-        public async Task<bool> Delete(int id)
+        public async Task<RESULT<GaleryFile>> Delete(int id)
         {
             var resultgaleryFileViewModel = await _unitOfWork.GaleryFileRepstory.FindAsync(x => x.Id == id);
             var resultgaerlyFileViewModelMapping = await resultgaleryFileViewModel.MappedAsync<GaleryFile>();
-            await _unitOfWork.GaleryFileRepstory.DeleteAsync(resultgaerlyFileViewModelMapping);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryFileRepstory.DeleteAsync(resultgaerlyFileViewModelMapping);
+
         }
 
         #endregion ::DELETE::
 
         #region ::UPDATE::
 
-        public async Task<bool> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel)
+        public async Task<RESULT<GaleryFile>> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel)
         {
             var resultGaleryFileUpdateViewModel = await _unitOfWork.GaleryFileRepstory.FindAsync(x => x.Id == galeryFileUpdateViewModel.Id);
-            await _unitOfWork.GaleryFileRepstory.UpdateAsync(resultGaleryFileUpdateViewModel);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryFileRepstory.UpdateAsync(resultGaleryFileUpdateViewModel);
+
         }
 
         #endregion ::UPDATE::
 
         #region ::GETALL::
 
-        public async Task<IQueryable<GaleryFileViewModel>> GetAll(string _lang)
+        public List<GaleryFileFrontViewModel> GetAll(string _lang)
         {
-            var result = _unitOfWork.GaleryFileRepstory
-                    .GetAll()
-                    .Include(x => x.Image)
-                    .Include(x => x.Galery)
-                    .Select(x => new GaleryFileViewModel
-                    {
-                        Id = x.Id,
-                        GaleryId = x.GaleryId,
-                        ImageId = x.ImageId,
-                        Path = x.Image.Path,
-                        Title = x.Image.Title,
+            var result = _unitOfWork.GaleryRepstory.GetAll()
+                .Include(x => x.GaleryFiles)
+                .Select(x => new GaleryFileFrontViewModel
+                {
+                    Id = x.Id,
+                    GaleryTitle = x.FindTitle(_lang),
+                    ImageId = x.GaleryFiles.Select(x => x.Image.Id).FirstOrDefault(),
+                    Path = x.GaleryFiles.Select(x => x.Image.Path).ToArray(),
+                    VideoPath = x.GaleryFiles.Select(x => x.Image.VideoPath).FirstOrDefault()
+                    ,
+                    Title = x.FindTitle(_lang)
 
-                        VideoPath = x.Image.VideoPath,
-                        GaleryTitle = x.Galery.FindTitle(_lang)
-                    });
-            return await Task.FromResult(result);
+
+                });
+            return result.ToList();
 
         }
 
         #endregion ::GETALL::
 
-        #region CECHEDTRANSACTION::
 
-        private async Task<bool> CeckedTransaction()
-        {
-            return await _unitOfWork.CommitAsync() > 0;
-        }
 
-        #endregion CECHEDTRANSACTION::
+
     }
 }

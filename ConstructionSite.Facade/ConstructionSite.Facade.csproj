@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MimeKit" Version="2.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
     <ProjectReference Include="..\ConstructionSite.Extensions\ConstructionSite.Extensions.csproj" />
     <ProjectReference Include="..\ConstructionSite.Interface\ConstructionSite.Interface.csproj" />

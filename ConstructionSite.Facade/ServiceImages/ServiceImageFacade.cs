@@ -20,20 +20,21 @@ namespace ConstructionSite.Facade.ServiceImages
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<bool> Add(ServiceImageAddViewModel serviceImageAddViewModel)
+        public async Task<RESULT<ServiceImage>> Add(ServiceImageAddViewModel serviceImageAddViewModel)
         {
             var resultserviceImageAddViewModel = await serviceImageAddViewModel.MappedAsync<ServiceImage>();
-            var result = await _unitOfWork.ServiceImageRepstory.AddAsync(resultserviceImageAddViewModel);
-            return result.IsDone;
+            return
+                await _unitOfWork.ServiceImageRepstory.AddAsync(resultserviceImageAddViewModel);
+
 
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<RESULT<ServiceImage>> Delete(int id)
         {
             var resultServiceImage = await _unitOfWork.ServiceImageRepstory.FindAsync(x => x.Id == id);
             var resultServiceImageMapped = await resultServiceImage.MappedAsync<ServiceImage>();
-            var result = await _unitOfWork.ServiceImageRepstory.DeleteAsync(resultServiceImageMapped);
-            return result.IsDone;
+            return await _unitOfWork.ServiceImageRepstory.DeleteAsync(resultServiceImageMapped);
+
 
         }
 
@@ -56,16 +57,13 @@ namespace ConstructionSite.Facade.ServiceImages
                   .ToListAsync();
         }
 
-        public async Task<bool> Update(ServiceImageUpdateViewModel serviceImageUpdateViewModel)
+        public async Task<RESULT<ServiceImage>> Update(ServiceImageUpdateViewModel serviceImageUpdateViewModel)
         {
             var resultserviceImageUpdateViewModel = await _unitOfWork.ServiceImageRepstory.FindAsync(x => x.Id == serviceImageUpdateViewModel.Id);
             var serviceImageUpdateViewModelMapped = await resultserviceImageUpdateViewModel.MappedAsync<ServiceImage>();
-            await _unitOfWork.ServiceImageRepstory.DeleteAsync(serviceImageUpdateViewModelMapped);
-            return await CeckedTransaction();
+            return await _unitOfWork.ServiceImageRepstory.DeleteAsync(serviceImageUpdateViewModelMapped);
+
         }
-        private async Task<bool> CeckedTransaction()
-        {
-            return await _unitOfWork.CommitAsync() > 0;
-        }
+
     }
 }

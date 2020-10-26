@@ -12,9 +12,9 @@ namespace ConstructionSite.Interface.Facade.Galery
     {
         Task<RESULT<name.Galery>> Add(GaleryAddViewModel galeryAddViewModel);
 
-        Task<bool> Delete(int id);
+        Task<RESULT<name.Galery>> Delete(int id);
         Task<GaleryUpdateViewModel> FindUpdate(int id);
-        Task<bool> Update(GaleryUpdateViewModel galeryUpdateViewModel);
+        Task<RESULT<name.Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel);
         Task<GaleryViewModel> GetAll();
     }
 }

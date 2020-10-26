@@ -2,8 +2,11 @@
 using ConstructionSite.DTO.AdminViewModels.Project;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Projects;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.Project;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +26,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private readonly IProjectImageFacade _projectImageFacade;
+        private readonly IProjectFacade _projectFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
 
@@ -33,13 +37,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public ProjectController(IUnitOfWork unitOfWork,
                                  IWebHostEnvironment env,
-                                 IHttpContextAccessor httpContextAccessor)
+                                 IHttpContextAccessor httpContextAccessor,
+                                 IProjectImageFacade projectImageFacade,
+                                 IProjectFacade projectFacade)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
-
+            _projectFacade = projectFacade;
+            _projectImageFacade = projectImageFacade;
         }
 
         #endregion CTOR
@@ -96,52 +103,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Add(Project project, IFormFile file)
-        //{
-        //    ProjectImage projectImage = new ProjectImage();
-        //    Image image = new Image();
-        //    if (!ModelState.IsValid)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        ModelState.AddModelError("", "Models are not valid");
-        //    }
-        //    if (file == null)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.NotFound;
-        //        ModelState.AddModelError("", "File is null");
-        //    }
-        //    var imageResultID = await file.SaveImageAsync(_env, "project", image, _unitOfWork);
-
-        //    if (!imageResultID)
-        //    {
-        //        ModelState.AddModelError("", "Data didn't save");
-        //    }
-        //    projectImage.ImageId = image.Id;
-        //    var projectAddResult = await _unitOfWork.projectRepository
-        //                                                .AddAsync(project);
-        //    if (!projectAddResult.IsDone)
-        //    {
-        //        ModelState.AddModelError("", "Data didn't save");
-        //    }
-        //    projectImage.ProjectId = project.Id;
-        //    var projectImageResult = await _unitOfWork.projectImageRepository
-        //                                                .AddAsync(projectImage);
-        //    if (!projectImageResult.IsDone)
-        //    {
-        //        _unitOfWork.Rollback();
-        //        ModelState.AddModelError("", "Errors occured while adding SubService");
-        //    }
-        //    _unitOfWork.Dispose();
-        //    return RedirectToAction("Index", "Project", new { Areas = "ConstructionAdmin" });
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Project project, List<IFormFile> file)
         {
-            ProjectImage projectImage = new ProjectImage();
-            Image image = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -152,31 +117,44 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "File is null");
             }
+            var resultProject = await _projectFacade.Add(project);
+            var resultimage = await file.SaveImageCollectionAsync(_env, "project", _unitOfWork);
 
-            var projectAddResult = await _unitOfWork.projectRepository
-                                                        .AddAsync(project);
-            if (!projectAddResult.IsDone)
+            return await AllSave(resultProject, resultimage);
+        }
+
+        private async Task<IActionResult> AllSave(RESULT<Project> resultProject, List<int> resultimage)
+        {
+            if (resultimage.Count > 0 && resultProject.IsDone)
             {
-                ModelState.AddModelError("", "Data didn't save");
-            }
-
-            foreach (var item in file)
-            {
-                var imageResultID = await item.SaveImageAsync(_env, "project", image, _unitOfWork);
-
-                if (!imageResultID)
+                await AddProjectImageAddViewModel(resultProject, resultimage);
+                if (await _unitOfWork.CommitAsync())
                 {
-                    ModelState.AddModelError("", "Data didn't save");
+                    return RedirectToAction("Index");
                 }
-                projectImage.ImageId = image.Id;
-                projectImage.ProjectId = project.Id;
-                await _unitOfWork.projectImageRepository
-                                                        .AddAsync(projectImage);
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View();
+                }
             }
+            else
+            {
+                return View();
+            }
+        }
 
-
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index", "Project", new { Areas = "ConstructionAdmin" });
+        private async Task AddProjectImageAddViewModel(RESULT<Project> resultProject, List<int> resultimage)
+        {
+            foreach (var item in resultimage)
+            {
+                ProjectImageAddViewModel projectImageAddViewModel = new ProjectImageAddViewModel
+                {
+                    ImageId = item,
+                    ProjectId = resultProject.Data.Id
+                };
+                await _projectImageFacade.Add(projectImageAddViewModel);
+            }
         }
 
         #endregion CREATE

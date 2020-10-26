@@ -3,6 +3,7 @@ using ConstructionSite.DTO.FrontViewModels.Service;
 using ConstructionSite.DTO.FrontViewModels.SubService;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace ConstructionSite.Controllers
 {
@@ -17,23 +19,23 @@ namespace ConstructionSite.Controllers
     {
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IServiceFacade _serviceFacade;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SharedLocalizationService _localizationHandle;
 
         public ServicesController(IUnitOfWork unitOfWork,
                                   IHttpContextAccessor httpContextAccessor,
-                                  SharedLocalizationService localizationHandle)
+                                  SharedLocalizationService localizationHandle,
+                                  IServiceFacade serviceFacade)
         {
             _unitOfWork = unitOfWork;
+            _serviceFacade = serviceFacade;
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.GetLanguages();
             _localizationHandle = localizationHandle;
         }
 
-        /// <summary>
-        /// IActionResult Index
-        /// </summary>
-        /// <returns></returns>
+
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -44,13 +46,17 @@ namespace ConstructionSite.Controllers
             var allServiceViewModelResult = _unitOfWork
                .ServiceRepository
                .GetAll()
+               .Include(x => x.ServiceImages)
+               .ThenInclude(x => x.Image)
                .Select(x => new ServiceViewModel
                {
                    Id = x.Id,
                    Name = x.FindName(_lang),
                    Tittle = x.FindName(_lang),
-                   //image = x.Image.Path
+
+                   image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
                })
+               .OrderByDescending(x => x.Id)
                .ToList();
             if (allServiceViewModelResult == null)
             {
@@ -114,6 +120,7 @@ namespace ConstructionSite.Controllers
                      SubServiceID = x.SubServiceId,
                      Content = x.SubService.FindContent(_lang),
                      Name = x.SubService.FindName(_lang),
+
                      Images = x.SubService.SubServiceImages.Select(x => x.Image.Path).ToList()
                  })
                  .OrderByDescending(x => x.id)
@@ -125,9 +132,15 @@ namespace ConstructionSite.Controllers
             return View(serviceSubServiceResult);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+
+            var resultServiceDeatilyViewModel = await _serviceFacade.GetDeaiy(id, _lang);
+            if (resultServiceDeatilyViewModel != null)
+            {
+                return View(resultServiceDeatilyViewModel);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

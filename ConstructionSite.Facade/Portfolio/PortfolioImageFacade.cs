@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
@@ -21,23 +22,24 @@ namespace ConstructionSite.Facade.Portfolio
             _unitOfWork = unitOfWork;
         }
         #region ::ADD::
-        public async Task<bool> Add(PortfolioImageAddViewModel portfolioImageAddViewModel)
+        public async Task<RESULT<PortfolioImage>> Add(PortfolioImageAddViewModel portfolioImageAddViewModel)
         {
             var resultportfolioImageAddViewModel = await portfolioImageAddViewModel.MappedAsync<PortfolioImage>();
-            await _unitOfWork.PortfolioImageRepostory.AddAsync(resultportfolioImageAddViewModel);
-            return await CeckedTransaction();
+            return await _unitOfWork.PortfolioImageRepostory.AddAsync(resultportfolioImageAddViewModel);
+
         }
 
 
         #endregion
 
         #region ::DELTE::
-        public async Task<bool> Delete(int id)
+        public async Task<RESULT<PortfolioImage>> Delete(int id)
         {
             var resultPortfolioImage = await _unitOfWork.PortfolioImageRepostory.FindAsync(x => x.Id == id);
             var resultPortfolioImageMapping = await resultPortfolioImage.MappedAsync<PortfolioImage>();
-            await _unitOfWork.PortfolioImageRepostory.DeleteAsync(resultPortfolioImageMapping);
-            return await CeckedTransaction();
+            return await _unitOfWork.PortfolioImageRepostory.DeleteAsync(resultPortfolioImageMapping);
+
+
 
         }
 
@@ -46,12 +48,12 @@ namespace ConstructionSite.Facade.Portfolio
         #endregion
 
         #region ::UPDATE::
-        public async Task<bool> Update(PortfolioImageUpdateViewModel portfolioImageUpdateViewModel)
+        public async Task<RESULT<PortfolioImage>> Update(PortfolioImageUpdateViewModel portfolioImageUpdateViewModel)
         {
             var resultportfolioImageUpdateViewModel = await _unitOfWork.PortfolioImageRepostory.FindAsync(x => x.Id == portfolioImageUpdateViewModel.Id);
             var resultportfolioImageUpdateViewModelMapped = await resultportfolioImageUpdateViewModel.MappedAsync<PortfolioImage>();
-            await _unitOfWork.PortfolioImageRepostory.UpdateAsync(resultportfolioImageUpdateViewModelMapped);
-            return await CeckedTransaction();
+            return await _unitOfWork.PortfolioImageRepostory.UpdateAsync(resultportfolioImageUpdateViewModelMapped);
+
         }
         #endregion
 
@@ -77,13 +79,6 @@ namespace ConstructionSite.Facade.Portfolio
         #endregion
 
 
-        #region CECHEDTRANSACTION::
 
-        private async Task<bool> CeckedTransaction()
-        {
-            return await _unitOfWork.CommitAsync() > 0;
-        }
-
-        #endregion CECHEDTRANSACTION::
     }
 }

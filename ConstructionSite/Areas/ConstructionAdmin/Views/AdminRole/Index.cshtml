@@ -7,35 +7,37 @@
     .button-create {
         margin-bottom: 10px;
     }
+
     .text-style {
         text-align: center;
         font-size: 1.2em;
     }
+
     .common {
         margin-top: 45px !important;
         background-color: RGB(241, 242, 247) !important;
     }
-    .wprt-button{
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    display: inline-block;
-    padding: 0.72em 2.1em;
-    letter-spacing: 2px;
-    background-color: #ffc925;
-    border: 2px solid #ffc925;
-    color: #fff;
-    -webkit-transition: all ease .238s;
-    -moz-transition: all ease .238s;
-    transition: all ease .238s;
-    border-radius: 8%;
 
+    .wprt-button {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        display: inline-block;
+        padding: 0.72em 2.1em;
+        letter-spacing: 2px;
+        background-color: #ffc925;
+        border: 2px solid #ffc925;
+        color: #fff;
+        -webkit-transition: all ease .238s;
+        -moz-transition: all ease .238s;
+        transition: all ease .238s;
+        border-radius: 8%;
     }
 
-    .wprt-button:hover {
-    background-color: #252525;
-    border-color: #252525;
-    color: #fff
-}
+        .wprt-button:hover {
+            background-color: #252525;
+            border-color: #252525;
+            color: #fff
+        }
 </style>
 
 <section class="panel common">
@@ -55,7 +57,7 @@
                         <tr role="row">
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">RoleID</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">RoleName</th>
-                            <th  class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Users</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Users</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">Edit</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Delete: activate to sort column ascending" style="width: 128px;">Delete</th>
                         </tr>
@@ -69,14 +71,14 @@
                             {
                                 <tr class="odd">
 
-                                <td class="sorting_1">@item.Id</td>
-                                <td class=" ">@item.Name</td>
-                               <td identity-Role="@item.Id"></td>
-                                <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
-                                <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
-                            </tr>
-                                }
+                                    <td class="sorting_1">@item.Id</td>
+                                    <td class=" ">@item.Name</td>
+                                    <td identity-Role="@item.Id"></td>
+                                    <td class=" "><a class="edit btn btn-primary" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id">Edit</a></td>
+                                    <td class=" "><a class="btn btn-danger delete delete-about" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                                </tr>
                             }
+                        }
                     </tbody>
                 </table>
             </div>

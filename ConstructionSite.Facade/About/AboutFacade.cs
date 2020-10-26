@@ -1,14 +1,16 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Entity.Models;
-using ConstructionSite.Extensions.Images;
+using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Repository.Abstract;
+using ConstructionSite.ViwModel.AdminViewModels.About;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using data = ConstructionSite.Entity.Models;
 
 namespace ConstructionSite.Facade.About
 {
@@ -42,11 +44,10 @@ namespace ConstructionSite.Facade.About
             return result;
         }
 
-        public async Task<bool> Insert(AboutAddViewModel aboutAddViewModel, IFormFile FileData)
+        public async Task<RESULT<data.About>> AddAsync(AboutAddViewModel aboutAddViewModel)
         {
-            bool isResult = false;
-            AboutImage aboutImage = new AboutImage();
-            Image image = new Image();
+
+
             var aboutAddViewModelResult = new ConstructionSite.Entity.Models.About
             {
                 Id = aboutAddViewModel.Id,
@@ -57,74 +58,51 @@ namespace ConstructionSite.Facade.About
                 ContentEn = aboutAddViewModel.ContentEn,
                 ContentRu = aboutAddViewModel.ContentRu
             };
-            var aboutSaveResult = await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
+            return await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
 
-            bool imageSaveResult = await FileData.SaveImageAsync(_env, "about", image, _unitOfWork);
 
-            if (aboutSaveResult.IsDone && imageSaveResult)
-            {
-                aboutImage.ImageId = image.Id;
-                aboutImage.AboutId = aboutAddViewModelResult.Id;
 
-                var aboutImageResult = await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
-                if (!aboutImageResult.IsDone)
-                {
-                    ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-                    _unitOfWork.Rollback();
-                }
-                else
-                {
-                    isResult = true;
-                }
-            }
-            _unitOfWork.Dispose();
-            return isResult;
+
+
         }
 
-        public async Task<bool> Update(AboutUpdateViewModel aboutUpdateViewModel, IFormFile file)
+        public async Task<RESULT<data.About>> Update(AboutUpdateViewModel aboutImageUpdateViewModel)
         {
-            bool isResult = false;
-            ConstructionSite.Entity.Models.About UpdateAbout = new ConstructionSite.Entity.Models.About
-            {
-                Id = aboutUpdateViewModel.aboutID,
-                ContentAz = aboutUpdateViewModel.ContentAz,
-                ContentEn = aboutUpdateViewModel.ContentEn,
-                ContentRu = aboutUpdateViewModel.ContentRu,
-                TittleAz = aboutUpdateViewModel.TittleAz,
-                TittleEn = aboutUpdateViewModel.TittleEn,
-                TittleRu = aboutUpdateViewModel.TittleRu,
-            };
-            var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
 
-            if (file != null && aboutResult.IsDone)
-            {
-                Image image = _unitOfWork.imageRepository.GetById(aboutUpdateViewModel.imageId);
-                if (image != null)
-                {
-                    isResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
-                }
-            }
+            var result = await _unitOfWork.AboutRepository.FindAsync(x => x.Id == aboutImageUpdateViewModel.aboutId);
 
-            var updateAboutImage = new AboutImage
-            {
-                Id = aboutUpdateViewModel.Id,
-                ImageId = aboutUpdateViewModel.imageId,
-                AboutId = UpdateAbout.Id,
-            };
-            var AboutImageResult =
-             await _unitOfWork.AboutImageRepository.UpdateAsync(updateAboutImage);
-            isResult = aboutResult.IsDone;
-            if (!AboutImageResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                isResult = false;
-            }
-            else
-            {
-                isResult = true;
-            }
-            _unitOfWork.Dispose();
-            return isResult;
+            result.ContentAz = aboutImageUpdateViewModel.ContentAz;
+            result.ContentEn = aboutImageUpdateViewModel.ContentEn;
+            result.ContentEn = aboutImageUpdateViewModel.ContentEn;
+            result.TittleAz = aboutImageUpdateViewModel.TittleAz;
+            result.TittleEn = aboutImageUpdateViewModel.TittleEn;
+            result.TittleRu = aboutImageUpdateViewModel.TittleRu;
+            var resultAbout = await _unitOfWork.AboutRepository.UpdateAsync(result);
+           
+            return resultAbout;
+
+
+
         }
+
+        public async Task<List<Image>> FindImageByAboutID(int aboutID)
+        {
+            var resultImageUpdateViewModel = await _unitOfWork.AboutImageRepository.GetAll()
+                      .Include(x => x.Image)
+                      .Where(x => x.AboutId == aboutID)
+                      .Select(x => new Image
+                      {
+                          Path = x.Image.Path,
+                          Title = x.Image.Title,
+                          VideoPath = x.Image.VideoPath,
+                          Id = x.Image.Id
+                      })
+                      .ToListAsync();
+
+            return resultImageUpdateViewModel;
+
+        }
+
+
     }
 }
