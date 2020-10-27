@@ -154,6 +154,7 @@ namespace ConstructionSite.Extensions.Images
             return IsResult;
         }
 
+
         public async static Task<List<RESULT<Image>>> SaveImageCollectionForAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             List<RESULT<Image>> imagesForm = new List<RESULT<Image>>();

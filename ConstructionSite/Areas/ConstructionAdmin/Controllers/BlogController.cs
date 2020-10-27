@@ -163,7 +163,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This data is not exist");
             }
 
-            if (blogEditModel.files != null && blogEditModel.ImageID.Count > 0)
+            if (blogEditModel.files != null && blogEditModel.ImageID != null)
             {
                 try
                 {
@@ -179,19 +179,39 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 }
             }
+            if (blogEditModel.files != null)
+            {
+
+
+                var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
+                var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
+                var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                foreach (var item in imagesid)
+                {
+                    var resultData = new NewsImage
+                    {
+
+                        NewsId = emptyImage.Id,
+                        ImageId = item
+                    };
+                    await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                }
+                await _unitOfWork.CommitAsync();
+
+            }
             var resultAbout = await _blogFacade.Update(blogEditModel);
             if (resultAbout)
             {
                 return RedirectToAction("Index");
             }
-            return View(blogEditModel);
+            return RedirectToAction("Index");
         }
 
         #endregion UPDATE
 
         #region DELETE
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
             {
