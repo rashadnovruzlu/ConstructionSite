@@ -74,15 +74,11 @@
                                     </div>
                                     <div class="upload-options">
 
-                                        <label> 
+                                        <label>
+
+                                            <input asp-route-name="blog"  type="file" asp-route-id="@item.Id" asp-for="ImageID" class="image-upload" accept="image/*" onchange="foo(event);" />
                                            
-                                            <input type="file"   id="@item.Id" asp-for="ImageID"   class="image-upload" accept="image/*"  onclick="add(@item.Id)"  />
-                                            <script>
-                                                function add(num) {
-                                                    $("#" + num).attr("value", num);
-                                                   
-                                               }
-                                            </script>
+                                           
                                         </label>
                                     </div>
                                 </div>
@@ -108,12 +104,30 @@
 </div>
 
 @section scripts{
+
+    <script>
+        function foo(event) {
+            let val = event.currentTarget.value;
+            let id = event.target.getAttribute('data-id');
+            console.log(id);
+            let newFormData = new FormData()
+            newFormData.append('id',id);
+            $(this).val('salam');
+            newFormData.append('val', id); 
+
+            fetch("", {
+                method: 'POST',
+                body: newFormData,
+                headers: { "Content-Type": "multipart/form-data" }
+             };
+
+
+
+    </script>
     <script>
         $(".cancel-button").click(function () {
             window.location.href = "/ConstructionAdmin/Blog/Index";
         })
     </script>
-    <script>
 
-    </script>
 }

@@ -13,5 +13,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             return View();
         }
+
     }
 }

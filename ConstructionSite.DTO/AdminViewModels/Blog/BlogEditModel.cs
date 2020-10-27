@@ -22,4 +22,5 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
         public DateTime DateTime { get; set; }
 
     }
+   
 }

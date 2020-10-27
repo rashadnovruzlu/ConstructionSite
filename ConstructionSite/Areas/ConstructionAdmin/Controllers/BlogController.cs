@@ -155,7 +155,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BlogEditModel blogEditModel, int id)
+        public async Task<IActionResult> Edit(BlogEditModel blogEditModel)
         {
             if (!ModelState.IsValid)
             {
@@ -165,6 +165,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
+
             await _blogFacade.Update(blogEditModel);
 
             return View();
