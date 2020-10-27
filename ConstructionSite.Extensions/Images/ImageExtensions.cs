@@ -221,6 +221,44 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+        public async static Task<bool> UpdateAsyc(this IWebHostEnvironment _env, List<IFormFile> file, int[] imageId, string subFolder, IUnitOfWork _unitOfWork)
+        {
+            bool IsResult = false;
+
+            for (int i = 0; i < imageId.Length; i++)
+            {
+                var imageGetById = _unitOfWork.imageRepository.GetById(imageId[i]);
+
+                string filePathForDeleteFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, imageGetById.Title, _IMAGE);
+
+                string fileNameAfterReName = Helper.reNameFileName(file[i]);
+
+                var filePathSaveFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, fileNameAfterReName, _IMAGE);
+
+                string filePathSaveDataBase = Paths.createFilePathSaveDataBase(subFolder, fileNameAfterReName, _IMAGE);
+
+                if (file != null)
+                {
+                    Files.deleteFileFormHardDisk(filePathForDeleteFromHardDisk);
+
+                    file[i].saveImageForDisk(filePathSaveFromHardDisk);
+                    IsResult = true;
+
+                    if (IsResult)
+                    {
+                        imageGetById.Title = fileNameAfterReName;
+                        imageGetById.Path = filePathSaveDataBase;
+                        var updateImageResult = await _unitOfWork.imageRepository.UpdateAsync(imageGetById);
+                        if (updateImageResult.IsDone)
+                        {
+                            IsResult = true;
+                        }
+                    }
+                }
+            }
+
+            return IsResult;
+        }
 
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, List<Image> image, string subFolder, IUnitOfWork _unitOfWork)
         {

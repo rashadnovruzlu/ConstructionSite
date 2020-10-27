@@ -29,6 +29,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBlogFacade _blogFacade;
         private readonly IBlogImageFacade _blogImageFacade;
+        private readonly IBlogQueryFacade _blogQueryFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
@@ -42,11 +43,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                  IHttpContextAccessor httpContextAccessor,
                                  ConstructionDbContext dbContext,
                                  IBlogFacade blogFacade,
-                                 IBlogImageFacade blogImageFacade)
+                                 IBlogImageFacade blogImageFacade,
+                                 IBlogQueryFacade blogQueryFacade)
         {
             _unitOfWork = unitOfWork;
             _blogFacade = blogFacade;
             _blogImageFacade = blogImageFacade;
+            _blogQueryFacade = blogQueryFacade;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
@@ -129,7 +132,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region UPDATE
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id < 1)
             {
@@ -141,19 +144,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var result = _unitOfWork.newsRepository.GetAll()
-                                    .Select(x => new BlogEditModel
-                                    {
-                                        Id = x.Id,
-                                        TittleAz = x.TittleAz,
-                                        TittleEn = x.TittleEn,
-                                        TittleRu = x.TittleRu,
-                                        ContentAz = x.ContentAz,
-                                        ContentEn = x.ContentEn,
-                                        ContentRu = x.ContentRu,
-                                        Images = x.NewsImages.Select(x => x.Image).ToList()
-
-                                    }).SingleOrDefault(x => x.Id == id);
+            var result = await _blogQueryFacade.GetForUpdate(id);
 
             if (result == null)
             {
@@ -164,7 +155,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BlogEditModel blogEditModel)
+        public async Task<IActionResult> Edit(BlogEditModel blogEditModel, int id)
         {
             if (!ModelState.IsValid)
             {
@@ -174,6 +165,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
+            await _blogFacade.Update(blogEditModel);
+
             return View();
         }
 

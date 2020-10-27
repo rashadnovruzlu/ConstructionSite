@@ -2,6 +2,7 @@
 
 namespace ConstructionSite.Cores.HelperTag
 {
+   
     public static class IsActiveHtml
     {
         public static string Active(this IHtmlHelper htmlHelper, string controller, string action)
@@ -15,7 +16,7 @@ namespace ConstructionSite.Cores.HelperTag
 
             return returnActive ? "current-menu-item" : "";
         }
-
+       
         public static string Portfolio(this IHtmlHelper htmlHelper, string controller, string action)
         {
             var routeData = htmlHelper.ViewContext.RouteData;

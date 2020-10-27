@@ -32,7 +32,7 @@
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" method="post" enctype="multipart/form-data">
                         @*<input type="hidden" name="Id" value="@Model.Id" /> *@
-                        
+
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
@@ -70,20 +70,28 @@
                                 <div class="box">
                                     <div class="js--image-preview">
                                         <img src="@item.Path" alt="Alternate Text" />
+                                        <input type="hidden" />
                                     </div>
                                     <div class="upload-options">
 
-                                        <label>
-                                            <input type="file" class="image-upload" accept="image/*" />
+                                        <label> 
+                                           
+                                            <input type="file"   id="@item.Id" asp-for="ImageID"   class="image-upload" accept="image/*"  onclick="add(@item.Id)"  />
+                                            <script>
+                                                function add(num) {
+                                                    $("#" + num).attr("value", num);
+                                                   
+                                               }
+                                            </script>
                                         </label>
                                     </div>
                                 </div>
                             }
 
 
-                         
 
-                           
+
+
 
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
@@ -104,5 +112,8 @@
         $(".cancel-button").click(function () {
             window.location.href = "/ConstructionAdmin/Blog/Index";
         })
+    </script>
+    <script>
+
     </script>
 }

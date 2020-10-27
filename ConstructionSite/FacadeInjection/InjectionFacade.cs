@@ -34,6 +34,7 @@ namespace ConstructionSite.FacadeInjection
 
             services.AddTransient<IBlogFacade, BlogFacade>();
             services.AddTransient<IBlogImageFacade, BlogImageFacade>();
+            services.AddTransient<IBlogQueryFacade, BlogQueryFacade>();
 
             services.AddTransient<IPortfolioImageFacade, PortfolioImageFacade>();
             services.AddTransient<IServiceFacade, ServiceFacade>();

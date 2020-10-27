@@ -8,7 +8,7 @@ namespace ConstructionSite.Interface.Facade.Blogs
 {
    public interface IBlogImageQueryFacade
     {
-        Task<BlogEditModel> GetForUpdate()
+        Task<BlogEditModel> GetForUpdate();
     }
 
 }
