@@ -16,6 +16,8 @@ using ConstructionSite.Facade.Blogs;
 using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.Facade.Email;
 using ConstructionSite.Facade.Projects;
+using ConstructionSite.Interface.Facade.Images;
+using ConstructionSite.Facade.Images;
 
 namespace ConstructionSite.FacadeInjection
 {
@@ -23,6 +25,7 @@ namespace ConstructionSite.FacadeInjection
     {
         public static void LoadFacade(this IServiceCollection services)
         {
+            services.AddTransient<IImageFacade, ImageFacade>();
             services.AddTransient<IAboutFacade, AboutFacade>();
             services.AddTransient<IAboutImageFacade, AboutImageFacade>();
             services.AddTransient<IBlogFacade, BlogFacade>();

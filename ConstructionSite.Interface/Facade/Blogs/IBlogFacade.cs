@@ -10,8 +10,9 @@ namespace ConstructionSite.Interface.Facade.Blogs
     public interface IBlogFacade
     {
         Task<RESULT<data.News>> Add(BlogAddViewModel blogAddViewModel);
-        Task<RESULT<data.News>> Update(BlogEditModel blogEditModel);
-       List<BlogViewModel> GetAll(string _lang);
+        Task<bool> Update(BlogEditModel blogEditModel);
+        List<BlogViewModel> GetAll(string _lang);
+        bool Delete(int id);
 
     }
 }

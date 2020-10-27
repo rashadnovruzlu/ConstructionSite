@@ -76,9 +76,10 @@
 
                                         <label>
 
-                                            <input asp-route-name="blog"  type="file" asp-route-id="@item.Id" asp-for="ImageID" class="image-upload" accept="image/*" onchange="foo(event);" />
+                                            <input id="@item.Id"   type="file" asp-for="files"  onclick="uploadFiles(@item.Id);" />
                                            
-                                           
+
+
                                         </label>
                                     </div>
                                 </div>
@@ -102,28 +103,39 @@
         </div>
     </div>
 </div>
+<script>
 
+    function uploadFiles(number) {
+        $(document).ready(function () {
+            $('<input>').attr({
+                type: 'hidden',
+                value:number,
+                name: 'ImageID'
+            }).appendTo('form');
+        });
+    }
+
+    //function foo(event) {
+    //    let val = event.currentTarget.value;
+    //    let id = event.target.getAttribute('data-id');
+    //    let newFormData = new FormData()
+    //    newFormData.append('id', id);
+    //    newFormData.append('val', val);
+    //    console.log(newFormData);
+    //    fetch('/ConstructionAdmin/Image/blogUpdate/', {
+    //        method: 'POST',
+    //        body: newFormData,
+    //        headers: { "Content-Type": "multipart/form-data" }
+    //    });
+
+    //}
+
+
+
+</script>
 @section scripts{
 
-    <script>
-        function foo(event) {
-            let val = event.currentTarget.value;
-            let id = event.target.getAttribute('data-id');
-            console.log(id);
-            let newFormData = new FormData()
-            newFormData.append('id',id);
-            $(this).val('salam');
-            newFormData.append('val', id); 
 
-            fetch("", {
-                method: 'POST',
-                body: newFormData,
-                headers: { "Content-Type": "multipart/form-data" }
-             };
-
-
-
-    </script>
     <script>
         $(".cancel-button").click(function () {
             window.location.href = "/ConstructionAdmin/Blog/Index";
