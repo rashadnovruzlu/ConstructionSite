@@ -31,7 +31,7 @@
                 </header>
                 <hr />
                 <div class="panel-body add-body">
-                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" method="post">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Add" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
@@ -45,6 +45,11 @@
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="NameRu" placeholder="Name RU" id="f-name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <input type="file" asp-for="formFile"  id="f-name" class="form-control" multiple="multiple">
                             </div>
                         </div>
                         <div class="form-group" style="margin-left: 72%;">

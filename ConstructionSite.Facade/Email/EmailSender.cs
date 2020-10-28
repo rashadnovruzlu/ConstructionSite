@@ -1,7 +1,7 @@
 ﻿using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.ViwModel.AdminViewModels.Mail;
-using System.Net.Mail;
 using System.Net;
+using System.Net.Mail;
 
 namespace ConstructionSite.Facade.Email
 {
@@ -9,10 +9,8 @@ namespace ConstructionSite.Facade.Email
     {
         public void Send(MailSend email)
         {
-
             email.To = "naib.reshidov@pragmatech.az";
             email.To = "residovnaib77@gmail.com";
-
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.To.Add(email.To);
@@ -21,7 +19,6 @@ namespace ConstructionSite.Facade.Email
 
             mailMessage.From = new MailAddress(email.From);
             mailMessage.IsBodyHtml = false;
-
 
             using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.com"))
             {

@@ -155,10 +155,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                   TittleEn = x.Service.TitleEn,
                   TittleRu = x.Service.TitleRu,
                   path = x.Image.Path
-
               })
               .FirstOrDefault(x => x.id == id);
-
 
             return View(result);
         }

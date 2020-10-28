@@ -181,7 +181,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This is empty");
                 return RedirectToAction("Index");
             }
-          
+
             _unitOfWork.Dispose();
             return View(subserviceUpdateImageResult);
         }
@@ -237,7 +237,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
             }
             _unitOfWork.Commit();
-           
+
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }

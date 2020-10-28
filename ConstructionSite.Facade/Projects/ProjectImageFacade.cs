@@ -4,9 +4,6 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Projects;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Project;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Projects
@@ -14,6 +11,7 @@ namespace ConstructionSite.Facade.Projects
     public class ProjectImageFacade : IProjectImageFacade
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public ProjectImageFacade(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

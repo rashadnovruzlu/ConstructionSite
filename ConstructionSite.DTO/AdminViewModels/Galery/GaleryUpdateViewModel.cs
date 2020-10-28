@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ConstructionSite.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
 namespace ConstructionSite.ViwModel.AdminViewModels.Galery
@@ -11,6 +12,8 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Galery
         public string TitleEn { get; set; }
 
         public string TitleRu { get; set; }
-        public ICollection<IFormFile> files { get; set; }
+        public List<int> ImageID { get; set; }
+        public IList<IFormFile> files { get; set; }
+        public List<Image> Images { get; set; }
     }
 }

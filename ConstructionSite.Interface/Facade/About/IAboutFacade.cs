@@ -18,6 +18,8 @@ namespace ConstructionSite.Interface.Facade.About
         Task<RESULT<data.About>> AddAsync(AboutAddViewModel aboutAddViewModel);
         Task<RESULT<data.About>> Update(AboutUpdateViewModel aboutImageUpdateViewModel);
         Task<List<Image>> FindImageByAboutID(int id);
+        AboutUpdateViewModel GetForUpdate(int id);
+        bool Delete(int id);
 
     }
 }

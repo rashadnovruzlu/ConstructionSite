@@ -1,29 +1,28 @@
-﻿using data = ConstructionSite.DTO.AdminViewModels.Service;
-using front = ConstructionSite.DTO.FrontViewModels.Service;
+﻿using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ConstructionSite.DTO.AdminViewModels.Service;
+
+using data = ConstructionSite.DTO.AdminViewModels.Service;
+
+using front = ConstructionSite.DTO.FrontViewModels.Service;
 
 namespace ConstructionSite.Facade.Services
 {
     public class ServiceFacade : IServiceFacade
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public ServiceFacade(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-
 
         public async Task<RESULT<Service>> Add(data.ServiceAddViewModel serviceAddViewModel)
         {
@@ -47,10 +46,8 @@ namespace ConstructionSite.Facade.Services
                 .OrderByDescending(x => x.Id)
                 .ToListAsync();
             return result;
-
-
-
         }
+
         public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
         {
             //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
@@ -58,10 +55,8 @@ namespace ConstructionSite.Facade.Services
             //{
             //    Id = result.Id,
 
-
             //};
             return null;
-
         }
 
         public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
@@ -77,10 +72,6 @@ namespace ConstructionSite.Facade.Services
             result.ContentEn = serviceUpdateViewModel.ContentEn;
             result.ContentRu = serviceUpdateViewModel.ContentRu;
             return await _unitOfWork.ServiceRepository.UpdateAsync(result);
-
-
-
-
         }
     }
 }
