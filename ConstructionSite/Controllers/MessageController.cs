@@ -1,5 +1,4 @@
 ﻿using ConstructionSite.DTO.FrontViewModels.Maps;
-using ConstructionSite.Facade.Email;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.Localization;
@@ -50,7 +49,6 @@ namespace ConstructionSite.Controllers
             return View();
         }
 
-
         public IActionResult Add()
         {
             if (!ModelState.IsValid)
@@ -59,12 +57,10 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
-
-
             return RedirectToAction("Index", "Home");
         }
-        [HttpPost]
 
+        [HttpPost]
         public IActionResult Add(MailSend emailSender)
         {
             if (!ModelState.IsValid)

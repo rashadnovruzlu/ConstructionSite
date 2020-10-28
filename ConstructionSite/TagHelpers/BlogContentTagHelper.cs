@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.TagHelpers
 {
-    
-    [HtmlTargetElement("p",Attributes ="blog-content")]
+    [HtmlTargetElement("p", Attributes = "blog-content")]
     public class BlogContentTagHelper : TagHelper
     {
-       
         public string BlogContent { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

@@ -2,10 +2,9 @@
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("blockquote",Attributes = "testimonial-text")]
+    [HtmlTargetElement("blockquote", Attributes = "testimonial-text")]
     public class TestimonialsTagHelper : TagHelper
     {
-       
         public string TestimonialText { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

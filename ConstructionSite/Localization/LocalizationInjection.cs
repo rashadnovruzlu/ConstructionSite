@@ -14,7 +14,6 @@ namespace ConstructionSite.Localization
     {
         public static IServiceCollection Localization(this IServiceCollection services)
         {
-           
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -22,13 +21,10 @@ namespace ConstructionSite.Localization
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
-              
                 options.DefaultRequestCulture = new RequestCulture(LANGUAGECONSTANT.Az, LANGUAGECONSTANT.Az);
 
-              
                 options.SupportedCultures = LANGUAGECONSTANT.GetSupportedCulture();
 
-                
                 options.SupportedUICultures = LANGUAGECONSTANT.GetSupportedCulture();
 
                 //Added by Rashad
@@ -40,9 +36,9 @@ namespace ConstructionSite.Localization
             });
 
             services.AddControllersWithViews()
-               
+
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-              
+
                 .AddDataAnnotationsLocalization(options =>
                 {
                     options.DataAnnotationLocalizerProvider = (type, factory) =>
@@ -53,9 +49,6 @@ namespace ConstructionSite.Localization
                 });
 
             return services;
-
-
         }
     }
 }
-

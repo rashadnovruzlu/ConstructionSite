@@ -1,12 +1,10 @@
-﻿using ConstructionSite.DTO.FrontViewModels.About;
-using ConstructionSite.Helpers.Constants;
+﻿using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Net;
 
