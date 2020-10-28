@@ -154,7 +154,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 var result = _unitOfWork.AboutImageRepository.GetAll().Where(x => x.AboutId == resultaboutUpdateViewModel.Data.Id)
               .Take(aboutUpdateViewModel.files.Count)
               .Select(x => x.Image).ToArray();
-                await SaveAll(aboutUpdateViewModel, resultaboutUpdateViewModel, result);
+                                                                                                                                                     await SaveAll(aboutUpdateViewModel, resultaboutUpdateViewModel, result);
             }
 
 
