@@ -64,11 +64,9 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-11">
-                                <select class="form-control m-bot15" asp-for="ServiceId">
-                                    @foreach (ServiceSubServiceAddView item in ViewBag.data)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
+                                <select asp-for="ServiceId" asp-items="@ViewBag.services"
+                                        class="select2DropDown form-control" required="">
+                                    <option value="1">1</option>
                                 </select>
                             </div>
                         </div>
