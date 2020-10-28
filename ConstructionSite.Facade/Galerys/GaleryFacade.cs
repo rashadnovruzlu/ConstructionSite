@@ -4,6 +4,8 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Galerys
@@ -42,7 +44,22 @@ namespace ConstructionSite.Facade.Galerys
         #endregion ::GETALL::
 
         #region ::ADD::
+        public List<GaleryViewModel> GetAll(string _lang)
+        {
+          var resultGalery=  _unitOfWork.GaleryRepstory.GetAll()
+                .Select(x => new GaleryViewModel
+                {
+                    Id = x.Id,
+                    Title = x.FindTitle(_lang),
+                    Imagepath = x.GaleryFiles.Select(x => x.Image.Path).FirstOrDefault()
+                })
+                .ToList();
 
+            return resultGalery;
+                
+                
+                
+        }
         public async Task<RESULT<Galery>> Add(GaleryAddViewModel galeryAddViewModel)
         {
             var resultGaleryViewModel = new Galery
