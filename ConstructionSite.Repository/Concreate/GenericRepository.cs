@@ -165,10 +165,7 @@ namespace ConstructionSite.Repository.Concreate
             {
                 throw new ArgumentNullException();
             }
-            if (entity == null)
-            {
-                throw new ArgumentNullException();
-            }
+
             try
             {
 

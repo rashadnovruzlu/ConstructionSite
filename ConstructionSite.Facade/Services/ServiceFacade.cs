@@ -74,6 +74,6 @@ namespace ConstructionSite.Facade.Services
             return await _unitOfWork.ServiceRepository.UpdateAsync(result);
         }
 
-      
+
     }
 }
