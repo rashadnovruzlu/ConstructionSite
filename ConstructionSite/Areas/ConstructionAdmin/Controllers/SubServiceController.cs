@@ -7,6 +7,7 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -87,20 +88,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid");
             }
             var result = _unitOfWork.ServiceRepository.GetAll()
-                .Select(x => new ServiceSubServiceAddView
+                .Select(x => new SelectListItem
                 {
-                    Id = x.Id,
-                    Name = x.FindName(_lang)
+                    Text = x.FindName(_lang),
+                    Value = x.Id.ToString()
                 }).ToList();
-            if (result.Count < 1)
-            {
-                _unitOfWork.Dispose();
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-            _unitOfWork.Dispose();
-            ViewBag.data = result;
-            return View();
+           
+            return View(result);
         }
 
         [HttpPost]
@@ -138,14 +132,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     }
                 }
             }
-            catch 
+            catch
             {
 
-                
+
             }
             return View();
 
-            
+
         }
 
         #endregion CREATE
