@@ -196,7 +196,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var resultAbout = await _blogFacade.Update(blogEditModel);
             if (resultAbout)
             {
-                return RedirectToAction("Index");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+
             }
             return RedirectToAction("Index");
         }

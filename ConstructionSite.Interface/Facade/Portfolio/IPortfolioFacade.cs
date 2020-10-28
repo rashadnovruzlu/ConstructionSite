@@ -10,6 +10,8 @@ namespace ConstructionSite.Interface.Facade.Portfolio
     {
         List<PortfolioViewModel> GetAll(string _lang);
         Task<RESULT<port.Portfolio>> Add(PortfolioAddModel portfolioAddModel);
+        PortfoliUpdateViewModel GetForUpdate(int id);
+        Task<RESULT<port.Portfolio>> Update(PortfoliUpdateViewModel portfoliUpdateViewModel);
         Task<bool> Delete(int id);
 
     }

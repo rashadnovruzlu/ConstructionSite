@@ -2,6 +2,7 @@
 using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Portfolio;
+using data = ConstructionSite.Entity.Models;
 using ConstructionSite.Repository.Abstract;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +31,36 @@ namespace ConstructionSite.Facade.Portfolio
             var resunltPortfoliAdd = await _unitOfWork.portfolioRepository.AddAsync(resultPortfolioAddModel);
             return resunltPortfoliAdd;
         }
+        public async Task<RESULT<data.Portfolio>> Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
+        {
+            var resultPortfoliUpdateViewModel = await _unitOfWork.portfolioRepository.FindAsync(x => x.Id == portfoliUpdateViewModel.id);
+            resultPortfoliUpdateViewModel.NameAz = portfoliUpdateViewModel.NameAz;
+            resultPortfoliUpdateViewModel.NameEn = portfoliUpdateViewModel.NameEn;
+            resultPortfoliUpdateViewModel.NameRu = portfoliUpdateViewModel.NameRu;
+            return await _unitOfWork.portfolioRepository.UpdateAsync(resultPortfoliUpdateViewModel);
 
+
+        }
         public async Task<bool> Delete(int id)
         {
             var resultPortfoli = await _unitOfWork.portfolioRepository.FindAsync(x => x.Id == id);
             var result = await _unitOfWork.portfolioRepository.DeleteAsync(resultPortfoli);
             return result.IsDone;
         }
-
+        public PortfoliUpdateViewModel GetForUpdate(int id)
+        {
+            var resultPortfoliUpdateViewModel = _unitOfWork.portfolioRepository.GetAll()
+                .Select(x => new PortfoliUpdateViewModel
+                {
+                    id = x.Id,
+                    NameAz = x.NameAz,
+                    NameEn = x.NameEn,
+                    NameRu = x.NameRu,
+                    Images = x.PortfolioImages.Select(x => x.Image).ToList()
+                })
+                .SingleOrDefault(x => x.id == id);
+            return resultPortfoliUpdateViewModel;
+        }
         public List<PortfolioViewModel> GetAll(string _lang)
         {
             var resultPortfolio = _unitOfWork.portfolioRepository.GetAll()

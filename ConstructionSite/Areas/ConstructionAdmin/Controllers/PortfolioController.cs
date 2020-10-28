@@ -93,15 +93,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Portfolio is NULL");
             }
 
-            var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
-            var imageColelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
-            foreach (var item in imageColelction)
+            try
             {
-                await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
+                var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
+                var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                foreach (var item in imageCollelction)
                 {
-                    ImageId = item,
-                    PortfolioId = portfolioResult.Data.Id
-                });
+                    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
+                    {
+                        ImageId = item,
+                        PortfolioId = portfolioResult.Data.Id
+                    });
+
+
+                }
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+
+                }
+            }
+            catch
+            {
+
+
             }
             return RedirectToAction("Index");
         }
@@ -117,52 +132,63 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var portfoliUpdateViewModel = _unitOfWork.portfolioRepository.GetById(id);
-            if (portfoliUpdateViewModel == null)
+            var portfoliUpdateViewModelResult = _portfolioFacade.GetForUpdate(id);
+            if (portfoliUpdateViewModelResult == null)
             {
                 ModelState.AddModelError("", "Data Is Null");
             }
-            var portfoliUpdateViewModelResult = new PortfoliUpdateViewModel
-            {
-                id = portfoliUpdateViewModel.Id,
-                NameAz = portfoliUpdateViewModel.NameAz,
-                NameEn = portfoliUpdateViewModel.NameEn,
-                NameRu = portfoliUpdateViewModel.NameRu
-            };
+
             return View(portfoliUpdateViewModelResult);
         }
 
         [HttpPost]
-        public IActionResult Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
+        public async Task<IActionResult> Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
             if (portfoliUpdateViewModel == null)
             {
+                ModelState.AddModelError("", "This data is not exist");
             }
-            var portfoliUpdateViewModelresult = new Portfolio
-            {
-                Id = portfoliUpdateViewModel.id,
-                NameAz = portfoliUpdateViewModel.NameAz,
-                NameEn = portfoliUpdateViewModel.NameEn,
-                NameRu = portfoliUpdateViewModel.NameRu
-            };
-            var result = _unitOfWork.portfolioRepository.Update(portfoliUpdateViewModelresult);
-            if (!result.IsDone)
-            {
-                _unitOfWork.Rollback();
 
-                ModelState.AddModelError("", "This is not successfull update");
-            }
-            else
+            if (portfoliUpdateViewModel.files != null && portfoliUpdateViewModel.ImageID != null)
             {
-                _unitOfWork.Dispose();
+                try
+                {
+                    for (int i = 0; i < portfoliUpdateViewModel.ImageID.Count; i++)
+                    {
+                        var image = _unitOfWork.imageRepository.Find(x => x.Id == portfoliUpdateViewModel.ImageID[i]);
+                        await portfoliUpdateViewModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                    }
+                }
+                catch
+                {
+                }
+            }
+            else if (portfoliUpdateViewModel.files != null)
+            {
+                var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
+                var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
+                var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                foreach (var item in imagesid)
+                {
+                    var resultData = new NewsImage
+                    {
+                        NewsId = emptyImage.Id,
+                        ImageId = item
+                    };
+                    await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                }
+                await _unitOfWork.CommitAsync();
+            }
+            var resultPortfolio = await _portfolioFacade.Update(portfoliUpdateViewModel);
+            if (resultPortfolio.IsDone)
+            {
                 return RedirectToAction("Index");
             }
-            return View(portfoliUpdateViewModel);
+            return RedirectToAction("Index");
         }
 
         #endregion UPDATE
