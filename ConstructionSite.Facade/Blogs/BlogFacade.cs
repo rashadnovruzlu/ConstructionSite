@@ -28,6 +28,7 @@ namespace ConstructionSite.Facade.Blogs
         {
             var result = await blogAddViewModel.MappedAsync<News>();
             return await _unitOfWork.newsRepository.AddAsync(result);
+
         }
 
         public List<BlogViewModel> GetAll(string _lang)

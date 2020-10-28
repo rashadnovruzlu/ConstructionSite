@@ -46,19 +46,19 @@ namespace ConstructionSite.Facade.Galerys
         #region ::ADD::
         public List<GaleryViewModel> GetAll(string _lang)
         {
-          var resultGalery=  _unitOfWork.GaleryRepstory.GetAll()
-                .Select(x => new GaleryViewModel
-                {
-                    Id = x.Id,
-                    Title = x.FindTitle(_lang),
-                    Imagepath = x.GaleryFiles.Select(x => x.Image.Path).FirstOrDefault()
-                })
-                .ToList();
+            var resultGalery = _unitOfWork.GaleryRepstory.GetAll()
+                  .Select(x => new GaleryViewModel
+                  {
+                      Id = x.Id,
+                      Title = x.FindTitle(_lang),
+                      Imagepath = x.GaleryFiles.Select(x => x.Image.Path).FirstOrDefault()
+                  })
+                  .ToList();
 
             return resultGalery;
-                
-                
-                
+
+
+
         }
         public async Task<RESULT<Galery>> Add(GaleryAddViewModel galeryAddViewModel)
         {
@@ -69,8 +69,8 @@ namespace ConstructionSite.Facade.Galerys
                 TitleEn = galeryAddViewModel.TitleEn,
                 TitleRu = galeryAddViewModel.TitleRu
             };
-            var resultGalery = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
-            return resultGalery;
+            var resultGaleryUpdate = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
+            return resultGaleryUpdate;
         }
 
         #endregion ::ADD::
@@ -93,7 +93,7 @@ namespace ConstructionSite.Facade.Galerys
             var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
             var resultGaleryUpdateViewModel = new Galery
             {
-                Id = resultGaleryUpdateViewModelFind.Id,
+               
                 TitleAz = resultGaleryUpdateViewModelFind.TitleAz,
                 TitleEn = resultGaleryUpdateViewModelFind.TitleEn,
                 TitleRu = resultGaleryUpdateViewModelFind.TitleRu
@@ -109,17 +109,20 @@ namespace ConstructionSite.Facade.Galerys
 
 
 
-        public async Task<GaleryUpdateViewModel> FindUpdate(int id)
+        public GaleryUpdateViewModel GetForUpdate(int id)
         {
-            var result = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
-            GaleryUpdateViewModel galeryUpdateViewModel = new GaleryUpdateViewModel
-            {
-                Id = result.Id,
-                TitleAz = result.TitleAz,
-                TitleEn = result.TitleEn,
-                TitleRu = result.TitleRu
-            };
-            return await Task.FromResult(galeryUpdateViewModel);
+            var resultGaleryUpdate = _unitOfWork.GaleryRepstory.GetAll()
+                .Select(x => new GaleryUpdateViewModel
+                {
+                    Id = x.Id,
+                    TitleAz = x.TitleAz,
+                    TitleEn = x.TitleEn,
+                    TitleRu = x.TitleRu,
+                    Images = x.GaleryFiles.Select(x => x.Image).ToList()
+                })
+                .SingleOrDefault(x => x.Id == id);
+            return resultGaleryUpdate;
+         
         }
 
         #endregion CECHEDTRANSACTION::

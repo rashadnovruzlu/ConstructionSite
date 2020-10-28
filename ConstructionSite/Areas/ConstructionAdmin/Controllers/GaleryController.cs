@@ -44,7 +44,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var result = _galeryFacade.GetAll(_lang);
+            return View(result);
         }
 
         #region ::ADD::
@@ -57,12 +58,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
         {
-            var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
-            var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
-            if (resultGalery.IsDone && resultImage.Count > 0)
+            try
             {
-                await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
-                return RedirectToAction("Index");
+                var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
+                var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
+                if (resultGalery.IsDone && resultImage.Count > 0)
+                {
+                    await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+
+
             }
 
             return View();
@@ -72,9 +81,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region ::UPDATE::
 
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update(int id)
         {
-            var resultFindById = await _galeryFacade.FindUpdate(id);
+            var resultFindById = _galeryFacade.GetForUpdate(id);
             return View(resultFindById);
         }
 
@@ -83,22 +92,70 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Models are not valid.");
             }
-            var resultGaleryUpdateViewModelFind = await _galeryFacade.Update(galeryUpdateViewModel);
-            var resultGaleryUpdateViewModel = await _unitOfWork.GaleryFileRepstory
-                .FindAsync(x => x.GaleryId == resultGaleryUpdateViewModelFind.Data.Id);
-            foreach (var item in galeryUpdateViewModel.files)
+            if (galeryUpdateViewModel == null)
             {
-                if (item != null)
+                ModelState.AddModelError("", "This data is not exist");
+            }
+
+            if (galeryUpdateViewModel.files != null && galeryUpdateViewModel.ImageID != null)
+            {
+                try
                 {
-                    await item.UpdateAsyc(_env, resultGaleryUpdateViewModel.Image, "galery", _unitOfWork);
+                    for (int i = 0; i < galeryUpdateViewModel.ImageID.Count; i++)
+                    {
+                        var image = _unitOfWork.imageRepository.Find(x => x.Id == galeryUpdateViewModel.ImageID[i]);
+                        await galeryUpdateViewModel.files[i].UpdateAsyc(_env, image, "galery", _unitOfWork);
+                    }
+                }
+                catch
+                {
+
+
                 }
             }
-            if (await _unitOfWork.CommitAsync())
+            else if (galeryUpdateViewModel.files != null)
             {
-                return RedirectToAction("Index");
+
+
+                try
+                {
+                    var emptyImage = _unitOfWork.GaleryRepstory.Find(x => x.Id == galeryUpdateViewModel.Id);
+
+                    var imagesid = await galeryUpdateViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
+                    foreach (var item in imagesid)
+                    {
+                        var resultData = new GaleryFile
+                        {
+
+                            GaleryId = emptyImage.Id,
+                            ImageId = item
+                        };
+                        await _unitOfWork.GaleryFileRepstory.AddAsync(resultData);
+                    }
+                    await _unitOfWork.CommitAsync();
+
+
+                }
+                catch
+                {
+
+
+                }
+
             }
-            return View(galeryUpdateViewModel.Id);
+            var resultGalery = await _galeryFacade.Update(galeryUpdateViewModel);
+            if (resultGalery.IsDone)
+            {
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+
+
+            }
+            return RedirectToAction("Index");
         }
 
         #endregion ::UPDATE::

@@ -34,7 +34,7 @@
                 </header>
                 <hr />
                 <div class="panel-body add-body">
-                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Add" method="post" enctype="multipart/form-data">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Update" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="TitleAz" id="f-name" class="form-control" placeholder="Title AZE" required>
@@ -50,10 +50,36 @@
                                 <input asp-for="TitleRu" id="f-name" class="form-control" placeholder="Title RU" required>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <input asp-for="files" multiple="multiple" id="f-name" class="form-control" placeholder="Title RU" required>
-                            </div>
+                        <div class="wrapper--preview">
+                            @if (Model.Images == null | Model.Images.Count < 1)
+                            {
+                                <input type="file" asp-for="files" multiple="multiple" />
+                            }
+                            @foreach (var item in Model.Images)
+                            {
+                                <div class="box">
+                                    <div class="js--image-preview">
+                                        <img src="@item.Path" alt="Alternate Text" />
+                                        <input type="hidden" />
+                                    </div>
+                                    <div class="upload-options">
+
+                                        <label>
+
+                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
+
+
+
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+
+
+
+
+
+
                         </div>
 
                         <div class="form-group" style="margin-left: 72%;">
