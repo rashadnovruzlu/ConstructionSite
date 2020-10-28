@@ -2,6 +2,7 @@
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISubServiceFacade _subServiceFacade;
 
         #endregion Fields
 
@@ -28,12 +30,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public SubServiceController(IUnitOfWork unitOfWork,
                                     IWebHostEnvironment env,
-                                    IHttpContextAccessor httpContextAccessor)
+                                    IHttpContextAccessor httpContextAccessor,
+                                    ISubServiceFacade subServiceFacade)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
+            _subServiceFacade = subServiceFacade;
         }
 
         #endregion CTOR
@@ -103,9 +107,45 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+            if (subServiceAddModel == null)
+            {
+                ModelState.AddModelError("", "News is empty");
+            }
 
-            return RedirectToAction("Index");
+            try
+            {
+                var resulBlogAddViewModel = await _subServiceFacade.Add(subServiceAddModel);
+                var resultImage = await subServiceAddModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
+                if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
+                {
+                    foreach (var item in resultImage)
+                    {
+                        var result = new SubServiceImage
+                        {
+                            ImageId = item,
+                            SubServiceId = resulBlogAddViewModel.Data.Id
+                        };
+                        await _unitOfWork.SubServiceImageRepository.AddAsync(result);
+                    }
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch 
+            {
+
+                
+            }
+            return View();
+
+            
         }
 
         #endregion CREATE

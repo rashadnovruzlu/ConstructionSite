@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.SubService;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
 using System;
@@ -18,7 +19,7 @@ namespace ConstructionSite.Facade.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Add(SubServiceAddModel subServiceAddModel)
+        public Task<RESULT<SubService>> Add(SubServiceAddModel subServiceAddModel)
         {
             var resultSubServiceAddModel = new SubService
             {
@@ -34,7 +35,7 @@ namespace ConstructionSite.Facade.Services
 
 
             var resultSubServiceAdd = _unitOfWork.SubServiceRepository.Add(resultSubServiceAddModel);
-            return Task.FromResult(resultSubServiceAdd.IsDone);
+            return Task.FromResult(resultSubServiceAdd);
 
         }
 
