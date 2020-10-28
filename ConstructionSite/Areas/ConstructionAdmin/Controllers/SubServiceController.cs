@@ -101,41 +101,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(SubService subService, IFormFile file)
+        public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
-            SubServiceImage subServiceImageResult = new SubServiceImage();
-            Image imageSubService = new Image();
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid");
-            }
-            if (file == null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                ModelState.AddModelError("", "File is null");
-            }
-
-            var imageResultID = await file.SaveImageAsync(_env, "subserver", imageSubService, _unitOfWork);
-            if (!imageResultID)
-            {
-                ModelState.AddModelError("", "Data didn't save");
-            }
-
-            var SubServiceAddResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
-            if (!SubServiceAddResult.IsDone)
-            {
-                ModelState.AddModelError("", "Data didn't save");
-            }
-            subServiceImageResult.SubServiceId = subService.Id;
-            subServiceImageResult.ImageId = imageSubService.Id;
-            var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
-            if (!SubServiceImageResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Errors occured while adding SubService");
-            }
-            _unitOfWork.Dispose();
+            
 
             return RedirectToAction("Index");
         }

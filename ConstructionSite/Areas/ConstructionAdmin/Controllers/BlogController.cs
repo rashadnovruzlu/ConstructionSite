@@ -92,7 +92,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogAddViewModel blogAddViewModel)
         {
-            Image image = new Image();
+           
 
             if (!ModelState.IsValid)
             {
