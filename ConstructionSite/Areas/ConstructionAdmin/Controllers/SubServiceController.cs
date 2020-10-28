@@ -144,6 +144,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
+            ViewBag.services = _subServiceFacade.GetServices(_lang);
             var resultUpdate = _subServiceFacade.GetForUpdate(id);
             return View(resultUpdate);
         }

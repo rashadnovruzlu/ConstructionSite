@@ -48,16 +48,16 @@ namespace ConstructionSite.Facade.Services
             return result;
         }
 
-        public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
-        {
-            //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
-            //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
-            //{
-            //    Id = result.Id,
+        //public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
+        //{
+        //    //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
+        //    //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
+        //    //{
+        //    //    Id = result.Id,
 
-            //};
-            return null;
-        }
+        //    //};
+        //    return null;
+        //}
 
         public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
@@ -73,5 +73,7 @@ namespace ConstructionSite.Facade.Services
             result.ContentRu = serviceUpdateViewModel.ContentRu;
             return await _unitOfWork.ServiceRepository.UpdateAsync(result);
         }
+
+      
     }
 }

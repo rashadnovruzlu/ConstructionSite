@@ -51,24 +51,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region INDEX
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = _unitOfWork.ServiceRepository.GetAll()
-                .Include(x => x.ServiceImages)
-                .Include(x => x.SubServices)
-                .Select(x => new ServiceViewModel
-                {
-                    Id = x.Id,
-                    Name = x.FindName(_lang),
-                    Tittle = x.FindTitle(_lang),
-                    //Image = x.Image.Path
-                })
-                .ToList();
+            var result = await _serviceFacade.GetAll(_lang);
             return View(result);
         }
 
