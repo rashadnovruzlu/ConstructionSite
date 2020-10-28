@@ -55,18 +55,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = _unitOfWork.portfolioRepository.GetAll()
-            .Select(x => new PortfolioViewModel
-            {
-                Id = x.Id,
-                Name = x.FindName(_lang)
-            }).ToList();
+            var resultViewModel = _portfolioFacade.GetAll(_lang);
 
-            if (result.Count < 0)
+            if (resultViewModel == null)
             {
                 ModelState.AddModelError("", "This is empty");
             }
-            return View(result);
+            return View(resultViewModel);
         }
 
         #endregion INDEX
