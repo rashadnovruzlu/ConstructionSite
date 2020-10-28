@@ -170,7 +170,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             else if (portfoliUpdateViewModel.files != null)
             {
                 var emptyImage = _unitOfWork.portfolioRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
-                
+
                 var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
                 foreach (var item in imagesid)
                 {
@@ -186,7 +186,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var resultPortfolio = await _portfolioFacade.Update(portfoliUpdateViewModel);
             if (resultPortfolio.IsDone)
             {
-                return RedirectToAction("Index");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToAction("Index");
         }
@@ -202,20 +205,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            Portfolio portfolioResult = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
-            if (portfolioResult == null)
+           if( await _portfolioFacade.Delete(id))
             {
-                return RedirectToAction("Index");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
             }
-
-            var portfolioDeleteResult = await _unitOfWork.portfolioRepository.DeleteAsync(portfolioResult);
-            if (!portfolioDeleteResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This portfolio was not delete");
-            }
-            _unitOfWork.Dispose();
             return RedirectToAction("Index");
+           
+
+           
         }
 
         #endregion DELETE
