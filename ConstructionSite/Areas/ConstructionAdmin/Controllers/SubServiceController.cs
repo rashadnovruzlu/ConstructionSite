@@ -144,43 +144,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (id < 1)
-            {
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-            var subserviceUpdateImageResult = _unitOfWork.SubServiceImageRepository
-                     .GetAll()
-                     .Include(x => x.Image)
-                     .Include(x => x.SubService)
-                     .Select(x => new SubServiceUpdateViewModel
-                     {
-                         Id = x.SubServiceId,
-                         imageId = x.ImageId,
-                         ImagePath = x.Image.Path,
-                         ContentAz = x.SubService.ContentAz,
-                         ContentEn = x.SubService.ContentEn,
-                         ContentRu = x.SubService.ContentRu,
-                         NameAz = x.SubService.NameAz,
-                         NameEn = x.SubService.NameEn,
-                         NameRu = x.SubService.NameRu,
-                         ServerId = x.SubService.ServiceId
-                     })
-                     .FirstOrDefault(x => x.Id == id);
 
-            if (subserviceUpdateImageResult == null)
-            {
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-
-            _unitOfWork.Dispose();
-            return View(subserviceUpdateImageResult);
+            return View();
         }
 
         [HttpPost]

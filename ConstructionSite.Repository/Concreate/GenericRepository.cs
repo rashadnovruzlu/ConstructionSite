@@ -57,7 +57,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 _context.Set<T>().Add(entity);
-                _context.SaveChanges();
+
                 result.Data = entity;
             }
             catch (Exception ex)

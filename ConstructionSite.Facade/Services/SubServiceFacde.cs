@@ -1,8 +1,10 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.SubService;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -15,9 +17,11 @@ namespace ConstructionSite.Facade.Services
     public class SubServiceFacde : ISubServiceFacade
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SubServiceFacde(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public SubServiceFacde(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public Task<RESULT<SubService>> Add(SubServiceAddModel subServiceAddModel)
@@ -63,6 +67,50 @@ namespace ConstructionSite.Facade.Services
                     Text = x.FindName(_lang),
                     Value = x.Id.ToString()
                 }).ToList();
+        }
+        public SubServiceUpdateViewModel GetForUpdate(int id)
+        {
+            var resultSubService = _unitOfWork.SubServiceRepository.GetAll()
+                  .Select(x => new SubServiceUpdateViewModel
+                  {
+                      Id = x.Id,
+                      ContentAz = x.ContentAz,
+                      ContentEn = x.ContentEn,
+                      ContentRu = x.ContentRu,
+                      NameAz = x.NameAz,
+                      NameEn = x.NameEn,
+                      NameRu = x.NameRu,
+                      ServerId = x.ServiceId,
+                      Images = x.SubServiceImages.Select(x => x.Image).ToList(),
+                      ImageID = x.SubServiceImages.Select(x => x.ImageId).ToList(),
+
+                  })
+                  .SingleOrDefault(x => x.Id == id);
+            return resultSubService;
+
+        }
+        public Task<RESULT<SubService>> Update(SubServiceUpdateViewModel subServiceUpdateViewModel)
+        {
+            var resultSubService = _unitOfWork.SubServiceRepository.Find(x => x.Id == subServiceUpdateViewModel.Id);
+            resultSubService.NameAz = subServiceUpdateViewModel.NameAz;
+            resultSubService.NameEn = subServiceUpdateViewModel.NameEn;
+            resultSubService.NameRu = subServiceUpdateViewModel.NameRu;
+            resultSubService.ContentAz = subServiceUpdateViewModel.ContentAz;
+            resultSubService.ContentEn = subServiceUpdateViewModel.ContentEn;
+            resultSubService.ContentRu = subServiceUpdateViewModel.ContentRu;
+            resultSubService.ServiceId = subServiceUpdateViewModel.ServerId;
+            var result = _unitOfWork.SubServiceRepository.Update(resultSubService);
+            return Task.FromResult(result);
+
+        }
+        public bool Delete(int id)
+        {
+            var data = _unitOfWork.SubServiceRepository.Find(x => x.Id == id);
+            var imageId = _unitOfWork.SubServiceImageRepository.GetAll()
+                  .Where(x => x.SubServiceId == data.Id)
+                  .Select(x => x.ImageId).ToArray();
+            _unitOfWork.SubServiceRepository.Delete(data);
+            return _webHostEnvironment.Delete(imageId, "blog", _unitOfWork);
         }
     }
 }
