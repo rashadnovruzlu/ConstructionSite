@@ -92,7 +92,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogAddViewModel blogAddViewModel)
         {
-            Image image = new Image();
+           
 
             if (!ModelState.IsValid)
             {
@@ -180,7 +180,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             else if (blogEditModel.files != null)
             {
                 var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
-               
+
                 var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
                 foreach (var item in imagesid)
                 {
@@ -200,7 +200,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-
             }
             return RedirectToAction("Index");
         }

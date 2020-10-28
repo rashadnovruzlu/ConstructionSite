@@ -71,14 +71,13 @@
                         <tr class="odd">
 
                             <td class="sorting_1 img-style">@item.Title</td>
-                           
+
                             <td class="img-style img-style"><img src="@item.Imagepath" width="60" height="60" alt="Alternate Text" /></td>
                             <td class="edit-delete">
                                 <a class="edit" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
-                            
+
                                 <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
                                 </td>
-
                         </tr>
                             }
                         }

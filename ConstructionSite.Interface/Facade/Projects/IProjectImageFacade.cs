@@ -1,9 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.ViwModel.AdminViewModels.Project;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Interface.Facade.Projects

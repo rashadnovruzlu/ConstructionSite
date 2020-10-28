@@ -9,6 +9,6 @@ namespace ConstructionSite.DTO.AdminViewModels.Project
         public string Content { get; set; }
         public string Image { get; set; }
         public int ImageId { get; set; }
-        public PortfolioViewModel Portfolio { get; set; }
+        public int PortfolioID { get; set; }
     }
 }

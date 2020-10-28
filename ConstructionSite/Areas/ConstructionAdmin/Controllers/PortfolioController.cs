@@ -8,7 +8,6 @@ using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -104,19 +103,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         ImageId = item,
                         PortfolioId = portfolioResult.Data.Id
                     });
-
-
                 }
                 if (await _unitOfWork.CommitAsync())
                 {
                     return RedirectToAction("Index");
-
                 }
             }
             catch
             {
-
-
             }
             return RedirectToAction("Index");
         }
@@ -205,7 +199,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-           if( await _portfolioFacade.Delete(id))
+            if (await _portfolioFacade.Delete(id))
             {
                 if (await _unitOfWork.CommitAsync())
                 {
@@ -213,9 +207,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
             }
             return RedirectToAction("Index");
-           
-
-           
         }
 
         #endregion DELETE
