@@ -87,13 +87,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid");
             }
-            var result = _unitOfWork.ServiceRepository.GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.FindName(_lang),
-                    Value = x.Id.ToString()
-                }).ToList();
-           
+            var result = _subServiceFacade.GetServices(_lang);
+
             return View(result);
         }
 

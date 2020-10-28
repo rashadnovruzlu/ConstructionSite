@@ -3,6 +3,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,5 +55,14 @@ namespace ConstructionSite.Facade.Services
             return resultSubService;
         }
 
+        public List<SelectListItem> GetServices(string _lang)
+        {
+            return _unitOfWork.ServiceRepository.GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.FindName(_lang),
+                    Value = x.Id.ToString()
+                }).ToList();
+        }
     }
 }
