@@ -169,17 +169,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             else if (portfoliUpdateViewModel.files != null)
             {
-                var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
-                var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
-                var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                var emptyImage = _unitOfWork.portfolioRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
+                
+                var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
                 foreach (var item in imagesid)
                 {
-                    var resultData = new NewsImage
+                    var resultData = new PortfolioImage
                     {
-                        NewsId = emptyImage.Id,
+                        PortfolioId = emptyImage.Id,
                         ImageId = item
                     };
-                    await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                    await _unitOfWork.PortfolioImageRepostory.AddAsync(resultData);
                 }
                 await _unitOfWork.CommitAsync();
             }

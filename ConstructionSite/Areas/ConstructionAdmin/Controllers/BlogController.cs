@@ -180,7 +180,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             else if (blogEditModel.files != null)
             {
                 var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
-                var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
+               
                 var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
                 foreach (var item in imagesid)
                 {
