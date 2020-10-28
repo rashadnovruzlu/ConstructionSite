@@ -122,14 +122,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Data didn't save");
             }
 
-            var SubServiceAddResult = await _unitOfWork.SubServiceRepository.AddAsync(subService);
+            var SubServiceAddResult =  _unitOfWork.SubServiceRepository.Add(subService);
             if (!SubServiceAddResult.IsDone)
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
-            subServiceImageResult.SubServiceId = subService.Id;
+            subServiceImageResult.SubServiceId = SubServiceAddResult.Data.Id;
             subServiceImageResult.ImageId = imageSubService.Id;
-            var SubServiceImageResult = await _unitOfWork.SubServiceImageRepository.AddAsync(subServiceImageResult);
+            var SubServiceImageResult =  _unitOfWork.SubServiceImageRepository.Add(subServiceImageResult);
             if (!SubServiceImageResult.IsDone)
             {
                 _unitOfWork.Rollback();
@@ -246,32 +246,32 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region DELETE
 
-        public async Task<IActionResult> Delete(int id)
-        {
-            var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
-            if (subServiceImageResult == null)
-            {
-                ModelState.AddModelError("", "Data is null");
-            }
-            var subServiceResult = await _unitOfWork.SubServiceRepository.GetByIdAsync(subServiceImageResult.SubServiceId);
-            if (subServiceResult == null)
-            {
-                ModelState.AddModelError("", "Sub Service Not Found");
-            }
-            var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(subServiceImageResult.ImageId);
-            if (imageResult == null)
-            {
-                ModelState.AddModelError("", "Image Not Found");
-            }
-            var resultUpdate = await _unitOfWork.SubServiceImageRepository.DeleteAsync(subServiceImageResult);
-            if (!resultUpdate.IsDone)
-            {
-                ModelState.AddModelError("", "Errors occured while deleting SubService Images");
-                _unitOfWork.Rollback();
-            }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
-        }
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
+        //    if (subServiceImageResult == null)
+        //    {
+        //        ModelState.AddModelError("", "Data is null");
+        //    }
+        //    var subServiceResult = await _unitOfWork.SubServiceRepository.GetByIdAsync(subServiceImageResult.SubServiceId);
+        //    if (subServiceResult == null)
+        //    {
+        //        ModelState.AddModelError("", "Sub Service Not Found");
+        //    }
+        //    var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(subServiceImageResult.ImageId);
+        //    if (imageResult == null)
+        //    {
+        //        ModelState.AddModelError("", "Image Not Found");
+        //    }
+        //    var resultUpdate = await _unitOfWork.SubServiceImageRepository.DeleteAsync(subServiceImageResult);
+        //    if (!resultUpdate.IsDone)
+        //    {
+        //        ModelState.AddModelError("", "Errors occured while deleting SubService Images");
+        //        _unitOfWork.Rollback();
+        //    }
+        //    _unitOfWork.Dispose();
+        //    return RedirectToAction("Index");
+        //}
 
         #endregion DELETE
     }

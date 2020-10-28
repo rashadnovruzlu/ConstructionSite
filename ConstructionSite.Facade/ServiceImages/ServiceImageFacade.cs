@@ -31,13 +31,36 @@ namespace ConstructionSite.Facade.ServiceImages
 
         public async Task<RESULT<ServiceImage>> Delete(int id)
         {
-            var service = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
-            await _unitOfWork.ServiceRepository.DeleteAsync(service);
+            await DeleteService(id);
+            await SubServiceDelete(id);
             var resultServiceImage = await _unitOfWork.ServiceImageRepstory.FindAllAsync(x => x.ServiceId == id);
             return await _unitOfWork.ServiceImageRepstory.DeleteRangeAsync(resultServiceImage);
 
 
         }
+
+      
+
+        #region private methods
+
+         private async Task DeleteService(int id)
+        {
+            var service = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
+            await _unitOfWork.ServiceRepository.DeleteAsync(service);
+        }
+
+         private async Task SubServiceDelete(int id)
+         {
+             var subService = await _unitOfWork.SubServiceRepository.FindAllAsync(x => x.ServiceId == id);
+             //foreach (var subServiceList in subService)
+             //{
+                 
+             //}
+             await _unitOfWork.SubServiceRepository.DeleteRangeAsync(subService);
+            await _unitOfWork.SubServiceRepository.DeleteRangeAsync(subService);
+         }
+        #endregion
+
 
         public Task<List<ServiceImageViewModel>> GetAll(string _lang)
         {
