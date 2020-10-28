@@ -32,7 +32,7 @@
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Edit" method="post" enctype="multipart/form-data">
                         @*<input type="hidden" name="Id" value="@Model.Id" /> *@
-                        
+
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
@@ -64,26 +64,34 @@
                             </div>
                         </div>
                         <div class="wrapper--preview">
-
+                            @if (Model.Images == null | Model.Images.Count<1)
+                            {
+                                <input  type="file" asp-for="files" multiple="multiple" />
+                            }
                             @foreach (var item in Model.Images)
                             {
                                 <div class="box">
                                     <div class="js--image-preview">
                                         <img src="@item.Path" alt="Alternate Text" />
+                                        <input type="hidden" />
                                     </div>
                                     <div class="upload-options">
 
                                         <label>
-                                            <input type="file" class="image-upload" accept="image/*" />
+
+                                            <input id="@item.Id" type="file" asp-for="files" onclick="uploadFiles(@item.Id);" />
+
+
+
                                         </label>
                                     </div>
                                 </div>
                             }
 
 
-                         
 
-                           
+
+
 
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
@@ -98,11 +106,43 @@
         </div>
     </div>
 </div>
+<script>
 
+    function uploadFiles(number) {
+        $(document).ready(function () {
+            $('<input>').attr({
+                type: 'hidden',
+                value:number,
+                name: 'ImageID'
+            }).appendTo('form');
+        });
+    }
+
+    //function foo(event) {
+    //    let val = event.currentTarget.value;
+    //    let id = event.target.getAttribute('data-id');
+    //    let newFormData = new FormData()
+    //    newFormData.append('id', id);
+    //    newFormData.append('val', val);
+    //    console.log(newFormData);
+    //    fetch('/ConstructionAdmin/Image/blogUpdate/', {
+    //        method: 'POST',
+    //        body: newFormData,
+    //        headers: { "Content-Type": "multipart/form-data" }
+    //    });
+
+    //}
+
+
+
+</script>
 @section scripts{
+
+
     <script>
         $(".cancel-button").click(function () {
             window.location.href = "/ConstructionAdmin/Blog/Index";
         })
     </script>
+
 }

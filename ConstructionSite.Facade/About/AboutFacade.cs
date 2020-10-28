@@ -27,21 +27,18 @@ namespace ConstructionSite.Facade.About
 
         public IEnumerable<AboutViewModel> GetAll(string _lang)
         {
-            var result = _unitOfWork.AboutImageRepository.GetAll()
-         .Include(x => x.About)
-          .Include(x => x.Image)
-           .Select(x => new AboutViewModel
-           {
-               Id = x.Id,
-               aboutID = x.About.Id,
-               Tittle = x.About.FindTitle(_lang),
-               Content = x.About.FindContent(_lang),
-               imageId = x.Image.Id,
-               Image = x.Image.Path
-           })
-             .AsQueryable();
+            return _unitOfWork.AboutRepository.GetAll()
+                    .Select(x => new AboutViewModel
+                    {
+                        Id = x.Id,
+                        Content = x.FindContent(_lang),
+                        Tittle = x.FindTitle(_lang),
+                        Image = x.AboutImages.Select(x => x.Image.Path).FirstOrDefault()
 
-            return result;
+                    })
+                    .ToList();
+
+
         }
 
         public async Task<RESULT<data.About>> AddAsync(AboutAddViewModel aboutAddViewModel)
@@ -78,7 +75,7 @@ namespace ConstructionSite.Facade.About
             result.TittleEn = aboutImageUpdateViewModel.TittleEn;
             result.TittleRu = aboutImageUpdateViewModel.TittleRu;
             var resultAbout = await _unitOfWork.AboutRepository.UpdateAsync(result);
-           
+
             return resultAbout;
 
 

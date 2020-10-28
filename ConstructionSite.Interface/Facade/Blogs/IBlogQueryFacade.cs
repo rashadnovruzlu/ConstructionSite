@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Interface.Facade.Blogs
 {
-   public interface IBlogImageQueryFacade
+  public  interface IBlogQueryFacade
     {
-        Task<BlogEditModel> GetForUpdate();
+        Task<BlogEditModel> GetForUpdate(int id);
     }
-
 }

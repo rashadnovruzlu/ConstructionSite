@@ -3,7 +3,6 @@ using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Constants;
-using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
@@ -12,8 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -29,6 +26,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBlogFacade _blogFacade;
         private readonly IBlogImageFacade _blogImageFacade;
+        private readonly IBlogQueryFacade _blogQueryFacade;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ConstructionDbContext _dbContext;
@@ -42,11 +40,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                                  IHttpContextAccessor httpContextAccessor,
                                  ConstructionDbContext dbContext,
                                  IBlogFacade blogFacade,
-                                 IBlogImageFacade blogImageFacade)
+                                 IBlogImageFacade blogImageFacade,
+                                 IBlogQueryFacade blogQueryFacade)
         {
             _unitOfWork = unitOfWork;
             _blogFacade = blogFacade;
             _blogImageFacade = blogImageFacade;
+            _blogQueryFacade = blogQueryFacade;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _dbContext = dbContext;
@@ -65,18 +65,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var newsImageResult = _unitOfWork.newsRepository.GetAll()
-
-
-                                            .Select(x => new BlogViewModel
-                                            {
-                                                Id = x.Id,
-                                                Title = x.FindTitle(_lang),
-                                                Content = x.FindContent(_lang),
-                                                Imagepath = x.NewsImages.Select(x => x.Image.Path).First(),
-                                                CreateDate = x.CreateDate,
-                                            }).OrderByDescending(x => x.Id)
-                                            .ToList();
+            var newsImageResult = _blogFacade.GetAll(_lang);
             if (newsImageResult.Count < 1 | newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");
@@ -140,7 +129,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region UPDATE
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id < 1)
             {
@@ -152,19 +141,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var result = _unitOfWork.newsRepository.GetAll()
-                                    .Select(x => new BlogEditModel
-                                    {
-                                        Id = x.Id,
-                                        TittleAz = x.TittleAz,
-                                        TittleEn = x.TittleEn,
-                                        TittleRu = x.TittleRu,
-                                        ContentAz = x.ContentAz,
-                                        ContentEn = x.ContentEn,
-                                        ContentRu = x.ContentRu,
-                                        Images = x.NewsImages.Select(x => x.Image).ToList()
-
-                                    }).SingleOrDefault(x => x.Id == id);
+            var result = await _blogQueryFacade.GetForUpdate(id);
 
             if (result == null)
             {
@@ -185,14 +162,56 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is not exist");
             }
-            return View();
+
+            if (blogEditModel.files != null && blogEditModel.ImageID != null)
+            {
+                try
+                {
+                    for (int i = 0; i < blogEditModel.ImageID.Count; i++)
+                    {
+                        var image = _unitOfWork.imageRepository.Find(x => x.Id == blogEditModel.ImageID[i]);
+                        await blogEditModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                    }
+                }
+                catch
+                {
+
+
+                }
+            }
+            if (blogEditModel.files != null)
+            {
+
+
+                var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
+                var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
+                var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                foreach (var item in imagesid)
+                {
+                    var resultData = new NewsImage
+                    {
+
+                        NewsId = emptyImage.Id,
+                        ImageId = item
+                    };
+                    await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                }
+                await _unitOfWork.CommitAsync();
+
+            }
+            var resultAbout = await _blogFacade.Update(blogEditModel);
+            if (resultAbout)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
         #endregion UPDATE
 
         #region DELETE
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -203,35 +222,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Object is NULL");
             }
-            var newsImageResult = await _unitOfWork.newsImageRepository
-                                                    .GetByIdAsync(id);
-            if (newsImageResult == null)
+            if (_blogFacade.Delete(id))
             {
-                ModelState.AddModelError("", "Data is NULL");
                 return RedirectToAction("Index");
-            }
-            var newsResult = await _unitOfWork.newsRepository
-                                                .GetByIdAsync(newsImageResult.NewsId);
 
-            var imageResult = await _unitOfWork.imageRepository
-                                             .GetByIdAsync(newsImageResult.ImageId);
-
-            if (newsResult != null && imageResult != null)
-            {
-                var newsDeleteResult = await _unitOfWork.newsRepository
-                                                   .DeleteAsync(newsResult);
-                var imageDeleteResult = ImageExtensions.DeleteAsyc(_env, imageResult, "news", _unitOfWork);
-                if (newsDeleteResult.IsDone && imageDeleteResult)
-                {
-                    _unitOfWork.Dispose();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "delete error");
-                }
             }
-            return RedirectToAction("Index");
+            return View();
+
+
         }
 
         #endregion DELETE

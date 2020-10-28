@@ -6,8 +6,8 @@
         //localStorage.setItem('name',id);
         //DeActive();
 
-       
-      
+
+
         $.ajax({
             method: "POST",
             url: "/Language/SetLanguage/" + id,
@@ -18,15 +18,15 @@
                 //    Active();
                 //});
 
-             }
+            }
         });
 
-       
+
     });
-   
+
 });
 function DeActive() {
-    $(".datas_item").css("color","white");
+    $(".datas_item").css("color", "white");
 }
 function Active() {
     var name = localStorage.getItem('name');
