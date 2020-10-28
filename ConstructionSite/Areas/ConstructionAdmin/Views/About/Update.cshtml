@@ -36,8 +36,7 @@
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="Id" value="@Model.Id" />
-                        <input type="hidden" name="aboutId" value="@Model.aboutId" />
-                        <input type="hidden" name="imageId" value="@Model.imageId" />
+
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="TittleAz" id="f-name" class="form-control" placeholder="Title AZE">
@@ -68,15 +67,37 @@
                                 <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment" placeholder="Content RU"></textarea>
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="col-lg-11">
-                                <img src="@Model.Image" width="240" height="280" alt="Alternate Text" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <input type="file" asp-for="files" multiple="multiple" placeholder="Images" id="f-name" class="form-control">
-                            </div>
+
+                        <div class="wrapper--preview">
+                            @if (Model.Images == null | Model.Images.Count < 1)
+                            {
+                                <input type="file" asp-for="files" multiple="multiple" />
+                            }
+                            @foreach (var item in Model.Images)
+                            {
+                                <div class="box">
+                                    <div class="js--image-preview">
+                                        <img src="@item.Path" alt="Alternate Text" />
+                                        <input type="hidden" />
+                                    </div>
+                                    <div class="upload-options">
+
+                                        <label>
+
+                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
+
+
+
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+
+
+
+
+
+
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
@@ -90,9 +111,21 @@
         </div>
     </div>
 </div>
-
+<script>
+    function cenerateInput(number) {
+        $(document).ready(function () {
+            $('<input>').attr({
+                type: 'hidden',
+                value: number,
+                name: 'ImageID'
+            }).appendTo('form');
+        });
+    }
+</script>
 @section scripts{
+
     <script>
+
         $(".cancel-button").click(function () {
             window.location.href = "/ConstructionAdmin/About/Index";
         })

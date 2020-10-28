@@ -179,7 +179,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 }
             }
-            if (blogEditModel.files != null)
+            else if (blogEditModel.files != null)
             {
 
 

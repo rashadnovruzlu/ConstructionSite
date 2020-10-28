@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using data = ConstructionSite.Entity.Models;
 
 namespace ConstructionSite.DTO.AdminViewModels.About
 {
@@ -15,10 +16,11 @@ namespace ConstructionSite.DTO.AdminViewModels.About
         public string ContentAz { get; set; }
         public string ContentEn { get; set; }
         public string ContentRu { get; set; }
-        public string Image { get; set; }
-        public int imageId { get; set; }
+        public List<int> ImageID { get; set; }
         public IList<IFormFile> files { get; set; }
-        public int aboutId { get; set; }
+        public List<data.Image> Images { get; set; }
+
+
 
     }
 }
