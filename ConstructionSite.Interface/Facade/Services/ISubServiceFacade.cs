@@ -12,6 +12,9 @@ namespace ConstructionSite.Interface.Facade.Services
         List<SubServiceViewModel> GetAll(string _lang);
         Task<RESULT<SubService>> Add(SubServiceAddModel subServiceAddModel);
         List<SelectListItem> GetServices(string _lang);
+        SubServiceUpdateViewModel GetForUpdate(int id);
+        Task<RESULT<SubService>> Update(SubServiceUpdateViewModel subServiceUpdateViewModel);
+        bool Delete(int id);
 
 
 
