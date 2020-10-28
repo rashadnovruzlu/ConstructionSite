@@ -17,6 +17,7 @@ namespace ConstructionSite.Facade.Galerys
         /// PortfolioImage
         /// ServiceImage
         /// </summary>
+
         #region ::FILEDS::
 
         private readonly IUnitOfWork _unitOfWork;
@@ -44,6 +45,7 @@ namespace ConstructionSite.Facade.Galerys
         #endregion ::GETALL::
 
         #region ::ADD::
+
         public List<GaleryViewModel> GetAll(string _lang)
         {
             var resultGalery = _unitOfWork.GaleryRepstory.GetAll()
@@ -56,10 +58,8 @@ namespace ConstructionSite.Facade.Galerys
                   .ToList();
 
             return resultGalery;
-
-
-
         }
+
         public async Task<RESULT<Galery>> Add(GaleryAddViewModel galeryAddViewModel)
         {
             var resultGaleryViewModel = new Galery
@@ -81,7 +81,6 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
             return await _unitOfWork.GaleryRepstory.DeleteAsync(resultGaleryFind);
-
         }
 
         #endregion ::DELETE::
@@ -91,23 +90,16 @@ namespace ConstructionSite.Facade.Galerys
         public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
-            var resultGaleryUpdateViewModel = new Galery
-            {
-               
-                TitleAz = resultGaleryUpdateViewModelFind.TitleAz,
-                TitleEn = resultGaleryUpdateViewModelFind.TitleEn,
-                TitleRu = resultGaleryUpdateViewModelFind.TitleRu
-            };
-            return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModel);
+            resultGaleryUpdateViewModelFind.TitleAz = galeryUpdateViewModel.TitleAz;
+            resultGaleryUpdateViewModelFind.TitleEn = galeryUpdateViewModel.TitleEn;
+            resultGaleryUpdateViewModelFind.TitleRu = galeryUpdateViewModel.TitleRu;
 
+            return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModelFind);
         }
 
         #endregion ::UPDATE::
 
         #region CECHEDTRANSACTION::
-
-
-
 
         public GaleryUpdateViewModel GetForUpdate(int id)
         {
@@ -122,7 +114,6 @@ namespace ConstructionSite.Facade.Galerys
                 })
                 .SingleOrDefault(x => x.Id == id);
             return resultGaleryUpdate;
-         
         }
 
         #endregion CECHEDTRANSACTION::

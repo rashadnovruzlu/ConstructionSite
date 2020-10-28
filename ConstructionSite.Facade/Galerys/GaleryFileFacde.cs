@@ -15,9 +15,10 @@ namespace ConstructionSite.Facade.Galerys
     public class GaleryFileFacde : IGaleryFileFacde
     {
         #region ::FILDS::
-        private readonly IUnitOfWork _unitOfWork;
-        #endregion
 
+        private readonly IUnitOfWork _unitOfWork;
+
+        #endregion ::FILDS::
 
         public GaleryFileFacde(IUnitOfWork unitOfWork)
         {
@@ -30,7 +31,6 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryFileAddViewModel = await galeryFileAddViewModel.MappedAsync<GaleryFile>();
             return await _unitOfWork.GaleryFileRepstory.AddAsync(resultGaleryFileAddViewModel);
-
         }
 
         #endregion ::ADD::
@@ -42,7 +42,6 @@ namespace ConstructionSite.Facade.Galerys
             var resultgaleryFileViewModel = await _unitOfWork.GaleryFileRepstory.FindAsync(x => x.Id == id);
             var resultgaerlyFileViewModelMapping = await resultgaleryFileViewModel.MappedAsync<GaleryFile>();
             return await _unitOfWork.GaleryFileRepstory.DeleteAsync(resultgaerlyFileViewModelMapping);
-
         }
 
         #endregion ::DELETE::
@@ -53,7 +52,6 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryFileUpdateViewModel = await _unitOfWork.GaleryFileRepstory.FindAsync(x => x.Id == galeryFileUpdateViewModel.Id);
             return await _unitOfWork.GaleryFileRepstory.UpdateAsync(resultGaleryFileUpdateViewModel);
-
         }
 
         #endregion ::UPDATE::
@@ -73,17 +71,10 @@ namespace ConstructionSite.Facade.Galerys
                     VideoPath = x.GaleryFiles.Select(x => x.Image.VideoPath).FirstOrDefault()
                     ,
                     Title = x.FindTitle(_lang)
-
-
                 });
             return result.ToList();
-
         }
 
         #endregion ::GETALL::
-
-
-
-
     }
 }

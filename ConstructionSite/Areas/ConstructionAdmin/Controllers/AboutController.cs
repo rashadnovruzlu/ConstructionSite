@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -97,8 +96,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return await SaveAll(resultAbout, resultImage);
         }
 
-
-
         #endregion CREATE
 
         #region UPDATE
@@ -144,14 +141,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 catch
                 {
-
-
                 }
             }
             else if (aboutUpdateViewModel.files != null)
             {
-
-
                 try
                 {
                     var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == aboutUpdateViewModel.Id);
@@ -161,7 +154,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         var resultData = new NewsImage
                         {
-
                             NewsId = emptyImage.Id,
                             ImageId = item
                         };
@@ -171,10 +163,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 catch
                 {
-
-
                 }
-
             }
             var resultAbout = await _aboutFacade.Update(aboutUpdateViewModel);
             if (resultAbout.IsDone)
@@ -182,10 +171,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
-
         }
-
-
 
         #endregion UPDATE
 
@@ -212,6 +198,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #endregion DELETE
 
         #region ::private::
+
         private async Task<IActionResult> SaveAll(RESULT<Entity.Models.About> resultAbout, List<int> resultImage)
         {
             if (resultAbout.IsDone && resultImage.Count > 0)
@@ -236,6 +223,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
-        #endregion
+
+        #endregion ::private::
     }
 }

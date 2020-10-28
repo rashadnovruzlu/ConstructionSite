@@ -3,9 +3,6 @@ using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Portfolio
@@ -13,10 +10,12 @@ namespace ConstructionSite.Facade.Portfolio
     public class PortfolioFacade : IPortfolioFacade
     {
         private IUnitOfWork _unitOfWork;
+
         public PortfolioFacade(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<RESULT<Entity.Models.Portfolio>> Add(PortfolioAddModel portfolioAddModel)
         {
             var resultPortfolioAddModel = await portfolioAddModel.MappedAsync<Entity.Models.Portfolio>();
@@ -30,6 +29,7 @@ namespace ConstructionSite.Facade.Portfolio
             var result = await _unitOfWork.portfolioRepository.DeleteAsync(resultPortfoli);
             return result.IsDone;
         }
-       // public async Task<RESULT<Entity.Models.Portfolio>> Update(Entity.Models.Portfolio)
+
+        // public async Task<RESULT<Entity.Models.Portfolio>> Update(Entity.Models.Portfolio)
     }
 }

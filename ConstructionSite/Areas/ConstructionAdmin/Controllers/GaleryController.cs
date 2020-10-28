@@ -70,8 +70,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
-
             }
 
             return View();
@@ -111,14 +109,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 catch
                 {
-
-
                 }
             }
             else if (galeryUpdateViewModel.files != null)
             {
-
-
                 try
                 {
                     var emptyImage = _unitOfWork.GaleryRepstory.Find(x => x.Id == galeryUpdateViewModel.Id);
@@ -128,22 +122,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         var resultData = new GaleryFile
                         {
-
                             GaleryId = emptyImage.Id,
                             ImageId = item
                         };
                         await _unitOfWork.GaleryFileRepstory.AddAsync(resultData);
                     }
                     await _unitOfWork.CommitAsync();
-
-
                 }
                 catch
                 {
-
-
                 }
-
             }
             var resultGalery = await _galeryFacade.Update(galeryUpdateViewModel);
             if (resultGalery.IsDone)
@@ -152,8 +140,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-
-
             }
             return RedirectToAction("Index");
         }
@@ -190,6 +176,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 };
                 await _galeryFileFacde.Add(galeryFileAddViewModel);
             }
+            await _unitOfWork.CommitAsync();
         }
 
         #endregion ::private::

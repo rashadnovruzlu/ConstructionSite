@@ -6,7 +6,6 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +27,6 @@ namespace ConstructionSite.Facade.Blogs
         {
             var result = await blogAddViewModel.MappedAsync<News>();
             return await _unitOfWork.newsRepository.AddAsync(result);
-
         }
 
         public List<BlogViewModel> GetAll(string _lang)
@@ -67,6 +65,7 @@ namespace ConstructionSite.Facade.Blogs
             }
             return isSuccess;
         }
+
         public bool Delete(int id)
         {
             var data = _unitOfWork.newsRepository.Find(x => x.Id == id);
@@ -75,8 +74,6 @@ namespace ConstructionSite.Facade.Blogs
                   .Select(x => x.ImageId).ToArray();
             _unitOfWork.newsRepository.Delete(data);
             return _webHostEnvironment.Delete(imageId, "blog", _unitOfWork);
-
-
         }
     }
 }
