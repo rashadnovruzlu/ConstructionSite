@@ -126,7 +126,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(CustomerViewUpdateModel customerViewUpdateModel)
+        public IActionResult Update(CustomerViewUpdateModel customerViewUpdateModel)
         {
             if (!ModelState.IsValid)
             {
@@ -144,7 +144,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                return View(customerViewUpdateModel);
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View(customerViewUpdateModel);
+                }
+
             }
             return View(customerViewUpdateModel);
 
@@ -166,18 +171,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Id is null");
             }
-            var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
-            if (customerFeedbackResult != null)
+            var resultDelete = _testimonialFacade.Delete(id);
+            if (resultDelete)
             {
-                ModelState.AddModelError("", "This data is null or empty");
+                if (_unitOfWork.Commit() > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View();
+                }
             }
-            var customerFeedbackDeleteResult = await _unitOfWork.customerFeedbackRepository.DeleteAsync(customerFeedbackResult);
-            if (!customerFeedbackDeleteResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This data is null or empty");
-            }
-            _unitOfWork.Dispose();
             return View();
         }
 

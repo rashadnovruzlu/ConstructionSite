@@ -61,8 +61,8 @@ namespace ConstructionSite.Facade.Testimonial
         public bool Delete(int id)
         {
             var resultCustomerFeedback = _unitOfWork.customerFeedbackRepository.Find(x => x.Id == id);
-            _unitOfWork.customerFeedbackRepository.Delete(resultCustomerFeedback);
-            return _unitOfWork.Commit() > 0;
+           return _unitOfWork.customerFeedbackRepository.Delete(resultCustomerFeedback).IsDone;
+           
         }
     }
 }
