@@ -16,7 +16,7 @@ namespace ConstructionSite.Interface.Facade.Servics
         Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang);
 
         Task<RESULT<data.Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel);
-
+        ServiceUpdateViewModel GetForUpdate(int id);
         bool Delete(int id);
     }
 }

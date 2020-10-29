@@ -127,24 +127,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var result = _unitOfWork.ServiceImageRepstory.GetAll()
-              .Include(x => x.Image)
-              .Include(x => x.Service)
-              .Select(x => new ServiceUpdateViewModel
-              {
-                  id = x.Service.Id,
-                  ContentAz = x.Service.ContentAz,
-                  ContentEn = x.Service.ContentEn,
-                  ContentRu = x.Service.ContentRu,
-                  NameAz = x.Service.NameAz,
-                  NameEn = x.Service.NameEn,
-                  NameRu = x.Service.NameRu,
-                  TittleAz = x.Service.TitleAz,
-                  TittleEn = x.Service.TitleEn,
-                  TittleRu = x.Service.TitleRu,
-                  path = x.Image.Path
-              })
-              .FirstOrDefault(x => x.id == id);
+            var result = _serviceFacade.GetForUpdate(id);
 
             return View(result);
         }
@@ -153,43 +136,64 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
+            if(serviceUpdateViewModel == null)
+            {
+                ModelState.AddModelError("", "This data not exists");
+            }
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (serviceUpdateViewModel == null)
+            try
             {
-                ModelState.AddModelError("", "data is not exists");
-                return RedirectToAction("Index");
-            }
-            var resultUpdateService = await _serviceFacade.Update(serviceUpdateViewModel);
 
-            if (serviceUpdateViewModel.file != null)
-            {
-                var resultImage = _unitOfWork.ServiceImageRepstory.GetAll()
-                 .Where(x => x.ServiceId == serviceUpdateViewModel.id)
-                 .Select(x => x.Image)
-                 .Take(serviceUpdateViewModel.file.Count)
-                 .ToArray();
-
-                _env.Delete(resultImage, "service", _unitOfWork);
-                var resultServiceImageId = await serviceUpdateViewModel.file.SaveImageCollectionAsync(_env, "service", _unitOfWork);
-                foreach (var item in resultServiceImageId)
+                if (serviceUpdateViewModel.files != null && serviceUpdateViewModel.ImageID != null)
                 {
-                    ServiceImage serviceImage = new ServiceImage
+                    try
                     {
-                        ImageId = item,
-                        ServiceId = resultUpdateService.Data.Id
-                    };
-                    await _unitOfWork.ServiceImageRepstory.UpdateAsync(serviceImage);
+                        for (int i = 0; i < serviceUpdateViewModel.ImageID.Count; i++)
+                        {
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == serviceUpdateViewModel.ImageID[i]);
+                            await serviceUpdateViewModel.files[i].UpdateAsyc(_env, image, "service", _unitOfWork);
+                        }
+                    }
+                    catch
+                    {
+                    }
                 }
-            }
-            if (await _unitOfWork.CommitAsync())
-            {
+                else if (serviceUpdateViewModel.files != null)
+                {
+                    try
+                    {
+                        var emptyImage = _unitOfWork.ServiceRepository.Find(x => x.Id == serviceUpdateViewModel.id);
+
+                        var imagesid = await serviceUpdateViewModel.files.SaveImageCollectionAsync(_env, "", _unitOfWork);
+                        foreach (var item in imagesid)
+                        {
+                            var resultData = new ServiceImage
+                            {
+                                ServiceId = emptyImage.Id,
+                                ImageId = item
+                            };
+                            await _unitOfWork.ServiceImageRepstory.AddAsync(resultData);
+                        }
+                        await _unitOfWork.CommitAsync();
+                    }
+                    catch
+                    {
+                    }
+                }
+                var resultAbout = await _serviceFacade.Update(serviceUpdateViewModel);
+                if (resultAbout.IsDone)
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
-            return View(serviceUpdateViewModel.id);
+            catch
+            {
+            }
+            return View(serviceUpdateViewModel);
         }
 
         #endregion UPDATE

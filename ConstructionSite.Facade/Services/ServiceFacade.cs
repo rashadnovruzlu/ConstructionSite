@@ -30,8 +30,7 @@ namespace ConstructionSite.Facade.Services
             return await _unitOfWork.ServiceRepository.AddAsync(resultData);
         }
 
-        public async
-          Task<List<data.ServiceViewModel>> GetAll(string _lang)
+        public async Task<List<data.ServiceViewModel>> GetAll(string _lang)
         {
             var resultServiceViewModel = await _unitOfWork.ServiceRepository.GetAll()
                   .Select(x => new ServiceViewModel
@@ -55,6 +54,25 @@ namespace ConstructionSite.Facade.Services
 
             //};
             return null;
+        }
+        public ServiceUpdateViewModel GetForUpdate(int id)
+        {
+            var resultService = _unitOfWork.ServiceRepository.GetAll()
+                 .Select(x => new ServiceUpdateViewModel
+                 {
+                     NameAz = x.NameAz,
+                     NameEn = x.NameEn,
+                     NameRu = x.NameRu,
+                     ContentAz = x.ContentAz,
+                     ContentEn = x.ContentEn,
+                     ContentRu = x.ContentRu,
+                     TittleAz = x.TitleAz,
+                     TittleEn = x.TitleEn,
+                     TittleRu = x.TitleRu
+                 }
+                     )
+                 .SingleOrDefault(x => x.id == id);
+            return resultService;
         }
 
         public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
