@@ -80,7 +80,7 @@ namespace ConstructionSite.Facade.Services
                       NameAz = x.NameAz,
                       NameEn = x.NameEn,
                       NameRu = x.NameRu,
-                      ServerId = x.ServiceId,
+                      ServiceId = x.ServiceId,
                       Images = x.SubServiceImages.Select(x => x.Image).ToList(),
                       ImageID = x.SubServiceImages.Select(x => x.ImageId).ToList(),
 
@@ -98,7 +98,7 @@ namespace ConstructionSite.Facade.Services
             resultSubService.ContentAz = subServiceUpdateViewModel.ContentAz;
             resultSubService.ContentEn = subServiceUpdateViewModel.ContentEn;
             resultSubService.ContentRu = subServiceUpdateViewModel.ContentRu;
-            resultSubService.ServiceId = subServiceUpdateViewModel.ServerId;
+            resultSubService.ServiceId = subServiceUpdateViewModel.ServiceId;
             var result = _unitOfWork.SubServiceRepository.Update(resultSubService);
             return Task.FromResult(result);
 
