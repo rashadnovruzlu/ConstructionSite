@@ -103,39 +103,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return await AllSave(resultProject, resultimage);
         }
 
-        private async Task<IActionResult> AllSave(RESULT<Project> resultProject, List<int> resultimage)
-        {
-            if (resultimage.Count > 0 && resultProject.IsDone)
-            {
-                await AddProjectImageAddViewModel(resultProject, resultimage);
-                if (await _unitOfWork.CommitAsync())
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    _unitOfWork.Rollback();
-                    return View();
-                }
-            }
-            else
-            {
-                return View();
-            }
-        }
 
-        private async Task AddProjectImageAddViewModel(RESULT<Project> resultProject, List<int> resultimage)
-        {
-            foreach (var item in resultimage)
-            {
-                ProjectImageAddViewModel projectImageAddViewModel = new ProjectImageAddViewModel
-                {
-                    ImageId = item,
-                    ProjectId = resultProject.Data.Id
-                };
-                await _projectImageFacade.Add(projectImageAddViewModel);
-            }
-        }
 
         #endregion CREATE
 
@@ -209,8 +177,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     }
                     await _unitOfWork.CommitAsync();
                 }
-                var resultPortfolio = await _projectFacade.Update(projectUpdateViewModel);
-                if (resultPortfolio.IsDone)
+                var resultProject = _projectFacade.Update(projectUpdateViewModel);
+                if (resultProject)
                 {
                     if (await _unitOfWork.CommitAsync())
                     {
@@ -261,5 +229,40 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion DELETE
+        #region ::PRIVITE::
+        private async Task<IActionResult> AllSave(RESULT<Project> resultProject, List<int> resultimage)
+        {
+            if (resultimage.Count > 0 && resultProject.IsDone)
+            {
+                await AddProjectImageAddViewModel(resultProject, resultimage);
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        private async Task AddProjectImageAddViewModel(RESULT<Project> resultProject, List<int> resultimage)
+        {
+            foreach (var item in resultimage)
+            {
+                ProjectImageAddViewModel projectImageAddViewModel = new ProjectImageAddViewModel
+                {
+                    ImageId = item,
+                    ProjectId = resultProject.Data.Id
+                };
+                await _projectImageFacade.Add(projectImageAddViewModel);
+            }
+        }
+        #endregion
     }
 }
