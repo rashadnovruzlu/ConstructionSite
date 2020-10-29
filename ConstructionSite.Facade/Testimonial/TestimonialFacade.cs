@@ -3,10 +3,7 @@ using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Testimonial;
 using ConstructionSite.Repository.Abstract;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Testimonial
@@ -14,10 +11,12 @@ namespace ConstructionSite.Facade.Testimonial
     public class TestimonialFacade : ITestimonialFacade
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public TestimonialFacade(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<RESULT<CustomerFeedback>> Add(CustomerAddViewModel customerAddViewModel)
         {
             var customerAddViewModelResult = new CustomerFeedback
@@ -31,6 +30,7 @@ namespace ConstructionSite.Facade.Testimonial
 
             return await _unitOfWork.customerFeedbackRepository.AddAsync(customerAddViewModelResult);
         }
+
         public CustomerViewUpdateModel GetForUpdate(int id)
         {
             var resultCustomerFeedback = _unitOfWork.customerFeedbackRepository.GetAll()
@@ -45,9 +45,8 @@ namespace ConstructionSite.Facade.Testimonial
                 })
                 .SingleOrDefault(x => x.Id == id);
             return resultCustomerFeedback;
-
-
         }
+
         public bool Update(CustomerViewUpdateModel customerViewUpdateModel)
         {
             var resultCustomerFeedback = _unitOfWork.customerFeedbackRepository.Find(x => x.Id == customerViewUpdateModel.Id);
@@ -58,12 +57,12 @@ namespace ConstructionSite.Facade.Testimonial
             resultCustomerFeedback.FullName = customerViewUpdateModel.FullName;
             return _unitOfWork.customerFeedbackRepository.Update(resultCustomerFeedback).IsDone;
         }
+
         public bool Delete(int id)
         {
             var resultCustomerFeedback = _unitOfWork.customerFeedbackRepository.Find(x => x.Id == id);
             _unitOfWork.customerFeedbackRepository.Delete(resultCustomerFeedback);
             return _unitOfWork.Commit() > 0;
-
         }
     }
 }

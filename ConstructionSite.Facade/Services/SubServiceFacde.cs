@@ -6,10 +6,8 @@ using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Services
@@ -18,6 +16,7 @@ namespace ConstructionSite.Facade.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
         public SubServiceFacde(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
@@ -35,13 +34,10 @@ namespace ConstructionSite.Facade.Services
                 ContentEn = subServiceAddModel.ContentEn,
                 ContentRu = subServiceAddModel.ContentRu,
                 ServiceId = subServiceAddModel.ServiceId,
-
             };
-
 
             var resultSubServiceAdd = _unitOfWork.SubServiceRepository.Add(resultSubServiceAddModel);
             return Task.FromResult(resultSubServiceAdd);
-
         }
 
         public List<SubServiceViewModel> GetAll(string _lang)
@@ -68,6 +64,7 @@ namespace ConstructionSite.Facade.Services
                     Value = x.Id.ToString()
                 }).ToList();
         }
+
         public SubServiceUpdateViewModel GetForUpdate(int id)
         {
             var resultSubService = _unitOfWork.SubServiceRepository.GetAll()
@@ -83,12 +80,11 @@ namespace ConstructionSite.Facade.Services
                       ServiceId = x.ServiceId,
                       Images = x.SubServiceImages.Select(x => x.Image).ToList(),
                       ImageID = x.SubServiceImages.Select(x => x.ImageId).ToList(),
-
                   })
                   .SingleOrDefault(x => x.Id == id);
             return resultSubService;
-
         }
+
         public Task<RESULT<SubService>> Update(SubServiceUpdateViewModel subServiceUpdateViewModel)
         {
             var resultSubService = _unitOfWork.SubServiceRepository.Find(x => x.Id == subServiceUpdateViewModel.Id);
@@ -101,8 +97,8 @@ namespace ConstructionSite.Facade.Services
             resultSubService.ServiceId = subServiceUpdateViewModel.ServiceId;
             var result = _unitOfWork.SubServiceRepository.Update(resultSubService);
             return Task.FromResult(result);
-
         }
+
         public bool Delete(int id)
         {
             var data = _unitOfWork.SubServiceRepository.Find(x => x.Id == id);

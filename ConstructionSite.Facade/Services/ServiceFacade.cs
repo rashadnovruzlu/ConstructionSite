@@ -48,7 +48,6 @@ namespace ConstructionSite.Facade.Services
             return result;
         }
 
-
         public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
         {
             //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
@@ -74,6 +73,7 @@ namespace ConstructionSite.Facade.Services
             result.ContentRu = serviceUpdateViewModel.ContentRu;
             return await _unitOfWork.ServiceRepository.UpdateAsync(result);
         }
+
         public bool Delete(int id)
         {
             var resultService = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
@@ -84,10 +84,6 @@ namespace ConstructionSite.Facade.Services
                 .Select(x => x.SubServiceImages.Select(x => x.Image));
             return true;
             //  _unitOfWork.imageRepository.DeleteRange(resultSubservice);
-
-
-
-
         }
 
         Task<List<ServiceViewModel>> IServiceFacade.GetAll(string _lang)

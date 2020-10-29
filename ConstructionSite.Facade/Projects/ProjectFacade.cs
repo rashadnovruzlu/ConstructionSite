@@ -25,18 +25,16 @@ namespace ConstructionSite.Facade.Projects
 
         public List<ProjectViewModel> GetAll(string _lang)
         {
-          var resultProject=  _unitOfWork.projectRepository.GetAll()
-                .Select(x => new ProjectViewModel
-                {
-                    Id=x.Id,
-                    Content=x.FindContent(_lang),
-                    Image=x.ProjectImages.Select(x=>x.Image.Path).FirstOrDefault(),
-                    Name=x.FindName(_lang),
-                    ImageId=x.ProjectImages.Select(x=>x.ImageId).FirstOrDefault(),
-                    PortfolioID=x.PortfolioId
-
-
-                }).ToList();
+            var resultProject = _unitOfWork.projectRepository.GetAll()
+                  .Select(x => new ProjectViewModel
+                  {
+                      Id = x.Id,
+                      Content = x.FindContent(_lang),
+                      Image = x.ProjectImages.Select(x => x.Image.Path).FirstOrDefault(),
+                      Name = x.FindName(_lang),
+                      ImageId = x.ProjectImages.Select(x => x.ImageId).FirstOrDefault(),
+                      PortfolioID = x.PortfolioId
+                  }).ToList();
             return resultProject;
         }
     }
