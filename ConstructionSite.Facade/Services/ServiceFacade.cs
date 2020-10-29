@@ -97,10 +97,31 @@ namespace ConstructionSite.Facade.Services
 
         public bool Delete(int id)
         {
-            var data = _unitOfWork.SubServiceImageRepository.GetAll()
+            var subImage = _unitOfWork.SubServiceImageRepository.GetAll()
                   .Where(x => x.SubService.ServiceId == id)
                   .Select(x => x.Image)
-                  .ToList();
+                  .ToArray();
+            _env.Delete(subImage, "service", _unitOfWork);
+            var service=  _unitOfWork.ServiceRepository.Find(x => x.Id == id);
+           var serviceImage= _unitOfWork.ServiceImageRepstory.GetAll()
+                .Where(x => x.ServiceId == id)
+                .Select(x => x.Image)
+                .ToArray();
+            _env.Delete(serviceImage, "service", _unitOfWork);
+
+
+            _unitOfWork.ServiceRepository.Delete(service);
+            if (_unitOfWork.Commit()>0)
+            {
+                return true;
+            }
+            else
+            {
+                _unitOfWork.Rollback();
+                return false;
+            }
+           
+
 
             return true;
 
