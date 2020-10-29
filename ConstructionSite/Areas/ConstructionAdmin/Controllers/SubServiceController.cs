@@ -96,44 +96,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (subServiceAddModel == null)
-            {
-                ModelState.AddModelError("", "News is empty");
-            }
 
-            try
-            {
-                var resulBlogAddViewModel = await _subServiceFacade.Add(subServiceAddModel);
-                var resultImage = await subServiceAddModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
-                if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
-                {
-                    foreach (var item in resultImage)
-                    {
-                        var result = new SubServiceImage
-                        {
-                            ImageId = item,
-                            SubServiceId = resulBlogAddViewModel.Data.Id
-                        };
-                        await _unitOfWork.SubServiceImageRepository.AddAsync(result);
-                    }
-                    if (await _unitOfWork.CommitAsync())
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }
-            }
-            catch
-            {
-
-
-            }
             return View();
-
 
         }
 
@@ -218,15 +182,32 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region DELETE
 
-        public IActionResult Delete(int id)
-        {
-            if (_subServiceFacade.Delete(id))
-            {
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Index");
-
-        }
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var subServiceImageResult = await _unitOfWork.SubServiceImageRepository.GetByIdAsync(id);
+        //    if (subServiceImageResult == null)
+        //    {
+        //        ModelState.AddModelError("", "Data is null");
+        //    }
+        //    var subServiceResult = await _unitOfWork.SubServiceRepository.GetByIdAsync(subServiceImageResult.SubServiceId);
+        //    if (subServiceResult == null)
+        //    {
+        //        ModelState.AddModelError("", "Sub Service Not Found");
+        //    }
+        //    var imageResult = await _unitOfWork.imageRepository.GetByIdAsync(subServiceImageResult.ImageId);
+        //    if (imageResult == null)
+        //    {
+        //        ModelState.AddModelError("", "Image Not Found");
+        //    }
+        //    var resultUpdate = await _unitOfWork.SubServiceImageRepository.DeleteAsync(subServiceImageResult);
+        //    if (!resultUpdate.IsDone)
+        //    {
+        //        ModelState.AddModelError("", "Errors occured while deleting SubService Images");
+        //        _unitOfWork.Rollback();
+        //    }
+        //    _unitOfWork.Dispose();
+        //    return RedirectToAction("Index");
+        //}
 
         #endregion DELETE
     }
