@@ -30,22 +30,20 @@ namespace ConstructionSite.Facade.Services
             return await _unitOfWork.ServiceRepository.AddAsync(resultData);
         }
 
-        public Task<List<front.ServiceViewModel>> GetAll(string _lang)
+        public async
+          Task<List<data.ServiceViewModel>> GetAll(string _lang)
         {
-            var result = _unitOfWork.ServiceImageRepstory.GetAll()
-                 .Include(x => x.Service)
-                 .Include(x => x.Image)
-                 .Select(x => new front.ServiceViewModel
-                 {
-                     Id = x.Id,
-                     Name = x.Service.FindName(_lang),
-                     Tittle = x.Service.FindName(_lang),
-                     image = x.Service.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
-                 })
+            var resultServiceViewModel = await _unitOfWork.ServiceRepository.GetAll()
+                  .Select(x => new ServiceViewModel
+                  {
+                      Id = x.Id,
+                      Name = x.FindName(_lang),
+                      Tittle = x.FindTitle(_lang),
+                      image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
 
-                .OrderByDescending(x => x.Id)
-                .ToListAsync();
-            return result;
+                  })
+                  .ToListAsync();
+            return resultServiceViewModel;
         }
 
         public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
@@ -76,19 +74,29 @@ namespace ConstructionSite.Facade.Services
 
         public bool Delete(int id)
         {
-            var resultService = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
-            var resultSubservice = _unitOfWork.SubServiceRepository.GetAll()
-                .Where(x => x.ServiceId == id)
-                .AsEnumerable()
+            bool isSuccees = false;
+            var result = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
+            var subService = _unitOfWork.SubServiceRepository.GetAll()
+                 .Where(x => x.ServiceId == result.Id).ToList();
 
-                .Select(x => x.SubServiceImages.Select(x => x.Image));
-            return true;
-            //  _unitOfWork.imageRepository.DeleteRange(resultSubservice);
+            isSuccees = _unitOfWork.ServiceRepository.Delete(result).IsDone;
+            if (isSuccees)
+            {
+                if (_unitOfWork.Commit() > 0)
+                {
+                    isSuccees = true;
+                }
+                else
+                {
+                    isSuccees = false;
+                    _unitOfWork.Rollback();
+                }
+            }
+
+
+            return isSuccees;
         }
 
-        Task<List<ServiceViewModel>> IServiceFacade.GetAll(string _lang)
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }

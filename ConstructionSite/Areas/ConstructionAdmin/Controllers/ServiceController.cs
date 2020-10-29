@@ -91,10 +91,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
-                var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
-                if (serviceResult.IsDone && resultImageID.Count > 0)
+                var resultImageIDs = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                if (serviceResult.IsDone && resultImageIDs.Count > 0)
                 {
-                    await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
+                    await SaveServiceAndImages(serviceResult.Data.Id, resultImageIDs);
                     if (await _unitOfWork.CommitAsync())
                     {
                         return RedirectToAction("Index");
@@ -203,16 +203,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             if (id < 0)
             {
-                ModelState.AddModelError("", "data not exists");
+                ModelState.AddModelError("", "data is not valide");
             }
-            var result = await _serviceImageFacade.Delete(id);
-            if (result.IsDone)
+            if (_serviceFacade.Delete(id))
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                ModelState.AddModelError("", "can be deleted");
+                ModelState.AddModelError("", "errors is accured when delete File");
                 return RedirectToAction("Index");
             }
         }
