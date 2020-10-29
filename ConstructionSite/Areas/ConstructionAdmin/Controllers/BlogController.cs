@@ -64,15 +64,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
-                return RedirectToAction("Index", "Home");
+
             }
             var newsImageResult = _blogFacade.GetAll(_lang);
-            if (newsImageResult.Count < 1 | newsImageResult == null)
-            {
-                ModelState.AddModelError("", "Data is null or Empty");
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("Index", "Home");
+            return View(newsImageResult);
+
         }
 
         #endregion INDEX
