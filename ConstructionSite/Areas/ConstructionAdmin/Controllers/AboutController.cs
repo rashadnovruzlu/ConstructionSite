@@ -52,11 +52,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
 
             var result = _aboutFacade.
                 GetAll(_lang).
@@ -138,7 +133,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         for (int i = 0; i < aboutUpdateViewModel.ImageID.Count; i++)
                         {
                             var image = _unitOfWork.imageRepository.Find(x => x.Id == aboutUpdateViewModel.ImageID[i]);
-                            await aboutUpdateViewModel.files[i].UpdateAsyc(_env, image, "about", _unitOfWork);
+                            await aboutUpdateViewModel.files[i].UpdateAsyc(_env, image, "About", _unitOfWork);
                         }
                     }
                     catch
@@ -151,7 +146,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == aboutUpdateViewModel.Id);
 
-                        var imagesid = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                        var imagesid = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "", _unitOfWork);
                         foreach (var item in imagesid)
                         {
                             var resultData = new NewsImage
@@ -195,10 +190,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (id < 1)
             {
+                
                 ModelState.AddModelError("", "NULL");
+                return RedirectToAction("Index");
             }
             if (_aboutFacade.Delete(id))
             {
+
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

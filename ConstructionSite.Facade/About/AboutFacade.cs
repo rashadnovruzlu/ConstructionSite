@@ -94,7 +94,7 @@ namespace ConstructionSite.Facade.About
                   .Where(x => x.AboutId == data.Id)
                   .Select(x => x.ImageId).ToArray();
             _unitOfWork.AboutRepository.Delete(data);
-            return _webHostEnvironment.Delete(imageId, "blog", _unitOfWork);
+            return _webHostEnvironment.Delete(imageId, "About", _unitOfWork);
         }
 
         public async Task<List<Image>> FindImageByAboutID(int aboutID)

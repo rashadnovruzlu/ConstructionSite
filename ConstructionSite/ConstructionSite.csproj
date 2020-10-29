@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
+    <Folder Include="wwwroot\images\blog\" />
   </ItemGroup>
 
   <ItemGroup>

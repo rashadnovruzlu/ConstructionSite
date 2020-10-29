@@ -175,7 +175,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         };
                         await _unitOfWork.projectImageRepository.AddAsync(resultData);
                     }
-                    await _unitOfWork.CommitAsync();
+
                 }
                 var resultProject = _projectFacade.Update(projectUpdateViewModel);
                 if (resultProject)
@@ -183,6 +183,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     if (await _unitOfWork.CommitAsync())
                     {
                         return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        _unitOfWork.Rollback();
                     }
                 }
 
