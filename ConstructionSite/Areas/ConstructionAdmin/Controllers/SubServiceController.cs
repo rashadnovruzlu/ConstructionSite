@@ -96,36 +96,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (subServiceAddModel == null)
-            {
-                ModelState.AddModelError("", "News is empty");
-            }
 
-            try
-            {
-                ModelState.AddModelError("", "Data didn't save");
-            }
-
-            var SubServiceAddResult =  _unitOfWork.SubServiceRepository.Add(subService);
-            if (!SubServiceAddResult.IsDone)
-            {
-                ModelState.AddModelError("", "Data didn't save");
-            }
-            subServiceImageResult.SubServiceId = SubServiceAddResult.Data.Id;
-            subServiceImageResult.ImageId = imageSubService.Id;
-            var SubServiceImageResult =  _unitOfWork.SubServiceImageRepository.Add(subServiceImageResult);
-            if (!SubServiceImageResult.IsDone)
-            {
-
-
-            }
             return View();
-
 
         }
 
