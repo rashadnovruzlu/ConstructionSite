@@ -1,66 +1,43 @@
-﻿
+﻿@model List<ConstructionSite.ViwModel.FrontViewModels.Galery.GaleryFileFrontViewModel>
 <style>
 
-    .spaces{
+    .spaces {
         margin-top: -250px;
     }
+
+    iframe {
+        width: 100% !important;
+        height: 200px !important;
+    }
 </style>
+@for (int i = 0; i < Model.Count; i++)
+{
+    if (Model[i].VideoPath != null)
+    {
+        <div class="col-md-12">
+            <div class="wprt-spacer" data-desktop="50" data-mobi="40" data-smobi="40"></div>
 
-<div class="col-md-12">
-    <div class="wprt-spacer spaces" data-desktop="50" data-mobi="40" data-smobi="40"></div>
+            <h3>@Model[i].GaleryTitle</h3>
+            <div class="wprt-lines style-1 custom-3">
+                <div class="line-1"></div>
+                <div class="line-2"></div>
+            </div>
+            <div class="wprt-spacer" data-desktop="30" data-mobi="30" data-smobi="30"></div>
 
-    <h3>GALLERY MASONRY GRID</h3>
-    <div class="wprt-lines style-1 custom-3">
-        <div class="line-1"></div>
-        <div class="line-2"></div>
-    </div>
-    <div class="wprt-spacer" data-desktop="30" data-mobi="30" data-smobi="30"></div>
+            <div class="wprt-galleries-grid" data-layout="grid" data-column="3" data-column2="2" data-column3="2" data-column4="1" data-gaph="10" data-gapv="10">
+                <div id="images-wrap" class="cbp">
+                    <div class="cbp-item">
+                        <div class="item-wrap">
+                            <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
+                          @Model[i].VideoPath
+                        </div>
+                    </div><!--/.cbp-item -->
 
-    <div class="wprt-galleries-grid" data-layout="grid" data-column="3" data-column2="2" data-column3="2" data-column4="1" data-gaph="10" data-gapv="10">
-        <div id="images-wrap" class="cbp">
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
+                </div><!-- /#images-wrap -->
+            </div><!--/.wprt-galleries-grid -->
 
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-        </div><!-- /#images-wrap -->
-    </div><!--/.wprt-galleries-grid -->
-
-    <div class="wprt-spacer" data-desktop="70" data-mobi="40" data-smobi="40"></div>
-</div>
+            <div class="wprt-spacer" data-desktop="70" data-mobi="40" data-smobi="40"></div>
+        </div>
+      
+    }
+}
