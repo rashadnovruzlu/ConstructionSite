@@ -36,7 +36,8 @@
 }
 
 .cbp img {
-    height: 180px;
+    height: 220px !important;
+
 }
 
 .serviceImage {
