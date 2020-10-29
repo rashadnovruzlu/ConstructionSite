@@ -49,16 +49,16 @@ namespace ConstructionSite.Facade.Services
         }
 
 
-        //public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
-        //{
-        //    //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
-        //    //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
-        //    //{
-        //    //    Id = result.Id,
+        public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
+        {
+            //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
+            //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
+            //{
+            //    Id = result.Id,
 
-        //    //};
-        //    return null;
-        //}
+            //};
+            return null;
+        }
 
         public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
