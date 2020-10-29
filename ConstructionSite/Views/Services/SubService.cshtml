@@ -1,7 +1,7 @@
 ﻿@model ServiceSubServiceImage
 @inject SharedLocalizationService Localizer
 
-<div id="main-content" class="site-main clearfix">
+@*<div id="main-content" class="site-main clearfix">
     <div id="content-wrap" class="container">
         <div id="site-content" class="site-content clearfix">
             <div id="inner-content" class="inner-content-wrap">
@@ -21,6 +21,108 @@
                     <div class="col-md-12">
                         <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div id="main-content" class="site-main clearfix">
+    <div id="content-wrap">
+        <div id="site-content" class="site-content clearfix">
+            <div id="inner-content" class="inner-content-wrap">
+                <div class="page-content">
+                    <!-- GALLERY -->
+                    <section class="wprt-section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+
+
+                                    <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
+
+                                    <div class="wprt-spacer" data-desktop="40" data-mobi="30" data-smobi="30"></div>
+                                </div><!-- /.col-md-12 -->
+
+                                <div class="col-md-6">
+                                    <h3 class="line-height-normal margin-bottom-10">@Model.Name</h3>
+                                    <div class="wprt-lines style-1 custom-3">
+                                        <div class="line-1"></div>
+                                    </div>
+
+                                    <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
+
+                                    <p class=" margin-bottom-25">@Model.Content</p>
+
+
+                                    @*<p class=" margin-bottom-25">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae interdum nisl vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam suscipit, elit quis facilisis dictum, diam justo volutpat dui. Cras id justo eget sapien scelerisque lacinia non a eros. In a volutpat magna. Vivamus pretium urna at condimentum porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat.</p>
+
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Cras id justo eget sapien scelerisque lacinia non a eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat.</p>*@
+
+
+
+                                    <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
+                                </div><!-- /.col-md-6 -->
+
+                                <div class="col-md-6">
+                                    <div class="wprt-galleries galleries w-570px" data-width="135" data-margin="10">
+                                        <div id="wprt-slider" class="flexslider">
+                                            <ul class="slides">
+                                                @foreach (var item in Model.Images)
+                                                {
+                                                    <li class="flex-active-slide">
+                                                        <a class="zoom" href="@item"><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="@item" alt="image" />
+                                                    </li>
+                                                }
+                                                @*<li class="flex-active-slide">
+                                                    <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                    <img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image" />
+                                                </li>
+
+                                                <li class="flex-active-slide">
+                                                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                    <img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image" />
+                                                </li>
+
+                                                <li class="flex-active-slide">
+                                                    <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                    <img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image" />
+                                                </li>
+
+                                                <li class="flex-active-slide">
+                                                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                    <img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image" />
+                                                </li>*@
+                                            </ul>
+                                        </div>
+
+                                        <div id="wprt-carousel" class="flexslider">
+                                            <ul class="slides">
+                                                @foreach (var item in Model.Images)
+                                                {
+                                                    <li><img src="@item" alt="image"></li>
+                                                }
+                                                @*<li><img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image"></li>
+                                                <li><img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image"></li>
+                                                <li><img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image"></li>
+                                                <li><img src="~/Images/subserver/18c2008c-61e9-4934-9dd1-16d97a2ddd8d.jpg" alt="image"></li>*@
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div><!-- /.col-md-6 -->
+
+                                <div class="col-md-12">
+                                    <div class="wprt-spacer" data-desktop="110" data-mobi="40" data-smobi="40"></div>
+                                </div>
+                            </div><!-- /.row -->
+                        </div><!-- /.container -->
+                    </section>
+
+                    <!-- FACTS -->
+                    <!-- TEAM -->
+
                 </div>
             </div>
         </div>
