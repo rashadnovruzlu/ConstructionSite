@@ -73,7 +73,25 @@ namespace ConstructionSite.Facade.Services
             result.ContentRu = serviceUpdateViewModel.ContentRu;
             return await _unitOfWork.ServiceRepository.UpdateAsync(result);
         }
+        public bool Delete(int id)
+        {
+            var resultService = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
+            var resultSubservice = _unitOfWork.SubServiceRepository.GetAll()
+                .Where(x => x.ServiceId == id)
+                .AsEnumerable()
+
+                .Select(x => x.SubServiceImages.Select(x => x.Image));
+            return true;
+          //  _unitOfWork.imageRepository.DeleteRange(resultSubservice);
 
 
+
+
+        }
+
+        Task<List<ServiceViewModel>> IServiceFacade.GetAll(string _lang)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
