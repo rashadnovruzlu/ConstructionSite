@@ -133,12 +133,13 @@ namespace ConstructionSite.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var resultServiceDeatilyViewModel = await _serviceFacade.GetDeaiy(id, _lang);
-            if (resultServiceDeatilyViewModel != null)
-            {
-                return View(resultServiceDeatilyViewModel);
-            }
-            return RedirectToAction("Index", "Home");
+            //var resultServiceDeatilyViewModel = await _serviceFacade.GetDeaiy(id, _lang);
+            //if (resultServiceDeatilyViewModel != null)
+            //{
+            //    return View(resultServiceDeatilyViewModel);
+            //}
+            //return RedirectToAction("Index", "Home");
+            return View();
         }
     }
 }
