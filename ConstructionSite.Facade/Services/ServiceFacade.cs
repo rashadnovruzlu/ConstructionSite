@@ -35,18 +35,18 @@ namespace ConstructionSite.Facade.Services
             return await _unitOfWork.ServiceRepository.AddAsync(resultData);
         }
 
-        public async Task<List<data.ServiceViewModel>> GetAll(string _lang)
+        public List<data.ServiceViewModel> GetAll(string _lang)
         {
-            var resultServiceViewModel = await _unitOfWork.ServiceRepository.GetAll()
+            var resultServiceViewModel = _unitOfWork.ServiceRepository.GetAll()
                   .Select(x => new ServiceViewModel
                   {
                       Id = x.Id,
                       Name = x.FindName(_lang),
                       Tittle = x.FindTitle(_lang),
-                      image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
+                      Image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
 
                   })
-                  .ToListAsync();
+                  .ToList();
             return resultServiceViewModel;
         }
 
@@ -102,16 +102,16 @@ namespace ConstructionSite.Facade.Services
                   .Select(x => x.Image)
                   .ToArray();
             _env.Delete(subImage, "service", _unitOfWork);
-            var service=  _unitOfWork.ServiceRepository.Find(x => x.Id == id);
-           var serviceImage= _unitOfWork.ServiceImageRepstory.GetAll()
-                .Where(x => x.ServiceId == id)
-                .Select(x => x.Image)
-                .ToArray();
+            var service = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
+            var serviceImage = _unitOfWork.ServiceImageRepstory.GetAll()
+                 .Where(x => x.ServiceId == id)
+                 .Select(x => x.Image)
+                 .ToArray();
             _env.Delete(serviceImage, "service", _unitOfWork);
 
 
             _unitOfWork.ServiceRepository.Delete(service);
-            if (_unitOfWork.Commit()>0)
+            if (_unitOfWork.Commit() > 0)
             {
                 return true;
             }
@@ -120,7 +120,7 @@ namespace ConstructionSite.Facade.Services
                 _unitOfWork.Rollback();
                 return false;
             }
-           
+
 
 
             return true;

@@ -51,14 +51,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region INDEX
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = await _serviceFacade.GetAll(_lang);
+            var result = _serviceFacade.GetAll(_lang);
             return View(result);
         }
 
@@ -200,7 +200,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region DELETE
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             if (id < 1)
             {
