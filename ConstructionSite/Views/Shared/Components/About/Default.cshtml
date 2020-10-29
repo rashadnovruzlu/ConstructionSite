@@ -4,17 +4,25 @@
 <section id="about" class="wprt-section clearfix text-center">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="images">
+                    <img src="~/Images/about/150e8b03-ebe5-4560-8f99-649a3705765b.jpg"  alt="image" draggable="false" style="margin-top: 40px; height: 100%; width: 100%;object-fit: cover">
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
                 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                <h2 class="text-center margin-bottom-20">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.AboutUs)</h2>
+                <h2 class="text-center margin-top-30">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.AboutUs)</h2>
                 <div class="wprt-lines style-2 custom-1">
                     <div class="line-1"></div>
                 </div>
                 <div class="wprt-spacer" data-desktop="36" data-mobi="30" data-smobi="30"></div>
                 <p class="wprt-subtitle">@Model.Tittle</p>
-                <div class="link">  <a asp-controller="About" asp-action="Index" class="wprt-button small rounded-3px">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a></div>
+                <div class="link"> <a asp-controller="About" asp-action="Index" class="wprt-button small rounded-3px">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a></div>
                 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
             </div>
+
             <!-- /.col-md-12 -->
         </div>
         <!-- /.row -->

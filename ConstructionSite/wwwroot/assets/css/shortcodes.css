@@ -5,7 +5,17 @@
     position: relative;
     background-color: #fff;
 }
-
+#about {
+    padding: 40px 0px;
+}
+.images {
+    height: 400px;
+}
+@media(max-width:990px) {
+    .images {
+        height: 200px
+    }
+}
 #about.wprt-section,
 #why-us.wprt-section,
 #partners.wprt-section {
