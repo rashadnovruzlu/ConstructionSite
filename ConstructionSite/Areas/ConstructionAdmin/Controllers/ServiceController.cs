@@ -136,7 +136,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
-            if(serviceUpdateViewModel == null)
+            if (serviceUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data not exists");
             }

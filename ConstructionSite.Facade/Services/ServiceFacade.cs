@@ -1,9 +1,11 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,13 @@ namespace ConstructionSite.Facade.Services
     public class ServiceFacade : IServiceFacade
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
 
-        public ServiceFacade(IUnitOfWork unitOfWork)
+        public ServiceFacade(IUnitOfWork unitOfWork,
+            IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _env = env;
         }
 
         public async Task<RESULT<Service>> Add(data.ServiceAddViewModel serviceAddViewModel)
@@ -92,27 +97,14 @@ namespace ConstructionSite.Facade.Services
 
         public bool Delete(int id)
         {
-            bool isSuccees = false;
-            var result = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
-            var subService = _unitOfWork.SubServiceRepository.GetAll()
-                 .Where(x => x.ServiceId == result.Id).ToList();
+            var data = _unitOfWork.SubServiceImageRepository.GetAll()
+                  .Where(x => x.SubService.ServiceId == id)
+                  .Select(x => x.Image)
+                  .ToList();
 
-            isSuccees = _unitOfWork.ServiceRepository.Delete(result).IsDone;
-            if (isSuccees)
-            {
-                if (_unitOfWork.Commit() > 0)
-                {
-                    isSuccees = true;
-                }
-                else
-                {
-                    isSuccees = false;
-                    _unitOfWork.Rollback();
-                }
-            }
+            return true;
 
 
-            return isSuccees;
         }
 
 

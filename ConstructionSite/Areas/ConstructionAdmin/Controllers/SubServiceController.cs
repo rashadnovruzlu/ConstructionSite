@@ -47,31 +47,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid");
-            }
-
-            var SubServiceImage = _unitOfWork.SubServiceImageRepository.GetAll()
-                .Include(x => x.Image)
-                .Include(x => x.SubService)
-                .Select(x => new SubServiceViewModel
-                {
-                    Id = x.SubServiceId,
-                    ImagePath = x.Image.Path,
-                    Name = x.SubService.FindName(_lang),
-                    Content = x.SubService.FindContent(_lang)
-                })
-                .ToList();
-            if (SubServiceImage == null && SubServiceImage.Count < 1)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This is empty");
-            }
-
-            _unitOfWork.Dispose();
-            return View(SubServiceImage);
+            var result = _subServiceFacade.GetAll(_lang);
+            return View(result);
         }
 
         #endregion INDEX
@@ -95,6 +72,46 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
+            }
+            if (subServiceAddModel == null)
+            {
+                ModelState.AddModelError("", "News is empty");
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+                var resulBlogAddViewModel = await _subServiceFacade.Add(subServiceAddModel);
+                var resultImage = await subServiceAddModel.file.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
+                {
+                    foreach (var item in resultImage)
+                    {
+                        var result = new SubServiceImage
+                        {
+                            ImageId = item,
+                            SubServiceId = resulBlogAddViewModel.Data.Id
+                        };
+                        await _unitOfWork.SubServiceImageRepository.AddAsync(result);
+                    }
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        _unitOfWork.Rollback();
+                    }
+                }
+            }
+            catch
+            {
+            }
             return View();
         }
 
@@ -114,16 +131,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(SubServiceUpdateViewModel subServiceUpdateViewModel)
         {
+            if (subServiceUpdateViewModel == null)
+            {
+                ModelState.AddModelError("", "This data not exists");
+            }
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Models are not valid.");
+            }
             try
             {
-                if (subServiceUpdateViewModel == null)
-                {
-                    ModelState.AddModelError("", "This data not exists");
-                }
-                if (!ModelState.IsValid)
-                {
-                    ModelState.AddModelError("", "Models are not valid.");
-                }
+
                 if (subServiceUpdateViewModel.files != null && subServiceUpdateViewModel.ImageID != null)
                 {
                     try
