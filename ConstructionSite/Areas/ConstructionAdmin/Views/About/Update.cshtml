@@ -69,9 +69,10 @@
                         </div>
 
                         <div class="wrapper--preview">
+
                             @if (Model.Images == null | Model.Images.Count < 1)
                             {
-                                <input type="file" asp-for="files" multiple="multiple" />
+                                <input type="file" asp-for="files" />
                             }
                             @foreach (var item in Model.Images)
                             {

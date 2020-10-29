@@ -1,4 +1,8 @@
-﻿namespace ConstructionSite.DTO.AdminViewModels.Project
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using data = ConstructionSite.Entity.Models;
+
+namespace ConstructionSite.DTO.AdminViewModels.Project
 {
     public class ProjectUpdateViewModel
     {
@@ -10,8 +14,9 @@
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
         public int PortfolioId { get; set; }
-        public string ImagePath { get; set; }
-        public int ImageId { get; set; }
         public int ProjectId { get; set; }
+        public List<int> ImageID { get; set; }
+        public IList<IFormFile> files { get; set; }
+        public List<data.Image> Images { get; set; }
     }
 }

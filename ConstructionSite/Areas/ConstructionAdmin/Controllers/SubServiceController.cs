@@ -7,7 +7,6 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -96,9 +95,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
-
             return View();
-
         }
 
         #endregion CREATE
@@ -172,8 +169,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
-
             }
             return View(subServiceUpdateViewModel);
         }

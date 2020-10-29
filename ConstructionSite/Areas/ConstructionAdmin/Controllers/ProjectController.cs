@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -56,27 +55,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            var result = _unitOfWork.projectImageRepository.GetAll()
-            .Include(x => x.Image)
-            .Include(x => x.Project)
-            .Select(x => new ProjectViewModel
-            {
-                Id = x.Id,
-                Name = x.Project.FindName(_lang),
-                Content = x.Project.FindContent(_lang),
-                Image = x.Image.Path,
-                ImageId = x.ImageId
-            }).ToList();
-            if (result == null | result.Count == 0)
-            {
-                ModelState.AddModelError("", "This list is empty");
-            }
-            _unitOfWork.Dispose();
+            var result = _projectFacade.GetAll(_lang);
             return View(result);
         }
 
@@ -123,6 +102,134 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return await AllSave(resultProject, resultimage);
         }
 
+        #endregion CREATE
+
+        #region UPDATE
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+            if (id < 1)
+            {
+                ModelState.AddModelError("", "Id is not exists");
+            }
+            var result = _projectFacade.GetForUpdate(id);
+            ViewBag.items = _unitOfWork.portfolioRepository.GetAll()
+                     .Select(x => new PortfolioViewModel
+                     {
+                         Id = x.Id,
+                         Name = x.FindName(_lang)
+                     }).ToList();
+            return View(result);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Models are not valid.");
+            }
+            if (projectUpdateViewModel == null)
+            {
+                ModelState.AddModelError("", "This data is not exist");
+            }
+
+            try
+            {
+                if (projectUpdateViewModel.files != null && projectUpdateViewModel.ImageID != null)
+                {
+                    try
+                    {
+                        for (int i = 0; i < projectUpdateViewModel.ImageID.Count; i++)
+                        {
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == projectUpdateViewModel.ImageID[i]);
+                            await projectUpdateViewModel.files[i].UpdateAsyc(_env, image, "project", _unitOfWork);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+                else if (projectUpdateViewModel.files != null)
+                {
+                    var emptyImage = _unitOfWork.projectRepository.Find(x => x.Id == projectUpdateViewModel.Id);
+
+                    var imagesid = await projectUpdateViewModel.files.SaveImageCollectionAsync(_env, "project", _unitOfWork);
+                    foreach (var item in imagesid)
+                    {
+                        var resultData = new ProjectImage
+                        {
+                            ProjectId = emptyImage.Id,
+                            ImageId = item
+                        };
+                        await _unitOfWork.projectImageRepository.AddAsync(resultData);
+                    }
+                }
+                var resultProject = _projectFacade.Update(projectUpdateViewModel);
+                if (resultProject)
+                {
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        _unitOfWork.Rollback();
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return RedirectToAction("Index");
+        }
+
+        #endregion UPDATE
+
+        #region DELETE
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var projectImageResult = await _unitOfWork.projectImageRepository.GetByIdAsync(id);
+            if (projectImageResult == null)
+            {
+                ModelState.AddModelError("", "Id is not exists");
+                return RedirectToAction("Index");
+            }
+
+            if (id < 1)
+            {
+                return RedirectToAction("Index");
+            }
+            var isresult = _projectFacade.Delete(id);
+
+            if (isresult)
+            {
+                if (_unitOfWork.Commit() > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                }
+            }
+
+            return View();
+        }
+
+        #endregion DELETE
+
+        #region ::PRIVITE::
+
         private async Task<IActionResult> AllSave(RESULT<Project> resultProject, List<int> resultimage)
         {
             if (resultimage.Count > 0 && resultProject.IsDone)
@@ -157,149 +264,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
         }
 
-        #endregion CREATE
-
-        #region UPDATE
-
-        [HttpGet]
-        public IActionResult Update(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (id < 1)
-            {
-                ModelState.AddModelError("", "Id is not exists");
-            }
-            var projectUpdateViewModel = _unitOfWork.projectImageRepository
-                    .GetAll()
-                    .Include(x => x.Image)
-                    .Include(x => x.Project)
-                    .Select(x => new ProjectUpdateViewModel
-                    {
-                        Id = x.Id,
-                        ContentAz = x.Project.ContentAz,
-                        ContentEn = x.Project.ContentEn,
-                        ContentRu = x.Project.ContentRu,
-                        NameAz = x.Project.NameAz,
-                        NameEn = x.Project.NameEn,
-                        NameRu = x.Project.NameRu,
-                        ImageId = x.ImageId,
-                        ImagePath = x.Image.Path,
-
-                        PortfolioId = x.Project.PortfolioId,
-                        ProjectId = x.ProjectId
-                    })
-                    .FirstOrDefault(x => x.ProjectId == id);
-            ViewBag.items = _unitOfWork.portfolioRepository.GetAll()
-                     .Select(x => new PortfolioViewModel
-                     {
-                         Id = x.Id,
-                         Name = x.FindName(_lang)
-                     }).ToList();
-            return View(projectUpdateViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel, IFormFile file)
-        {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (projectUpdateViewModel == null)
-            {
-                ModelState.AddModelError("", "Data is null");
-                return RedirectToAction("Index");
-            }
-
-            var projectViewModelUpdate = new Project
-            {
-                Id = projectUpdateViewModel.ProjectId,
-                NameAz = projectUpdateViewModel.NameAz,
-                NameRu = projectUpdateViewModel.NameRu,
-                NameEn = projectUpdateViewModel.NameEn,
-                ContentAz = projectUpdateViewModel.ContentAz,
-                ContentRu = projectUpdateViewModel.ContentRu,
-                ContentEn = projectUpdateViewModel.ContentEn,
-                PortfolioId = projectUpdateViewModel.PortfolioId
-            };
-            var portfolioUpdateResult = await _unitOfWork.projectRepository.UpdateAsync(projectViewModelUpdate);
-
-            if (!portfolioUpdateResult.IsDone)
-            {
-                ModelState.AddModelError("", "Errors occured while editing Portfolio");
-                return RedirectToAction("Index");
-            }
-            if (file != null)
-            {
-                var image = _unitOfWork.imageRepository.GetById(projectUpdateViewModel.ImageId);
-                if (image == null)
-                {
-                    ModelState.AddModelError("", "fill is null");
-                }
-                var imageResult = await file.UpdateAsyc(_env, image, "project", _unitOfWork);
-
-                if (!imageResult)
-                {
-                    ModelState.AddModelError("", "Errors occured while editing Images");
-                }
-            }
-
-            ProjectImage projectImage = new ProjectImage
-            {
-                Id = projectUpdateViewModel.Id,
-                ImageId = projectUpdateViewModel.ImageId,
-                ProjectId = projectUpdateViewModel.Id
-            };
-            var projectImageUpdateResult = await _unitOfWork.projectImageRepository.UpdateAsync(projectImage);
-            if (!projectImageUpdateResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Updating is not valid");
-                return RedirectToAction("Index");
-            }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
-        }
-
-        #endregion UPDATE
-
-        #region DELETE
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var projectImageResult = await _unitOfWork.projectImageRepository.GetByIdAsync(id);
-            if (projectImageResult == null)
-            {
-                ModelState.AddModelError("", "Id is not exists");
-                return RedirectToAction("Index");
-            }
-            var projectResult = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
-            var ImageResult = _env.Delete(projectImageResult.ImageId, "project", _unitOfWork);
-
-            if (ImageResult != false && projectImageResult != null)
-            {
-                var projectDeleteResult = _unitOfWork.projectRepository.Delete(projectResult);
-                if (projectDeleteResult.IsDone)
-                {
-                    _unitOfWork.Dispose();
-                    return RedirectToAction("Index");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Deleting is error");
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        #endregion DELETE
+        #endregion ::PRIVITE::
     }
 }

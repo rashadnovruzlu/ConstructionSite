@@ -39,7 +39,16 @@ namespace ConstructionSite.Repository.Concreate
         }
         public async Task<bool> CommitAsync()
         {
-            return await _context.SaveChangesAsync() > 0;
+            try
+            {
+                return await _context.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+
+                
+                return false;
+            }
 
         }
 
@@ -210,7 +219,16 @@ namespace ConstructionSite.Repository.Concreate
         public int Commit()
         {
 
-            return _context.SaveChanges();
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch
+            {
+
+                _context.Dispose();
+                return 0;
+            }
 
         }
 

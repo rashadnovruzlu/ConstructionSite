@@ -7,6 +7,7 @@ using ConstructionSite.Facade.Portfolio;
 using ConstructionSite.Facade.Projects;
 using ConstructionSite.Facade.ServiceImages;
 using ConstructionSite.Facade.Services;
+using ConstructionSite.Facade.Testimonial;
 using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Interface.Facade.Email;
@@ -17,6 +18,7 @@ using ConstructionSite.Interface.Facade.Projects;
 using ConstructionSite.Interface.Facade.Service;
 using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Interface.Facade.Servics;
+using ConstructionSite.Interface.Facade.Testimonial;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ConstructionSite.FacadeInjection
@@ -47,6 +49,8 @@ namespace ConstructionSite.FacadeInjection
 
             services.AddTransient<IPortfolioFacade, PortfolioFacade>();
             services.AddTransient<IServiceQueryFacade, ServiceQueryFacade>();
+
+            services.AddTransient<ITestimonialFacade, TestimonialFacade>();
         }
     }
 }

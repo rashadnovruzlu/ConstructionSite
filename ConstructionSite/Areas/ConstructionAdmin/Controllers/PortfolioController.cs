@@ -4,7 +4,6 @@ using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
-using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -95,19 +94,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
-                var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
-                foreach (var item in imageCollelction)
-                {
-                    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
-                    {
-                        ImageId = item,
-                        PortfolioId = portfolioResult.Data.Id
-                    });
-                }
-                if (await _unitOfWork.CommitAsync())
-                {
-                    return RedirectToAction("Index");
-                }
+                //var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                //foreach (var item in imageCollelction)
+                //{
+                //    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
+                //    {
+                //        ImageId = item,
+                //        PortfolioId = portfolioResult.Data.Id
+                //    });
+                //}
+                //if (await _unitOfWork.CommitAsync())
+                //{
+                //    return RedirectToAction("Index");
+                //}
             }
             catch
             {
@@ -147,43 +146,49 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "This data is not exist");
             }
 
-            if (portfoliUpdateViewModel.files != null && portfoliUpdateViewModel.ImageID != null)
+            try
             {
-                try
+                if (portfoliUpdateViewModel.files != null && portfoliUpdateViewModel.ImageID != null)
                 {
-                    for (int i = 0; i < portfoliUpdateViewModel.ImageID.Count; i++)
+                    try
                     {
-                        var image = _unitOfWork.imageRepository.Find(x => x.Id == portfoliUpdateViewModel.ImageID[i]);
-                        await portfoliUpdateViewModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                        for (int i = 0; i < portfoliUpdateViewModel.ImageID.Count; i++)
+                        {
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == portfoliUpdateViewModel.ImageID[i]);
+                            await portfoliUpdateViewModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                        }
+                    }
+                    catch
+                    {
                     }
                 }
-                catch
+                else if (portfoliUpdateViewModel.files != null)
                 {
-                }
-            }
-            else if (portfoliUpdateViewModel.files != null)
-            {
-                var emptyImage = _unitOfWork.portfolioRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
+                    var emptyImage = _unitOfWork.portfolioRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
 
-                var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
-                foreach (var item in imagesid)
-                {
-                    var resultData = new PortfolioImage
+                    var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                    foreach (var item in imagesid)
                     {
-                        PortfolioId = emptyImage.Id,
-                        ImageId = item
-                    };
-                    await _unitOfWork.PortfolioImageRepostory.AddAsync(resultData);
+                        var resultData = new PortfolioImage
+                        {
+                            PortfolioId = emptyImage.Id,
+                            ImageId = item
+                        };
+                        await _unitOfWork.PortfolioImageRepostory.AddAsync(resultData);
+                    }
+                    await _unitOfWork.CommitAsync();
                 }
-                await _unitOfWork.CommitAsync();
-            }
-            var resultPortfolio = await _portfolioFacade.Update(portfoliUpdateViewModel);
-            if (resultPortfolio.IsDone)
-            {
-                if (await _unitOfWork.CommitAsync())
+                var resultPortfolio = await _portfolioFacade.Update(portfoliUpdateViewModel);
+                if (resultPortfolio.IsDone)
                 {
-                    return RedirectToAction("Index");
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
+            }
+            catch
+            {
             }
             return RedirectToAction("Index");
         }

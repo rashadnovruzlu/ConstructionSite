@@ -12,6 +12,6 @@ namespace ConstructionSite.DTO.AdminViewModels.Portfolio
 
         // [UIHint]
         public string NameRu { get; set; }
-        public ICollection<IFormFile> formFile { get; set; }
+        // public ICollection<IFormFile> formFile { get; set; }
     }
 }

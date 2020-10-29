@@ -1,9 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Testimonial;
-using ConstructionSite.Entity.Models;
-using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Testimonial;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +11,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = ROLESNAME.Admin)]
-    public class TestimonialController : Controller
+    public class TestimonialController : CoreController
     {
         #region Fields
 
@@ -23,6 +19,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        private readonly ITestimonialFacade _testimonialFacade;
 
         #endregion Fields
 
@@ -30,12 +27,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public TestimonialController(IUnitOfWork unitOfWork,
                                      IWebHostEnvironment env,
-                                     IHttpContextAccessor httpContextAccessor)
+                                     IHttpContextAccessor httpContextAccessor,
+                                      ITestimonialFacade testimonialFacade)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
+            _testimonialFacade = testimonialFacade;
         }
 
         #endregion CTOR
@@ -90,23 +89,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerAddViewModelResult = new CustomerFeedback
+            var resultcustomerAddViewModel = await _testimonialFacade.Add(customerAddViewModel);
+            if (resultcustomerAddViewModel.IsDone)
             {
-                ContentAz = customerAddViewModel.ContentAz,
-                ContentEn = customerAddViewModel.ContentEn,
-                ContentRu = customerAddViewModel.ContentRu,
-                FullName = customerAddViewModel.FullName,
-                Position = customerAddViewModel.Position
-            };
-            var customerFeedbackAddedResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerAddViewModelResult);
-
-            if (!customerFeedbackAddedResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This data is not added");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+
+            return View();
         }
 
         #endregion CREATE
@@ -114,27 +107,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region UPDATE
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Model State is not Valid.");
-            }
-            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
-            if (customerFeedbackUpdateResult == null)
-            {
-                ModelState.AddModelError("", "This data is null or empty");
-            }
-            var customerFeedbackUpdate = new CustomerViewUpdateModel
-            {
-                Id = customerFeedbackUpdateResult.Id,
-                ContentAz = customerFeedbackUpdateResult.ContentAz,
-                ContentRu = customerFeedbackUpdateResult.ContentRu,
-                ContentEn = customerFeedbackUpdateResult.ContentEn,
-                FullName = customerFeedbackUpdateResult.FullName,
-                Position = customerFeedbackUpdateResult.Position
-            };
+            var customerFeedbackUpdate = _testimonialFacade.GetForUpdate(id);
             if (customerFeedbackUpdate == null)
             {
                 _unitOfWork.Rollback();
@@ -146,7 +121,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(CustomerViewUpdateModel customerViewUpdateModel)
+        public IActionResult Update(CustomerViewUpdateModel customerViewUpdateModel)
         {
             if (!ModelState.IsValid)
             {
@@ -157,23 +132,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerViewUpdateModelResult = new CustomerFeedback
+            var resultUpdate = _testimonialFacade.Update(customerViewUpdateModel);
+            if (resultUpdate)
             {
-                Id = customerViewUpdateModel.Id,
-                ContentAz = customerViewUpdateModel.ContentAz,
-                ContentEn = customerViewUpdateModel.ContentEn,
-                ContentRu = customerViewUpdateModel.ContentRu,
-                FullName = customerViewUpdateModel.FullName,
-                Position = customerViewUpdateModel.Position
-            };
-            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerViewUpdateModelResult);
-            if (!customerFeedbackUpdateResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This data is null or empty");
+                if (_unitOfWork.Commit() > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View(customerViewUpdateModel);
+                }
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            return View(customerViewUpdateModel);
         }
 
         #endregion UPDATE
@@ -191,18 +163,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Id is null");
             }
-            var customerFeedbackResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
-            if (customerFeedbackResult != null)
+            var resultDelete = _testimonialFacade.Delete(id);
+            if (resultDelete)
             {
-                ModelState.AddModelError("", "This data is null or empty");
+                if (_unitOfWork.Commit() > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                    return View();
+                }
             }
-            var customerFeedbackDeleteResult = await _unitOfWork.customerFeedbackRepository.DeleteAsync(customerFeedbackResult);
-            if (!customerFeedbackDeleteResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This data is null or empty");
-            }
-            _unitOfWork.Dispose();
             return View();
         }
 

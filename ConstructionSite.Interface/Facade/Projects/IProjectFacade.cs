@@ -9,6 +9,9 @@ namespace ConstructionSite.Interface.Facade.Projects
     public interface IProjectFacade
     {
         Task<RESULT<Project>> Add(Project project);
-        public List<ProjectViewModel> GetAll(string _lang);
+        List<ProjectViewModel> GetAll(string _lang);
+        bool Update(ProjectUpdateViewModel projectUpdateViewModel);
+        ProjectUpdateViewModel GetForUpdate(int id);
+        public bool Delete(int id);
     }
 }

@@ -51,7 +51,10 @@
 
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Create" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New News Element</a>
+           
+                <a asp-area="ConstructionAdmin" asp-controller="Blog" asp-action="Create" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New News Element</a>
+            
+
         </div>
         <div class="adv-table editable-table ">
             <div class="space15"></div>
@@ -74,7 +77,7 @@
                             {
                                 <tr class="odd">
                                     <td class="img-style">@item.Title</td>
-                                    <td class="img-style">Blog Content</td>
+                                    <td class="img-style">@item.Content</td>
                                     <td class="img-style"><img width="60" height="60" src="@item.Imagepath" alt="Alternate Text" /></td>
                                     <td class="img-style">@item.CreateDate</td>
                                     <td class="edit-delete area-margin">

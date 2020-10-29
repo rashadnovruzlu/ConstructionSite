@@ -41,8 +41,7 @@
                 <hr />
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" method="post" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="ProjectId" />
-                        <input type="hidden" asp-for="ImageId" />
+                       
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input type="text" asp-for="NameAz" id="f-name" class="form-control" placeholder="Name AZE">
@@ -83,16 +82,30 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <img src="@Model.ImagePath" width="240" height="280" alt="Alternate Text" />
-                            </div>
+
+                        <div class="wrapper--preview">
+                            @if (Model.Images == null && Model.Images.Count < 1)
+                            {
+                                <input type="file" asp-for="files" multiple="multiple" />
+                            }
+                            @foreach (var item in Model.Images)
+                            {
+                                <div class="box">
+                                    <div class="js--image-preview">
+                                        <img src="@item.Path" alt="Alternate Text" />
+                                        <input type="hidden" />
+                                    </div>
+                                    <div class="upload-options">
+
+                                        <label>
+
+                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
+                                        </label>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <input type="file" name="file" id="f-name" class="form-control" placeholder="Images">
-                            </div>
-                        </div>
+
                         <div class="form-group" style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
                                 <button class="btn btn-success about-button" type="submit">Save</button>

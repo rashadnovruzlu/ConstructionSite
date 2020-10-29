@@ -69,7 +69,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-
             return View();
         }
 
@@ -91,10 +90,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
-                var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
-                if (serviceResult.IsDone && resultImageID.Count > 0)
+                var resultImageIDs = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                if (serviceResult.IsDone && resultImageIDs.Count > 0)
                 {
-                    await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
+                    await SaveServiceAndImages(serviceResult.Data.Id, resultImageIDs);
                     if (await _unitOfWork.CommitAsync())
                     {
                         return RedirectToAction("Index");
@@ -108,8 +107,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
-
             }
             return View();
         }
@@ -126,9 +123,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (id < 0)
+            if (id < 1)
             {
-                ModelState.AddModelError("", "Content is empty");
+                return RedirectToAction("Index");
             }
             var result = _unitOfWork.ServiceImageRepstory.GetAll()
               .Include(x => x.Image)
@@ -201,18 +198,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
-                ModelState.AddModelError("", "data not exists");
+                return RedirectToAction("Index");
             }
-            var result = await _serviceImageFacade.Delete(id);
-            if (result.IsDone)
+            if (_serviceFacade.Delete(id))
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                ModelState.AddModelError("", "can be deleted");
+                ModelState.AddModelError("", "errors is accured when delete File");
                 return RedirectToAction("Index");
             }
         }
