@@ -210,7 +210,16 @@ namespace ConstructionSite.Repository.Concreate
         public int Commit()
         {
 
-            return _context.SaveChanges();
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch
+            {
+
+                _context.Dispose();
+                return 0;
+            }
 
         }
 

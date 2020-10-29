@@ -11,5 +11,8 @@ namespace ConstructionSite.Interface.Facade.Testimonial
     public interface ITestimonialFacade
     {
         Task<RESULT<CustomerFeedback>> Add(CustomerAddViewModel customerAddViewModel);
+        bool Update(CustomerViewUpdateModel customerViewUpdateModel);
+        CustomerViewUpdateModel GetForUpdate(int id);
+        bool Delete(int id);
     }
 }
