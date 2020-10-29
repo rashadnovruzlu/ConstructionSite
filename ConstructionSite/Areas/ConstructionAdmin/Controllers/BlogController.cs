@@ -64,13 +64,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index", "Home");
             }
             var newsImageResult = _blogFacade.GetAll(_lang);
             if (newsImageResult.Count < 1 | newsImageResult == null)
             {
                 ModelState.AddModelError("", "Data is null or Empty");
+                return RedirectToAction("Index", "Home");
             }
-            return View(newsImageResult);
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion INDEX
@@ -84,6 +86,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "ModelState is not valid.");
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -98,29 +101,44 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index", "Home");
             }
             if (blogAddViewModel == null)
             {
                 ModelState.AddModelError("", "News is empty");
+                return RedirectToAction("Index", "Home");
             }
 
-            var resulBlogAddViewModel = await _blogFacade.Add(blogAddViewModel);
-            var resultImage = await blogAddViewModel.file.SaveImageCollectionAsync(_env, "news", _unitOfWork);
-            if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
+            try
             {
-                foreach (var item in resultImage)
+                var resulBlogAddViewModel = await _blogFacade.Add(blogAddViewModel);
+                var resultImage = await blogAddViewModel.file.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
                 {
-                    var result = new NewsImageAddViewModel
+                    foreach (var item in resultImage)
                     {
-                        ImageID = item,
-                        NewsID = resulBlogAddViewModel.Data.Id
-                    };
-                    await _blogImageFacade.Add(result);
+                        var result = new NewsImageAddViewModel
+                        {
+                            ImageID = item,
+                            NewsID = resulBlogAddViewModel.Data.Id
+                        };
+                        await _blogImageFacade.Add(result);
+                    }
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        _unitOfWork.Rollback();
+                    }
                 }
-                if (await _unitOfWork.CommitAsync())
-                {
-                    return RedirectToAction("Index");
-                }
+
+            }
+            catch
+            {
+
+
             }
             return View();
         }
@@ -134,11 +152,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (id < 1)
             {
                 ModelState.AddModelError("", "This data is not exists");
+                return RedirectToAction("Index");
             }
 
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
 
             var result = await _blogQueryFacade.GetForUpdate(id);
@@ -146,6 +166,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (result == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Blog Images");
+                return RedirectToAction("Index");
             }
             return View(result);
         }
@@ -157,49 +178,63 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (blogEditModel == null)
             {
                 ModelState.AddModelError("", "This data is not exist");
+                return RedirectToAction("Index");
             }
 
-            if (blogEditModel.files != null && blogEditModel.ImageID != null)
+            try
             {
-                try
+                if (blogEditModel.files != null && blogEditModel.ImageID != null)
                 {
-                    for (int i = 0; i < blogEditModel.ImageID.Count; i++)
+                    try
                     {
-                        var image = _unitOfWork.imageRepository.Find(x => x.Id == blogEditModel.ImageID[i]);
-                        await blogEditModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                        for (int i = 0; i < blogEditModel.ImageID.Count; i++)
+                        {
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == blogEditModel.ImageID[i]);
+                            await blogEditModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                        }
+                    }
+                    catch
+                    {
                     }
                 }
-                catch
+                else if (blogEditModel.files != null)
                 {
-                }
-            }
-            else if (blogEditModel.files != null)
-            {
-                var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
+                    var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
 
-                var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
-                foreach (var item in imagesid)
-                {
-                    var resultData = new NewsImage
+                    var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                    foreach (var item in imagesid)
                     {
-                        NewsId = emptyImage.Id,
-                        ImageId = item
-                    };
-                    await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                        var resultData = new NewsImage
+                        {
+                            NewsId = emptyImage.Id,
+                            ImageId = item
+                        };
+                        await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                    }
+                    await _unitOfWork.CommitAsync();
                 }
-                await _unitOfWork.CommitAsync();
-            }
-            var resultAbout = await _blogFacade.Update(blogEditModel);
-            if (resultAbout)
-            {
-                if (await _unitOfWork.CommitAsync())
+                var resultAbout = await _blogFacade.Update(blogEditModel);
+                if (resultAbout)
                 {
-                    return RedirectToAction("Index");
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        _unitOfWork.Rollback();
+                    }
                 }
+            }
+            catch
+            {
+
+                throw;
             }
             return RedirectToAction("Index");
         }
