@@ -82,7 +82,7 @@ namespace ConstructionSite.Facade.Services
 
                 .Select(x => x.SubServiceImages.Select(x => x.Image));
             return true;
-          //  _unitOfWork.imageRepository.DeleteRange(resultSubservice);
+            //  _unitOfWork.imageRepository.DeleteRange(resultSubservice);
 
 
 
