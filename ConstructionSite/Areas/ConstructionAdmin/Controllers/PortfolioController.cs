@@ -4,7 +4,6 @@ using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
-using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -95,19 +94,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
-                var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
-                foreach (var item in imageCollelction)
-                {
-                    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
-                    {
-                        ImageId = item,
-                        PortfolioId = portfolioResult.Data.Id
-                    });
-                }
-                if (await _unitOfWork.CommitAsync())
-                {
-                    return RedirectToAction("Index");
-                }
+                //var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                //foreach (var item in imageCollelction)
+                //{
+                //    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
+                //    {
+                //        ImageId = item,
+                //        PortfolioId = portfolioResult.Data.Id
+                //    });
+                //}
+                //if (await _unitOfWork.CommitAsync())
+                //{
+                //    return RedirectToAction("Index");
+                //}
             }
             catch
             {
@@ -187,12 +186,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-                
             }
-            catch 
+            catch
             {
-
-               
             }
             return RedirectToAction("Index");
         }

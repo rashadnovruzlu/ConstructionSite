@@ -64,11 +64,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
-
             }
             var newsImageResult = _blogFacade.GetAll(_lang);
             return View(newsImageResult);
-
         }
 
         #endregion INDEX
@@ -91,8 +89,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogAddViewModel blogAddViewModel)
         {
-
-
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -129,12 +125,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         _unitOfWork.Rollback();
                     }
                 }
-
             }
             catch
             {
-
-
             }
             return View();
         }
@@ -229,7 +222,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
                 throw;
             }
             return RedirectToAction("Index");

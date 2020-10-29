@@ -69,7 +69,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-
             return View();
         }
 
@@ -108,8 +107,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
-
             }
             return View();
         }
@@ -204,7 +201,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (id < 1)
             {
                 return RedirectToAction("Index");
-
             }
             if (_serviceFacade.Delete(id))
             {

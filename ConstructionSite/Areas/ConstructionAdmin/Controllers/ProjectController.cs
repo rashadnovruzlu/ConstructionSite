@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -103,8 +102,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             return await AllSave(resultProject, resultimage);
         }
 
-
-
         #endregion CREATE
 
         #region UPDATE
@@ -135,7 +132,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ProjectUpdateViewModel projectUpdateViewModel)
         {
-
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
@@ -154,7 +150,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         for (int i = 0; i < projectUpdateViewModel.ImageID.Count; i++)
                         {
                             var image = _unitOfWork.imageRepository.Find(x => x.Id == projectUpdateViewModel.ImageID[i]);
-                            await projectUpdateViewModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                            await projectUpdateViewModel.files[i].UpdateAsyc(_env, image, "project", _unitOfWork);
                         }
                     }
                     catch
@@ -165,7 +161,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     var emptyImage = _unitOfWork.projectRepository.Find(x => x.Id == projectUpdateViewModel.Id);
 
-                    var imagesid = await projectUpdateViewModel.files.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                    var imagesid = await projectUpdateViewModel.files.SaveImageCollectionAsync(_env, "project", _unitOfWork);
                     foreach (var item in imagesid)
                     {
                         var resultData = new ProjectImage
@@ -175,7 +171,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         };
                         await _unitOfWork.projectImageRepository.AddAsync(resultData);
                     }
-
                 }
                 var resultProject = _projectFacade.Update(projectUpdateViewModel);
                 if (resultProject)
@@ -189,12 +184,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         _unitOfWork.Rollback();
                     }
                 }
-
             }
             catch
             {
-
-
             }
             return RedirectToAction("Index");
         }
@@ -221,13 +213,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (isresult)
             {
-
+                if (_unitOfWork.Commit() > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                }
             }
+
             return View();
         }
 
         #endregion DELETE
+
         #region ::PRIVITE::
+
         private async Task<IActionResult> AllSave(RESULT<Project> resultProject, List<int> resultimage)
         {
             if (resultimage.Count > 0 && resultProject.IsDone)
@@ -261,6 +263,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 await _projectImageFacade.Add(projectImageAddViewModel);
             }
         }
-        #endregion
+
+        #endregion ::PRIVITE::
     }
 }

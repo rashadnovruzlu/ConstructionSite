@@ -1,10 +1,7 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Testimonial;
-using ConstructionSite.Entity.Models;
-using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Testimonial;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
     public class TestimonialController : CoreController
     {
         #region Fields
@@ -24,7 +20,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly ITestimonialFacade _testimonialFacade;
-
 
         #endregion Fields
 
@@ -114,7 +109,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-
             var customerFeedbackUpdate = _testimonialFacade.GetForUpdate(id);
             if (customerFeedbackUpdate == null)
             {
@@ -150,11 +144,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     _unitOfWork.Rollback();
                     return View(customerViewUpdateModel);
                 }
-
             }
             return View(customerViewUpdateModel);
-
-
         }
 
         #endregion UPDATE

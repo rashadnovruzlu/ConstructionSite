@@ -52,7 +52,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             var result = _aboutFacade.
                 GetAll(_lang).
                    ToList(); ;
@@ -174,8 +173,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
-
             }
             return View(aboutUpdateViewModel);
         }
@@ -193,13 +190,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (id < 1)
             {
-
                 ModelState.AddModelError("", "NULL");
                 return RedirectToAction("Index");
             }
             if (_aboutFacade.Delete(id))
             {
-
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

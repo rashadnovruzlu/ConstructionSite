@@ -1,8 +1,10 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Project;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Projects;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +14,11 @@ namespace ConstructionSite.Facade.Projects
     public class ProjectFacade : IProjectFacade
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public ProjectFacade(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _env;
+        public ProjectFacade(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _env = env;
         }
 
         public async Task<RESULT<Project>> Add(Project project)
@@ -69,13 +72,19 @@ namespace ConstructionSite.Facade.Projects
             resultprojectUpdateViewModel.ContentEn = projectUpdateViewModel.ContentEn;
             resultprojectUpdateViewModel.ContentRu = projectUpdateViewModel.ContentRu;
             resultprojectUpdateViewModel.PortfolioId = projectUpdateViewModel.PortfolioId;
+
             return _unitOfWork.projectRepository.Update(resultprojectUpdateViewModel).IsDone;
 
         }
         public bool Delete(int id)
         {
-           var result=   _unitOfWork.projectRepository.Find(x => x.Id == id);
-          return  _unitOfWork.projectRepository.Delete(result).IsDone;
+            var data = _unitOfWork.projectRepository.Find(x => x.Id == id);
+            var imageId = _unitOfWork.projectImageRepository.GetAll()
+                  .Where(x => x.ProjectId == data.Id)
+                  .Select(x => x.ImageId).ToArray();
+            _unitOfWork.projectRepository.Delete(data);
+            return _env.Delete(imageId, "About", _unitOfWork);
+
         }
 
     }
