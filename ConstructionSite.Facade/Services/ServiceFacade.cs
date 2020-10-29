@@ -37,15 +37,17 @@ namespace ConstructionSite.Facade.Services
 
         public List<data.ServiceViewModel> GetAll(string _lang)
         {
-            var resultServiceViewModel = _unitOfWork.ServiceRepository.GetAll()
+            var resultServiceViewModel = _unitOfWork.ServiceRepository
+                .GetAll()
                   .Select(x => new ServiceViewModel
                   {
                       Id = x.Id,
                       Name = x.FindName(_lang),
                       Tittle = x.FindTitle(_lang),
-                      Image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
+                      image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
 
                   })
+                  .OrderByDescending(x => x.Id)
                   .ToList();
             return resultServiceViewModel;
         }
@@ -74,9 +76,8 @@ namespace ConstructionSite.Facade.Services
                      TittleAz = x.TitleAz,
                      TittleEn = x.TitleEn,
                      TittleRu = x.TitleRu
-                 }
-                     )
-                 .SingleOrDefault(x => x.id == id);
+                 })
+                 .FirstOrDefault(x => x.id == id);
             return resultService;
         }
 
