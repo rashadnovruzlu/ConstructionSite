@@ -126,9 +126,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (id < 0)
+            if (id < 1)
             {
-                ModelState.AddModelError("", "Content is empty");
+                return RedirectToAction("Index");
             }
             var result = _unitOfWork.ServiceImageRepstory.GetAll()
               .Include(x => x.Image)
@@ -201,9 +201,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            if (id < 0)
+            if (id < 1)
             {
-                ModelState.AddModelError("", "data is not valide");
+                return RedirectToAction("Index");
+
             }
             if (_serviceFacade.Delete(id))
             {

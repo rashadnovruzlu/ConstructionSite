@@ -37,5 +37,40 @@ namespace ConstructionSite.Facade.Projects
                   }).ToList();
             return resultProject;
         }
+        public ProjectUpdateViewModel GetForUpdate(int id)
+        {
+            var result = _unitOfWork.projectRepository
+                .GetAll()
+                .Select(x => new ProjectUpdateViewModel
+                {
+                    Id = x.Id,
+                    ContentAz = x.ContentAz,
+                    ContentEn = x.ContentEn,
+                    ContentRu = x.ContentRu,
+                    NameAz = x.NameAz,
+                    NameEn = x.NameEn,
+                    NameRu = x.NameRu,
+                    PortfolioId = x.PortfolioId,
+                    ImageID = x.ProjectImages.Select(x => x.ImageId).ToList(),
+
+                })
+                .SingleOrDefault(x => x.Id == id);
+            return result;
+
+        }
+        public bool Update(ProjectUpdateViewModel projectUpdateViewModel)
+        {
+            var resultprojectUpdateViewModel = _unitOfWork.projectRepository.Find(x => x.Id == projectUpdateViewModel.Id); ;
+            resultprojectUpdateViewModel.NameAz = projectUpdateViewModel.NameAz;
+            resultprojectUpdateViewModel.NameEn = projectUpdateViewModel.NameEn;
+            resultprojectUpdateViewModel.NameRu = projectUpdateViewModel.NameRu;
+            resultprojectUpdateViewModel.ContentAz = projectUpdateViewModel.ContentAz;
+            resultprojectUpdateViewModel.ContentEn = projectUpdateViewModel.ContentEn;
+            resultprojectUpdateViewModel.ContentRu = projectUpdateViewModel.ContentRu;
+            resultprojectUpdateViewModel.PortfolioId = projectUpdateViewModel.PortfolioId;
+            return _unitOfWork.projectRepository.Update(resultprojectUpdateViewModel).IsDone;
+
+        }
+
     }
 }

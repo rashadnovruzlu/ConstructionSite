@@ -39,6 +39,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _unitOfWork = unitOfWork;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
+            _testimonialFacade = testimonialFacade;
         }
 
         #endregion CTOR
