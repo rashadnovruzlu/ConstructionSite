@@ -111,27 +111,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region UPDATE
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Model State is not Valid.");
-            }
-            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.GetByIdAsync(id);
-            if (customerFeedbackUpdateResult == null)
-            {
-                ModelState.AddModelError("", "This data is null or empty");
-            }
-            var customerFeedbackUpdate = new CustomerViewUpdateModel
-            {
-                Id = customerFeedbackUpdateResult.Id,
-                ContentAz = customerFeedbackUpdateResult.ContentAz,
-                ContentRu = customerFeedbackUpdateResult.ContentRu,
-                ContentEn = customerFeedbackUpdateResult.ContentEn,
-                FullName = customerFeedbackUpdateResult.FullName,
-                Position = customerFeedbackUpdateResult.Position
-            };
+
+            var customerFeedbackUpdate = _testimonialFacade.GetForUpdate(id);
             if (customerFeedbackUpdate == null)
             {
                 _unitOfWork.Rollback();
@@ -154,23 +137,18 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerViewUpdateModelResult = new CustomerFeedback
+            var resultUpdate = _testimonialFacade.Update(customerViewUpdateModel);
+            if (resultUpdate)
             {
-                Id = customerViewUpdateModel.Id,
-                ContentAz = customerViewUpdateModel.ContentAz,
-                ContentEn = customerViewUpdateModel.ContentEn,
-                ContentRu = customerViewUpdateModel.ContentRu,
-                FullName = customerViewUpdateModel.FullName,
-                Position = customerViewUpdateModel.Position
-            };
-            var customerFeedbackUpdateResult = await _unitOfWork.customerFeedbackRepository.UpdateAsync(customerViewUpdateModelResult);
-            if (!customerFeedbackUpdateResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This data is null or empty");
+                if (_unitOfWork.Commit() > 0)
+                {
+                    return RedirectToAction("Index");
+                }
+                return View(customerViewUpdateModel);
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            return View(customerViewUpdateModel);
+
+
         }
 
         #endregion UPDATE
