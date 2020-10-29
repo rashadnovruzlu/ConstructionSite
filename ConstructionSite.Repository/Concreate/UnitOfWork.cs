@@ -37,7 +37,16 @@ namespace ConstructionSite.Repository.Concreate
         {
             _context = context ?? throw new ArgumentNullException("is null");
         }
+        public async Task<bool> CommitAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
 
+        }
+
+        public void Rollback()
+        {
+            _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+        }
         public IAboutImageRepository AboutImageRepository
         {
             get
@@ -200,7 +209,9 @@ namespace ConstructionSite.Repository.Concreate
 
         public int Commit()
         {
+
             return _context.SaveChanges();
+
         }
 
         public void Dispose()
@@ -208,14 +219,6 @@ namespace ConstructionSite.Repository.Concreate
             _context.Dispose();
         }
 
-        public async Task<int> CommitAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
 
-        public void Rollback()
-        {
-            _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
-        }
     }
 }

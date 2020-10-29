@@ -1,6 +1,5 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.message;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
     public class ShowController : CoreController
     {
         #region Fields

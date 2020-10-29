@@ -1,16 +1,19 @@
-﻿using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
-using System;
+﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Core;
+using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Interface.Facade.Portfolio
 {
     public interface IPortfolioImageFacade
     {
-        Task<bool> Add(PortfolioImageAddViewModel portfolioImageAddViewModel);
-        Task<bool> Delete(int id);
-        Task<bool> Update(PortfolioImageUpdateViewModel portfolioImageUpdateViewModel);
+        Task<RESULT<PortfolioImage>> Add(PortfolioImageAddViewModel portfolioImageAddViewModel);
+
+        Task<RESULT<PortfolioImage>> Delete(int id);
+
+        Task<RESULT<PortfolioImage>> Update(PortfolioImageUpdateViewModel portfolioImageUpdateViewModel);
+
         Task<List<PortfolioImageViewModel>> GetAll(string _lang);
     }
 }

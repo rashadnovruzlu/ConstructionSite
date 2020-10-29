@@ -1,11 +1,6 @@
-﻿using ConstructionSite.Extensions.Text;
-using ConstructionSite.Resources;
+﻿using ConstructionSite.Resources;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace ConstructionSite.Localization
 {
@@ -15,7 +10,6 @@ namespace ConstructionSite.Localization
 
         public SharedLocalizationService(IStringLocalizerFactory factory)
         {
-
             var type = typeof(SharedResource);
 
             var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
@@ -25,15 +19,13 @@ namespace ConstructionSite.Localization
 
         public string GetLocalizedHtmlString(string key)
         {
-          
             string languagesResult = _localizer[key].Value;
             if (!string.IsNullOrEmpty(languagesResult))
             {
-                 return languagesResult.ToUpper();
-             }
-           
+                return languagesResult.ToUpper();
+            }
+
             return key;
-           
         }
     }
 }

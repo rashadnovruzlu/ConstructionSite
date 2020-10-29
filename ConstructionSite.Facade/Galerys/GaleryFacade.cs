@@ -1,8 +1,11 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.Galerys
@@ -14,6 +17,7 @@ namespace ConstructionSite.Facade.Galerys
         /// PortfolioImage
         /// ServiceImage
         /// </summary>
+
         #region ::FILEDS::
 
         private readonly IUnitOfWork _unitOfWork;
@@ -42,48 +46,74 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::ADD::
 
-        public async Task<bool> Add(GaleryAddViewModel galeryAddViewModel)
+        public List<GaleryViewModel> GetAll(string _lang)
         {
-            var resultGaleryViewModel = await galeryAddViewModel.MappedAsync<Galery>();
-            await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
-            return await CeckedTransaction();
+            var resultGalery = _unitOfWork.GaleryRepstory.GetAll()
+                  .Select(x => new GaleryViewModel
+                  {
+                      Id = x.Id,
+                      Title = x.FindTitle(_lang),
+                      Imagepath = x.GaleryFiles.Select(x => x.Image.Path).FirstOrDefault()
+                  })
+                  .ToList();
+
+            return resultGalery;
+        }
+
+        public async Task<RESULT<Galery>> Add(GaleryAddViewModel galeryAddViewModel)
+        {
+            var resultGaleryViewModel = new Galery
+            {
+                Id = galeryAddViewModel.Id,
+                TitleAz = galeryAddViewModel.TitleAz,
+                TitleEn = galeryAddViewModel.TitleEn,
+                TitleRu = galeryAddViewModel.TitleRu
+            };
+            var resultGaleryUpdate = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
+            return resultGaleryUpdate;
         }
 
         #endregion ::ADD::
 
         #region ::DELETE::
 
-        public async Task<bool> Delete(int id)
+        public async Task<RESULT<Galery>> Delete(int id)
         {
             var resultGaleryFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
-            await _unitOfWork.GaleryRepstory.DeleteAsync(resultGaleryFind);
-            return await CeckedTransaction();
+            return await _unitOfWork.GaleryRepstory.DeleteAsync(resultGaleryFind);
         }
 
         #endregion ::DELETE::
 
         #region ::UPDATE::
 
-        public async Task<bool> Update(GaleryUpdateViewModel galeryUpdateViewModel)
+        public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
-            var resultGaleryUpdateViewModel = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
-            await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModel);
-            return await CeckedTransaction();
+            var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
+            resultGaleryUpdateViewModelFind.TitleAz = galeryUpdateViewModel.TitleAz;
+            resultGaleryUpdateViewModelFind.TitleEn = galeryUpdateViewModel.TitleEn;
+            resultGaleryUpdateViewModelFind.TitleRu = galeryUpdateViewModel.TitleRu;
+
+            return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModelFind);
         }
 
         #endregion ::UPDATE::
 
         #region CECHEDTRANSACTION::
 
-        private async Task<bool> CeckedTransaction()
+        public GaleryUpdateViewModel GetForUpdate(int id)
         {
-            return await _unitOfWork.CommitAsync() > 0;
-        }
-
-        public async Task<GaleryUpdateViewModel> FindUpdate(int id)
-        {
-            var result = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == id);
-            return await result.MappedAsync<GaleryUpdateViewModel>();
+            var resultGaleryUpdate = _unitOfWork.GaleryRepstory.GetAll()
+                .Select(x => new GaleryUpdateViewModel
+                {
+                    Id = x.Id,
+                    TitleAz = x.TitleAz,
+                    TitleEn = x.TitleEn,
+                    TitleRu = x.TitleRu,
+                    Images = x.GaleryFiles.Select(x => x.Image).ToList()
+                })
+                .SingleOrDefault(x => x.Id == id);
+            return resultGaleryUpdate;
         }
 
         #endregion CECHEDTRANSACTION::

@@ -3,90 +3,95 @@
     ViewData["Title"] = "Index";
 }
 
-    <style type="text/css">
-        .button-create {
-            margin-bottom: 10px;
-        }
-        .text-style {
-            text-align: center;
-            font-size: 1.2em;
-        }
-        .common {
-            background-color: RGB(241, 242, 247) !important;
-        }
-        .edit-delete {
-            text-align: center;
-        }
+<style type="text/css">
+    .button-create {
+        margin-bottom: 10px;
+    }
 
-        .about-button:hover {
-            background-color: black !important;
-            border-color: black;
-            color: #fff;
-        }
-        .img-style {
-            text-align: center;
-        }
-        .edit-icon {
-            color: #6E90EC;
-            padding-right: 7%;
-            font-size: 1.3em;
-        }
+    .text-style {
+        text-align: center;
+        font-size: 1.2em;
+    }
 
-        .delete-icon {
-            color: #F0636A;
-            font-size: 1.3em;
-        }
-    </style>
+    .common {
+        background-color: RGB(241, 242, 247) !important;
+    }
 
-    <section class="panel common">
-        <header class="panel-heading">
-            Project Table
-        </header>
-      
-        <div class="panel-body">
-            <div class="button-create">
-                <a asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New Project Element</a>
-            </div>
-            <div class="adv-table editable-table ">
-                <div class="space15"></div>
-                <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                    <table class="table table-striped table-hover table-bordered dataTable" id="myTable editable-sample" aria-describedby="editable-sample_info">
-                        <thead>
-                            <tr role="row">
-                                <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Title</th>
-                                <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Content</th>
-                                <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
-                                <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
-                            </tr>
-                        </thead>
-                        <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            @if (Model.Any())
-                            {
-                                @foreach (var item in Model)
-                                {
-                                    <tr class="odd">
-                                        <td class="sorting_1 img-style">@item.Name</td>
-                                        <td class="img-style">Project Content</td>
-                                        <td class="img-style"><img src="@item.Image" width="60" height="60" alt="Alternate Text" /></td>
-                                        <td class="edit-delete">
-                                            <a class="edit" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
-                                            <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id"> <i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                            else
+    .edit-delete {
+        text-align: center;
+    }
+
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+
+    .img-style {
+        text-align: center;
+    }
+
+    .edit-icon {
+        color: #6E90EC;
+        padding-right: 7%;
+        font-size: 1.3em;
+    }
+
+    .delete-icon {
+        color: #F0636A;
+        font-size: 1.3em;
+    }
+</style>
+
+<section class="panel common">
+    <header class="panel-heading">
+        Project Table
+    </header>
+
+    <div class="panel-body">
+        <div class="button-create">
+            <a asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New Project Element</a>
+        </div>
+        <div class="adv-table editable-table ">
+            <div class="space15"></div>
+            <div id="editable-sample_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                <table class="table table-striped table-hover table-bordered dataTable" id="myTable editable-sample" aria-describedby="editable-sample_info">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Title</th>
+                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Content</th>
+                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
+                            <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
+                        </tr>
+                    </thead>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
                             {
                                 <tr class="odd">
-                                    <td class="text-style text-danger" colspan="5" asp-validation-summary="All">Hec bir Data yoxdur</td>
+                                    <td class="sorting_1 img-style">@item.Name</td>
+                                    <td class="img-style">Project Content</td>
+                                    <td class="img-style"><img src="@item.Image" width="60" height="60" alt="Alternate Text" /></td>
+                                    <td class="edit-delete">
+                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
+                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id"> <i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
+                                    </td>
                                 </tr>
                             }
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                        else
+                        {
+                            <tr class="odd">
+                                <td class="text-style text-danger" colspan="5" asp-validation-summary="All">Hec bir Data yoxdur</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 @section scripts{
     <script>

@@ -47,7 +47,7 @@
     <header class="panel-heading">
         SubService Table
     </header>
-  
+
     <div class="panel-body">
         <div class="button-create">
             <a asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Add" class="btn about-button" style="color: #fff; background-color: #ffc925;">Create New SubService Element</a>
@@ -80,10 +80,10 @@
                                     <td class="img-style">
                                         <img width="60" height="60" src="@item.ImagePath" alt="Alternate Text" />
                                     </td>
-                                    <td class="edit-delete">
+                                    @*<td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
                                         <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
-                                    </td>
+                                    </td>*@
                                 </tr>
                             }
                         }

@@ -1,18 +1,21 @@
-﻿using ConstructionSite.ViwModel.AdminViewModels.Galery;
-using System;
+﻿using ConstructionSite.Helpers.Core;
+using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using name = ConstructionSite.Entity.Models;
 
 namespace ConstructionSite.Interface.Facade.Galery
 {
     public interface IGaleryFacade
     {
-        Task<bool> Add(GaleryAddViewModel galeryAddViewModel);
-       
-        Task<bool> Delete(int id);
-        Task<GaleryUpdateViewModel> FindUpdate(int id);
-        Task<bool> Update(GaleryUpdateViewModel galeryUpdateViewModel);
-        Task<GaleryViewModel> GetAll();
+        Task<RESULT<name.Galery>> Add(GaleryAddViewModel galeryAddViewModel);
+
+        Task<RESULT<name.Galery>> Delete(int id);
+
+        GaleryUpdateViewModel GetForUpdate(int id);
+
+        Task<RESULT<name.Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel);
+
+        List<GaleryViewModel> GetAll(string _lang);
     }
 }

@@ -114,6 +114,11 @@ namespace ConstructionSite.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Soon()
+        {
+            return View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

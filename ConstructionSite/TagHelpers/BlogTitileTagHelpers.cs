@@ -2,10 +2,9 @@
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("h1",Attributes = "blog-title")]
+    [HtmlTargetElement("h1", Attributes = "blog-title")]
     public class BlogTitleTagHelpers : TagHelper
     {
-        
         public string BlogTitle { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

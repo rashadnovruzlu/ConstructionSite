@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConstructionSite.DTO.AdminViewModels.About
 {
@@ -29,5 +32,7 @@ namespace ConstructionSite.DTO.AdminViewModels.About
         [Display(Name = "ContentRu")]
         [Required(ErrorMessage = "ContentRu is Required")]
         public string ContentRu { get; set; }
+
+        public ICollection<IFormFile> FileData { get; set; }
     }
 }

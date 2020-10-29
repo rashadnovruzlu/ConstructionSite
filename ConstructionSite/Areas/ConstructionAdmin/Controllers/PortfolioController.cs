@@ -1,28 +1,28 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
 using ConstructionSite.Entity.Models;
-using ConstructionSite.Helpers.Constants;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Portfolio;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Portfolio;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-
     public class PortfolioController : CoreController
     {
         #region Fields
 
         private string _lang;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPortfolioImageFacade _portfolioImageFacade;
+        private readonly IPortfolioFacade _portfolioFacade;
 
         #endregion Fields
 
@@ -30,9 +30,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public PortfolioController(IUnitOfWork unitOfWork,
                                    IHttpContextAccessor httpContextAccessor,
-                                   IPortfolioImageFacade portfolioImageFacade)
+                                   IPortfolioImageFacade portfolioImageFacade,
+                                   IPortfolioFacade portfolioFacade,
+                                   IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _env = env;
+            _portfolioFacade = portfolioFacade;
             _httpContextAccessor = httpContextAccessor;
             _portfolioImageFacade = portfolioImageFacade;
             _lang = _httpContextAccessor.GetLanguages();
@@ -50,18 +54,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = _unitOfWork.portfolioRepository.GetAll()
-            .Select(x => new PortfolioViewModel
-            {
-                Id = x.Id,
-                Name = x.FindName(_lang)
-            }).ToList();
+            var resultViewModel = _portfolioFacade.GetAll(_lang);
 
-            if (result.Count < 0)
+            if (resultViewModel == null)
             {
                 ModelState.AddModelError("", "This is empty");
             }
-            return View(result);
+            return View(resultViewModel);
         }
 
         #endregion INDEX
@@ -81,31 +80,37 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Portfolio portfolio,IFormFile formFile)
+        public async Task<IActionResult> Add(PortfolioAddModel portfolioAddModel)
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            if (portfolio == null)
+            if (portfolioAddModel == null)
             {
                 ModelState.AddModelError("", "Portfolio is NULL");
             }
 
-            var portfolioResult = await _unitOfWork.portfolioRepository.AddAsync(portfolio);
-            PortfolioImageAddViewModel portfolioImageAddViewModel = new PortfolioImageAddViewModel();
-            portfolioImageAddViewModel.PortfolioId = portfolio.Id;
-
-            if (portfolioResult.IsDone)
+            try
             {
-                _unitOfWork.Dispose();
-                return RedirectToAction("Index");
+                var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
+                var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                foreach (var item in imageCollelction)
+                {
+                    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
+                    {
+                        ImageId = item,
+                        PortfolioId = portfolioResult.Data.Id
+                    });
+                }
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            else
+            catch
             {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Data is Not Saved.");
             }
             return RedirectToAction("Index");
         }
@@ -121,52 +126,66 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var portfoliUpdateViewModel = _unitOfWork.portfolioRepository.GetById(id);
-            if (portfoliUpdateViewModel == null)
+            var portfoliUpdateViewModelResult = _portfolioFacade.GetForUpdate(id);
+            if (portfoliUpdateViewModelResult == null)
             {
                 ModelState.AddModelError("", "Data Is Null");
             }
-            var portfoliUpdateViewModelResult = new PortfoliUpdateViewModel
-            {
-                id = portfoliUpdateViewModel.Id,
-                NameAz = portfoliUpdateViewModel.NameAz,
-                NameEn = portfoliUpdateViewModel.NameEn,
-                NameRu = portfoliUpdateViewModel.NameRu
-            };
+
             return View(portfoliUpdateViewModelResult);
         }
 
         [HttpPost]
-        public IActionResult Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
+        public async Task<IActionResult> Update(PortfoliUpdateViewModel portfoliUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
             if (portfoliUpdateViewModel == null)
             {
+                ModelState.AddModelError("", "This data is not exist");
             }
-            var portfoliUpdateViewModelresult = new Portfolio
-            {
-                Id = portfoliUpdateViewModel.id,
-                NameAz = portfoliUpdateViewModel.NameAz,
-                NameEn = portfoliUpdateViewModel.NameEn,
-                NameRu = portfoliUpdateViewModel.NameRu
-            };
-            var result = _unitOfWork.portfolioRepository.Update(portfoliUpdateViewModelresult);
-            if (!result.IsDone)
-            {
-                _unitOfWork.Rollback();
 
-                ModelState.AddModelError("", "This is not successfull update");
-            }
-            else
+            if (portfoliUpdateViewModel.files != null && portfoliUpdateViewModel.ImageID != null)
             {
-                _unitOfWork.Dispose();
-                return RedirectToAction("Index");
+                try
+                {
+                    for (int i = 0; i < portfoliUpdateViewModel.ImageID.Count; i++)
+                    {
+                        var image = _unitOfWork.imageRepository.Find(x => x.Id == portfoliUpdateViewModel.ImageID[i]);
+                        await portfoliUpdateViewModel.files[i].UpdateAsyc(_env, image, "blog", _unitOfWork);
+                    }
+                }
+                catch
+                {
+                }
             }
-            return View(portfoliUpdateViewModel);
+            else if (portfoliUpdateViewModel.files != null)
+            {
+                var emptyImage = _unitOfWork.portfolioRepository.Find(x => x.Id == portfoliUpdateViewModel.id);
+
+                var imagesid = await portfoliUpdateViewModel.files.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
+                foreach (var item in imagesid)
+                {
+                    var resultData = new PortfolioImage
+                    {
+                        PortfolioId = emptyImage.Id,
+                        ImageId = item
+                    };
+                    await _unitOfWork.PortfolioImageRepostory.AddAsync(resultData);
+                }
+                await _unitOfWork.CommitAsync();
+            }
+            var resultPortfolio = await _portfolioFacade.Update(portfoliUpdateViewModel);
+            if (resultPortfolio.IsDone)
+            {
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         #endregion UPDATE
@@ -180,19 +199,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            Portfolio portfolioResult = await _unitOfWork.portfolioRepository.GetByIdAsync(id);
-            if (portfolioResult == null)
+            if (await _portfolioFacade.Delete(id))
             {
-                return RedirectToAction("Index");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
             }
-
-            var portfolioDeleteResult = await _unitOfWork.portfolioRepository.DeleteAsync(portfolioResult);
-            if (!portfolioDeleteResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This portfolio was not delete");
-            }
-            _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
 

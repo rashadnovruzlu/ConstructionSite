@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ConstructionSite.DTO\ConstructionSite.ViwModel.csproj" />
+    <ProjectReference Include="..\ConstructionSite.Entity\ConstructionSite.Entity.csproj" />
   </ItemGroup>
 
 </Project>

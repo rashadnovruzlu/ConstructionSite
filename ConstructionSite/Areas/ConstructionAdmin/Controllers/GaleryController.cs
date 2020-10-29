@@ -1,6 +1,14 @@
-﻿using ConstructionSite.Interface.Facade.Galery;
+﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Core;
+using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Galery;
+using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
@@ -9,22 +17,35 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
     {
         #region ::FILDS::
 
+        private string _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
         private readonly IGaleryFacade _galeryFacade;
+        private readonly IGaleryFileFacde _galeryFileFacde;
 
         #endregion ::FILDS::
 
         #region ::CTOR::
 
-        public GaleryController(IGaleryFacade galeryFacade)
+        public GaleryController(IGaleryFacade galeryFacade, IGaleryFileFacde galeryFileFacde,
+            IWebHostEnvironment env, IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContextAccessor)
         {
             _galeryFacade = galeryFacade;
+            _galeryFileFacde = galeryFileFacde;
+            _httpContextAccessor = httpContextAccessor;
+            _lang = _httpContextAccessor.GetLanguages();
+            _env = env;
+            _unitOfWork = unitOfWork;
         }
 
         #endregion ::CTOR::
 
         public IActionResult Index()
         {
-            return View();
+            var result = _galeryFacade.GetAll(_lang);
+            return View(result);
         }
 
         #region ::ADD::
@@ -37,17 +58,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+                var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
+                var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
+                if (resultGalery.IsDone && resultImage.Count > 0)
+                {
+                    await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
             {
             }
-            if (galeryAddViewModel == null)
-            {
-            }
-            var result = await _galeryFacade.Add(galeryAddViewModel);
-            if (result)
-            {
-                return RedirectToAction("Index");
-            }
+
             return View();
         }
 
@@ -55,25 +79,69 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region ::UPDATE::
 
-        public async Task<IActionResult> Update(int id)
+        public IActionResult Update(int id)
         {
-
-            var resultFindById = await _galeryFacade.FindUpdate(id);
+            var resultFindById = _galeryFacade.GetForUpdate(id);
             return View(resultFindById);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             if (!ModelState.IsValid)
             {
-
+                ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = await _galeryFacade.Update(galeryUpdateViewModel);
-            if (result)
+            if (galeryUpdateViewModel == null)
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "This data is not exist");
             }
-            return View(galeryUpdateViewModel);
+
+            if (galeryUpdateViewModel.files != null && galeryUpdateViewModel.ImageID != null)
+            {
+                try
+                {
+                    for (int i = 0; i < galeryUpdateViewModel.ImageID.Count; i++)
+                    {
+                        var image = _unitOfWork.imageRepository.Find(x => x.Id == galeryUpdateViewModel.ImageID[i]);
+                        await galeryUpdateViewModel.files[i].UpdateAsyc(_env, image, "galery", _unitOfWork);
+                    }
+                }
+                catch
+                {
+                }
+            }
+            else if (galeryUpdateViewModel.files != null)
+            {
+                try
+                {
+                    var emptyImage = _unitOfWork.GaleryRepstory.Find(x => x.Id == galeryUpdateViewModel.Id);
+
+                    var imagesid = await galeryUpdateViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
+                    foreach (var item in imagesid)
+                    {
+                        var resultData = new GaleryFile
+                        {
+                            GaleryId = emptyImage.Id,
+                            ImageId = item
+                        };
+                        await _unitOfWork.GaleryFileRepstory.AddAsync(resultData);
+                    }
+                    await _unitOfWork.CommitAsync();
+                }
+                catch
+                {
+                }
+            }
+            var resultGalery = await _galeryFacade.Update(galeryUpdateViewModel);
+            if (resultGalery.IsDone)
+            {
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         #endregion ::UPDATE::
@@ -86,7 +154,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
             }
             var result = await _galeryFacade.Delete(id);
-            if (result)
+            if (result.IsDone)
             {
                 return RedirectToAction("Index");
             }
@@ -94,5 +162,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
 
         #endregion ::DELETE::
+
+        #region ::private::
+
+        private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
+        {
+            foreach (var item in resultImage)
+            {
+                GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
+                {
+                    ImageId = item,
+                    GaleryId = resultGalery.Data.Id
+                };
+                await _galeryFileFacde.Add(galeryFileAddViewModel);
+            }
+            await _unitOfWork.CommitAsync();
+        }
+
+        #endregion ::private::
     }
 }

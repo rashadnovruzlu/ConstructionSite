@@ -12,12 +12,12 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Galery
 
         public string Title { get; set; }
 
-        public string Path { get; set; }
+        public string[] Path { get; set; }
 
         public string VideoPath { get; set; }
 
 
-        public int GaleryId { get; set; }
+
         public int ImageId { get; set; }
 
     }

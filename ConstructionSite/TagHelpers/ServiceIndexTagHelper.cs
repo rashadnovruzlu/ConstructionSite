@@ -2,10 +2,9 @@
 
 namespace ConstructionSite.TagHelpers
 {
-    [HtmlTargetElement("p",Attributes ="service-index")]
+    [HtmlTargetElement("p", Attributes = "service-index")]
     public class ServiceIndexTagHelper : TagHelper
     {
-        
         public string ServiceIndex { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

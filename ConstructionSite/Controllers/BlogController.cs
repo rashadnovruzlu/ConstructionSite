@@ -3,6 +3,7 @@ using ConstructionSite.DTO.FrontViewModels.Blog;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Helpers.Paging;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,7 @@ namespace ConstructionSite.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private SharedLocalizationService _localizationHandle;
+        private readonly IBlogImageFacade _blogImageFacade;
 
         /// <summary>
         /// Conustructor
@@ -32,12 +34,14 @@ namespace ConstructionSite.Controllers
         /// <param name="localizationHandle"></param>
         public BlogController(IUnitOfWork unitOfWork,
                               IHttpContextAccessor httpContextAccessor,
-                              SharedLocalizationService localizationHandle)
+                              SharedLocalizationService localizationHandle,
+                               IBlogImageFacade blogImageFacade)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
             _lang = _httpContextAccessor.GetLanguages();
             _localizationHandle = localizationHandle;
+            _blogImageFacade = blogImageFacade;
         }
 
         /// <summary>
@@ -60,19 +64,11 @@ namespace ConstructionSite.Controllers
                  .Include(x => x.Image)
                  .Include(x => x.News)
                  .ToList();
-            var newsViewModelResult = newsImageResult
-                   .Select(x => new NewsViewModel
-                   {
-                       Id = x.NewsId,
-                       Title = x.News.FindTitle(_lang),
-                       Content = x.News.FindContent(_lang),
-                       Imagepath = x.Image.Path,
-                       CreateDate = x.News.CreateDate
-                   })
-                  .ToList()
-                  .Skip((page - 1) * 3)
-                  .Take(3)
-                  .AsEnumerable();
+            var newsViewModelResult = _blogImageFacade
+           .GetAll(_lang)
+           .Skip((page - 1) * 3)
+           .Take(3)
+           .AsEnumerable();
             var paginModelResult = new PaginModel<NewsViewModel>()
             {
                 Paging = newsViewModelResult,

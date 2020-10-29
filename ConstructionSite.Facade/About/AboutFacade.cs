@@ -1,52 +1,45 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using data = ConstructionSite.Entity.Models;
 
 namespace ConstructionSite.Facade.About
 {
     public class AboutFacade : IAboutFacade
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _env;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AboutFacade(IUnitOfWork unitOfWork, IWebHostEnvironment env)
+        public AboutFacade(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
-            _env = env;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IEnumerable<AboutViewModel> GetAll(string _lang)
         {
-            var result = _unitOfWork.AboutImageRepository.GetAll()
-         .Include(x => x.About)
-          .Include(x => x.Image)
-           .Select(x => new AboutViewModel
-           {
-               Id = x.Id,
-               aboutID = x.About.Id,
-               Tittle = x.About.FindTitle(_lang),
-               Content = x.About.FindContent(_lang),
-               imageId = x.Image.Id,
-               Image = x.Image.Path
-           })
-             .AsQueryable();
-
-            return result;
+            return _unitOfWork.AboutRepository.GetAll()
+                    .Select(x => new AboutViewModel
+                    {
+                        Id = x.Id,
+                        Content = x.FindContent(_lang),
+                        Tittle = x.FindTitle(_lang),
+                        Image = x.AboutImages.Select(x => x.Image.Path).FirstOrDefault()
+                    })
+                    .ToList();
         }
 
-        public async Task<bool> Insert(AboutAddViewModel aboutAddViewModel, IFormFile FileData)
+        public async Task<RESULT<data.About>> AddAsync(AboutAddViewModel aboutAddViewModel)
         {
-            bool isResult = false;
-            AboutImage aboutImage = new AboutImage();
-            Image image = new Image();
             var aboutAddViewModelResult = new ConstructionSite.Entity.Models.About
             {
                 Id = aboutAddViewModel.Id,
@@ -57,74 +50,68 @@ namespace ConstructionSite.Facade.About
                 ContentEn = aboutAddViewModel.ContentEn,
                 ContentRu = aboutAddViewModel.ContentRu
             };
-            var aboutSaveResult = await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
-
-            bool imageSaveResult = await FileData.SaveImageAsync(_env, "about", image, _unitOfWork);
-
-            if (aboutSaveResult.IsDone && imageSaveResult)
-            {
-                aboutImage.ImageId = image.Id;
-                aboutImage.AboutId = aboutAddViewModelResult.Id;
-
-                var aboutImageResult = await _unitOfWork.AboutImageRepository.AddAsync(aboutImage);
-                if (!aboutImageResult.IsDone)
-                {
-                    ImageExtensions.DeleteAsyc(_env, image, "about", _unitOfWork);
-                    _unitOfWork.Rollback();
-                }
-                else
-                {
-                    isResult = true;
-                }
-            }
-            _unitOfWork.Dispose();
-            return isResult;
+            return await _unitOfWork.AboutRepository.AddAsync(aboutAddViewModelResult);
         }
 
-        public async Task<bool> Update(AboutUpdateViewModel aboutUpdateViewModel, IFormFile file)
+        public async Task<RESULT<data.About>> Update(AboutUpdateViewModel aboutImageUpdateViewModel)
         {
-            bool isResult = false;
-            ConstructionSite.Entity.Models.About UpdateAbout = new ConstructionSite.Entity.Models.About
-            {
-                Id = aboutUpdateViewModel.aboutID,
-                ContentAz = aboutUpdateViewModel.ContentAz,
-                ContentEn = aboutUpdateViewModel.ContentEn,
-                ContentRu = aboutUpdateViewModel.ContentRu,
-                TittleAz = aboutUpdateViewModel.TittleAz,
-                TittleEn = aboutUpdateViewModel.TittleEn,
-                TittleRu = aboutUpdateViewModel.TittleRu,
-            };
-            var aboutResult = await _unitOfWork.AboutRepository.UpdateAsync(UpdateAbout);
+            var result = await _unitOfWork.AboutRepository.FindAsync(x => x.Id == aboutImageUpdateViewModel.Id);
 
-            if (file != null && aboutResult.IsDone)
-            {
-                Image image = _unitOfWork.imageRepository.GetById(aboutUpdateViewModel.imageId);
-                if (image != null)
-                {
-                    isResult = await file.UpdateAsyc(_env, image, "about", _unitOfWork);
-                }
-            }
+            result.ContentAz = aboutImageUpdateViewModel.ContentAz;
+            result.ContentEn = aboutImageUpdateViewModel.ContentEn;
+            result.ContentEn = aboutImageUpdateViewModel.ContentEn;
+            result.TittleAz = aboutImageUpdateViewModel.TittleAz;
+            result.TittleEn = aboutImageUpdateViewModel.TittleEn;
+            result.TittleRu = aboutImageUpdateViewModel.TittleRu;
+            var resultAbout = await _unitOfWork.AboutRepository.UpdateAsync(result);
 
-            var updateAboutImage = new AboutImage
-            {
-                Id = aboutUpdateViewModel.Id,
-                ImageId = aboutUpdateViewModel.imageId,
-                AboutId = UpdateAbout.Id,
-            };
-            var AboutImageResult =
-             await _unitOfWork.AboutImageRepository.UpdateAsync(updateAboutImage);
-            isResult = aboutResult.IsDone;
-            if (!AboutImageResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                isResult = false;
-            }
-            else
-            {
-                isResult = true;
-            }
-            _unitOfWork.Dispose();
-            return isResult;
+            return resultAbout;
+        }
+
+        public AboutUpdateViewModel GetForUpdate(int id)
+        {
+            var result = _unitOfWork.AboutRepository.GetAll()
+                  .Select(x => new AboutUpdateViewModel
+                  {
+                      Id = x.Id,
+                      ContentAz = x.ContentAz,
+                      ContentEn = x.ContentEn,
+                      ContentRu = x.ContentRu,
+                      TittleAz = x.TittleAz,
+                      TittleEn = x.TittleEn,
+                      TittleRu = x.TittleRu,
+                      Images = x.AboutImages.Select(x => x.Image).ToList(),
+                  })
+                  .SingleOrDefault(x => x.Id == id);
+
+            return result;
+        }
+
+        public bool Delete(int id)
+        {
+            var data = _unitOfWork.AboutRepository.Find(x => x.Id == id);
+            var imageId = _unitOfWork.AboutImageRepository.GetAll()
+                  .Where(x => x.AboutId == data.Id)
+                  .Select(x => x.ImageId).ToArray();
+            _unitOfWork.AboutRepository.Delete(data);
+            return _webHostEnvironment.Delete(imageId, "blog", _unitOfWork);
+        }
+
+        public async Task<List<Image>> FindImageByAboutID(int aboutID)
+        {
+            var resultImageUpdateViewModel = await _unitOfWork.AboutImageRepository.GetAll()
+                      .Include(x => x.Image)
+                      .Where(x => x.AboutId == aboutID)
+                      .Select(x => new Image
+                      {
+                          Path = x.Image.Path,
+                          Title = x.Image.Title,
+                          VideoPath = x.Image.VideoPath,
+                          Id = x.Image.Id
+                      })
+                      .ToListAsync();
+
+            return resultImageUpdateViewModel;
         }
     }
 }

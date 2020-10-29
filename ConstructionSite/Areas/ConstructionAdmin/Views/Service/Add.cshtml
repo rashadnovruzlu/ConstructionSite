@@ -1,4 +1,5 @@
-﻿<style>
+﻿@model ServiceAddViewModel
+<style>
     .add-model {
         background-color: rgb(241,242, 247);
         padding-left: 7%;
@@ -32,37 +33,37 @@
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Add" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="col-lg-11">
-                                <input type="text" name="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
+                                <input type="text" asp-for="NameAz" placeholder="Name AZE" id="f-name" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-11">
-                                <input type="text" name="NameEn" placeholder="Name ENG" id="f-name" class="form-control">
+                                <input type="text" asp-for="NameEn" placeholder="Name ENG" id="f-name" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-11">
-                                <input type="text" name="NameRu" placeholder="Name RU" id="f-name" class="form-control">
+                                <input type="text" asp-for="NameRu" placeholder="Name RU" id="f-name" class="form-control">
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-lg-11">
-                                <textarea placeholder="Tittle AZE" rows="15" class="form-control " id="ccomment" name="TittleAz" required=""></textarea>
+                                <textarea placeholder="Tittle AZE" rows="15" class="form-control " id="ccomment" asp-for="TitleAz" required=""></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-lg-11">
-                                <textarea placeholder="Tittle ENG" rows="15" class="form-control " id="ccomment" name="TittleEn" required=""></textarea>
+                                <textarea placeholder="Tittle ENG" rows="15" class="form-control " id="ccomment" asp-for="TitleEn" required=""></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-lg-11">
-                                <textarea placeholder="Tittle RU" rows="15" class="form-control " id="ccomment" name="TittleRu" required=""></textarea>
+                                <textarea placeholder="Tittle RU" rows="15" class="form-control " id="ccomment" asp-for="TitleRu" required=""></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-11">
-                                <input type="file" name="FileData" placeholder="Images" id="f-name" class="form-control">
+                                <input type="file" asp-for="FileData" placeholder="Images" multiple="multiple" id="f-name" class="form-control">
                             </div>
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
