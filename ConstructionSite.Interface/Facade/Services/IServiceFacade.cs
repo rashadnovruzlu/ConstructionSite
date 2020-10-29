@@ -10,7 +10,9 @@ namespace ConstructionSite.Interface.Facade.Servics
 {
     public interface IServiceFacade
     {
+
         List<ServiceViewModel> GetAll(string _lang);
+
         Task<RESULT<ConstructionSite.Entity.Models.Service>> Add(ServiceAddViewModel serviceAddViewModel);
 
         Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang);
