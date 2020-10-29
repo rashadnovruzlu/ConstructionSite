@@ -28,17 +28,17 @@
                         <!-- /.post-meta -->
 
                         <img src="@item.Imagepath" alt="logo" style="width:400px;height:250px;margin-right:15px; float: left;">
-                        <p blog-content="@item.Content" ></p>
+                        <p blog-content="@item.Content"></p>
                     </div>
                 </div>
                 <!-- /.inner-content-wrap -->
 
                 <div class="link"><a class="wprt-button small rounded-3px" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a></div>
-             }
-        <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
-    </div>
-    <!-- /#main-content -->
+            }
+            <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
+        </div>
+        <!-- /#main-content -->
 
-    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
     </div>
 </div>

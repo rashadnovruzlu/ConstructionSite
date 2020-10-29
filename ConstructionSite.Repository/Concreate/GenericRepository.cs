@@ -57,7 +57,7 @@ namespace ConstructionSite.Repository.Concreate
             try
             {
                 _context.Set<T>().Add(entity);
-                _context.SaveChanges();
+
                 result.Data = entity;
             }
             catch (Exception ex)
@@ -165,10 +165,7 @@ namespace ConstructionSite.Repository.Concreate
             {
                 throw new ArgumentNullException();
             }
-            if (entity == null)
-            {
-                throw new ArgumentNullException();
-            }
+
             try
             {
 

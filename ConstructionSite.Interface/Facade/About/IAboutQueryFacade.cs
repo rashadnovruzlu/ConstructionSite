@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.Interface.Facade.About
+﻿namespace ConstructionSite.Interface.Facade.About
 {
-  public  interface IAboutQueryFacade
+    public interface IAboutQueryFacade
     {
     }
 }

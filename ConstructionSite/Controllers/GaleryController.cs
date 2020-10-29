@@ -10,6 +10,7 @@ namespace ConstructionSite.Controllers
         private string _lang;
         private readonly IGaleryFileFacde _galeryFileFacde;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
         public GaleryController(IGaleryFileFacde galeryFileFacde,
                                 IHttpContextAccessor httpContextAccessor)
         {
@@ -17,6 +18,7 @@ namespace ConstructionSite.Controllers
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.GetLanguages();
         }
+
         public IActionResult Index()
         {
             var result = _galeryFileFacde.GetAll(_lang);

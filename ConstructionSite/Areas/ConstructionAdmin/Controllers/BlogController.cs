@@ -92,7 +92,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogAddViewModel blogAddViewModel)
         {
-            Image image = new Image();
+           
 
             if (!ModelState.IsValid)
             {
@@ -175,34 +175,31 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 }
                 catch
                 {
-
-
                 }
             }
-            if (blogEditModel.files != null)
+            else if (blogEditModel.files != null)
             {
-
-
                 var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == blogEditModel.Id);
-                var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
+
                 var imagesid = await blogEditModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
                 foreach (var item in imagesid)
                 {
                     var resultData = new NewsImage
                     {
-
                         NewsId = emptyImage.Id,
                         ImageId = item
                     };
                     await _unitOfWork.newsImageRepository.AddAsync(resultData);
                 }
                 await _unitOfWork.CommitAsync();
-
             }
             var resultAbout = await _blogFacade.Update(blogEditModel);
             if (resultAbout)
             {
-                return RedirectToAction("Index");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return RedirectToAction("Index");
         }
@@ -225,11 +222,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (_blogFacade.Delete(id))
             {
                 return RedirectToAction("Index");
-
             }
             return View();
-
-
         }
 
         #endregion DELETE

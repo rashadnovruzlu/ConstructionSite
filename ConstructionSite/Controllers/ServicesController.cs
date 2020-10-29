@@ -35,7 +35,6 @@ namespace ConstructionSite.Controllers
             _localizationHandle = localizationHandle;
         }
 
-
         public IActionResult Index()
         {
             if (!ModelState.IsValid)
@@ -134,7 +133,6 @@ namespace ConstructionSite.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-
             var resultServiceDeatilyViewModel = await _serviceFacade.GetDeaiy(id, _lang);
             if (resultServiceDeatilyViewModel != null)
             {

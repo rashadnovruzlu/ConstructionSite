@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<UserDTO>
 
 <style>
-    th{
-        width:225px;
-        text-align:center;
+    th {
+        width: 225px;
+        text-align: center;
     }
 </style>
-    <div class="panel-body bio-graph-info">
-        @foreach (var admin in Model)
-        {
-            @*<div class="row">
+<div class="panel-body bio-graph-info">
+    @foreach (var admin in Model)
+    {
+        @*<div class="row">
                 <div class="bio-row">
                     <p><span>Name </span>: @admin.Name</p>
                 </div>
@@ -24,35 +24,35 @@
                 <hr />
             </div>*@
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Username
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> @admin.Name</td>
-                        <td> @admin.Email</td>
-                        <td>
-                            @admin.UserName
-                            <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id" style="width: 110px; margin-left: 14%; text-align: center;"><i class="fa fa-pencil-square-o fa-2" style="color: #6E90EC; padding-right: 7%; font-size: 1.3em;" aria-hidden="true"></i></a>
-                            <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Delete" asp-route-id="@admin.Id" style="text-align: center;"><i class="fa fa-trash" style="color: #F0636A; font-size: 1.3em;" aria-hidden="true"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> @admin.Name</td>
+                    <td> @admin.Email</td>
+                    <td>
+                        @admin.UserName
+                        <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Edit" asp-route-id="@admin.Id" style="width: 110px; margin-left: 14%; text-align: center;"><i class="fa fa-pencil-square-o fa-2" style="color: #6E90EC; padding-right: 7%; font-size: 1.3em;" aria-hidden="true"></i></a>
+                        <a asp-area="ConstructionAdmin" asp-controller="Account" asp-action="Delete" asp-route-id="@admin.Id" style="text-align: center;"><i class="fa fa-trash" style="color: #F0636A; font-size: 1.3em;" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-        }
-    </div>
+    }
+</div>
 @*@section scripts{
         <script>
             $(document).ready(function () {

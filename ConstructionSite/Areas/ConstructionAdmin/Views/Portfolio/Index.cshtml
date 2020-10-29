@@ -7,13 +7,16 @@
     .button-create {
         margin-bottom: 10px;
     }
+
     .text-style {
         text-align: center;
         font-size: 1.2em;
     }
+
     .common {
         background-color: RGB(241, 242, 247) !important;
     }
+
     .edit-delete {
         text-align: center;
     }
@@ -23,9 +26,11 @@
         border-color: black;
         color: #fff;
     }
+
     .img-style {
         text-align: center;
     }
+
     .edit-icon {
         color: #6E90EC;
         padding-right: 7%;
@@ -65,6 +70,7 @@
                             {
                                 <tr class="odd">
                                     <td class="img-style">@item.Name</td>
+                                    <td class="img-style img-style"><img src="@item.ImagePath" width="60" height="60" alt="Alternate Text" /></td>
                                     <td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
                                         <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Portfolio" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>

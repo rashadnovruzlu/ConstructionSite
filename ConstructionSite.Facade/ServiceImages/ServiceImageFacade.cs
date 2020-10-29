@@ -5,10 +5,8 @@ using ConstructionSite.Interface.Facade.Service;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Service;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConstructionSite.Facade.ServiceImages
@@ -16,17 +14,17 @@ namespace ConstructionSite.Facade.ServiceImages
     public class ServiceImageFacade : IServiceImageFacade
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public ServiceImageFacade(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<RESULT<ServiceImage>> Add(ServiceImageAddViewModel serviceImageAddViewModel)
         {
             var resultserviceImageAddViewModel = await serviceImageAddViewModel.MappedAsync<ServiceImage>();
             return
                 await _unitOfWork.ServiceImageRepstory.AddAsync(resultserviceImageAddViewModel);
-
-
         }
 
         public async Task<RESULT<ServiceImage>> Delete(int id)
@@ -76,7 +74,6 @@ namespace ConstructionSite.Facade.ServiceImages
                       Path = x.Image.Path,
                       TitlePhoto = x.Image.Title,
                       VideoPath = x.Image.VideoPath
-
                   })
                   .ToListAsync();
         }
@@ -86,8 +83,6 @@ namespace ConstructionSite.Facade.ServiceImages
             var resultserviceImageUpdateViewModel = await _unitOfWork.ServiceImageRepstory.FindAsync(x => x.Id == serviceImageUpdateViewModel.Id);
             var serviceImageUpdateViewModelMapped = await resultserviceImageUpdateViewModel.MappedAsync<ServiceImage>();
             return await _unitOfWork.ServiceImageRepstory.DeleteAsync(serviceImageUpdateViewModelMapped);
-
         }
-
     }
 }

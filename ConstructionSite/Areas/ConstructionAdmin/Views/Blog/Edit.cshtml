@@ -64,9 +64,9 @@
                             </div>
                         </div>
                         <div class="wrapper--preview">
-                            @if (Model.Images == null | Model.Images.Count<1)
+                            @if (Model.Images == null | Model.Images.Count < 1)
                             {
-                                <input  type="file" asp-for="files" multiple="multiple" />
+                                <input type="file" asp-for="files" multiple="multiple" />
                             }
                             @foreach (var item in Model.Images)
                             {
@@ -79,20 +79,11 @@
 
                                         <label>
 
-                                            <input id="@item.Id" type="file" asp-for="files" onclick="uploadFiles(@item.Id);" />
-
-
-
+                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
                                         </label>
                                     </div>
                                 </div>
                             }
-
-
-
-
-
-
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
@@ -106,38 +97,19 @@
         </div>
     </div>
 </div>
-<script>
+@*<script>
 
-    function uploadFiles(number) {
-        $(document).ready(function () {
-            $('<input>').attr({
-                type: 'hidden',
-                value:number,
-                name: 'ImageID'
-            }).appendTo('form');
-        });
-    }
-
-    //function foo(event) {
-    //    let val = event.currentTarget.value;
-    //    let id = event.target.getAttribute('data-id');
-    //    let newFormData = new FormData()
-    //    newFormData.append('id', id);
-    //    newFormData.append('val', val);
-    //    console.log(newFormData);
-    //    fetch('/ConstructionAdmin/Image/blogUpdate/', {
-    //        method: 'POST',
-    //        body: newFormData,
-    //        headers: { "Content-Type": "multipart/form-data" }
-    //    });
-
-    //}
-
-
-
-</script>
+        function cenerateInput(number) {
+            $(document).ready(function () {
+                $('<input>').attr({
+                    type: 'hidden',
+                    value: number,
+                    name: 'ImageID'
+                }).appendTo('form');
+            });
+        }
+    </script>*@
 @section scripts{
-
 
     <script>
         $(".cancel-button").click(function () {

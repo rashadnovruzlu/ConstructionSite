@@ -2,10 +2,12 @@
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Services;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -21,6 +23,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISubServiceFacade _subServiceFacade;
 
         #endregion Fields
 
@@ -28,12 +31,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public SubServiceController(IUnitOfWork unitOfWork,
                                     IWebHostEnvironment env,
-                                    IHttpContextAccessor httpContextAccessor)
+                                    IHttpContextAccessor httpContextAccessor,
+                                    ISubServiceFacade subServiceFacade)
         {
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
             _env = env;
             _lang = _httpContextAccessor.GetLanguages();
+            _subServiceFacade = subServiceFacade;
         }
 
         #endregion CTOR
@@ -82,42 +87,26 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid");
             }
-            var result = _unitOfWork.ServiceRepository.GetAll()
-                .Select(x => new ServiceSubServiceAddView
-                {
-                    Id = x.Id,
-                    Name = x.FindName(_lang)
-                }).ToList();
-            if (result.Count < 1)
-            {
-                _unitOfWork.Dispose();
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-            _unitOfWork.Dispose();
-            ViewBag.data = result;
+            ViewBag.services = _subServiceFacade.GetServices(_lang);
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(SubService subService, IFormFile file)
+        public async Task<IActionResult> Add(SubServiceAddModel subServiceAddModel)
         {
-            SubServiceImage subServiceImageResult = new SubServiceImage();
-            Image imageSubService = new Image();
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid");
+                ModelState.AddModelError("", "Models are not valid.");
             }
-            if (file == null)
+            if (subServiceAddModel == null)
             {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                ModelState.AddModelError("", "File is null");
+                ModelState.AddModelError("", "News is empty");
             }
 
-            var imageResultID = await file.SaveImageAsync(_env, "subserver", imageSubService, _unitOfWork);
-            if (!imageResultID)
+            try
             {
                 ModelState.AddModelError("", "Data didn't save");
             }
@@ -132,12 +121,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             var SubServiceImageResult =  _unitOfWork.SubServiceImageRepository.Add(subServiceImageResult);
             if (!SubServiceImageResult.IsDone)
             {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "Errors occured while adding SubService");
-            }
-            _unitOfWork.Dispose();
 
-            return RedirectToAction("Index");
+
+            }
+            return View();
+
+
         }
 
         #endregion CREATE
@@ -147,99 +136,74 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (id < 1)
-            {
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-            var subserviceUpdateImageResult = _unitOfWork.SubServiceImageRepository
-                     .GetAll()
-                     .Include(x => x.Image)
-                     .Include(x => x.SubService)
-                     .Select(x => new SubServiceUpdateViewModel
-                     {
-                         Id = x.SubServiceId,
-                         imageId = x.ImageId,
-                         ImagePath = x.Image.Path,
-                         ContentAz = x.SubService.ContentAz,
-                         ContentEn = x.SubService.ContentEn,
-                         ContentRu = x.SubService.ContentRu,
-                         NameAz = x.SubService.NameAz,
-                         NameEn = x.SubService.NameEn,
-                         NameRu = x.SubService.NameRu,
-                         ServerId = x.SubService.ServiceId
-                     })
-                     .FirstOrDefault(x => x.Id == id);
-
-            if (subserviceUpdateImageResult == null)
-            {
-                ModelState.AddModelError("", "This is empty");
-                return RedirectToAction("Index");
-            }
-          
-            _unitOfWork.Dispose();
-            return View(subserviceUpdateImageResult);
+            ViewBag.services = _subServiceFacade.GetServices(_lang);
+            var resultUpdate = _subServiceFacade.GetForUpdate(id);
+            return View(resultUpdate);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(SubServiceUpdateViewModel subServiceUpdateViewModel, IFormFile file)
+        public async Task<IActionResult> Update(SubServiceUpdateViewModel subServiceUpdateViewModel)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (subServiceUpdateViewModel == null)
-            {
-            }
-            var subServiceViewUpdateModel = new SubService
-            {
-                Id = subServiceUpdateViewModel.Id,
-                ServiceId = subServiceUpdateViewModel.ServerId,
-
-                NameAz = subServiceUpdateViewModel.NameAz,
-                NameEn = subServiceUpdateViewModel.NameEn,
-                NameRu = subServiceUpdateViewModel.NameRu,
-                ContentRu = subServiceUpdateViewModel.ContentRu,
-                ContentEn = subServiceUpdateViewModel.ContentEn,
-                ContentAz = subServiceUpdateViewModel.ContentAz,
-            };
-            if (subServiceViewUpdateModel == null)
-            {
-                ModelState.AddModelError("", "Sub Service is null");
-            }
-
-            var subServiceUpdateResult = _unitOfWork.SubServiceRepository.Update(subServiceViewUpdateModel);
-            if (!subServiceUpdateResult.IsDone)
-            {
-                ModelState.AddModelError("", "Errors occured while editing Sub Service");
-                _unitOfWork.Rollback();
-                return View(subServiceUpdateViewModel.Id);
-            }
-            if (file != null)
-            {
-                Image image = _unitOfWork.imageRepository.GetById(subServiceUpdateViewModel.imageId);
-                if (image == null)
+                if (subServiceUpdateViewModel == null)
                 {
-                    ModelState.AddModelError("", "File is not exists");
-                    return View(subServiceUpdateViewModel.Id);
+                    ModelState.AddModelError("", "This data not exists");
                 }
-                var imageResult = await file.UpdateAsyc(_env, image, "subserver", _unitOfWork);
-                if (!imageResult)
+                if (!ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", "Errors occured while editing Sub Service Images");
+                    ModelState.AddModelError("", "Models are not valid.");
                 }
+                if (subServiceUpdateViewModel.files != null && subServiceUpdateViewModel.ImageID != null)
+                {
+                    try
+                    {
+                        for (int i = 0; i < subServiceUpdateViewModel.ImageID.Count; i++)
+                        {
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == subServiceUpdateViewModel.ImageID[i]);
+                            await subServiceUpdateViewModel.files[i].UpdateAsyc(_env, image, "about", _unitOfWork);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+                else if (subServiceUpdateViewModel.files != null)
+                {
+                    try
+                    {
+                        var emptyImage = _unitOfWork.SubServiceRepository.Find(x => x.Id == subServiceUpdateViewModel.Id);
+
+                        var imagesid = await subServiceUpdateViewModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                        foreach (var item in imagesid)
+                        {
+                            var resultData = new SubServiceImage
+                            {
+                                SubServiceId = emptyImage.Id,
+                                ImageId = item
+                            };
+                            await _unitOfWork.SubServiceImageRepository.AddAsync(resultData);
+                        }
+                        await _unitOfWork.CommitAsync();
+                    }
+                    catch
+                    {
+                    }
+                }
+                var resultAbout = await _subServiceFacade.Update(subServiceUpdateViewModel);
+                if (resultAbout.IsDone)
+                {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
             }
-            _unitOfWork.Commit();
-           
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+            catch
+            {
+
+
+            }
+            return View(subServiceUpdateViewModel);
         }
 
         #endregion UPDATE

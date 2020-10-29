@@ -7,14 +7,17 @@
     .button-create {
         margin-bottom: 10px;
     }
-    .text-style{
+
+    .text-style {
         text-align: center;
         font-size: 1.2em;
     }
+
     .common {
         background-color: RGB(241, 242, 247) !important;
     }
-    .edit-delete{
+
+    .edit-delete {
         text-align: center;
     }
 
@@ -28,16 +31,18 @@
         border-color: black;
     }
 
-    .img-style{
+    .img-style {
         text-align: center;
     }
+
     .edit-icon {
         color: #6E90EC;
         padding-right: 7%;
         font-size: 1.3em;
     }
-    .common{
-        margin-top:28px;
+
+    .common {
+        margin-top: 28px;
     }
 </style>
 
@@ -48,7 +53,7 @@
 
     <div class="panel-body">
         <div class="button-create">
-            <a asp-area="ConstructionAdmin" asp-controller="About" asp-action="Add" class="btn about-button" style=" color: #fff; background-color: #ffc925;" >Create New About Element</a>
+            <a asp-area="ConstructionAdmin" asp-controller="About" asp-action="Add" class="btn about-button" style=" color: #fff; background-color: #ffc925;">Create New About Element</a>
         </div>
         <div class="adv-table editable-table ">
             <div class="space15"></div>
@@ -75,7 +80,7 @@
                                     <td class="img-style img-style"><img src="@item.Image" width="60" height="60" alt="Alternate Text" /></td>
                                     <td class="edit-delete">
                                         <a class="edit" asp-area="ConstructionAdmin" asp-controller="About" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
-                                        <a asp-area="ConstructionAdmin" asp-controller="About" asp-action="Delete" asp-route-id="@item.Id" ><i class="fa fa-trash" style="color: #F0636A; font-size: 1.3em;" aria-hidden="true"></i></a>
+                                        <a asp-area="ConstructionAdmin" asp-controller="About" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash" style="color: #F0636A; font-size: 1.3em;" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             }
