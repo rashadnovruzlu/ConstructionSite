@@ -51,24 +51,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region INDEX
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
             }
-            var result = _unitOfWork.ServiceRepository.GetAll()
-                .Include(x => x.ServiceImages)
-                .Include(x => x.SubServices)
-                .Select(x => new ServiceViewModel
-                {
-                    Id = x.Id,
-                    Name = x.FindName(_lang),
-                    Tittle = x.FindTitle(_lang),
-                    //Image = x.Image.Path
-                })
-                .ToList();
+            var result = await _serviceFacade.GetAll(_lang);
             return View(result);
         }
 
@@ -79,11 +69,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Models are not valid.");
-            }
+
             return View();
         }
 
@@ -102,25 +88,30 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
 
-            var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
-            var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
-            if (serviceResult.IsDone && resultImageID.Count > 0)
+            try
             {
-                await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
-                if (await _unitOfWork.CommitAsync())
+                var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
+                var resultImageID = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                if (serviceResult.IsDone && resultImageID.Count > 0)
                 {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    _unitOfWork.Rollback();
-                    return View();
+                    await SaveServiceAndImages(serviceResult.Data.Id, resultImageID);
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        _unitOfWork.Rollback();
+                        return View();
+                    }
                 }
             }
-            else
+            catch
             {
-                return View();
+
+
             }
+            return View();
         }
 
         #endregion CREATE

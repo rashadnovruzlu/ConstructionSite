@@ -48,16 +48,16 @@ namespace ConstructionSite.Facade.Services
             return result;
         }
 
-        public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
-        {
-            //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
-            //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
-            //{
-            //    Id = result.Id,
+        //public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
+        //{
+        //    //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
+        //    //front.ServiceDeatilyViewModel serviceDeatilyViewModel = new Service
+        //    //{
+        //    //    Id = result.Id,
 
-            //};
-            return null;
-        }
+        //    //};
+        //    return null;
+        //}
 
         public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
         {
@@ -72,6 +72,26 @@ namespace ConstructionSite.Facade.Services
             result.ContentEn = serviceUpdateViewModel.ContentEn;
             result.ContentRu = serviceUpdateViewModel.ContentRu;
             return await _unitOfWork.ServiceRepository.UpdateAsync(result);
+        }
+        public bool Delete(int id)
+        {
+            var resultService = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
+            var resultSubservice = _unitOfWork.SubServiceRepository.GetAll()
+                .Where(x => x.ServiceId == id)
+                .AsEnumerable()
+
+                .Select(x => x.SubServiceImages.Select(x => x.Image));
+            return true;
+            //  _unitOfWork.imageRepository.DeleteRange(resultSubservice);
+
+
+
+
+        }
+
+        Task<List<ServiceViewModel>> IServiceFacade.GetAll(string _lang)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

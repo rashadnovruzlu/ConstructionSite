@@ -1,4 +1,8 @@
-﻿namespace ConstructionSite.DTO.AdminViewModels.SubService
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using data = ConstructionSite.Entity.Models;
+
+namespace ConstructionSite.DTO.AdminViewModels.SubService
 {
     public class SubServiceUpdateViewModel
     {
@@ -13,10 +17,11 @@
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
 
-        // public int SubServiceId { get; set; }
-        public int ServerId { get; set; }
 
-        public int imageId { get; set; }
-        public string ImagePath { get; set; }
+        public int ServiceId { get; set; }
+
+        public List<int> ImageID { get; set; }
+        public IList<IFormFile> files { get; set; }
+        public List<data.Image> Images { get; set; }
     }
 }

@@ -121,56 +121,65 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AboutUpdateViewModel aboutUpdateViewModel)
         {
-            if (aboutUpdateViewModel == null)
+            try
             {
-                ModelState.AddModelError("", "This data not exists");
-            }
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Models are not valid.");
-            }
-            if (aboutUpdateViewModel.files != null && aboutUpdateViewModel.ImageID != null)
-            {
-                try
+                if (aboutUpdateViewModel == null)
                 {
-                    for (int i = 0; i < aboutUpdateViewModel.ImageID.Count; i++)
-                    {
-                        var image = _unitOfWork.imageRepository.Find(x => x.Id == aboutUpdateViewModel.ImageID[i]);
-                        await aboutUpdateViewModel.files[i].UpdateAsyc(_env, image, "about", _unitOfWork);
-                    }
+                    ModelState.AddModelError("", "This data not exists");
                 }
-                catch
+                if (!ModelState.IsValid)
                 {
+                    ModelState.AddModelError("", "Models are not valid.");
                 }
-            }
-            else if (aboutUpdateViewModel.files != null)
-            {
-                try
+                if (aboutUpdateViewModel.files != null && aboutUpdateViewModel.ImageID != null)
                 {
-                    var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == aboutUpdateViewModel.Id);
-                    //var newsimageID = await _unitOfWork.newsImageRepository.FindAsync(x => x.NewsId == emptyImage.Id);
-                    var imagesid = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
-                    foreach (var item in imagesid)
+                    try
                     {
-                        var resultData = new NewsImage
+                        for (int i = 0; i < aboutUpdateViewModel.ImageID.Count; i++)
                         {
-                            NewsId = emptyImage.Id,
-                            ImageId = item
-                        };
-                        await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == aboutUpdateViewModel.ImageID[i]);
+                            await aboutUpdateViewModel.files[i].UpdateAsyc(_env, image, "about", _unitOfWork);
+                        }
                     }
-                    await _unitOfWork.CommitAsync();
+                    catch
+                    {
+                    }
                 }
-                catch
+                else if (aboutUpdateViewModel.files != null)
                 {
+                    try
+                    {
+                        var emptyImage = _unitOfWork.newsRepository.Find(x => x.Id == aboutUpdateViewModel.Id);
+
+                        var imagesid = await aboutUpdateViewModel.files.SaveImageCollectionAsync(_env, "blog", _unitOfWork);
+                        foreach (var item in imagesid)
+                        {
+                            var resultData = new NewsImage
+                            {
+                                NewsId = emptyImage.Id,
+                                ImageId = item
+                            };
+                            await _unitOfWork.newsImageRepository.AddAsync(resultData);
+                        }
+                        await _unitOfWork.CommitAsync();
+                    }
+                    catch
+                    {
+                    }
                 }
-            }
-            var resultAbout = await _aboutFacade.Update(aboutUpdateViewModel);
-            if (resultAbout.IsDone)
-            {
+                var resultAbout = await _aboutFacade.Update(aboutUpdateViewModel);
+                if (resultAbout.IsDone)
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            catch
+            {
+
+
+            }
+            return View(aboutUpdateViewModel);
         }
 
         #endregion UPDATE

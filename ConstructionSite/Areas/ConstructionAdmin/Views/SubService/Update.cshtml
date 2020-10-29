@@ -34,9 +34,7 @@
                 <hr />
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="SubService" asp-action="Update" method="post" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="Id" />
-                        <input type="hidden" asp-for="ServerId" />
-                        <input type="hidden" asp-for="imageId" />
+
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <input asp-for="NameAz" id="f-name" class="form-control" placeholder="Name AZE">
@@ -67,10 +65,35 @@
                                 <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment" placeholder="Content RU"></textarea>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="col-lg-11">
-                                <img src="@Model.ImagePath" width="240" height="280" alt="Alternate Text" />
+                                <select asp-for="ServiceId" asp-items="@ViewBag.services"
+                                        class="select2DropDown form-control" required="">
+                                    <option value="1">1</option>
+                                </select>
                             </div>
+                        </div>
+                        <div class="wrapper--preview">
+                            @if (Model.Images == null | Model.Images.Count < 1)
+                            {
+                                <input type="file" asp-for="files" multiple="multiple" />
+                            }
+                            @foreach (var item in Model.Images)
+                            {
+                                <div class="box">
+                                    <div class="js--image-preview">
+                                        <img src="@item.Path" alt="Alternate Text" />
+                                        <input type="hidden" />
+                                    </div>
+                                    <div class="upload-options">
+
+                                        <label>
+
+                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
+                                        </label>
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div class="form-group">
                             <div class="col-lg-11">
