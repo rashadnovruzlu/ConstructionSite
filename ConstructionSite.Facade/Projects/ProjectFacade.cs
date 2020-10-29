@@ -52,6 +52,7 @@ namespace ConstructionSite.Facade.Projects
                     NameRu = x.NameRu,
                     PortfolioId = x.PortfolioId,
                     ImageID = x.ProjectImages.Select(x => x.ImageId).ToList(),
+                    Images = x.ProjectImages.Select(x => x.Image).ToList()
 
                 })
                 .SingleOrDefault(x => x.Id == id);
@@ -70,6 +71,11 @@ namespace ConstructionSite.Facade.Projects
             resultprojectUpdateViewModel.PortfolioId = projectUpdateViewModel.PortfolioId;
             return _unitOfWork.projectRepository.Update(resultprojectUpdateViewModel).IsDone;
 
+        }
+        public bool Delete(int id)
+        {
+           var result=   _unitOfWork.projectRepository.Find(x => x.Id == id);
+          return  _unitOfWork.projectRepository.Delete(result).IsDone;
         }
 
     }

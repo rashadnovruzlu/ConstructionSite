@@ -121,14 +121,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "Id is not exists");
             }
-
+            var result = _projectFacade.GetForUpdate(id);
             ViewBag.items = _unitOfWork.portfolioRepository.GetAll()
                      .Select(x => new PortfolioViewModel
                      {
                          Id = x.Id,
                          Name = x.FindName(_lang)
                      }).ToList();
-            return View();
+            return View(result);
         }
 
         [HttpPost]
@@ -208,22 +208,16 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Id is not exists");
                 return RedirectToAction("Index");
             }
-            var projectResult = await _unitOfWork.projectRepository.GetByIdAsync(projectImageResult.ProjectId);
-            var ImageResult = _env.Delete(projectImageResult.ImageId, "project", _unitOfWork);
 
-            if (ImageResult != false && projectImageResult != null)
+            if (id < 1)
             {
-                var projectDeleteResult = _unitOfWork.projectRepository.Delete(projectResult);
-                if (projectDeleteResult.IsDone)
-                {
-                    _unitOfWork.Dispose();
-                    return RedirectToAction("Index");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Deleting is error");
                 return RedirectToAction("Index");
+            }
+            var isresult = _projectFacade.Delete(id);
+
+            if (isresult)
+            {
+
             }
             return View();
         }

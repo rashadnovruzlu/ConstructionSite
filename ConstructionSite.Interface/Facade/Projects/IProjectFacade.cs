@@ -11,5 +11,7 @@ namespace ConstructionSite.Interface.Facade.Projects
         Task<RESULT<Project>> Add(Project project);
         List<ProjectViewModel> GetAll(string _lang);
         bool Update(ProjectUpdateViewModel projectUpdateViewModel);
+        ProjectUpdateViewModel GetForUpdate(int id);
+        public bool Delete(int id);
     }
 }
