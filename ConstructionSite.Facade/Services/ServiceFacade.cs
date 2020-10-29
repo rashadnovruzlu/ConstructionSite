@@ -48,6 +48,7 @@ namespace ConstructionSite.Facade.Services
             return result;
         }
 
+
         //public async Task<RESULT<front.ServiceDeatilyViewModel>> GetDeaiy(int id, string _lang)
         //{
         //    //var result = await _unitOfWork.ServiceRepository.FindAsync(x => x.Id == id);
