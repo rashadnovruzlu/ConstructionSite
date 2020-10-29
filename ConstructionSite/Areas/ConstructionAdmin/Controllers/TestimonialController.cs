@@ -2,6 +2,7 @@
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Helpers.Constants;
 using ConstructionSite.Injections;
+using ConstructionSite.Interface.Facade.Testimonial;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -13,9 +14,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = ROLESNAME.Admin)]
-    public class TestimonialController : Controller
+
+    public class TestimonialController : CoreController
     {
         #region Fields
 
@@ -23,6 +23,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+        private readonly ITestimonialFacade _testimonialFacade;
+
 
         #endregion Fields
 
@@ -30,7 +32,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public TestimonialController(IUnitOfWork unitOfWork,
                                      IWebHostEnvironment env,
-                                     IHttpContextAccessor httpContextAccessor)
+                                     IHttpContextAccessor httpContextAccessor,
+                                      ITestimonialFacade testimonialFacade)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork = unitOfWork;
@@ -90,23 +93,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 ModelState.AddModelError("", "This data is null or empty");
             }
-            var customerAddViewModelResult = new CustomerFeedback
+            var resultcustomerAddViewModel = await _testimonialFacade.Add(customerAddViewModel);
+            if (resultcustomerAddViewModel.IsDone)
             {
-                ContentAz = customerAddViewModel.ContentAz,
-                ContentEn = customerAddViewModel.ContentEn,
-                ContentRu = customerAddViewModel.ContentRu,
-                FullName = customerAddViewModel.FullName,
-                Position = customerAddViewModel.Position
-            };
-            var customerFeedbackAddedResult = await _unitOfWork.customerFeedbackRepository.AddAsync(customerAddViewModelResult);
-
-            if (!customerFeedbackAddedResult.IsDone)
-            {
-                _unitOfWork.Rollback();
-                ModelState.AddModelError("", "This data is not added");
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            _unitOfWork.Dispose();
-            return RedirectToAction("Index");
+
+            return View();
         }
 
         #endregion CREATE
