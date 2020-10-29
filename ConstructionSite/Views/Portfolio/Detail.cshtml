@@ -1,6 +1,72 @@
 ﻿@inject SharedLocalizationService Localizer
 @model ProjectViewDetailsModel
 <!-- Main Content -->
+@*
+
+      <div id="main-content" class="site-main clearfix">
+        <div id="content-wrap">
+            <div id="site-content" class="site-content clearfix">
+                <div id="inner-content" class="inner-content-wrap">
+                    <div class="page-content">
+                        <section class="wprt-section">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+                                    </div>
+                                    <!-- /.col-md-12 -->
+
+                                    <div class="col-md-8">
+                                        <div class="wprt-galleries galleries w-770px" data-width="142" data-margin="15">
+                                            <div id="wprt-slider" class="flexslider">
+                                                <ul class="slides">
+                                                    @foreach (var item in Model.Images)
+                                                    {
+                                                        <li class="flex-active-slide">
+                                                            <a class="zoom" href="JavaScrip:void(0)"><i class="fa fa-arrows-alt"></i></a>
+                                                            <img src="@item" alt="image" />
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                            <div id="wprt-carousel" class="flexslider">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-md-8 -->
+
+                                    <div class="col-md-4">
+                                        <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
+                                        <h4 class="line-height-normal margin-bottom-10">@Model.Name</h4>
+                                        <div class="wprt-lines style-1 custom-3">
+                                            <div class="line-1"></div>
+                                            <div class="line-2"></div>
+                                        </div>
+                                        <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
+                                        <p>@Model.Content.</p>
+                                        <div class="wprt-lines style-1 custom-4">
+                                            <div class="line-1"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-md-4 -->
+
+                                    <div class="col-md-12">
+                                        <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
+                                    </div>
+                                    <!-- /.col-md-12 -->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+*@
+
+
+
 <div id="main-content" class="site-main clearfix">
     <div id="content-wrap">
         <div id="site-content" class="site-content clearfix">
@@ -10,9 +76,8 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-                                </div>
-                                <!-- /.col-md-12 -->
+                                    <div class="wprt-spacer" data-desktop="120" data-mobi="80" data-smobi="80"></div>
+                                </div><!-- /.col-md-12 -->
 
                                 <div class="col-md-8">
                                     <div class="wprt-galleries galleries w-770px" data-width="142" data-margin="15">
@@ -21,37 +86,74 @@
                                                 @foreach (var item in Model.Images)
                                                 {
                                                     <li class="flex-active-slide">
-                                                        <a class="zoom" href="JavaScrip:void(0)"><i class="fa fa-arrows-alt"></i></a>
+                                                        <a class="zoom" href="@item"><i class="fa fa-arrows-alt"></i></a>
                                                         <img src="@item" alt="image" />
                                                     </li>
                                                 }
+
+
+                                                @*<li class="flex-active-slide">
+                                                        <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image" />
+                                                    </li>
+
+                                                    <li class="flex-active-slide">
+                                                        <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image" />
+                                                    </li>
+
+                                                    <li class="flex-active-slide">
+                                                        <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image" />
+                                                    </li>
+
+                                                    <li class="flex-active-slide">
+                                                        <a class="zoom" href="assets/img/gallery/1.jpg"><i class="fa fa-arrows-alt"></i></a>
+                                                        <img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image" />
+                                                    </li>*@
                                             </ul>
                                         </div>
+
                                         <div id="wprt-carousel" class="flexslider">
+                                            <ul class="slides">
+                                                @foreach (var item in Model.Images)
+                                                {
+                                                    <li><img src="@item" alt="image"></li>
+                                                }
+                                                @*<li><img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image"></li>
+                                                    <li><img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image"></li>
+                                                    <li><img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image"></li>
+                                                    <li><img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image"></li>
+                                                    <li><img src="~/Images/portfolio/23319ce1-5b57-4b1a-ae5d-48aaeb0285dc.jpeg" alt="image"></li>*@
+                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- /.col-md-8 -->
+                                </div><!-- /.col-md-8 -->
 
                                 <div class="col-md-4">
                                     <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
+
                                     <h4 class="line-height-normal margin-bottom-10">@Model.Name</h4>
                                     <div class="wprt-lines style-1 custom-3">
                                         <div class="line-1"></div>
                                         <div class="line-2"></div>
                                     </div>
+
                                     <div class="wprt-spacer" data-desktop="25" data-mobi="25" data-smobi="25"></div>
-                                    <p>@Model.Content.</p>
+                                    <p>@Model.Content</p>
+                                    @*<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit. Vestibulum eu libero volutpat, portas quam acc, tempus sem. Donec sodales quam id lorem lobortis, vitae. </p>
+                                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque nec erat erat. Integer blandit nulla quis fermentum hendrerit.</p>*@
+
                                     <div class="wprt-lines style-1 custom-4">
                                         <div class="line-1"></div>
                                     </div>
-                                </div>
-                                <!-- /.col-md-4 -->
+
+
+                                </div><!-- /.col-md-4 -->
 
                                 <div class="col-md-12">
                                     <div class="wprt-spacer" data-desktop="80" data-mobi="40" data-smobi="40"></div>
-                                </div>
-                                <!-- /.col-md-12 -->
+                                </div><!-- /.col-md-12 -->
                             </div>
                         </div>
                     </section>
