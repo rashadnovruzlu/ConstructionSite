@@ -105,12 +105,15 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Email = contactAddViewModel.Email
             };
             var addContactResult = await _unitOfWork.ContactRepository
-                                                        .AddAsync(contactAddModelResult);
+                  
+                .AddAsync(contactAddModelResult);
+            _unitOfWork.Commit();
             if (!addContactResult.IsDone)
             {
                 _unitOfWork.Rollback();
                 ModelState.AddModelError("", "Errors occured while creating Contact");
             }
+
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
@@ -136,6 +139,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .GetById(id)
                 .Mapped<ContactUpdateViewModel>();
             _unitOfWork.Dispose();
+            
             if (contantcUpdateResult == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");
@@ -195,6 +199,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "data can,t be delete ");
                 _unitOfWork.Rollback();
             }
+            _unitOfWork.Commit();
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }
