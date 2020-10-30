@@ -20,6 +20,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Service
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }
         public List<int> ImageID { get; set; }
+       
         public IList<IFormFile> files { get; set; }
         public List<data.Image> Images { get; set; }
 

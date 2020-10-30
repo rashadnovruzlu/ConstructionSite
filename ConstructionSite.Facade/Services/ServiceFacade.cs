@@ -65,8 +65,10 @@ namespace ConstructionSite.Facade.Services
         public ServiceUpdateViewModel GetForUpdate(int id)
         {
             var resultService = _unitOfWork.ServiceRepository.GetAll()
+                .ToList()
                  .Select(x => new ServiceUpdateViewModel
                  {
+                     id = x.Id,
                      NameAz = x.NameAz,
                      NameEn = x.NameEn,
                      NameRu = x.NameRu,
@@ -75,7 +77,8 @@ namespace ConstructionSite.Facade.Services
                      ContentRu = x.ContentRu,
                      TittleAz = x.TitleAz,
                      TittleEn = x.TitleEn,
-                     TittleRu = x.TitleRu
+                     TittleRu = x.TitleRu,
+                     Images = x.ServiceImages.Select(x => x.Image).ToList()
                  })
                  .FirstOrDefault(x => x.id == id);
             return resultService;
