@@ -42,8 +42,11 @@ namespace ConstructionSite.FacadeInjection
             services.AddTransient<IBlogQueryFacade, BlogQueryFacade>();
 
             services.AddTransient<IPortfolioImageFacade, PortfolioImageFacade>();
+
             services.AddTransient<IServiceFacade, ServiceFacade>();
             services.AddTransient<IServiceImageFacade, ServiceImageFacade>();
+            services.AddTransient<ISubServiceFacade, SubServiceFacde>();
+
             services.AddTransient<IProjectFacade, ProjectFacade>();
             services.AddTransient<IProjectImageFacade, ProjectImageFacade>();
 

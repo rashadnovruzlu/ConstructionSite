@@ -106,7 +106,7 @@ namespace ConstructionSite.Facade.Services
                   .Where(x => x.SubServiceId == data.Id)
                   .Select(x => x.ImageId).ToArray();
             _unitOfWork.SubServiceRepository.Delete(data);
-            return _webHostEnvironment.Delete(imageId, "blog", _unitOfWork);
+            return _webHostEnvironment.Delete(imageId, "service", _unitOfWork);
         }
     }
 }

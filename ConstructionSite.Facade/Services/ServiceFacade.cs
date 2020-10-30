@@ -1,9 +1,11 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Service;
 using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,13 @@ namespace ConstructionSite.Facade.Services
     public class ServiceFacade : IServiceFacade
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _env;
 
-        public ServiceFacade(IUnitOfWork unitOfWork)
+        public ServiceFacade(IUnitOfWork unitOfWork,
+            IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _env = env;
         }
 
         public async Task<RESULT<Service>> Add(data.ServiceAddViewModel serviceAddViewModel)
@@ -30,10 +35,10 @@ namespace ConstructionSite.Facade.Services
             return await _unitOfWork.ServiceRepository.AddAsync(resultData);
         }
 
-        public async
-          Task<List<data.ServiceViewModel>> GetAll(string _lang)
+        public List<data.ServiceViewModel> GetAll(string _lang)
         {
-            var resultServiceViewModel = await _unitOfWork.ServiceRepository.GetAll()
+            var resultServiceViewModel = _unitOfWork.ServiceRepository
+                .GetAll()
                   .Select(x => new ServiceViewModel
                   {
                       Id = x.Id,
@@ -42,7 +47,8 @@ namespace ConstructionSite.Facade.Services
                       image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
 
                   })
-                  .ToListAsync();
+                  .OrderByDescending(x => x.Id)
+                  .ToList();
             return resultServiceViewModel;
         }
 
@@ -55,6 +61,27 @@ namespace ConstructionSite.Facade.Services
 
             //};
             return null;
+        }
+        public ServiceUpdateViewModel GetForUpdate(int id)
+        {
+            var resultService = _unitOfWork.ServiceRepository.GetAll()
+                .ToList()
+                 .Select(x => new ServiceUpdateViewModel
+                 {
+                     id = x.Id,
+                     NameAz = x.NameAz,
+                     NameEn = x.NameEn,
+                     NameRu = x.NameRu,
+                     ContentAz = x.ContentAz,
+                     ContentEn = x.ContentEn,
+                     ContentRu = x.ContentRu,
+                     TittleAz = x.TitleAz,
+                     TittleEn = x.TitleEn,
+                     TittleRu = x.TitleRu,
+                     Images = x.ServiceImages.Select(x => x.Image).ToList()
+                 })
+                 .FirstOrDefault(x => x.id == id);
+            return resultService;
         }
 
         public async Task<RESULT<Service>> Update(ServiceUpdateViewModel serviceUpdateViewModel)
@@ -74,27 +101,35 @@ namespace ConstructionSite.Facade.Services
 
         public bool Delete(int id)
         {
-            bool isSuccees = false;
-            var result = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
-            var subService = _unitOfWork.SubServiceRepository.GetAll()
-                 .Where(x => x.ServiceId == result.Id).ToList();
+            var subImage = _unitOfWork.SubServiceImageRepository.GetAll()
+                  .Where(x => x.SubService.ServiceId == id)
+                  .Select(x => x.Image)
+                  .ToArray();
+            _env.Delete(subImage, "service", _unitOfWork);
+            var service = _unitOfWork.ServiceRepository.Find(x => x.Id == id);
+            var serviceImage = _unitOfWork.ServiceImageRepstory.GetAll()
+                 .Where(x => x.ServiceId == id)
+                 .Select(x => x.Image)
+                 .ToArray();
+            _env.Delete(serviceImage, "service", _unitOfWork);
 
-            isSuccees = _unitOfWork.ServiceRepository.Delete(result).IsDone;
-            if (isSuccees)
+
+            _unitOfWork.ServiceRepository.Delete(service);
+            if (_unitOfWork.Commit() > 0)
             {
-                if (_unitOfWork.Commit() > 0)
-                {
-                    isSuccees = true;
-                }
-                else
-                {
-                    isSuccees = false;
-                    _unitOfWork.Rollback();
-                }
+                return true;
+            }
+            else
+            {
+                _unitOfWork.Rollback();
+                return false;
             }
 
 
-            return isSuccees;
+
+
+
+
         }
 
 

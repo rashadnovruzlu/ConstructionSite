@@ -118,16 +118,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AboutUpdateViewModel aboutUpdateViewModel)
         {
+            if (aboutUpdateViewModel == null)
+            {
+                ModelState.AddModelError("", "This data not exists");
+            }
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Models are not valid.");
+            }
             try
             {
-                if (aboutUpdateViewModel == null)
-                {
-                    ModelState.AddModelError("", "This data not exists");
-                }
-                if (!ModelState.IsValid)
-                {
-                    ModelState.AddModelError("", "Models are not valid.");
-                }
+                
                 if (aboutUpdateViewModel.files != null && aboutUpdateViewModel.ImageID != null)
                 {
                     try
