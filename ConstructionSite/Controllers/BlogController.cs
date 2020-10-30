@@ -59,12 +59,11 @@ namespace ConstructionSite.Controllers
             }
 
 
-            //var newsImageResult = _unitOfWork
-            //     .newsRepository
-            //     .GetAll()
-            //     .Include(x => x.Image)
-            //     .Include(x => x.News)
-            //     .ToList();
+            var newsImageResult = _unitOfWork
+                 .newsRepository
+                 .GetAll()
+
+                 .ToList();
             var newsViewModelResult = _blogImageFacade
            .GetAll(_lang)
            .Skip((page - 1) * 3)
@@ -77,7 +76,7 @@ namespace ConstructionSite.Controllers
                 {
                     CurrentPage = page,
                     ItemPrePage = 3,
-                    TotalItems = newsViewModelResult.Count()
+                    TotalItems = newsImageResult.Count
                 }
             };
             if (newsViewModelResult == null)

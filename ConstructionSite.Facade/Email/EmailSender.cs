@@ -31,34 +31,32 @@ namespace ConstructionSite.Facade.Email
         }
         public void sendYandex(MailSend email)
         {
-            try
+
+            email.To = "v.nurlan@pdc.az";
+            email.To = "office@pdc.az";
+            email.To = "sales@pdc.az";
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.To.Add(email.To);
+            mailMessage.Subject = email.Subject;
+            mailMessage.Body = email.Body;
+
+            mailMessage.From = new MailAddress(email.From);
+            mailMessage.IsBodyHtml = false;
+
+            using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.com"))
             {
-                email.To = "v.nurlan@pdc.az";
-                email.To = "office@pdc.az";
-                email.To = "sales@pdc.az";
-
-                MailMessage mailMessage = new MailMessage();
-                mailMessage.To.Add(email.To);
-                mailMessage.Subject = email.Subject;
-                mailMessage.Body = email.Body;
-
-                mailMessage.From = new MailAddress(email.From);
-                mailMessage.IsBodyHtml = false;
-
-                SmtpClient smtpClient = new SmtpClient("smtp.yandex.com");
-
                 smtpClient.Port = 587;
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.EnableSsl = true;
                 smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
                 smtpClient.Send(mailMessage);
-                smtpClient.Dispose();
             }
-            catch
-            {
 
 
-            }
+
+
+
         }
     }
 }
