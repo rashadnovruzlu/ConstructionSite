@@ -59,6 +59,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
             }
             var result = _serviceFacade.GetAll(_lang);
+
             return View(result);
         }
 

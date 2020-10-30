@@ -165,8 +165,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!contactResult.IsDone)
             {
                 _unitOfWork.Rollback();
+
                 ModelState.AddModelError("", "Errors occured while updating Contact");
             }
+            _unitOfWork.Commit();
             _unitOfWork.Dispose();
             return RedirectToAction("Index");
         }

@@ -6,6 +6,7 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +26,17 @@ namespace ConstructionSite.Facade.Blogs
 
         public async Task<RESULT<News>> Add(BlogAddViewModel blogAddViewModel)
         {
-            var result = await blogAddViewModel.MappedAsync<News>();
+            var result = new News
+            {
+                ContentAz = blogAddViewModel.ContentAz,
+                ContentEn = blogAddViewModel.ContentEn,
+                ContentRu = blogAddViewModel.ContentRu,
+                TittleAz = blogAddViewModel.TittleAz,
+                TittleEn = blogAddViewModel.TittleEn,
+                TittleRu = blogAddViewModel.TittleRu,
+                CreateDate = DateTime.UtcNow
+            };
+            // var result = await blogAddViewModel.MappedAsync<News>();
             return await _unitOfWork.newsRepository.AddAsync(result);
         }
 
