@@ -6,7 +6,8 @@ namespace ConstructionSite.ViwModel.FrontViewModels.Galery
 {
     public class GaleryImageViewModel
     {
-        public List<string> Imagepaths { get; set; }
+        public string Title { get; set; }
+        public string Imagepaths { get; set; }
     }
 
 }

@@ -4,8 +4,9 @@ using System.Text;
 
 namespace ConstructionSite.ViwModel.FrontViewModels.Galery
 {
-    public class GaleryViewoModel
+    public class GaleryVidoViewoModel
     {
-        public List<string> Vidopaths { get; set; }
+        public string Vidopath { get; set; }
+        public string Vidopaths { get; set; }
     }
 }
