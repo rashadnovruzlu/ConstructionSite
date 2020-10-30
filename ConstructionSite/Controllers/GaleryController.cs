@@ -21,8 +21,10 @@ namespace ConstructionSite.Controllers
 
         public IActionResult Index()
         {
-            var result = _galeryFileFacde.GetAll(_lang);
-            return View(result);
+            ViewBag.Images = _galeryFileFacde.GetAllImage(_lang);
+            ViewBag.Videos = _galeryFileFacde.GetAllVideo(_lang);
+
+            return View();
         }
     }
 }

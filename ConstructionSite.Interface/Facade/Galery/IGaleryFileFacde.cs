@@ -15,6 +15,8 @@ namespace ConstructionSite.Interface.Facade.Galery
 
         Task<RESULT<GaleryFile>> Update(GaleryFileUpdateViewModel galeryFileUpdateViewModel);
 
-        List<GaleryFileFrontViewModel> GetAll(string _lang);
+        List<GaleryVidoViewoModel> GetAllVideo(string _lang);
+        List<GaleryImageViewModel> GetAllImage(string _lang);
+
     }
 }

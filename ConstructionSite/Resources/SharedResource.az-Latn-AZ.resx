@@ -276,6 +276,9 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Telefon nömrəsi</value>
   </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Şəkillər</value>
+  </data>
   <data name="Portfolio" xml:space="preserve">
     <value>Portfolio</value>
   </data>
@@ -377,6 +380,9 @@
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value />
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videolar</value>
   </data>
   <data name="WeUseTechnologyToDoTheJobMoreQuickly" xml:space="preserve">
     <value>İşi daha tez yerinə yetirmək üçün texnologiyadan istifadə edirik</value>
