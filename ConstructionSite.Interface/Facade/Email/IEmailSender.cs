@@ -5,5 +5,6 @@ namespace ConstructionSite.Interface.Facade.Email
     public interface IEmailSender
     {
         void Send(MailSend mailSend);
+        void sendYandex(MailSend email);
     }
 }
