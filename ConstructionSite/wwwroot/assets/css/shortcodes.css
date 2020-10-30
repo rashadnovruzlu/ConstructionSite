@@ -5,6 +5,12 @@
     position: relative;
     background-color: #fff;
 }
+.portfolioSlider {
+    height: 450px;
+}
+.subImage {
+    height: 120px;
+}
 #about {
     padding: 40px 0px;
 }
