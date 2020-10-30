@@ -29,16 +29,18 @@ namespace ConstructionSite.Facade.Blogs
 
         public List<NewsViewModel> GetAll(string _lang)
         {
-            return _unitOfWork.newsImageRepository.GetAll()
-                   .Include(x => x.News)
-                   .Include(x => x.Image)
-                   .Select(x => new NewsViewModel
-                   {
-                       Id = x.Id,
-                       Content = x.News.FindContent(_lang),
-                       Title = x.News.FindTitle(_lang),
-                       Imagepath = x.Image.Path
-                   }).ToList();
+            var data = _unitOfWork.newsRepository.GetAll()
+                .Select(x => new NewsViewModel
+                {
+                    Id = x.Id,
+                    Content = x.FindContent(_lang),
+                    Title = x.ContentAz,
+                    Imagepath = x.NewsImages.Select(x => x.Image.Path).FirstOrDefault()
+                }).ToList();
+
+
+            return data;
+
         }
     }
 }
