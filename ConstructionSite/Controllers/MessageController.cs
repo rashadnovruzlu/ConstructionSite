@@ -68,8 +68,8 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            _emailSender.Send(emailSender);
-            //  _emailSender.sendYandex(emailSender);
+            //_emailSender.Send(emailSender);
+            _emailSender.sendYandex(emailSender);
 
             //  _emailSender.Send(emailSender);
 

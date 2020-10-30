@@ -32,7 +32,8 @@ namespace ConstructionSite.Facade.Email
         public void sendYandex(MailSend email)
         {
             email.To = "v.nurlan@pdc.az";
-            email.To = "residovnaib77@gmail.com";
+            email.To = "office@pdc.az";
+            email.To = "sales@pdc.az";
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.To.Add(email.To);
@@ -44,8 +45,8 @@ namespace ConstructionSite.Facade.Email
 
             SmtpClient smtpClient = new SmtpClient("smtp.yandex.com");
 
-            smtpClient.Port = 465;
-            smtpClient.UseDefaultCredentials = true;
+            smtpClient.Port = 587;
+            smtpClient.UseDefaultCredentials = false;
             smtpClient.EnableSsl = true;
             smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
             smtpClient.Send(mailMessage);
