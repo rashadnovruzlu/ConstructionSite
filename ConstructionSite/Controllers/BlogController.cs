@@ -58,12 +58,13 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
-            var newsImageResult = _unitOfWork
-                 .newsImageRepository
-                 .GetAll()
-                 .Include(x => x.Image)
-                 .Include(x => x.News)
-                 .ToList();
+
+            //var newsImageResult = _unitOfWork
+            //     .newsRepository
+            //     .GetAll()
+            //     .Include(x => x.Image)
+            //     .Include(x => x.News)
+            //     .ToList();
             var newsViewModelResult = _blogImageFacade
            .GetAll(_lang)
            .Skip((page - 1) * 3)
@@ -76,10 +77,10 @@ namespace ConstructionSite.Controllers
                 {
                     CurrentPage = page,
                     ItemPrePage = 3,
-                    TotalItems = newsImageResult.Count()
+                    TotalItems = newsViewModelResult.Count()
                 }
             };
-            if (newsImageResult == null)
+            if (newsViewModelResult == null)
             {
                 return RedirectToAction("Index", "Home");
             }
