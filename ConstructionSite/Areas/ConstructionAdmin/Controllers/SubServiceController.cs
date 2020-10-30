@@ -198,9 +198,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
 
-           if(_subServiceFacade.Delete(id))
+            if (_subServiceFacade.Delete(id))
             {
-               if( await _unitOfWork.CommitAsync())
+                if (await _unitOfWork.CommitAsync())
                 {
                     return RedirectToAction("Index");
                 }
@@ -208,7 +208,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     _unitOfWork.Rollback();
                 }
-                
+
             }
             return View();
         }
