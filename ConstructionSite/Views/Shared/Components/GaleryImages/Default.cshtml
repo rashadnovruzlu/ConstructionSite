@@ -1,6 +1,7 @@
-﻿@model List<ConstructionSite.ViwModel.FrontViewModels.Galery.GaleryFileFrontViewModel>
-<!--<div class="col-md-12">
-    <h3>GALLERY WITH THUMBNAIL</h3>
+﻿@inject SharedLocalizationService Localizer
+
+<div class="col-md-12">
+    <h3>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Photos)</h3>
     <div class="wprt-lines style-1 custom-3">
         <div class="line-1"></div>
         <div class="line-2"></div>
@@ -10,79 +11,31 @@
     <div class="wprt-galleries galleries" data-width="135" data-margin="10">
         <div id="wprt-slider" class="flexslider">
             <ul class="slides">
-                <li class="flex-active-slide">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </li>
+                @for (int i = 0; i < ViewBag.Images.Count; i++)
+                {
+                    <li class="flex-active-slide">
+                        <a class="zoom" href="@ViewBag.Images[i].Imagepaths"><i class="fa fa-arrows-alt"></i></a>
+                        <img class="galerySliderImage" src="@ViewBag.Images[i].Imagepaths" alt="image" />
+                    </li>
+                }
 
-                <li class="flex-active-slide">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </li>
 
-                <li class="flex-active-slide">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </li>
 
-                <li class="flex-active-slide">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </li>
             </ul>
         </div>
 
         <div id="wprt-carousel" class="flexslider">
             <ul class="slides">
-                <li><img src="assets/img/gallery/2.jpg" alt="image"></li>
-                <li><img src="assets/img/gallery/2.jpg" alt="image"></li>
-                <li><img src="assets/img/gallery/2.jpg" alt="image"></li>
-                <li><img src="assets/img/gallery/2.jpg" alt="image"></li>
+                @for (int i = 0; i < ViewBag.Images.Count; i++)
+                {
+                    <li><img class="galerySliderSubImage" src="@ViewBag.Images[i].Imagepaths" alt="image"></li>
+
+                }
+
             </ul>
         </div>
     </div>
 
     <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
-</div>-->
-<!-- /.col-md-6 -->
-@for (int i = 0; i < Model.Count; i++)
-{
-    if (Model[i].Path != null)
-    {
-        for (int k = 0; k < Model[i].Path.Length; k++)
-        {
-            <div class="col-md-12">
-                <h3>@Model[i].GaleryTitle</h3>
-                <div class="wprt-lines style-1 custom-3">
-                    <div class="line-1"></div>
-                    <div class="line-2"></div>
-                </div>
-                <div class="wprt-spacer" data-desktop="30" data-mobi="30" data-smobi="30"></div>
+</div><!-- /.col-md-6 -->
 
-                <div class="wprt-galleries galleries" data-width="135" data-margin="10">
-                    <div id="wprt-slider" class="flexslider">
-                        <ul class="slides">
-                            <li class="flex-active-slide">
-                                <a class="zoom" href="@Model[i].Path[k]"><i class="fa fa-arrows-alt"></i></a>
-                                <img src="@Model[i].Path[k]" alt="image" />
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-                    <div id="wprt-carousel" class="flexslider">
-                        <ul class="slides">
-                            <li><img src="@Model[i].Path[k]" alt="image"></li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
-            </div><!-- /.col-md-6 -->
-        }
-    }
-    
-
-}
