@@ -60,28 +60,34 @@
                     <thead>
                         <tr role="row">
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Name</th>
+
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">Tittle</th>
+
+                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending" style="width: 177px;">SubService</th>
+
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Image</th>
+
                             <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
                         </tr>
                     </thead>
-
+                    
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                         @if (Model.Any())
                         {
                             @foreach (var item in Model)
                             {
-                                <tr class="odd">
-                                    <td class="sorting_1 img-style">@item.Name</td>
-                                    <td class="img-style">@item.Tittle</td>
-                                    <td class="img-style"><img src="@item.image" width="60" height="60" alt="Alternate Text" /></td>
-                                    <td class="edit-delete">
-                                        <a class="edit" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">
-                                            <i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
-                                    </td>
-                                </tr>
+                        <tr class="odd">
+                            <td class="sorting_1 img-style">@item.Name</td>
+                            <td class="img-style" >@item.Tittle</td>
+                           <td current-id="@item.Id"></td>
+                            <td class="img-style"><img src="@item.image" width="60" height="60" alt="Alternate Text" /></td>
+                            <td class="edit-delete">
+                                <a class="edit" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">
+                                    <i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i>
+                                </a>
+                                <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
                             }
                         }
                         else

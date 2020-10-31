@@ -1,16 +1,12 @@
-﻿using ConstructionSite.DTO.FrontViewModels.Service;
-using ConstructionSite.Injections;
-using ConstructionSite.Interface.Facade.Services;
+﻿using ConstructionSite.Injections;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace ConstructionSite.TagHelpers
+
+namespace ConstructionSite.Areas.TagHelpers
 {
     [HtmlTargetElement("td", Attributes = "current-id")]
     public class SubServiceShowTagHelper : TagHelper
@@ -30,17 +26,21 @@ namespace ConstructionSite.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var result = _unitOfWork.ServiceRepository.GetAll()
-               .Select(x => x.SubServices.Select(x => x.FindName(_lang)));
+            var result = _unitOfWork.SubServiceRepository.GetAll()
+                .Where(x => x.ServiceId == CurrentId)
+                .Select(x => x.FindName(_lang))
+                .ToList();
             TagBuilder Li = new TagBuilder("li");
+           
             foreach (var item in result)
             {
-                foreach (var items in item)
-                {
-                    Li.InnerHtml.AppendHtml(items);
-                }
+
+                Li.InnerHtml.AppendHtml(item + "<br/>");
+
             }
+
             output.PreContent.AppendHtml(Li);
+
 
 
 
