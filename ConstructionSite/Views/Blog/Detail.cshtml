@@ -1,10 +1,84 @@
 ﻿@model BlogDetalyeViewModel
 @inject SharedLocalizationService Localizer
     <!-- Featured Title -->
-    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+<div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
 
-    <!-- Main Content -->
-    <div id="main-content" class="site-main center clearfix">
+<!-- Main Content -->
+<div id="main-content" class="site-main center clearfix">
+    <div id="content-wrap" class="container">
+
+        <div id="site-content" class="site-content clearfix" style="width: 100%">
+            <div class="hentry">
+                <div class="container">
+                    <h1>@Model.Title</h1>
+                    <div class="post-meta style-3">
+                        <div class="post-meta-content">
+                            <div class="post-meta-content-inner">
+
+
+                                <span class="post-date item">
+                                    <span class="inner">
+                                        <span class="entry-date">
+                                            @Model.dateTime.ToUniversalTime().ToString("MMMM dd, yyyy")
+                                        </span>
+                                    </span>
+                                </span>
+
+
+
+
+                            </div>
+                        </div>
+                    </div><!-- /.post-meta -->
+                    <img src="@Model.imagePath" alt="logo"
+                         style="width:400px;height:250px;margin-right:15px; float: left;">
+
+                    <p>
+                        @Model.Content
+                    </p>
+                    @*<p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                            nemo, sapiente consequa
+                            tur porro unde, suscipit beatae reic
+                            iendis eum similique, aut sit a hic dicta
+                            tempore tenetur ratione quod adipisci.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                            nemo, sapiente consequa
+                            tur porro unde, suscipit beatae reic
+                            iendis eum similique, aut sit a hic dicta
+                            tempore tenetur ratione quod adipisci.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                            nemo, sapiente consequa
+                            tur porro unde, suscipit beatae reic
+                            iendis eum similique, aut sit a hic dicta
+                            tempore tenetur ratione quod adipisci.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                            nemo, sapiente consequa
+                            tur porro unde, suscipit beatae reic
+                            iendis eum similique, aut sit a hic dicta
+                            tempore tenetur ratione quod adipisci.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                            nemo, sapiente consequa
+                            tur porro unde, suscipit beatae reic
+                            iendis eum similique, aut sit a hic dicta
+                            tempore tenetur ratione quod adipisci.
+                        </p>*@
+
+                </div>
+            </div><!-- /.inner-content-wrap -->
+        </div><!-- /#site-content -->
+
+
+    </div>
+    @*
         <div id="content-wrap" class="container">
             <div id="site-content" class="site-content clearfix" style="width: 100%">
                 <div class="hentry">
@@ -21,7 +95,7 @@
                         </div>
                         <!-- /.post-meta -->
 
-                        <img src="@Model.imagePath" alt="logo" style="width:400px;height:250px;margin-right:15px; float: left;">
+                        <img src="@Model.imagePath" alt="logo" style="width: 400px; height: 250px; margin-right: 15px; float: left;">
                         <p>@Model.Content</p>
                     </div>
                 </div>
@@ -29,7 +103,8 @@
             </div>
             <!-- /#site-content -->
         </div>
-        </div>
-        <!-- /#main-content -->
+    *@
+    <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+</div>
+<!-- /#main-content -->
 
-        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>

@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
         <li class="menu-item">
-            <a asp-controller="Services" asp-action="Services" asp-route-id="@item.Id">@item.Name</a>
+            <a style="cursor: pointer">@item.Name</a>
             <ul class="sub-menu2">
                 @foreach (var ite in item.SubServices)
                 {

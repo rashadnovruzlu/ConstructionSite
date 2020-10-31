@@ -8,7 +8,6 @@ namespace ConstructionSite.Controllers
         /// this is Main Page call some Components
         /// </summary>
         /// <returns></returns>
-
         public IActionResult Index()
         {
             return View();

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <div class="rev_slider_wrapper fullwidthbanner-container">
     <div id="rev-slider1" class="rev_slider fullwidthabanner">
         <ul>
@@ -64,9 +65,8 @@
                      data-start="1250"
                      data-splitin="none"
                      data-splitout="none"
-                     data-actions='[{"event":"click","action":"scrollbelow","offset":"20px"}]'
                      data-responsive="on">
-                    <a class="wprt-button big rounded-3px">OUR PORTFOLIO</a>
+                    <a class="wprt-button big rounded-3px" asp-action="Index" asp-controller="Blog">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</a>
                 </div>
             </li>
             <!-- End Slide -->
@@ -129,8 +129,9 @@
                      data-start="1250"
                      data-splitin="none"
                      data-splitout="none"
-                     data-actions='[{"event":"click","action":"scrollbelow","offset":"20px"}]'
                      data-responsive="on">
+                    <a class="wprt-button big rounded-3px" asp-action="Index" asp-controller="Blog">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</a>
+
                     <!-- <a class="wprt-button big rounded-3px">CONTACT US</a> -->
                 </div>
             </li>
@@ -192,8 +193,9 @@
                      data-start="1250"
                      data-splitin="none"
                      data-splitout="none"
-                     data-actions='[{"event":"click","action":"scrollbelow","offset":"20px"}]'
                      data-responsive="on">
+                    <a class="wprt-button big rounded-3px" asp-action="Index" asp-controller="Blog">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</a>
+
                     <!-- <a class="wprt-button big rounded-3px">CONTACT US</a> -->
                 </div>
             </li>
@@ -255,8 +257,9 @@
                      data-start="1250"
                      data-splitin="none"
                      data-splitout="none"
-                     data-actions='[{"event":"click","action":"scrollbelow","offset":"20px"}]'
                      data-responsive="on">
+                    <a class="wprt-button big rounded-3px" asp-action="Index" asp-controller="Blog">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.News)</a>
+
                     <!-- <a class="wprt-button big rounded-3px">CONTACT US</a> -->
                 </div>
             </li>

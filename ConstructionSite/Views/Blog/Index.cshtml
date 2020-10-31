@@ -9,36 +9,125 @@
 
 <!-- Main Content -->
 <div id="main-content" class="site-main center clearfix">
-    <div id="content-wrap" class="container">
-        <div id="site-content" class="site-content clearfix" style="width: 100%">
-            @foreach (var item in Model.Paging)
-            {
+    @foreach (var item in Model.Paging)
+    {
+        <div id="content-wrap" class="container">
+
+            <div id="site-content" class="site-content clearfix" style="width: 100%">
                 <div class="hentry">
                     <div class="container">
-                        <h1 blog-title="@item.Title"></h1>
+                        <h1>@item.Title</h1>
                         <div class="post-meta style-3">
                             <div class="post-meta-content">
                                 <div class="post-meta-content-inner">
+
+
                                     <span class="post-date item">
-                                        <span class="inner"><span class="entry-date">@item.CreateDate.ToUniversalTime().ToString("MMMM dd, yyyy")</span></span>
+                                        <span class="inner">
+                                            <span class="entry-date">
+                                                @item.CreateDate
+                                            </span>
+                                        </span>
                                     </span>
+
+
+
+
                                 </div>
                             </div>
-                        </div>
-                        <!-- /.post-meta -->
+                        </div><!-- /.post-meta -->
+                        <img src="@item.Imagepath" alt="logo"
+                             style="width:400px;height:250px;margin-right:15px; float: left;">
 
-                        <img src="@item.Imagepath" alt="logo" style="width:400px;height:250px;margin-right:15px; float: left;">
-                        <p blog-content="@item.Content"></p>
+                        <p>
+                            @item.Content
+                        </p>
+                        @*<p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                                nemo, sapiente consequa
+                                tur porro unde, suscipit beatae reic
+                                iendis eum similique, aut sit a hic dicta
+                                tempore tenetur ratione quod adipisci.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                                nemo, sapiente consequa
+                                tur porro unde, suscipit beatae reic
+                                iendis eum similique, aut sit a hic dicta
+                                tempore tenetur ratione quod adipisci.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                                nemo, sapiente consequa
+                                tur porro unde, suscipit beatae reic
+                                iendis eum similique, aut sit a hic dicta
+                                tempore tenetur ratione quod adipisci.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                                nemo, sapiente consequa
+                                tur porro unde, suscipit beatae reic
+                                iendis eum similique, aut sit a hic dicta
+                                tempore tenetur ratione quod adipisci.
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt corrupti
+                                nemo, sapiente consequa
+                                tur porro unde, suscipit beatae reic
+                                iendis eum similique, aut sit a hic dicta
+                                tempore tenetur ratione quod adipisci.
+                            </p>*@
+
                     </div>
-                </div>
-                <!-- /.inner-content-wrap -->
+                </div><!-- /.inner-content-wrap -->
+            </div><!-- /#site-content -->
+            <div class="linkable">
+                <a class="wprt-button small rounded-3px" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a>
+                <div></div>
+            </div>
 
-                <div class="link"><a class="wprt-button small rounded-3px" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a></div>
-            }
-            <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
         </div>
-        <!-- /#main-content -->
+    }
+    <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
+    @*<div class="wprt-pagination clearfix">
+        <ul class="page-numbers">
+            <li><span class="page-numbers current">1</span></li>
+            <li><a class="page-numbers" href="#">2</a></li>
+            <li><a class="next page-numbers" href="#"><span class="fa fa-angle-right"></span></a></li>
+        </ul>
+    </div>*@
+    @*
+         <div id="content-wrap" class="container">
+            <div id="site-content" class="site-content clearfix" style="width: 100%">
+                @foreach (var item in Model.Paging)
+                {
+                    <div class="hentry">
+                        <div class="container">
+                            <h1 blog-title="@item.Title"></h1>
+                            <div class="post-meta style-3">
+                                <div class="post-meta-content">
+                                    <div class="post-meta-content-inner">
+                                        <span class="post-date item">
+                                            <span class="inner"><span class="entry-date">@item.CreateDate.ToUniversalTime().ToString("MMMM dd, yyyy")</span></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.post-meta -->
 
-        <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
-    </div>
+                            <img src="@item.Imagepath" alt="logo" style="width: 400px; height: 250px; margin-right: 15px; float: left;">
+                            <p blog-content="@item.Content"></p>
+                        </div>
+                    </div>
+                    <!-- /.inner-content-wrap -->
+
+                    <div class="link"><a class="wprt-button small rounded-3px" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.ReadMore)</a></div>
+                }
+                <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
+            </div>
+            <!-- /#main-content -->
+
+            <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
+        </div>
+    *@
 </div>

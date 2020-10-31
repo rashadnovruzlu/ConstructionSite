@@ -5,6 +5,25 @@
     position: relative;
     background-color: #fff;
 }
+.portfolioSlider {
+    height: 450px;
+}
+.subImage {
+    height: 120px;
+}
+.galerySliderImage {
+    height: 450px;
+}
+.galerySliderSubImage {
+    height: 120px;
+}
+.subserviceSliderImage {
+    height: 450px;
+}
+
+.subserviceSliderSubImage {
+    height: 120px;
+}
 #about {
     padding: 40px 0px;
 }

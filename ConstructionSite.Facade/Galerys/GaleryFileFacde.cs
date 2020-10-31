@@ -58,21 +58,32 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::GETALL::
 
-        public List<GaleryFileFrontViewModel> GetAll(string _lang)
+        public List<GaleryVidoViewoModel> GetAllVideo(string _lang)
         {
-            var result = _unitOfWork.GaleryRepstory.GetAll()
-                .Include(x => x.GaleryFiles)
-                .Select(x => new GaleryFileFrontViewModel
-                {
-                    Id = x.Id,
-                    GaleryTitle = x.FindTitle(_lang),
-                    ImageId = x.GaleryFiles.Select(x => x.Image.Id).FirstOrDefault(),
-                    Path = x.GaleryFiles.Select(x => x.Image.Path).ToArray(),
-                    VideoPath = x.GaleryFiles.Select(x => x.Image.VideoPath).FirstOrDefault()
-                    ,
-                    Title = x.FindTitle(_lang)
-                });
-            return result.ToList();
+            var data = (from galery in _unitOfWork.GaleryRepstory.GetAll()
+                        join galeryFiles in _unitOfWork.GaleryFileRepstory.GetAll() on galery.Id equals galeryFiles.GaleryId
+                        join images in _unitOfWork.imageRepository.GetAll() on galeryFiles.ImageId equals images.Id
+                        where images.VideoPath != null
+                        select new GaleryVidoViewoModel()
+                        {
+                            Title = galery.FindTitle(_lang),
+                            Vidopaths = images.VideoPath
+                        }).ToList();
+            return data;
+
+        }
+        public List<GaleryImageViewModel> GetAllImage(string _lang)
+        {
+            var data = (from galery in _unitOfWork.GaleryRepstory.GetAll()
+                        join galeryFiles in _unitOfWork.GaleryFileRepstory.GetAll() on galery.Id equals galeryFiles.GaleryId
+                        join images in _unitOfWork.imageRepository.GetAll() on galeryFiles.ImageId equals images.Id
+                        where images.Path != null
+                        select new GaleryImageViewModel()
+                        {
+                            Title = galery.FindTitle(_lang),
+                            Imagepaths = images.Path
+                        }).ToList();
+            return data;
         }
 
         #endregion ::GETALL::
