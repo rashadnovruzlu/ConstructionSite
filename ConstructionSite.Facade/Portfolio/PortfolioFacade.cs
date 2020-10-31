@@ -66,8 +66,8 @@ namespace ConstructionSite.Facade.Portfolio
             var resultPortfolio = _unitOfWork.portfolioRepository.GetAll()
                    .Select(x => new PortfolioViewModel
                    {
+
                        Id = x.Id,
-                       ImagePath = x.PortfolioImages.Select(x => x.Image.Path).FirstOrDefault(),
                        Name = x.FindName(_lang)
                    })
                    .ToList();

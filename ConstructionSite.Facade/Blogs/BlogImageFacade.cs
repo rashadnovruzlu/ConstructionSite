@@ -29,6 +29,7 @@ namespace ConstructionSite.Facade.Blogs
 
         public List<NewsViewModel> GetAll(string _lang)
         {
+                                        
             return _unitOfWork.newsImageRepository.GetAll()
                    .Include(x => x.News)
                    .Include(x => x.Image)

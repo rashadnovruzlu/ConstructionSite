@@ -47,7 +47,7 @@ namespace ConstructionSite.Facade.Email
             using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.com"))
             {
                 smtpClient.Port = 587;
-                smtpClient.UseDefaultCredentials = false;
+                smtpClient.UseDefaultCredentials = true;
                 smtpClient.EnableSsl = true;
                 smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
                 smtpClient.Send(mailMessage);
