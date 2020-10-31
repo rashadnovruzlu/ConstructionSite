@@ -68,9 +68,6 @@ namespace ConstructionSite.Facade.Galerys
                 TitleAz = galeryAddViewModel.TitleAz,
                 TitleEn = galeryAddViewModel.TitleEn,
                 TitleRu = galeryAddViewModel.TitleRu
-
-
-
             };
             var resultGaleryUpdate = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
             return resultGaleryUpdate;
@@ -89,13 +86,26 @@ namespace ConstructionSite.Facade.Galerys
         #endregion ::DELETE::
 
         #region ::UPDATE::
+
         public async Task<bool> GetAndUpdate(int id, string input)
         {
-            var result = _unitOfWork.GaleryVidoResptory.GetAll()
+            var resultGaleryVido = _unitOfWork.GaleryVidoResptory.GetAll()
                 .FirstOrDefault(x => x.GaleryId == id);
-            result.VidoPath = input;
+            if (resultGaleryVido == null)
+            {
+                GaleryVido galeryVido = new GaleryVido
+                {
+                    GaleryId = id,
+                    VidoPath = input
+                };
+                _unitOfWork.GaleryVidoResptory.Add(galeryVido);
+            }
+            else
+            {
+                resultGaleryVido.VidoPath = input;
 
-            _unitOfWork.GaleryVidoResptory.Update(result);
+                _unitOfWork.GaleryVidoResptory.Update(resultGaleryVido);
+            }
             return await _unitOfWork.CommitAsync();
         }
 
@@ -105,7 +115,6 @@ namespace ConstructionSite.Facade.Galerys
             resultGaleryUpdateViewModelFind.TitleAz = galeryUpdateViewModel.TitleAz;
             resultGaleryUpdateViewModelFind.TitleEn = galeryUpdateViewModel.TitleEn;
             resultGaleryUpdateViewModelFind.TitleRu = galeryUpdateViewModel.TitleRu;
-
 
             return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModelFind);
         }

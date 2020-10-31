@@ -145,7 +145,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (!string.IsNullOrEmpty(galeryUpdateViewModel.VidoPath))
             {
-              await  _galeryFacade.GetAndUpdate(galeryUpdateViewModel.Id, galeryUpdateViewModel.VidoPath);
+                await _galeryFacade.GetAndUpdate(galeryUpdateViewModel.Id, galeryUpdateViewModel.VidoPath);
             }
             var resultGalery = await _galeryFacade.Update(galeryUpdateViewModel);
             if (resultGalery.IsDone)

@@ -147,9 +147,8 @@ namespace ConstructionSite.Repository.Concreate
             }
             try
             {
-                _context.Set<T>().Attach(entity);
-                _context.Entry(entity).State = EntityState.Modified;
-                _context.SaveChanges();
+                _context.Set<T>().Update(entity);
+                result.Data = entity;
             }
             catch
             {

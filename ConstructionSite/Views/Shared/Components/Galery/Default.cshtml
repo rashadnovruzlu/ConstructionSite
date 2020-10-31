@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CustomerViewModel>
+﻿@model IEnumerable<GaleryVidoViewoModel>
 @inject SharedLocalizationService Localizer
 
 <h3 class="text-center margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Galery)</h3>
@@ -18,54 +18,14 @@
                 </div>
             </div><!--/.cbp-item -->
 
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
-
-            <div class="cbp-item">
-                <div class="item-wrap">
-                    <a class="zoom" href="assets/img/gallery/2.jpg"><i class="fa fa-arrows-alt"></i></a>
-                    <img src="assets/img/gallery/2.jpg" alt="image" />
-                </div>
-            </div><!--/.cbp-item -->
+            @foreach (var item in Model)
+            {
+                <div class="cbp-item">
+                    <div class="item-wrap">
+                       <iframe src="@item.Vidopaths.GetSRC()" ></iframe>
+                    </div>
+                </div><!--/.cbp-item -->
+            }
         </div><!-- /#images-wrap -->
     </div><!--/.wprt-galleries-grid -->
 </div>

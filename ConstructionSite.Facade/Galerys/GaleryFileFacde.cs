@@ -5,7 +5,6 @@ using ConstructionSite.Interface.Facade.Galery;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Galery;
 using ConstructionSite.ViwModel.FrontViewModels.Galery;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -79,10 +78,8 @@ namespace ConstructionSite.Facade.Galerys
                             Vidopaths = galeryVido.VidoPath
                         }).ToList();
             return data;
-
-
-
         }
+
         public List<GaleryImageViewModel> GetAllImage(string _lang)
         {
             var data = (from galery in _unitOfWork.GaleryRepstory.GetAll()

@@ -53,6 +53,24 @@ namespace ConstructionSite.Extensions.Images
 
         }
 
+        public async static Task<int> SaveVidoPathAsync(this string path, IUnitOfWork _unitOfWork)
+        {
+
+           
+            var image = new Image();
+
+                image.VideoPath = path;
+                await _unitOfWork.imageRepository.AddAsync(image);
+                await _unitOfWork.CommitAsync();
+                
+               
+           
+            return image.Id;
+            
+           
+
+        }
+
         public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {
             List<int> imageResultID = new List<int>();
@@ -128,6 +146,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return imageResultID;
         }
+
 
         public async static Task<List<Image>> ImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {

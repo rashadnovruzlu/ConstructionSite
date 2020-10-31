@@ -29,9 +29,9 @@ namespace ConstructionSite.Facade.Email
                 smtpClient.Send(mailMessage);
             }
         }
+
         public void sendYandex(MailSend email)
         {
-
             email.To = "v.nurlan@pdc.az";
             email.To = "office@pdc.az";
             email.To = "sales@pdc.az";
@@ -52,11 +52,6 @@ namespace ConstructionSite.Facade.Email
                 smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
                 smtpClient.Send(mailMessage);
             }
-
-
-
-
-
         }
     }
 }
