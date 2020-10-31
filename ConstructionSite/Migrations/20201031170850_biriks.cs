@@ -2,7 +2,7 @@
 
 namespace ConstructionSite.Migrations
 {
-    public partial class Initialsedss : Migration
+    public partial class biriks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

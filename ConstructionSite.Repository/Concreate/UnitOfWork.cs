@@ -28,6 +28,7 @@ namespace ConstructionSite.Repository.Concreate
         private ISubServiceRepository _SubServiceRepository;
         private IGaleryFileRepstory _galeryFileRepstory;
         private IGaleryRepstory _galeryRepstory;
+        private IGaleryVidoResptory _galeryVidoResptory;
         private IPortfolioImageRepostory _portfolioImageRepostory;
         private IServiceImageRepstory _serviceImageRepstory;
 
@@ -46,7 +47,7 @@ namespace ConstructionSite.Repository.Concreate
             catch (Exception ex)
             {
 
-                
+
                 return false;
             }
 
@@ -213,6 +214,14 @@ namespace ConstructionSite.Repository.Concreate
             get
             {
                 return _serviceImageRepstory ?? (_serviceImageRepstory = new ServiceImageRepstory(_context));
+            }
+        }
+
+        public IGaleryVidoResptory GaleryVidoResptory
+        {
+            get
+            {
+                return _galeryVidoResptory ?? (_galeryVidoResptory = new GaleryVidoResptory(_context));
             }
         }
 

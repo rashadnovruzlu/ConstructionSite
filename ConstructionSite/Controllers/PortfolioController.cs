@@ -107,6 +107,7 @@ namespace ConstructionSite.Controllers
                         Name = x.Project.FindName(_lang),
                         Image = x.Image.Path
                     })
+                    .Take(8)
                       .ToList();
                 return PartialView(projectViewModelResultPartialView);
             }
@@ -123,6 +124,7 @@ namespace ConstructionSite.Controllers
                    Name = x.Project.FindName(_lang),
                    Image = x.Image.Path
                })
+               .Take(8)
                .ToList();
             return PartialView(projectViewModelResult);
         }

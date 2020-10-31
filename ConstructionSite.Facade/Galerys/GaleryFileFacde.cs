@@ -60,16 +60,26 @@ namespace ConstructionSite.Facade.Galerys
 
         public List<GaleryVidoViewoModel> GetAllVideo(string _lang)
         {
+            //var data = (from galery in _unitOfWork.GaleryRepstory.GetAll()
+            //            join galeryFiles in _unitOfWork.GaleryFileRepstory.GetAll() on galery.Id equals galeryFiles.GaleryId
+            //            join images in _unitOfWork.imageRepository.GetAll() on galeryFiles.ImageId equals images.Id
+            //            where images.VideoPath != null
+            //            select new GaleryVidoViewoModel()
+            //            {
+            //                Title = galery.FindTitle(_lang),
+            //                Vidopaths = images.VideoPath
+            //            }).ToList();
+            //return data;
             var data = (from galery in _unitOfWork.GaleryRepstory.GetAll()
-                        join galeryFiles in _unitOfWork.GaleryFileRepstory.GetAll() on galery.Id equals galeryFiles.GaleryId
-                        join images in _unitOfWork.imageRepository.GetAll() on galeryFiles.ImageId equals images.Id
-                        where images.VideoPath != null
+                        join galeryVido in _unitOfWork.GaleryVidoResptory.GetAll() on galery.Id equals galeryVido.GaleryId
+
+                        where galeryVido.VidoPath != null
                         select new GaleryVidoViewoModel()
-                        {
-                            Title = galery.FindTitle(_lang),
-                            Vidopaths = images.VideoPath
+                        { Vidopaths = galeryVido.VidoPath
                         }).ToList();
             return data;
+
+
 
         }
         public List<GaleryImageViewModel> GetAllImage(string _lang)

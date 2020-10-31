@@ -15,6 +15,43 @@ namespace ConstructionSite.Extensions.Images
         private const string _IMAGE = "images";
 
         #region ::Save::
+        public async static Task<int> SaveVidoAsync(this string path, IUnitOfWork _unitOfWork)
+        {
+
+
+
+            var image = new Image();
+            image.VideoPath = path;
+            await _unitOfWork.imageRepository.AddAsync(image);
+            if (await _unitOfWork.CommitAsync())
+            {
+                return image.Id;
+            }
+            return 0;
+
+        }
+        public async static Task<List<int>> SaveVidoAsync(this List<string> path, IUnitOfWork _unitOfWork)
+        {
+
+            List<int> isresults = new List<int>();
+
+            var image = new Image();
+            foreach (var item in path)
+            {
+                image.VideoPath = item;
+                await _unitOfWork.imageRepository.AddAsync(image);
+                if (await _unitOfWork.CommitAsync())
+                {
+                    isresults.Add(image.Id);
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                }
+            }
+            return isresults;
+
+        }
 
         public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {
@@ -26,6 +63,45 @@ namespace ConstructionSite.Extensions.Images
                     if (file != null)
                     {
                         var image = new Image();
+                        string FileNameAfterReName = Helper.reNameFileName(file);
+                        string filePath = Paths
+                             .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+
+                        bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+
+                        await using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        image.Title = FileNameAfterReName;
+                        image.Path = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+                        var imageSaveFile = await _unitOfWork.imageRepository.AddAsync(image);
+
+                        if (imageSaveFile.IsDone)
+                        {
+                            if (await _unitOfWork.CommitAsync())
+                            {
+                                imageResultID.Add(imageSaveFile.Data.Id);
+                            }
+                        }
+                    }
+                }
+            }
+            return imageResultID;
+        }
+        public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string path, string subFolder, IUnitOfWork _unitOfWork)
+        {
+            List<int> imageResultID = new List<int>();
+
+            if (files != null)
+            {
+                foreach (var file in files)
+                {
+                    if (file != null)
+                    {
+                        var image = new Image();
+                        image.VideoPath = path;
+
                         string FileNameAfterReName = Helper.reNameFileName(file);
                         string filePath = Paths
                              .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);

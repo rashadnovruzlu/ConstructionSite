@@ -68,6 +68,9 @@ namespace ConstructionSite.Facade.Galerys
                 TitleAz = galeryAddViewModel.TitleAz,
                 TitleEn = galeryAddViewModel.TitleEn,
                 TitleRu = galeryAddViewModel.TitleRu
+
+
+
             };
             var resultGaleryUpdate = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
             return resultGaleryUpdate;

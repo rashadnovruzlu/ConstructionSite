@@ -186,6 +186,26 @@ namespace ConstructionSite.Migrations
                     b.ToTable("GaleryFiles");
                 });
 
+            modelBuilder.Entity("ConstructionSite.Entity.Models.GaleryVido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GaleryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VidoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GaleryId");
+
+                    b.ToTable("GaleryVidos");
+                });
+
             modelBuilder.Entity("ConstructionSite.Entity.Models.HomePage", b =>
                 {
                     b.Property<int>("Id")
@@ -613,6 +633,15 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
                         .WithMany("GaleryFiles")
                         .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.GaleryVido", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.Galery", "Galery")
+                        .WithMany("GaleryVidos")
+                        .HasForeignKey("GaleryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

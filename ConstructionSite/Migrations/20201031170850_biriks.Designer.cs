@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    [Migration("20200713235227_g")]
-    partial class g
+    [Migration("20201031170850_biriks")]
+    partial class biriks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,7 +29,6 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentAz")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentEn")
@@ -39,19 +38,13 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleEn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleRu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -88,44 +81,37 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentAz")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentEn")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentRu")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleEn")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleRu")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lng")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -140,73 +126,86 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentEn")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentRu")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(35)")
-                        .HasMaxLength(35);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("CustomerFeedbacks");
                 });
 
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Description", b =>
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Galery", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ContentAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("ContentEn")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("ContentRu")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<int>("SubServiceId")
+                    b.Property<int>("GaleryVidoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TittleAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<string>("TitleAz")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TittleEn")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<string>("TitleEn")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TittleRu")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<string>("TitleRu")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubServiceId")
-                        .IsUnique();
+                    b.HasIndex("GaleryVidoId");
 
-                    b.ToTable("Descriptions");
+                    b.ToTable("Galeries");
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.GaleryFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GaleryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GaleryId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("GaleryFiles");
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.GaleryVido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("VidoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GaleryVidos");
                 });
 
             modelBuilder.Entity("ConstructionSite.Entity.Models.HomePage", b =>
@@ -234,16 +233,20 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoPath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Images");
                 });
@@ -256,29 +259,22 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAnswerd")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("SendDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserMessage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(2000)")
-                        .HasMaxLength(2000);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -293,7 +289,6 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentAz")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentEn")
@@ -306,17 +301,13 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TittleAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleEn")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TittleRu")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -356,9 +347,7 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("NameAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameEn")
                         .HasColumnType("nvarchar(max)");
@@ -371,6 +360,28 @@ namespace ConstructionSite.Migrations
                     b.ToTable("Portfolios");
                 });
 
+            modelBuilder.Entity("ConstructionSite.Entity.Models.PortfolioImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PortfolioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("PortfolioImages");
+                });
+
             modelBuilder.Entity("ConstructionSite.Entity.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -379,7 +390,6 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentAz")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentEn")
@@ -389,17 +399,13 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameEn")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameRu")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PortfolioId")
                         .HasColumnType("int");
@@ -443,38 +449,82 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<string>("ContentAz")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContentRu")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameEn")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameRu")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
-
-                    b.Property<string>("TittleAz")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TittleEn")
+                    b.Property<string>("TitleAz")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TittleRu")
+                    b.Property<string>("TitleEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleRu")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ImageId")
-                        .IsUnique();
-
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.ServiceImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("ServiceImages");
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Slide", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Img")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleAz")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleRu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Slides");
                 });
 
             modelBuilder.Entity("ConstructionSite.Entity.Models.StaticField", b =>
@@ -507,7 +557,6 @@ namespace ConstructionSite.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentAz")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentEn")
@@ -517,17 +566,13 @@ namespace ConstructionSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameAz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameEn")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameRu")
-                        .HasColumnType("nvarchar(75)")
-                        .HasMaxLength(75);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
@@ -579,11 +624,26 @@ namespace ConstructionSite.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Description", b =>
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Galery", b =>
                 {
-                    b.HasOne("ConstructionSite.Entity.Models.SubService", "SubService")
-                        .WithOne("Descriptions")
-                        .HasForeignKey("ConstructionSite.Entity.Models.Description", "SubServiceId")
+                    b.HasOne("ConstructionSite.Entity.Models.GaleryVido", "GaleryVido")
+                        .WithMany("Galeries")
+                        .HasForeignKey("GaleryVidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.GaleryFile", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.Galery", "Galery")
+                        .WithMany("GaleryFiles")
+                        .HasForeignKey("GaleryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
+                        .WithMany("GaleryFiles")
+                        .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -597,6 +657,13 @@ namespace ConstructionSite.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ConstructionSite.Entity.Models.Image", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId");
+                });
+
             modelBuilder.Entity("ConstructionSite.Entity.Models.NewsImage", b =>
                 {
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
@@ -608,6 +675,21 @@ namespace ConstructionSite.Migrations
                     b.HasOne("ConstructionSite.Entity.Models.News", "News")
                         .WithMany("NewsImages")
                         .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ConstructionSite.Entity.Models.PortfolioImage", b =>
+                {
+                    b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
+                        .WithMany("PortfolioImages")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ConstructionSite.Entity.Models.Portfolio", "Portfolio")
+                        .WithMany("PortfolioImages")
+                        .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -636,11 +718,17 @@ namespace ConstructionSite.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ConstructionSite.Entity.Models.Service", b =>
+            modelBuilder.Entity("ConstructionSite.Entity.Models.ServiceImage", b =>
                 {
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
-                        .WithOne("Service")
-                        .HasForeignKey("ConstructionSite.Entity.Models.Service", "ImageId")
+                        .WithMany("ServiceImages")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ConstructionSite.Entity.Models.Service", "Service")
+                        .WithMany("ServiceImages")
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
