@@ -89,6 +89,15 @@ namespace ConstructionSite.Facade.Galerys
         #endregion ::DELETE::
 
         #region ::UPDATE::
+        public async Task<bool> GetAndUpdate(int id, string input)
+        {
+            var result = _unitOfWork.GaleryVidoResptory.GetAll()
+                .FirstOrDefault(x => x.GaleryId == id);
+            result.VidoPath = input;
+
+            _unitOfWork.GaleryVidoResptory.Update(result);
+            return await _unitOfWork.CommitAsync();
+        }
 
         public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
@@ -96,6 +105,7 @@ namespace ConstructionSite.Facade.Galerys
             resultGaleryUpdateViewModelFind.TitleAz = galeryUpdateViewModel.TitleAz;
             resultGaleryUpdateViewModelFind.TitleEn = galeryUpdateViewModel.TitleEn;
             resultGaleryUpdateViewModelFind.TitleRu = galeryUpdateViewModel.TitleRu;
+
 
             return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModelFind);
         }
