@@ -94,19 +94,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var portfolioResult = await _portfolioFacade.Add(portfolioAddModel);
-                //var imageCollelction = await portfolioAddModel.formFile.SaveImageCollectionAsync(_env, "portfolio", _unitOfWork);
-                //foreach (var item in imageCollelction)
-                //{
-                //    await _portfolioImageFacade.Add(new PortfolioImageAddViewModel
-                //    {
-                //        ImageId = item,
-                //        PortfolioId = portfolioResult.Data.Id
-                //    });
-                //}
-                //if (await _unitOfWork.CommitAsync())
-                //{
-                //    return RedirectToAction("Index");
-                //}
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Rollback();
+                }
             }
             catch
             {

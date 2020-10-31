@@ -66,6 +66,7 @@ namespace ConstructionSite.Facade.Blogs
             resultBlogEditModel.ContentAz = blogEditModel.ContentAz;
             resultBlogEditModel.ContentEn = blogEditModel.ContentEn;
             resultBlogEditModel.ContentRu = blogEditModel.ContentRu;
+            resultBlogEditModel.CreateDate = DateTime.UtcNow;
             var isResult = await _unitOfWork.newsRepository.UpdateAsync(resultBlogEditModel);
             if (isResult.IsDone)
             {
