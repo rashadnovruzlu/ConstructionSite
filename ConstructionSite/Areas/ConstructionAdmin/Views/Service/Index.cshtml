@@ -78,8 +78,11 @@
                             {
                         <tr class="odd">
                             <td class="sorting_1 img-style">@item.Name</td>
-                            <td class="img-style" >@item.Tittle</td>
-                           <td current-id="@item.Id"></td>
+                            <td class="img-style">@item.Tittle</td>
+                           <td style="text-decoration:none;" current-id="@item.Id">  </td>
+                              
+                          
+                           
                             <td class="img-style"><img src="@item.image" width="60" height="60" alt="Alternate Text" /></td>
                             <td class="edit-delete">
                                 <a class="edit" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" asp-route-id="@item.Id">
