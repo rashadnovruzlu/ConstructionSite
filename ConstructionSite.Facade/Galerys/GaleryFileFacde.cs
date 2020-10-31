@@ -75,7 +75,8 @@ namespace ConstructionSite.Facade.Galerys
 
                         where galeryVido.VidoPath != null
                         select new GaleryVidoViewoModel()
-                        { Vidopaths = galeryVido.VidoPath
+                        {
+                            Vidopaths = galeryVido.VidoPath
                         }).ToList();
             return data;
 
@@ -92,7 +93,8 @@ namespace ConstructionSite.Facade.Galerys
                         {
                             Title = galery.FindTitle(_lang),
                             Imagepaths = images.Path
-                        }).ToList();
+                        })
+                        .ToList();
             return data;
         }
 
