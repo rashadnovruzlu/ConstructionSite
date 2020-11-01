@@ -1,5 +1,21 @@
 ﻿@inject SharedLocalizationService Localizer
+<style>
+    .flex-viewport {
+        height: auto !important;
+    }
 
+    .galleries {
+        margin-bottom: 40px !important;
+    }
+   
+    @@media(max-width:990px) {
+     
+
+        .flexviewport {
+            height: 250px;
+        }
+    }
+</style>
 <div class="col-md-12">
     <h3>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Photos)</h3>
     <div class="wprt-lines style-1 custom-3">
@@ -38,4 +54,3 @@
 
     <div class="wprt-spacer" data-desktop="0" data-mobi="30" data-smobi="30"></div>
 </div><!-- /.col-md-6 -->
-

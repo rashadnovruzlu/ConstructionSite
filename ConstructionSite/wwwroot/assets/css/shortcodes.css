@@ -18,6 +18,12 @@
     height: 450px;
 }
 
+@media(max-width:990px) {
+    .galerySliderImage {
+        height: 250px;
+    }
+}
+
 .galerySliderSubImage {
     height: 120px;
 }
