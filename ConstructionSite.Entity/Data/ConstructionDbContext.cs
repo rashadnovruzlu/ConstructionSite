@@ -36,7 +36,6 @@ namespace ConstructionSite.Entity.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
-
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             #endregion Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
