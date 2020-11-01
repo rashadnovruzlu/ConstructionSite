@@ -5,8 +5,10 @@ using ConstructionSite.Localization;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Mail;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 
 namespace ConstructionSite.Controllers
 {
@@ -59,7 +61,10 @@ namespace ConstructionSite.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+       
 
+
+        //}
         [HttpPost]
         public IActionResult Add(MailSend emailSender)
         {
@@ -68,10 +73,18 @@ namespace ConstructionSite.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            //_emailSender.Send(emailSender);
-            _emailSender.sendYandex(emailSender);
 
-            //  _emailSender.Send(emailSender);
+            try
+            {
+                _emailSender.simpleSend(emailSender, "v.nurlan@pdc.az");
+                _emailSender.simpleSend(emailSender, "office@pdc.az");
+                _emailSender.simpleSend(emailSender, "sales@pdc.az");
+            }
+            catch
+            {
+
+
+            }
 
             return RedirectToAction("Index", "Home");
         }

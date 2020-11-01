@@ -15,6 +15,7 @@ namespace ConstructionSite.Facade.Projects
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _env;
+
         public ProjectFacade(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
@@ -40,6 +41,7 @@ namespace ConstructionSite.Facade.Projects
                   }).ToList();
             return resultProject;
         }
+
         public ProjectUpdateViewModel GetForUpdate(int id)
         {
             var result = _unitOfWork.projectRepository
@@ -56,12 +58,11 @@ namespace ConstructionSite.Facade.Projects
                     PortfolioId = x.PortfolioId,
                     ImageID = x.ProjectImages.Select(x => x.ImageId).ToList(),
                     Images = x.ProjectImages.Select(x => x.Image).ToList()
-
                 })
                 .SingleOrDefault(x => x.Id == id);
             return result;
-
         }
+
         public bool Update(ProjectUpdateViewModel projectUpdateViewModel)
         {
             var resultprojectUpdateViewModel = _unitOfWork.projectRepository.Find(x => x.Id == projectUpdateViewModel.Id); ;
@@ -74,8 +75,8 @@ namespace ConstructionSite.Facade.Projects
             resultprojectUpdateViewModel.PortfolioId = projectUpdateViewModel.PortfolioId;
 
             return _unitOfWork.projectRepository.Update(resultprojectUpdateViewModel).IsDone;
-
         }
+
         public bool Delete(int id)
         {
             var data = _unitOfWork.projectRepository.Find(x => x.Id == id);
@@ -84,8 +85,6 @@ namespace ConstructionSite.Facade.Projects
                   .Select(x => x.ImageId).ToArray();
             _unitOfWork.projectRepository.Delete(data);
             return _env.Delete(imageId, "About", _unitOfWork);
-
         }
-
     }
 }

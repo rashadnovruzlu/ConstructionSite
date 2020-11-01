@@ -61,12 +61,20 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
-                var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, "galery", _unitOfWork);
+                var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, galeryAddViewModel.viodPath, "galery", _unitOfWork);
+                GaleryVido galeryVido = new GaleryVido
+                {
+                    GaleryId = resultGalery.Data.Id,
+                    VidoPath = galeryAddViewModel.viodPath
+                };
+                await _unitOfWork.GaleryVidoResptory.AddAsync(galeryVido);
                 if (resultGalery.IsDone && resultImage.Count > 0)
                 {
+                    await _unitOfWork.CommitAsync();
                     await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
                     return RedirectToAction("Index");
                 }
+
             }
             catch
             {
@@ -74,6 +82,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             return View();
         }
+
+
 
         #endregion ::ADD::
 
@@ -133,6 +143,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                 }
             }
+            if (!string.IsNullOrEmpty(galeryUpdateViewModel.VidoPath))
+            {
+                await _galeryFacade.GetAndUpdate(galeryUpdateViewModel.Id, galeryUpdateViewModel.VidoPath);
+            }
             var resultGalery = await _galeryFacade.Update(galeryUpdateViewModel);
             if (resultGalery.IsDone)
             {
@@ -165,6 +179,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region ::private::
 
+
         private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
         {
             foreach (var item in resultImage)
@@ -172,7 +187,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
                 {
                     ImageId = item,
-                    GaleryId = resultGalery.Data.Id
+                    GaleryId = resultGalery.Data.Id,
+
                 };
                 await _galeryFileFacde.Add(galeryFileAddViewModel);
             }

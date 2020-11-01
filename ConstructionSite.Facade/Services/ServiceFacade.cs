@@ -6,7 +6,6 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Servics;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +44,6 @@ namespace ConstructionSite.Facade.Services
                       Name = x.FindName(_lang),
                       Tittle = x.FindTitle(_lang),
                       image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
-
                   })
                   .OrderByDescending(x => x.Id)
                   .ToList();
@@ -62,6 +60,7 @@ namespace ConstructionSite.Facade.Services
             //};
             return null;
         }
+
         public ServiceUpdateViewModel GetForUpdate(int id)
         {
             var resultService = _unitOfWork.ServiceRepository.GetAll()
@@ -113,7 +112,6 @@ namespace ConstructionSite.Facade.Services
                  .ToArray();
             _env.Delete(serviceImage, "service", _unitOfWork);
 
-
             _unitOfWork.ServiceRepository.Delete(service);
             if (_unitOfWork.Commit() > 0)
             {
@@ -124,14 +122,6 @@ namespace ConstructionSite.Facade.Services
                 _unitOfWork.Rollback();
                 return false;
             }
-
-
-
-
-
-
         }
-
-
     }
 }

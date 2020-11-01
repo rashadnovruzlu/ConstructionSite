@@ -1,4 +1,5 @@
 ﻿@inject SharedLocalizationService Localizer
+@model  IEnumerable<GaleryVidoViewoModel>
 
 <style>
     .spaces {
@@ -13,7 +14,7 @@
 
 
 <div class="col-md-12">
-  
+
     <h3>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Videos)</h3>
     <div class="wprt-spacer" data-desktop="50" data-mobi="40" data-smobi="40"></div>
 
@@ -22,16 +23,21 @@
         <div class="line-2"></div>
     </div>
     <div class="wprt-spacer" data-desktop="30" data-mobi="30" data-smobi="30"></div>
-    @for (int i = 0; i < ViewBag.Videos.Count; i++)
+    @foreach (var item in Model)
     {
-        if (ViewBag.Videos[i].Vidopaths != null)
+        if (item.Vidopaths != null)
         {
             <div class="wprt-galleries-grid" data-layout="grid" data-column="3" data-column2="2" data-column3="2" data-column4="1" data-gaph="10" data-gapv="10">
                 <div id="images-wrap" class="cbp">
                     <div class="cbp-item">
                         <div class="item-wrap">
-                            <a class="zoom" href="@ViewBag.Videos[i].Vidopaths"><i class="fa fa-arrows-alt"></i></a>
-                            @ViewBag.Videos[i].Vidopaths
+                            
+                                <a class="zoom" href="@item.Vidopaths.GetSRC()"><i class="fa fa-arrows-alt"></i></a>
+                                
+                                <iframe width="560" height="315" src="@item.Vidopaths.GetSRC()" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                          
+                           
+                           
                         </div>
                     </div><!--/.cbp-item -->
 

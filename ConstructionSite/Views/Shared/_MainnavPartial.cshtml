@@ -25,10 +25,10 @@
             @await Component.InvokeAsync("ServiceMenu")
         </li>
 
-        <li><a asp-controller="Portfolio" asp-action="Index" class="@Html.Active("Home","Index")">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
-        <li><a asp-controller="Galery" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Galery)</a></li>
-        <li><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
-        <li><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
+        <li class="@Html.Active("Portfolio","Index")"><a asp-controller="Portfolio" asp-action="Index" class="@Html.Active("Home","Index")">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Portfolio)</a></li>
+        <li class="@Html.Active("Galery","Index")"> <a asp-controller="Galery" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Galery)</a></li>
+        <li class="@Html.Active("Blog","Index")"><a asp-controller="Blog" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Blog)</a></li>
+        <li class="@Html.Active("Message","Index")"><a asp-controller="Message" asp-action="Index">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Contact)</a></li>
 
         <div class="primary-menu">
             <nav style="margin-top: 12px;">

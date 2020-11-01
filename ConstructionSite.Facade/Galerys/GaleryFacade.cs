@@ -87,6 +87,28 @@ namespace ConstructionSite.Facade.Galerys
 
         #region ::UPDATE::
 
+        public async Task<bool> GetAndUpdate(int id, string input)
+        {
+            var resultGaleryVido = _unitOfWork.GaleryVidoResptory.GetAll()
+                .FirstOrDefault(x => x.GaleryId == id);
+            if (resultGaleryVido == null)
+            {
+                GaleryVido galeryVido = new GaleryVido
+                {
+                    GaleryId = id,
+                    VidoPath = input
+                };
+                _unitOfWork.GaleryVidoResptory.Add(galeryVido);
+            }
+            else
+            {
+                resultGaleryVido.VidoPath = input;
+
+                _unitOfWork.GaleryVidoResptory.Update(resultGaleryVido);
+            }
+            return await _unitOfWork.CommitAsync();
+        }
+
         public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);

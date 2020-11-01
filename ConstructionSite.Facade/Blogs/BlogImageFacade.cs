@@ -5,7 +5,6 @@ using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.News;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,9 +37,7 @@ namespace ConstructionSite.Facade.Blogs
                     Imagepath = x.NewsImages.Select(x => x.Image.Path).FirstOrDefault()
                 }).ToList();
 
-
             return data;
-
         }
     }
 }

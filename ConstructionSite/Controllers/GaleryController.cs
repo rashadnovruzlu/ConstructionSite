@@ -22,7 +22,7 @@ namespace ConstructionSite.Controllers
         public IActionResult Index()
         {
             ViewBag.Images = _galeryFileFacde.GetAllImage(_lang);
-            ViewBag.Videos = _galeryFileFacde.GetAllVideo(_lang);
+            // ViewBag.Videos = _galeryFileFacde.GetAllVideo(_lang);
 
             return View();
         }

@@ -1,5 +1,6 @@
 ﻿using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.ViwModel.AdminViewModels.Mail;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 
@@ -7,56 +8,85 @@ namespace ConstructionSite.Facade.Email
 {
     public class EmailSender : IEmailSender
     {
-        public void Send(MailSend email)
+        public void Send(MailSend email, string TO)
         {
-            email.To = "naib.reshidov@pragmatech.az";
-            email.To = "residovnaib77@gmail.com";
+            // email.To = "naib.reshidov@pragmatech.az";
 
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.To.Add(email.To);
-            mailMessage.Subject = email.Subject;
-            mailMessage.Body = email.Body;
 
-            mailMessage.From = new MailAddress(email.From);
-            mailMessage.IsBodyHtml = false;
-
-            using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+            try
             {
-                smtpClient.Port = 465;
-                smtpClient.UseDefaultCredentials = true;
-                smtpClient.EnableSsl = true;
-                smtpClient.Credentials = new NetworkCredential("residovnaib77@gmail.com", "7505020r");
-                smtpClient.Send(mailMessage);
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.To.Add(TO);
+                mailMessage.Subject = email.Subject;
+                mailMessage.Body = email.Body;
+
+                mailMessage.From = new MailAddress(email.From);
+                mailMessage.IsBodyHtml = false;
+
+                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+                {
+                    smtpClient.Port = 465;
+                    smtpClient.UseDefaultCredentials = true;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential("r77@gmail.com", "");
+                    smtpClient.Send(mailMessage);
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+                var exs = ex.Message;
             }
         }
-        public void sendYandex(MailSend email)
+        public void simpleSend(MailSend email, string To)
+        {
+            try
+            {
+                using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.com", 587))
+                {
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
+                    MailMessage Message1 = new MailMessage(email.From, To, email.Subject, email.Body);
+
+                    smtpClient.Send(Message1);
+                }
+            }
+            catch 
+            {
+
+                
+            }
+        }
+        public void sendYandex(MailSend email, string To)
         {
 
-            email.To = "v.nurlan@pdc.az";
-            email.To = "office@pdc.az";
-            email.To = "sales@pdc.az";
-
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.To.Add(email.To);
-            mailMessage.Subject = email.Subject;
-            mailMessage.Body = email.Body;
-
-            mailMessage.From = new MailAddress(email.From);
-            mailMessage.IsBodyHtml = false;
-
-            using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.com"))
+            try
             {
-                smtpClient.Port = 587;
-                smtpClient.UseDefaultCredentials = true;
-                smtpClient.EnableSsl = true;
-                smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
-                smtpClient.Send(mailMessage);
+
+
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.To.Add(To);
+
+                mailMessage.Subject = email.Subject;
+                mailMessage.Body = email.Body;
+
+                mailMessage.From = new MailAddress(email.From);
+                mailMessage.IsBodyHtml = false;
+
+                using (SmtpClient smtpClient = new SmtpClient("smtp.yandex.com"))
+                {
+                    smtpClient.Port = 587;
+
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential("office@pdc.az", "pdc1234567");
+                    smtpClient.Send(mailMessage);
+                }
             }
+            catch (System.Exception ex)
+            {
 
-
-
-
-
+                var exs = ex.Message;
+            }
         }
     }
 }

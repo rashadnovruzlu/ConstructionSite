@@ -1,7 +1,6 @@
 ﻿using ConstructionSite.DTO.AdminViewModels.Blog;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
-using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Blogs;
 using ConstructionSite.Repository.Abstract;
