@@ -1,5 +1,4 @@
 ﻿using ConstructionSite.Helpers.Core;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +26,6 @@ namespace ConstructionSite.Repository.Abstract
         Task<RESULT<T>> AddRangeAsync(ICollection<T> entity);
 
         RESULT<T> AddRange(ICollection<T> entity);
-
-
 
         #endregion --Added--
 

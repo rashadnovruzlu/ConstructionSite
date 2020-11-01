@@ -1,7 +1,4 @@
 ﻿using ConstructionSite.Helpers.Constants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Core
 {

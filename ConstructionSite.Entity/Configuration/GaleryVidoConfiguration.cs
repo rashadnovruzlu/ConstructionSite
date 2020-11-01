@@ -12,7 +12,6 @@ namespace ConstructionSite.Entity.Configuration
             builder.ToTable("GaleryVido");
             builder.HasOne(x => x.Galery)
                 .WithMany(x => x.GaleryVidos);
-
         }
     }
 }

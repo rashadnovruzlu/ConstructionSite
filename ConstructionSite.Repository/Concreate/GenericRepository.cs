@@ -1,7 +1,6 @@
 ﻿using ConstructionSite.Entity.Data;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Repository.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -92,7 +91,6 @@ namespace ConstructionSite.Repository.Concreate
             return await Task.FromResult(result);
         }
 
-
         public RESULT<T> AddRange(ICollection<T> entity)
         {
             RESULT<T> result = new RESULT<T> { IsDone = true };
@@ -131,8 +129,6 @@ namespace ConstructionSite.Repository.Concreate
             return result;
         }
 
-
-
         #endregion --Added--
 
         #region --Update--
@@ -167,10 +163,8 @@ namespace ConstructionSite.Repository.Concreate
 
             try
             {
-
                 _context.Update(entity);
                 result.Data = entity;
-
             }
             catch (DbEntityValidationException ex)
             {
@@ -344,8 +338,6 @@ namespace ConstructionSite.Repository.Concreate
         {
             _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
         }
-
-
 
         #endregion --Search--
     }

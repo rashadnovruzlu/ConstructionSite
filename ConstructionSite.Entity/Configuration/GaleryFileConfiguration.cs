@@ -1,9 +1,6 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Configuration
 {
@@ -11,7 +8,6 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<GaleryFile> builder)
         {
-
             builder.HasKey(x => new
             {
                 x.ImageId,

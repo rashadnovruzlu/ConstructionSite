@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.ViwModel.AdminViewModels.News
+﻿namespace ConstructionSite.ViwModel.AdminViewModels.News
 {
     public class NewsImageAddViewModel
     {

@@ -5,9 +5,7 @@ namespace ConstructionSite.ViwModel.AdminViewModels.About
 {
     public class AboutImageUpdateViewModel
     {
-
         public int Id { get; set; }
-
 
         public string TittleAz { get; set; }
         public string TittleEn { get; set; }

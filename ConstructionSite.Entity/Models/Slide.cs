@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ConstructionSite.Entity.Core;
+﻿using ConstructionSite.Entity.Core;
 
 namespace ConstructionSite.Entity.Models
 {

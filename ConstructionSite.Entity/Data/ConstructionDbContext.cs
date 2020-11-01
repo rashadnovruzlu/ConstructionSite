@@ -1,6 +1,5 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace ConstructionSite.Entity.Data
 {
@@ -37,11 +36,9 @@ namespace ConstructionSite.Entity.Data
         {
             #region Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
 
-
             //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            #endregion
 
-
+            #endregion Service ve Image cedvelleri arasinda "One to One" elaqesi ucun
 
             base.OnModelCreating(modelBuilder);
         }

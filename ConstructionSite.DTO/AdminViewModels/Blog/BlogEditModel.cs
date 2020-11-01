@@ -20,7 +20,5 @@ namespace ConstructionSite.DTO.AdminViewModels.Blog
         public List<data.Image> Images { get; set; }
 
         public DateTime DateTime { get; set; }
-
     }
-
 }

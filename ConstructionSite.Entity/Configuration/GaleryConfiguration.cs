@@ -1,13 +1,10 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Configuration
 {
-    class GaleryConfiguration : IEntityTypeConfiguration<Galery>
+    internal class GaleryConfiguration : IEntityTypeConfiguration<Galery>
     {
         public void Configure(EntityTypeBuilder<Galery> builder)
         {
@@ -21,14 +18,6 @@ namespace ConstructionSite.Entity.Configuration
                     .HasMaxLength(250);
 
             builder.Property(x => x.TitleRu);
-                    
-
-
-
-
-
-
-
         }
     }
 }

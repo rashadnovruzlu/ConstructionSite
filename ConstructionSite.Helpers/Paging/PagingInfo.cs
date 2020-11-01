@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace ConstructionSite.Helpers.Paging
 {
@@ -8,9 +7,10 @@ namespace ConstructionSite.Helpers.Paging
         public int TotalItems { get; set; }
         public int ItemPrePage { get; set; }
         public int CurrentPage { get; set; }
+
         public int TotalPage()
         {
-            return (int) Math.Ceiling((decimal)TotalItems/ItemPrePage);
+            return (int)Math.Ceiling((decimal)TotalItems / ItemPrePage);
         }
     }
 }
