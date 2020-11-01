@@ -61,10 +61,10 @@ namespace ConstructionSite.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-       
 
 
-        //}
+
+
         [HttpPost]
         public IActionResult Add(MailSend emailSender)
         {
