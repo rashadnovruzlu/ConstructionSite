@@ -1,26 +1,27 @@
 ﻿@model IEnumerable<GaleryVidoViewoModel>
 @inject SharedLocalizationService Localizer
 
-<h3 class="text-center margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Galery)</h3>
-<div class="col-md-12">
+    
+    <h3 class="text-center margin-bottom-10">@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Galery)</h3>
+    <div class="col-md-12">
 
-    <div class="wprt-lines style-2 custom-1">
-        <div class="line-1"></div>
-    </div>
-    <div class="wprt-spacer" data-desktop="30" data-mobi="30" data-smobi="30"></div>
+        <div class="wprt-lines style-2 custom-1">
+            <div class="line-1"></div>
+        </div>
+        <div class="wprt-spacer" data-desktop="30" data-mobi="30" data-smobi="30"></div>
 
-    <div class="wprt-galleries-grid has-bullets bullet-style-1 bullet30 has-arrows arrow-style-1 arrow-position-2" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
-        <div id="images-wrap" class="cbp">
+        <div class="wprt-galleries-grid has-bullets bullet-style-1 bullet30 has-arrows arrow-style-1 arrow-position-2" data-layout="slider" data-column="3" data-column2="3" data-column3="2" data-column4="1" data-gaph="30" data-gapv="30">
+            <div id="images-wrap" class="cbp">
          
 
-            @foreach (var item in Model)
-            {
-                <div class="cbp-item">
-                    <div class="item-wrap">
-                       <iframe src="@item.Vidopaths.GetSRC()" ></iframe>
-                    </div>
-                </div><!--/.cbp-item -->
-            }
-        </div><!-- /#images-wrap -->
-    </div><!--/.wprt-galleries-grid -->
-</div>
+                @foreach (var item in Model)
+                {
+                    <div class="cbp-item">
+                        <div class="item-wrap">
+                            <iframe src="@item.Vidopaths.GetSRC()" ></iframe>
+                        </div>
+                    </div><!--/.cbp-item -->
+                }
+            </div><!-- /#images-wrap -->
+        </div><!--/.wprt-galleries-grid -->
+    </div>
