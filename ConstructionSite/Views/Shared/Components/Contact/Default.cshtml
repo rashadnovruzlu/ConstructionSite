@@ -2,11 +2,12 @@
 @inject SharedLocalizationService Localizer
 @if (Model != null)
 {
+    var phoneNumber = Model.PhoneNumber.Split(' ');
     <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.Address)</h5>
     <p>@Model.Address</p>
     <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
     <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.PhoneNumber)</h5>
-    <p>@Model.PhoneNumber</p>
+    <p>@phoneNumber[0] <br/> @phoneNumber[3]</p>
     <div class="wprt-spacer" data-desktop="15" data-mobi="0" data-smobi="0"></div>
     <h5>@Localizer.GetLocalizedHtmlString(RESOURCEKEYS.EmailAddress)</h5>
     <p>@Model.Email</p>

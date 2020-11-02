@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<style>
+    .hentry {
+        margin-top: 40px !important;
+    }
+</style>
 <!-- Featured Title -->
 <div class="wprt-spacer" data-desktop="100" data-mobi="40" data-smobi="40"></div>
 
@@ -88,7 +92,7 @@
 
         </div>
     }
-    <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List"></div>
+    <div class="wprt-pagination clearfix" page-model="@Model.PagingInfo" page-action="List" style="margin-bottom: 20px"></div>
     @*<div class="wprt-pagination clearfix">
         <ul class="page-numbers">
             <li><span class="page-numbers current">1</span></li>
