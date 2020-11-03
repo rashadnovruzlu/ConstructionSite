@@ -13,9 +13,9 @@ namespace ConstructionSite.Facade.Galerys
 {
     public class GaleryFacade : IGaleryFacade
     {
-        /// <summary>
-        /// PortfolioImage
-        /// ServiceImage
+           /// <summary>
+          /// PortfolioImage
+         /// ServiceImage
         /// </summary>
 
         #region ::FILEDS::
@@ -64,7 +64,7 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryViewModel = new Galery
             {
-               
+
                 TitleAz = "salam",
                 TitleEn = "Salam",
                 TitleRu = "salam",
@@ -129,8 +129,9 @@ namespace ConstructionSite.Facade.Galerys
                 .Select(x => new GaleryUpdateViewModel
                 {
                     Id = x.Id,
+                    VidoPath = x.GaleryVidos.Select(x => x.VidoPath).FirstOrDefault(),
+                    Images = x.GaleryFiles.Select(x => x.Image).ToList(),
 
-                    Images = x.GaleryFiles.Select(x => x.Image).ToList()
                 })
                 .SingleOrDefault(x => x.Id == id);
             return resultGaleryUpdate;
