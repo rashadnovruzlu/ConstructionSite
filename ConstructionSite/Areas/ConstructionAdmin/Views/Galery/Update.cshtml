@@ -35,7 +35,7 @@
                 <hr />
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Update" method="post" enctype="multipart/form-data">
-                        @if (Model.VidoPath != null && Model.Images != null)
+                        @*@if (Model.VidoPath != null && Model.Images != null)
                         {
                             <div class="form-group">
                                 <div class="col-lg-11">
@@ -64,8 +64,8 @@
                                     </div>
                                 }
                             </div>
-                        }
-                        else if (Model.VidoPath != null)
+                        }*@
+                         @if (Model.VidoPath != null)
                         {
                         <div class="form-group">
                             <div class="col-lg-11">
