@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string Imagepath { get; set; }
+        public string VidoPath { get; set; }
         public string Title { get; set; }
     }
 }

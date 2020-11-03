@@ -58,7 +58,7 @@
                 <table class="table table-striped table-hover table-bordered dataTable" id="myTable editable-sample" aria-describedby="editable-sample_info">
                     <thead>
                         <tr role="row">
-                            <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Name</th>
+                            @*<th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">Name</th>*@
                             <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="Username" style="width: 182px;">image</th>
                             <th class="sorting edit-delete" role="columnheader" tabindex="0" aria-controls="editable-sample" rowspan="1" colspan="1" aria-label="Edit: activate to sort column ascending" style="width: 87px;">#</th>
                         </tr>
@@ -71,14 +71,24 @@
                             {
                         <tr class="odd">
 
-                           
 
-                            <td class="img-style img-style"><img src="@item.Imagepath" width="60" height="60" alt="Alternate Text" /></td>
+                            @if (item.Imagepath != null)
+                            {
+                                <td class="img-style img-style"><img src="@item.Imagepath" width="60" height="60" alt="Alternate Text" /></td>
+                            }
+                            else if (item.VidoPath != null)
+                            {
+                        <td class="img-style img-style">
+                            <a class="zoom" href="@item.VidoPath.GetSRC()"><i class="fa fa-arrows-alt"></i></a>
+                           
+                        </td>
+                            }
+
                             <td class="edit-delete">
                                 <a class="edit" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Update" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o fa-2 edit-icon" aria-hidden="true"></i></a>
 
                                 <a class="delete delete-about" asp-area="ConstructionAdmin" asp-controller="Galery" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash delete-icon" aria-hidden="true"></i></a>
-                                </td>
+                            </td>
                         </tr>
                             }
                         }
