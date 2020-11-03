@@ -39,23 +39,8 @@ namespace ConstructionSite.ViewComponents
 
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
-            var result = await _serviceQueryFacade.GetAll(_lang)
-                ;
-            //var result = _unitOfWork.ServiceRepository.GetAll()
-            //    .Include(x => x.SubServices)
-            //    .Include(x => x.ServiceImages)
-            //    .Select(x => new ServiceViewModel
-            //    {
-            //        Id = x.Id,
-            //        Name = x.FindName(_lang),
-            //        Tittle = x.FindTitle(_lang),
-            //        //image=x.Image.Path
-            //    }).ToList();
+            var result = await _serviceQueryFacade.GetAll(_lang);
 
-            //if (result.Count == 0 | result == null)
-            //{
-            //    ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.DataDoesNotExists));
-            //}
             return await Task.FromResult<IViewComponentResult>(View(result.AsEnumerable()));
         }
     }

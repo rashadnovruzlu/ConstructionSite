@@ -246,16 +246,13 @@ namespace ConstructionSite.Repository.Concreate
         public async Task<RESULT<T>> DeleteAsync(T entity)
         {
             RESULT<T> result = new RESULT<T> { IsDone = true };
-            if (entity == null)
-            {
-                throw new ArgumentNullException();
-            }
+
             try
             {
                 _context.Set<T>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
-            catch
+            catch (Exception ex)
             {
                 result.IsDone = false;
             }

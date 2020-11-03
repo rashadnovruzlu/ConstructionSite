@@ -88,7 +88,7 @@ namespace ConstructionSite.Facade.Galerys
                         where images.Path != null
                         select new GaleryImageViewModel()
                         {
-                            Title = galery.FindTitle(_lang),
+
                             Imagepaths = images.Path
                         })
                         .ToList();

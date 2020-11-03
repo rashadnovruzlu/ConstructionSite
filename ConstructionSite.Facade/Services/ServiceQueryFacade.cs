@@ -19,17 +19,26 @@ namespace ConstructionSite.Facade.Services
 
         public async Task<List<ServiceViewModel>> GetAll(string _lang)
         {
-            var result = await _unitOfWork.ServiceImageRepstory.GetAll()
-                .Include(x => x.Image)
-                .Include(x => x.Service)
+            var result = await _unitOfWork.ServiceRepository.GetAll()
                 .Select(x => new ServiceViewModel
                 {
                     Id = x.Id,
-                    image = x.Image.Path,
-                    Name = x.Service.FindName(_lang),
-                    Tittle = x.Service.FindContent(_lang)
+                    image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault(),
+                    Name = x.FindName(_lang),
+                    Tittle = x.FindContent(_lang)
                 })
-                 .ToListAsync();
+                .ToListAsync();
+            //var result = await _unitOfWork.ServiceImageRepstory.GetAll()
+            //    .Include(x => x.Image)
+            //    .Include(x => x.Service)
+            //    .Select(x => new ServiceViewModel
+            //    {
+            //        Id = x.Id,
+            //        image = x.Image.Path,
+            //        Name = x.Service.FindName(_lang),
+            //        Tittle = x.Service.FindContent(_lang)
+            //    })
+            //     .ToListAsync();
 
             return result;
         }

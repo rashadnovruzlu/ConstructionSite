@@ -52,7 +52,7 @@ namespace ConstructionSite.Facade.Galerys
                   .Select(x => new GaleryViewModel
                   {
                       Id = x.Id,
-                      Title = x.FindTitle(_lang),
+
                       Imagepath = x.GaleryFiles.Select(x => x.Image.Path).FirstOrDefault()
                   })
                   .ToList();
@@ -64,11 +64,13 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryViewModel = new Galery
             {
-                Id = galeryAddViewModel.Id,
-                TitleAz = galeryAddViewModel.TitleAz,
-                TitleEn = galeryAddViewModel.TitleEn,
-                TitleRu = galeryAddViewModel.TitleRu
+               
+                TitleAz = "salam",
+                TitleEn = "Salam",
+                TitleRu = "salam",
+
             };
+
             var resultGaleryUpdate = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
             return resultGaleryUpdate;
         }
@@ -112,9 +114,7 @@ namespace ConstructionSite.Facade.Galerys
         public async Task<RESULT<Galery>> Update(GaleryUpdateViewModel galeryUpdateViewModel)
         {
             var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
-            resultGaleryUpdateViewModelFind.TitleAz = galeryUpdateViewModel.TitleAz;
-            resultGaleryUpdateViewModelFind.TitleEn = galeryUpdateViewModel.TitleEn;
-            resultGaleryUpdateViewModelFind.TitleRu = galeryUpdateViewModel.TitleRu;
+
 
             return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModelFind);
         }
@@ -129,9 +129,7 @@ namespace ConstructionSite.Facade.Galerys
                 .Select(x => new GaleryUpdateViewModel
                 {
                     Id = x.Id,
-                    TitleAz = x.TitleAz,
-                    TitleEn = x.TitleEn,
-                    TitleRu = x.TitleRu,
+
                     Images = x.GaleryFiles.Select(x => x.Image).ToList()
                 })
                 .SingleOrDefault(x => x.Id == id);
