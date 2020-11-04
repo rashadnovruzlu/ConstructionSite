@@ -230,9 +230,10 @@ namespace ConstructionSite.Repository.Concreate
             {
                 return _context.SaveChanges();
             }
-            catch
+            catch (System.Exception EX)
             {
-                _context.Dispose();
+
+                // _context.Dispose();
                 return 0;
             }
         }

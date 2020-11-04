@@ -74,9 +74,9 @@ namespace ConstructionSite.Facade.Services
                      ContentAz = x.ContentAz,
                      ContentEn = x.ContentEn,
                      ContentRu = x.ContentRu,
-                     TittleAz = x.TitleAz,
-                     TittleEn = x.TitleEn,
-                     TittleRu = x.TitleRu,
+                     //TittleAz = x.TitleAz,
+                     //TittleEn = x.TitleEn,
+                     //TittleRu = x.TitleRu,
                      Images = x.ServiceImages.Select(x => x.Image).ToList()
                  })
                  .FirstOrDefault(x => x.id == id);

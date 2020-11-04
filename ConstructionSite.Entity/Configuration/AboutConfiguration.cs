@@ -17,13 +17,14 @@ namespace ConstructionSite.Entity.Configuration
 
             builder
             .Property(x => x.TittleRu)
-             .HasMaxLength(250)
-            .IsRequired();
+             .HasMaxLength(250);
+
+
 
             builder
             .Property(x => x.TittleEn)
-             .HasMaxLength(250)
-            .IsRequired();
+             .HasMaxLength(250);
+           
 
             builder
                 .Property(x => x.ContentAz)
