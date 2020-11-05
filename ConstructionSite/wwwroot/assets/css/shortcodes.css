@@ -18,9 +18,16 @@
     height: 450px;
 }
 
+.aboutImage {
+    height: 310px;
+}
+
 @media(max-width:990px) {
     .galerySliderImage {
         height: 250px;
+    }
+    .aboutImage {
+        height: 220px;
     }
 }
 
@@ -40,15 +47,8 @@
     padding: 40px 0px;
 }
 
-.images {
-    height: 220px;
-}
 
-@media(max-width:990px) {
-    .images {
-        height: 200px
-    }
-}
+
 
 #about.wprt-section,
 #why-us.wprt-section,
