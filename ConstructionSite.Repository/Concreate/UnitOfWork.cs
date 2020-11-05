@@ -38,6 +38,7 @@ namespace ConstructionSite.Repository.Concreate
         {
             _context = context ?? throw new ArgumentNullException("is null");
         }
+
         public async Task<bool> CommitAsync()
         {
             try
@@ -46,17 +47,15 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch (Exception ex)
             {
-
-
                 return false;
             }
-
         }
 
         public void Rollback()
         {
             _context.ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
         }
+
         public IAboutImageRepository AboutImageRepository
         {
             get
@@ -227,25 +226,21 @@ namespace ConstructionSite.Repository.Concreate
 
         public int Commit()
         {
-
             try
             {
                 return _context.SaveChanges();
             }
-            catch
+            catch (System.Exception EX)
             {
 
-                _context.Dispose();
+                // _context.Dispose();
                 return 0;
             }
-
         }
 
         public void Dispose()
         {
             _context.Dispose();
         }
-
-
     }
 }

@@ -51,6 +51,7 @@ namespace ConstructionSite.Facade.Services
                     ImageId = x.SubServiceImages.Select(x => x.ImageId).FirstOrDefault(),
                     ImagePath = x.SubServiceImages.Select(x => x.Image.Path).FirstOrDefault()
                 })
+                .OrderByDescending(x => x.Id)
                 .ToList();
             return resultSubService;
         }
@@ -96,6 +97,7 @@ namespace ConstructionSite.Facade.Services
             resultSubService.ContentRu = subServiceUpdateViewModel.ContentRu;
             resultSubService.ServiceId = subServiceUpdateViewModel.ServiceId;
             var result = _unitOfWork.SubServiceRepository.Update(resultSubService);
+            _unitOfWork.Commit();
             return Task.FromResult(result);
         }
 
@@ -106,6 +108,7 @@ namespace ConstructionSite.Facade.Services
                   .Where(x => x.SubServiceId == data.Id)
                   .Select(x => x.ImageId).ToArray();
             _unitOfWork.SubServiceRepository.Delete(data);
+            _unitOfWork.Commit();
             return _webHostEnvironment.Delete(imageId, "service", _unitOfWork);
         }
     }

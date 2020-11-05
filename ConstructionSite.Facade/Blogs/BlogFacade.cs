@@ -50,7 +50,8 @@ namespace ConstructionSite.Facade.Blogs
 
                   Imagepath = x.NewsImages.Select(x => x.Image.Path).First(),
                   CreateDate = x.CreateDate,
-              }).OrderByDescending(x => x.Id)
+              })
+              .OrderByDescending(x => x.Id)
               .ToList();
             return resultBlogViewModel;
         }

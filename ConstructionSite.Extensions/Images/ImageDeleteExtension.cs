@@ -22,7 +22,6 @@ namespace ConstructionSite.Extensions.Images
             _unitOfWork.Commit();
             return result.IsDone;
         }
-       
 
         public async static Task<bool> DeleteAsyc(this IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
         {

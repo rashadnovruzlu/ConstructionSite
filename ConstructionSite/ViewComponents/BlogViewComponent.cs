@@ -45,9 +45,9 @@ namespace ConstructionSite.ViewComponents
                                                     NewsId = x.NewsId,
                                                     Image = x.Image.Path,
                                                     ImageId = x.ImageId
-                                                }).OrderByDescending(x => x.Id).Take(3)
-                                                .ToList()
-                                                    ;
+                                                }).OrderByDescending(x => x.Id)
+                                                .Take(3)
+                                                .ToList();
             if (newsImageResult == null)
             {
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));

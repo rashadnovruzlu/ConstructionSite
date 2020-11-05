@@ -3,10 +3,10 @@ using ConstructionSite.Repository.Abstract;
 
 namespace ConstructionSite.Repository.Interfaces
 {
-    public interface IGaleryVidoResptory:IGenericRepository<GaleryVido>
+    public interface IGaleryVidoResptory : IGenericRepository<GaleryVido>
     {
-
     }
+
     public interface IAboutImageRepository : IGenericRepository<AboutImage>
     {
     }

@@ -62,14 +62,23 @@ namespace ConstructionSite.Controllers
             var newsImageResult = _unitOfWork
                  .newsRepository
                  .GetAll()
-
                  .ToList();
-            var newsViewModelResult = _blogImageFacade
-           .GetAll(_lang)
+            var newsViewModelResult = _unitOfWork
+                 .newsRepository
+           .GetAll()
+           .Select(x => new NewsViewModel
+           {
+               Id = x.Id,
+               Title = x.FindTitle(_lang),
+               Content = x.FindContent(_lang),
+               CreateDate = x.CreateDate,
+               Imagepath = x.NewsImages.Select(x => x.Image.Path).FirstOrDefault()
+           })
            .Skip((page - 1) * 3)
            .Take(3)
            .AsEnumerable();
             var paginModelResult = new PaginModel<NewsViewModel>()
+
             {
                 Paging = newsViewModelResult,
                 PagingInfo = new PagingInfo
@@ -83,6 +92,7 @@ namespace ConstructionSite.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            // paginModelResult
 
             return View(paginModelResult);
         }

@@ -11,7 +11,10 @@ namespace ConstructionSite.Entity.Configuration
             builder.HasKey(x => x.Id);
             builder.ToTable("GaleryVido");
             builder.HasOne(x => x.Galery)
-                .WithMany(x => x.GaleryVidos);
+
+                .WithMany(x => x.GaleryVidos)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
         }
     }

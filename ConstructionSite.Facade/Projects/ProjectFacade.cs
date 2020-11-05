@@ -38,7 +38,9 @@ namespace ConstructionSite.Facade.Projects
                       Name = x.FindName(_lang),
                       ImageId = x.ProjectImages.Select(x => x.ImageId).FirstOrDefault(),
                       PortfolioID = x.PortfolioId
-                  }).ToList();
+                  })
+                  .OrderByDescending(x=>x.Id)
+                  .ToList();
             return resultProject;
         }
 

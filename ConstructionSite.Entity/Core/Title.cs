@@ -1,7 +1,4 @@
 ﻿using ConstructionSite.Helpers.Constants;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Core
 {
@@ -12,6 +9,7 @@ namespace ConstructionSite.Entity.Core
         public string TitleEn { get; set; }
 
         public string TitleRu { get; set; }
+
         public virtual string FindTitle(string lang)
         {
             if (lang == LANGUAGECONSTANT.Az)

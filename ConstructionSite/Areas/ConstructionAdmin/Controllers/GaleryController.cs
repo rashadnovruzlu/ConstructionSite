@@ -58,28 +58,49 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
         {
-            try
+
+
+            if (galeryAddViewModel.viodPath != null | galeryAddViewModel.files != null)
             {
-                var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
-                var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, galeryAddViewModel.viodPath, "galery", _unitOfWork);
-                GaleryVido galeryVido = new GaleryVido
+                try
                 {
-                    GaleryId = resultGalery.Data.Id,
-                    VidoPath = galeryAddViewModel.viodPath
-                };
-                await _unitOfWork.GaleryVidoResptory.AddAsync(galeryVido);
-                if (resultGalery.IsDone && resultImage.Count > 0)
-                {
-                    await _unitOfWork.CommitAsync();
-                    await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
-                    return RedirectToAction("Index");
+                    var resultGalery = await _galeryFacade.Add(galeryAddViewModel);
+                    if (await _unitOfWork.CommitAsync())
+                    {
+                        if (galeryAddViewModel.viodPath != null)
+                        {
+                            GaleryVido galeryVido = new GaleryVido
+                            {
+                                GaleryId = resultGalery.Data.Id,
+                                VidoPath = galeryAddViewModel.viodPath
+                            };
+                            await _unitOfWork.GaleryVidoResptory.AddAsync(galeryVido);
+                        }
+                        else if (galeryAddViewModel.files != null)
+                        {
+                            var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, galeryAddViewModel.viodPath, "galery", _unitOfWork);
+                            if (resultGalery.IsDone && resultImage.Count > 0)
+                            {
+
+                                await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
+                                return RedirectToAction("Index");
+                            }
+                        }
+                    }
+
+
+
+
+
                 }
-
+                catch
+                {
+                }
             }
-            catch
+            if (await _unitOfWork.CommitAsync())
             {
+                return RedirectToAction("Index");
             }
-
             return View();
         }
 
@@ -164,7 +185,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            if (id > 0)
+            if (id < 0)
             {
             }
             var result = await _galeryFacade.Delete(id);
@@ -172,7 +193,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion ::DELETE::

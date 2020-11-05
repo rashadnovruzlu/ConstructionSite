@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ConstructionSite.Extensions.SelectListItems
 {
-   public static class SelectListItemExtension
+    public static class SelectListItemExtension
     {
         public static IQueryable<SelectListItem> BaseSelectList<T>(this IQueryable<T> list, string idPropertyName, string namePropertyName = "Name")
            where T : class, new()

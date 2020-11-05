@@ -15,11 +15,9 @@ namespace ConstructionSite.Extensions.Images
         private const string _IMAGE = "images";
 
         #region ::Save::
+
         public async static Task<int> SaveVidoAsync(this string path, IUnitOfWork _unitOfWork)
         {
-
-
-
             var image = new Image();
             image.VideoPath = path;
             await _unitOfWork.imageRepository.AddAsync(image);
@@ -28,11 +26,10 @@ namespace ConstructionSite.Extensions.Images
                 return image.Id;
             }
             return 0;
-
         }
+
         public async static Task<List<int>> SaveVidoAsync(this List<string> path, IUnitOfWork _unitOfWork)
         {
-
             List<int> isresults = new List<int>();
 
             var image = new Image();
@@ -50,25 +47,17 @@ namespace ConstructionSite.Extensions.Images
                 }
             }
             return isresults;
-
         }
 
         public async static Task<int> SaveVidoPathAsync(this string path, IUnitOfWork _unitOfWork)
         {
-
-           
             var image = new Image();
 
-                image.VideoPath = path;
-                await _unitOfWork.imageRepository.AddAsync(image);
-                await _unitOfWork.CommitAsync();
-                
-               
-           
-            return image.Id;
-            
-           
+            image.VideoPath = path;
+            await _unitOfWork.imageRepository.AddAsync(image);
+            await _unitOfWork.CommitAsync();
 
+            return image.Id;
         }
 
         public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
@@ -107,6 +96,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return imageResultID;
         }
+
         public async static Task<List<int>> SaveImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string path, string subFolder, IUnitOfWork _unitOfWork)
         {
             List<int> imageResultID = new List<int>();
@@ -146,7 +136,6 @@ namespace ConstructionSite.Extensions.Images
             }
             return imageResultID;
         }
-
 
         public async static Task<List<Image>> ImageCollectionAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, IUnitOfWork _unitOfWork)
         {
@@ -249,7 +238,6 @@ namespace ConstructionSite.Extensions.Images
             return IsResult;
         }
 
-
         public async static Task<List<RESULT<Image>>> SaveImageCollectionForAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             List<RESULT<Image>> imagesForm = new List<RESULT<Image>>();
@@ -315,12 +303,12 @@ namespace ConstructionSite.Extensions.Images
                         {
                             IsResult = true;
                         }
-
                     }
                 }
             }
             return IsResult;
         }
+
         public async static Task<bool> UpdateAsyc(this IWebHostEnvironment _env, List<IFormFile> file, int[] imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -359,7 +347,6 @@ namespace ConstructionSite.Extensions.Images
 
             return IsResult;
         }
-
 
         public async static Task<bool> UpdateAsyc(this IFormFile file, IWebHostEnvironment _env, List<Image> image, string subFolder, IUnitOfWork _unitOfWork)
         {
@@ -453,7 +440,6 @@ namespace ConstructionSite.Extensions.Images
             bool IsResult = false;
             for (int i = 0; i < file.Count; i++)
             {
-
                 string filePathForDeleteFromHardDisk = Paths.createfilePathSaveHardDisk(_env, subFolder, image.Title, _IMAGE);
 
                 string fileNameAfterReName = Helper.reNameFileName(file[i]);
@@ -486,7 +472,6 @@ namespace ConstructionSite.Extensions.Images
                             }
                         }
                     }
-
                 }
             }
             return IsResult;
@@ -520,6 +505,7 @@ namespace ConstructionSite.Extensions.Images
 
             return result.IsDone;
         }
+
         public static bool Delete(this IWebHostEnvironment _env, int[] imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool isResult = false;
@@ -528,7 +514,6 @@ namespace ConstructionSite.Extensions.Images
                 Image imageResult = _unitOfWork.imageRepository.GetById(item);
                 if (imageResult != null)
                 {
-
                     var imageDeleteFormHardDisk = Paths.DeletePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
                     var result = _unitOfWork.imageRepository.Delete(imageResult);
                     _unitOfWork.Commit();
@@ -538,6 +523,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return isResult;
         }
+
         public static bool Delete(this IWebHostEnvironment _env, Image[] image, string subFolder, IUnitOfWork _unitOfWork)
         {
             bool isResult = false;
@@ -546,7 +532,6 @@ namespace ConstructionSite.Extensions.Images
                 Image imageResult = _unitOfWork.imageRepository.GetById(item.Id);
                 if (imageResult != null)
                 {
-
                     var imageDeleteFormHardDisk = Paths.DeletePathSaveHardDisk(_env, subFolder, imageResult.Title, _IMAGE);
                     var result = _unitOfWork.imageRepository.Delete(imageResult);
                     _unitOfWork.Commit();

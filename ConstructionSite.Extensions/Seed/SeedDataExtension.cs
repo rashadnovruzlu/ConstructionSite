@@ -1,7 +1,6 @@
 ﻿using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;

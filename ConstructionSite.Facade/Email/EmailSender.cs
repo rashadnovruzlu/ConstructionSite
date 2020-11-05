@@ -1,6 +1,5 @@
 ﻿using ConstructionSite.Interface.Facade.Email;
 using ConstructionSite.ViwModel.AdminViewModels.Mail;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 
@@ -11,7 +10,6 @@ namespace ConstructionSite.Facade.Email
         public void Send(MailSend email, string TO)
         {
             // email.To = "naib.reshidov@pragmatech.az";
-
 
             try
             {
@@ -34,10 +32,10 @@ namespace ConstructionSite.Facade.Email
             }
             catch (System.Exception ex)
             {
-
                 var exs = ex.Message;
             }
         }
+
         public void simpleSend(MailSend email, string To)
         {
             try
@@ -51,19 +49,15 @@ namespace ConstructionSite.Facade.Email
                     smtpClient.Send(Message1);
                 }
             }
-            catch 
+            catch
             {
-
-                
             }
         }
+
         public void sendYandex(MailSend email, string To)
         {
-
             try
             {
-
-
                 MailMessage mailMessage = new MailMessage();
                 mailMessage.To.Add(To);
 
@@ -84,7 +78,6 @@ namespace ConstructionSite.Facade.Email
             }
             catch (System.Exception ex)
             {
-
                 var exs = ex.Message;
             }
         }

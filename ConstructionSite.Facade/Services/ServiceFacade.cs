@@ -42,7 +42,7 @@ namespace ConstructionSite.Facade.Services
                   {
                       Id = x.Id,
                       Name = x.FindName(_lang),
-                      Tittle = x.FindTitle(_lang),
+                      Content = x.FindContent(_lang),
                       image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
                   })
                   .OrderByDescending(x => x.Id)
@@ -74,9 +74,9 @@ namespace ConstructionSite.Facade.Services
                      ContentAz = x.ContentAz,
                      ContentEn = x.ContentEn,
                      ContentRu = x.ContentRu,
-                     TittleAz = x.TitleAz,
-                     TittleEn = x.TitleEn,
-                     TittleRu = x.TitleRu,
+                     //TittleAz = x.TitleAz,
+                     //TittleEn = x.TitleEn,
+                     //TittleRu = x.TitleRu,
                      Images = x.ServiceImages.Select(x => x.Image).ToList()
                  })
                  .FirstOrDefault(x => x.id == id);

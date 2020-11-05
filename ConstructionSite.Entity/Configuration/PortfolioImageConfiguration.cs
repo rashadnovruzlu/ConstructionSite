@@ -1,13 +1,10 @@
 ﻿using ConstructionSite.Entity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Configuration
 {
-    class PortfolioImageConfiguration : IEntityTypeConfiguration<PortfolioImage>
+    internal class PortfolioImageConfiguration : IEntityTypeConfiguration<PortfolioImage>
     {
         public void Configure(EntityTypeBuilder<PortfolioImage> builder)
         {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.Entity.Models
+﻿namespace ConstructionSite.Entity.Models
 {
     public class GaleryFile
     {
@@ -14,6 +10,5 @@ namespace ConstructionSite.Entity.Models
 
         public virtual Image Image { get; set; }
         public virtual int ImageId { get; set; }
-
     }
 }

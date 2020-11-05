@@ -10,9 +10,9 @@ namespace ConstructionSite.DTO.AdminViewModels.Service
         public string NameEn { get; set; }
         public string NameRu { get; set; }
 
-        public string TitleAz { get; set; }
-        public string TitleEn { get; set; }
-        public string TitleRu { get; set; }
+        //public string TitleAz { get; set; }
+        //public string TitleEn { get; set; }
+        //public string TitleRu { get; set; }
 
         public string ContentAz { get; set; }
         public string ContentRu { get; set; }

@@ -12,6 +12,7 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Galery
         public string TitleEn { get; set; }
         public string VidoPath { get; set; }
         public string TitleRu { get; set; }
+       
         public List<int> ImageID { get; set; }
         public IList<IFormFile> files { get; set; }
         public List<Image> Images { get; set; }

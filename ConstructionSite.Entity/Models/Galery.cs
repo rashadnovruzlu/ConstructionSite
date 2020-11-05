@@ -1,7 +1,5 @@
 ﻿using ConstructionSite.Entity.Core;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
