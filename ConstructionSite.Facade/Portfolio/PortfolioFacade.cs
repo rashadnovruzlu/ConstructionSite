@@ -69,6 +69,7 @@ namespace ConstructionSite.Facade.Portfolio
                        Id = x.Id,
                        Name = x.FindName(_lang)
                    })
+                   .OrderByDescending(x=>x.Id)
                    .ToList();
             return resultPortfolio;
         }

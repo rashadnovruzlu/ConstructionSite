@@ -42,7 +42,7 @@ namespace ConstructionSite.Facade.Services
                   {
                       Id = x.Id,
                       Name = x.FindName(_lang),
-                      Tittle = x.FindTitle(_lang),
+                      Content = x.FindContent(_lang),
                       image = x.ServiceImages.Select(x => x.Image.Path).FirstOrDefault()
                   })
                   .OrderByDescending(x => x.Id)

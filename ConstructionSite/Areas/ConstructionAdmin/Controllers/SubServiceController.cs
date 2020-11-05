@@ -47,7 +47,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var result = _subServiceFacade.GetAll(_lang);
+            var result = _subServiceFacade.GetAll(_lang)
+                .OrderByDescending(x => x.Id)
+                .ToList();
             return View(result);
         }
 
