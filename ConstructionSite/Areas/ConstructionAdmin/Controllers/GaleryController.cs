@@ -122,10 +122,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (galeryUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data is not exist");
+                return RedirectToAction("Index");
             }
 
             if (galeryUpdateViewModel.files != null && galeryUpdateViewModel.ImageID != null)
@@ -185,9 +187,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            if (id < 0)
-            {
-            }
+            
             var result = await _galeryFacade.Delete(id);
             if (result.IsDone)
             {
@@ -203,17 +203,25 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
         {
-            foreach (var item in resultImage)
+            try
             {
-                GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
+                foreach (var item in resultImage)
                 {
-                    ImageId = item,
-                    GaleryId = resultGalery.Data.Id,
+                    GaleryFileAddViewModel galeryFileAddViewModel = new GaleryFileAddViewModel
+                    {
+                        ImageId = item,
+                        GaleryId = resultGalery.Data.Id,
 
-                };
-                await _galeryFileFacde.Add(galeryFileAddViewModel);
+                    };
+                    await _galeryFileFacde.Add(galeryFileAddViewModel);
+                }
+                await _unitOfWork.CommitAsync();
             }
-            await _unitOfWork.CommitAsync();
+            catch 
+            {
+
+               
+            }
         }
 
         #endregion ::private::

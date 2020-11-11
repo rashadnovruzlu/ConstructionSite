@@ -52,12 +52,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             var resultViewModel = _portfolioFacade.GetAll(_lang);
 
             if (resultViewModel == null)
             {
                 ModelState.AddModelError("", "This is empty");
+                return RedirectToAction("Index");
             }
             return View(resultViewModel);
         }
@@ -73,6 +75,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -85,10 +88,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (portfolioAddModel == null)
             {
                 ModelState.AddModelError("", "Portfolio is NULL");
+                return RedirectToAction("Index");
             }
 
             try
@@ -98,10 +103,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                else
-                {
-                    _unitOfWork.Rollback();
-                }
+
             }
             catch
             {
@@ -198,6 +200,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (await _portfolioFacade.Delete(id))
             {

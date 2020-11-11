@@ -88,6 +88,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
 
             try
@@ -103,7 +104,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     }
                     else
                     {
-                        _unitOfWork.Rollback();
+                       
                         return View();
                     }
                 }
@@ -125,12 +126,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
-            if (id < 1)
+           
+            var result = _serviceFacade.GetForUpdate(id);
+            if (result==null)
             {
                 return RedirectToAction("Index");
             }
-            var result = _serviceFacade.GetForUpdate(id);
 
             return View(result);
         }
@@ -142,10 +145,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (serviceUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data not exists");
+                return RedirectToAction("Index");
             }
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             try
             {
@@ -228,7 +233,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         private async Task SaveServiceAndImages(int id, List<int> resultImageID)
         {
-            foreach (var item in resultImageID)
+            try
+            {
+foreach (var item in resultImageID)
             {
                 ServiceImageAddViewModel ResultServiceImageAddViewModel = new ServiceImageAddViewModel
                 {
@@ -238,6 +245,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
                 await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
             }
+            }
+            catch 
+            {
+
+               
+            }
+            
         }
 
         #endregion ::private ::

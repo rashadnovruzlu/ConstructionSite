@@ -99,13 +99,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Update(int id)
         {
-            if (id < 1)
-            {
-                ModelState.AddModelError("", "This data not exists");
-            }
+
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             var result = _aboutFacade.GetForUpdate(id);
             if (result != null)
@@ -121,10 +119,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (aboutUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data not exists");
+                return RedirectToAction("Index");
             }
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             try
             {
@@ -189,6 +189,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (id < 1)
             {
