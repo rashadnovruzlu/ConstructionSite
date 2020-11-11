@@ -31,6 +31,7 @@ namespace ConstructionSite.Repository.Concreate
         private IGaleryVidoResptory _galeryVidoResptory;
         private IPortfolioImageRepostory _portfolioImageRepostory;
         private IServiceImageRepstory _serviceImageRepstory;
+        private ISliderRepostory _sliderRepostory;
 
         private readonly ConstructionDbContext _context;
 
@@ -221,6 +222,14 @@ namespace ConstructionSite.Repository.Concreate
             get
             {
                 return _galeryVidoResptory ?? (_galeryVidoResptory = new GaleryVidoResptory(_context));
+            }
+        }
+
+        public ISliderRepostory SliderRepostory
+        {
+            get
+            {
+                return _sliderRepostory ?? (_sliderRepostory = new SliderRepostory(_context));
             }
         }
 
