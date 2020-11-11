@@ -82,6 +82,8 @@ namespace ConstructionSite.Facade.Galerys
 
         public List<GaleryImageViewModel> GetAllImage(string _lang)
         {
+
+
             var data = (from galery in _unitOfWork.GaleryRepstory.GetAll()
                         join galeryFiles in _unitOfWork.GaleryFileRepstory.GetAll() on galery.Id equals galeryFiles.GaleryId
                         join images in _unitOfWork.imageRepository.GetAll() on galeryFiles.ImageId equals images.Id

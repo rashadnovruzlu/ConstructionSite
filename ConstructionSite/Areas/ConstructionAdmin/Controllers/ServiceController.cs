@@ -189,6 +189,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 var resultAbout = await _serviceFacade.Update(serviceUpdateViewModel);
                 if (resultAbout.IsDone)
                 {
+                    await _unitOfWork.CommitAsync();
+
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index");

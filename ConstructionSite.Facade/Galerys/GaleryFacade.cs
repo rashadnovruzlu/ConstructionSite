@@ -56,7 +56,7 @@ namespace ConstructionSite.Facade.Galerys
                       VidoPath = x.GaleryVidos.Select(x => x.VidoPath).FirstOrDefault(),
                       Imagepath = x.GaleryFiles.Select(x => x.Image.Path).FirstOrDefault()
                   })
-                  .OrderByDescending(x=>x.Id)
+                  .OrderByDescending(x => x.Id)
                   .ToList();
 
             return resultGalery;
