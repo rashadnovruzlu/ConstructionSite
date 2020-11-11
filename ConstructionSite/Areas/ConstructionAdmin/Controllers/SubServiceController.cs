@@ -64,6 +64,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid");
+                return RedirectToAction("Index");
             }
             ViewBag.services = _subServiceFacade.GetServices(_lang);
 
@@ -136,10 +137,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (subServiceUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data not exists");
+                return RedirectToAction("Index");
             }
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             try
             {
@@ -210,7 +213,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+
         }
 
         #endregion DELETE

@@ -246,7 +246,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         #endregion DELETE

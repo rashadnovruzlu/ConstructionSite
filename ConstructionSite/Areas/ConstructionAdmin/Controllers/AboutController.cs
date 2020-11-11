@@ -128,7 +128,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             try
             {
-                
+
                 if (aboutUpdateViewModel.files != null && aboutUpdateViewModel.ImageID != null)
                 {
                     try
@@ -168,6 +168,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 var resultAbout = await _aboutFacade.Update(aboutUpdateViewModel);
                 if (resultAbout.IsDone)
                 {
+                    await _unitOfWork.CommitAsync();
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index");
@@ -196,6 +197,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             if (_aboutFacade.Delete(id))
             {
+
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

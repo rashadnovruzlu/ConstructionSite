@@ -196,15 +196,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region DELETE
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var projectImageResult = await _unitOfWork.projectImageRepository.GetByIdAsync(id);
-            if (projectImageResult == null)
-            {
-                ModelState.AddModelError("", "Id is not exists");
-                return RedirectToAction("Index");
-            }
-
             if (id < 1)
             {
                 return RedirectToAction("Index");
@@ -213,17 +206,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (isresult)
             {
-                if (_unitOfWork.Commit() > 0)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    _unitOfWork.Rollback();
-                }
+                return RedirectToAction("Index");
             }
+            return RedirectToAction("Index");
 
-            return View();
         }
 
         #endregion DELETE
