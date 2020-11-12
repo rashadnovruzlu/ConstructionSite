@@ -1,9 +1,12 @@
 ﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Slider;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Slider;
+using data = ConstructionSite.ViwModel.FrontViewModels.Slider;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +19,20 @@ namespace ConstructionSite.Facade.Slider
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<bool> Add(SliderAddViewModel sliderAddViewModel)
+        public List<data.SliderViewModel> GetAll(string _lang)
+        {
+            return _unitOfWork.SliderRepostory
+                  .GetAll()
+                  .Select(x => new data.SliderViewModel
+                  {
+                      Content = x.FindContent(_lang),
+                      Tittle = x.FindTitle(_lang),
+                      imagePath = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
+
+                  })
+                  .ToList();
+        }
+        public Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel)
         {
 
             var resultSliderAddViewModel = new Sliders
@@ -30,7 +46,27 @@ namespace ConstructionSite.Facade.Slider
 
 
             };
-            _unitOfWork.SliderRepostory.AddAsync(sliderAddViewModel);
+            var result = _unitOfWork.SliderRepostory.AddAsync(resultSliderAddViewModel);
+            return result;
+
+        }
+        public SliderUpdateViewModel GetUpdate(int id)
+        {
+             var resultSliderUpdateViewModel= _unitOfWork.SliderRepostory.GetAll()
+                .Select(x => new SliderUpdateViewModel
+                {
+                    Id = x.Id,
+                    TittleAz = x.TittleAz,
+                    TittleEn = x.TittleEn,
+                    TittleRu = x.TittleRu,
+                    ContentAz = x.ContentAz,
+                    ContentEn = x.ContentEn,
+                    ContentRu = x.ContentRu
+                })
+                .SingleOrDefault(x => x.Id == id);
+            return resultSliderUpdateViewModel;
+
+            
         }
     }
 }

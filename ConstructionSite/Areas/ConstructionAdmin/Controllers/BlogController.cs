@@ -123,6 +123,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     else
                     {
                         _unitOfWork.Rollback();
+                        return RedirectToAction("Index");
                     }
                 }
             }

@@ -12,6 +12,8 @@ namespace ConstructionSite.Entity.Data
 
         public virtual DbSet<GaleryVido> GaleryVidos { get; set; }
         public virtual DbSet<About> Abouts { get; set; }
+        public virtual DbSet<Sliders> Sliders { get; set; }
+        public virtual DbSet<SliderImage> SliderImages { get; set; }
         public virtual DbSet<AboutImage> AboutImages { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<CustomerFeedback> CustomerFeedbacks { get; set; }
