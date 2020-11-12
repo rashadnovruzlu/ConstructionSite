@@ -142,8 +142,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View(sliderUpdateViewModel);
         }
-        public IActionResult Delete()
+        public IActionResult Delete(int id)
         {
+            _sliderFacade.Delete(id);
+            if (_unitOfWork.Commit() > 0)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }
