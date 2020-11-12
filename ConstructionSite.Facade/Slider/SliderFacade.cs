@@ -52,21 +52,36 @@ namespace ConstructionSite.Facade.Slider
         }
         public SliderUpdateViewModel GetUpdate(int id)
         {
-             var resultSliderUpdateViewModel= _unitOfWork.SliderRepostory.GetAll()
-                .Select(x => new SliderUpdateViewModel
-                {
-                    Id = x.Id,
-                    TittleAz = x.TittleAz,
-                    TittleEn = x.TittleEn,
-                    TittleRu = x.TittleRu,
-                    ContentAz = x.ContentAz,
-                    ContentEn = x.ContentEn,
-                    ContentRu = x.ContentRu
-                })
-                .SingleOrDefault(x => x.Id == id);
+            var resultSliderUpdateViewModel = _unitOfWork.SliderRepostory.GetAll()
+               .Select(x => new SliderUpdateViewModel
+               {
+                   Id = x.Id,
+                   TittleAz = x.TittleAz,
+                   TittleEn = x.TittleEn,
+                   TittleRu = x.TittleRu,
+                   ContentAz = x.ContentAz,
+                   ContentEn = x.ContentEn,
+                   ContentRu = x.ContentRu
+               })
+               .SingleOrDefault(x => x.Id == id);
             return resultSliderUpdateViewModel;
 
-            
+
+        }
+        public async Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel)
+        {
+            var resultsliderUpdateViewModel = new Sliders
+            {
+                Id = sliderUpdateViewModel.Id,
+                TittleAz = sliderUpdateViewModel.TittleAz,
+                TittleEn = sliderUpdateViewModel.TittleEn,
+                TittleRu = sliderUpdateViewModel.TittleRu,
+                ContentAz = sliderUpdateViewModel.ContentAz,
+                ContentEn = sliderUpdateViewModel.ContentEn,
+                ContentRu = sliderUpdateViewModel.ContentRu,
+
+            };
+          return await  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
     }
 }
