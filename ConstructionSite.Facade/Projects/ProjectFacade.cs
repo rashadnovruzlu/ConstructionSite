@@ -39,7 +39,7 @@ namespace ConstructionSite.Facade.Projects
                       ImageId = x.ProjectImages.Select(x => x.ImageId).FirstOrDefault(),
                       PortfolioID = x.PortfolioId
                   })
-                  .OrderByDescending(x=>x.Id)
+                  .OrderByDescending(x => x.Id)
                   .ToList();
             return resultProject;
         }
@@ -82,11 +82,17 @@ namespace ConstructionSite.Facade.Projects
         public bool Delete(int id)
         {
             var data = _unitOfWork.projectRepository.Find(x => x.Id == id);
-            var imageId = _unitOfWork.projectImageRepository.GetAll()
-                  .Where(x => x.ProjectId == data.Id)
-                  .Select(x => x.ImageId).ToArray();
-            _unitOfWork.projectRepository.Delete(data);
-            return _env.Delete(imageId, "About", _unitOfWork);
+            if (data != null)
+            {
+                var imageId = _unitOfWork.projectImageRepository.GetAll()
+                 .Where(x => x.ProjectId == data.Id)
+                 .Select(x => x.ImageId).ToArray();
+                _unitOfWork.projectRepository.Delete(data);
+                var result = _unitOfWork.Commit();
+                return _env.Delete(imageId, "Project", _unitOfWork);
+            }
+            return false;
+
         }
     }
 }

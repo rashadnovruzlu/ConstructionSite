@@ -29,11 +29,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", "Bad Request");
-            }
+           
             var messageAllResult = _unitOfWork.messageRepository.GetAll()
                 .OrderByDescending(x => x.Id)
                 .Select(x => new MesageViewModel
@@ -66,11 +62,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Bad Request");
+                return RedirectToAction("Index");
             }
             var messageSelectedForDeleteResult = await _unitOfWork.messageRepository.GetByIdAsync(id);
             if (messageSelectedForDeleteResult == null)
             {
                 ModelState.AddModelError("", "message not exists");
+                return RedirectToAction("Index");
             }
             var messageAfterDeleteResult = await _unitOfWork.messageRepository.DeleteAsync(messageSelectedForDeleteResult);
             if (!messageAfterDeleteResult.IsDone)

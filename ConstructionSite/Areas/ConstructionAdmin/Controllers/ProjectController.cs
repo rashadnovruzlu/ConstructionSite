@@ -70,6 +70,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             var portfolioResult = _unitOfWork.portfolioRepository.GetAll()
                                                 .Select(x => new PortfolioViewModel
@@ -90,11 +91,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid");
+                return RedirectToAction("Index");
             }
             if (file == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "File is null");
+                return RedirectToAction("Index");
             }
             var resultProject = await _projectFacade.Add(project);
             var resultimage = await file.SaveImageCollectionAsync(_env, "project", _unitOfWork);
@@ -113,10 +116,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (id < 1)
             {
                 ModelState.AddModelError("", "Id is not exists");
+                return RedirectToAction("Index");
             }
             var result = _projectFacade.GetForUpdate(id);
             ViewBag.items = _unitOfWork.portfolioRepository.GetAll()
@@ -135,10 +140,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
             }
             if (projectUpdateViewModel == null)
             {
                 ModelState.AddModelError("", "This data is not exist");
+                return RedirectToAction("Index");
             }
 
             try
@@ -196,15 +203,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region DELETE
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var projectImageResult = await _unitOfWork.projectImageRepository.GetByIdAsync(id);
-            if (projectImageResult == null)
-            {
-                ModelState.AddModelError("", "Id is not exists");
-                return RedirectToAction("Index");
-            }
-
             if (id < 1)
             {
                 return RedirectToAction("Index");
@@ -213,17 +213,10 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
             if (isresult)
             {
-                if (_unitOfWork.Commit() > 0)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    _unitOfWork.Rollback();
-                }
+                return RedirectToAction("Index");
             }
+            return RedirectToAction("Index");
 
-            return View();
         }
 
         #endregion DELETE
@@ -253,14 +246,22 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         private async Task AddProjectImageAddViewModel(RESULT<Project> resultProject, List<int> resultimage)
         {
-            foreach (var item in resultimage)
+            try
             {
-                ProjectImageAddViewModel projectImageAddViewModel = new ProjectImageAddViewModel
+                foreach (var item in resultimage)
                 {
-                    ImageId = item,
-                    ProjectId = resultProject.Data.Id
-                };
-                await _projectImageFacade.Add(projectImageAddViewModel);
+                    ProjectImageAddViewModel projectImageAddViewModel = new ProjectImageAddViewModel
+                    {
+                        ImageId = item,
+                        ProjectId = resultProject.Data.Id
+                    };
+                    await _projectImageFacade.Add(projectImageAddViewModel);
+                }
+            }
+            catch 
+            {
+
+                
             }
         }
 

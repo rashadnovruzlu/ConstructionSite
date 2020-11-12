@@ -51,22 +51,7 @@
                             <div class="col-lg-11">
                                 <input asp-for="NameRu" class="form-control " id="ccomment" placeholder="Name RU" />
                             </div>
-                        </div>
-                        @*<div class="form-group">
-                            <div class="col-lg-11">
-                                <textarea type="text" asp-for="TittleAz" rows="15" id="f-name" class="form-control" placeholder="Title AZE"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <textarea type="text" asp-for="TittleEn" rows="15" id="f-name" class="form-control" placeholder="Title ENG"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-11">
-                                <textarea type="text" asp-for="TittleRu" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
-                            </div>
-                        </div>*@
+                      
                         <div class="form-group">
                             <div class="col-lg-11">
                                 <textarea type="text" asp-for="ContentAz" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
@@ -84,7 +69,7 @@
                         </div>
                         <div class="wrapper--preview">
 
-                            @if (Model.Images == null | Model.Images.Count < 1)
+                            @if (Model.Images == null)
                             {
                                 <input type="file" asp-for="files" />
                             }

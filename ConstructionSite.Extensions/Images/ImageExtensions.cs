@@ -518,7 +518,7 @@ namespace ConstructionSite.Extensions.Images
                     var result = _unitOfWork.imageRepository.Delete(imageResult);
                     _unitOfWork.Commit();
                     Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
-                    isResult = result.IsDone; ;
+                    isResult = result.IsDone;
                 }
             }
             return isResult;

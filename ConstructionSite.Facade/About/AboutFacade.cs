@@ -37,7 +37,7 @@ namespace ConstructionSite.Facade.About
                         Tittle = x.FindTitle(_lang),
                         Image = x.AboutImages.Select(x => x.Image.Path).FirstOrDefault()
                     })
-                    .OrderByDescending(x=>x.Id)
+                    .OrderByDescending(x => x.Id)
                     .ToList();
         }
 
@@ -97,6 +97,7 @@ namespace ConstructionSite.Facade.About
                   .Where(x => x.AboutId == data.Id)
                   .Select(x => x.ImageId).ToArray();
             _unitOfWork.AboutRepository.Delete(data);
+            _unitOfWork.Commit();
             return _webHostEnvironment.Delete(imageId, "About", _unitOfWork);
         }
 
