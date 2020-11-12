@@ -89,11 +89,7 @@ namespace ConstructionSite.Controllers
         [HttpGet]
         public PartialViewResult Project(int id = 0)
         {
-            if (!ModelState.IsValid)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                ModelState.AddModelError("", _sharedLocalizationService.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
-            }
+           
             if (id == 0)
             {
                 var projectViewModelResultPartialView = _unitOfWork

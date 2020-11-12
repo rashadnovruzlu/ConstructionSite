@@ -104,7 +104,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     }
                     else
                     {
-                       
+
                         return View();
                     }
                 }
@@ -128,9 +128,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
                 return RedirectToAction("Index");
             }
-           
+
             var result = _serviceFacade.GetForUpdate(id);
-            if (result==null)
+            if (result == null)
             {
                 return RedirectToAction("Index");
             }
@@ -235,23 +235,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         {
             try
             {
-foreach (var item in resultImageID)
-            {
-                ServiceImageAddViewModel ResultServiceImageAddViewModel = new ServiceImageAddViewModel
+                foreach (var item in resultImageID)
                 {
-                    ImageId = item,
-                    ServiceId = id
-                };
+                    ServiceImageAddViewModel ResultServiceImageAddViewModel = new ServiceImageAddViewModel
+                    {
+                        ImageId = item,
+                        ServiceId = id
+                    };
 
-                await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
+                    await _serviceImageFacade.Add(ResultServiceImageAddViewModel);
+                }
             }
-            }
-            catch 
+            catch
             {
 
-               
+
             }
-            
+
         }
 
         #endregion ::private ::

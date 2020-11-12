@@ -15,12 +15,16 @@
   <ItemGroup>
     <Compile Remove="Areas\ConstructionAdmin\Data\**" />
     <Compile Remove="Areas\ConstructionAdmin\Views\Contact\Models\**" />
+    <Compile Remove="Views\Shared\Components\Slider\**" />
     <Content Remove="Areas\ConstructionAdmin\Data\**" />
     <Content Remove="Areas\ConstructionAdmin\Views\Contact\Models\**" />
+    <Content Remove="Views\Shared\Components\Slider\**" />
     <EmbeddedResource Remove="Areas\ConstructionAdmin\Data\**" />
     <EmbeddedResource Remove="Areas\ConstructionAdmin\Views\Contact\Models\**" />
+    <EmbeddedResource Remove="Views\Shared\Components\Slider\**" />
     <None Remove="Areas\ConstructionAdmin\Data\**" />
     <None Remove="Areas\ConstructionAdmin\Views\Contact\Models\**" />
+    <None Remove="Views\Shared\Components\Slider\**" />
   </ItemGroup>
 
   <ItemGroup>
