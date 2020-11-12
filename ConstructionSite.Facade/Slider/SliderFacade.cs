@@ -83,5 +83,6 @@ namespace ConstructionSite.Facade.Slider
             };
           return await  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
+        pub
     }
 }
