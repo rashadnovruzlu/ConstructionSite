@@ -81,8 +81,13 @@ namespace ConstructionSite.Facade.Slider
                 ContentRu = sliderUpdateViewModel.ContentRu,
 
             };
-          return await  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+            return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
-        pub
+        public bool Delete(int id)
+        {
+            _unitOfWork.SliderRepostory.Delete(id);
+            return _unitOfWork.Commit() > 0;
+        }
+
     }
 }
