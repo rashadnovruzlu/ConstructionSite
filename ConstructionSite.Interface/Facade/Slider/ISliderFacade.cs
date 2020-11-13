@@ -14,7 +14,7 @@ namespace ConstructionSite.Interface.Facade.Slider
         List<data.SliderViewModel> GetAll(string _lang);
         Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel);
         SliderUpdateViewModel GetUpdate(int id);
-        Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel)
+        Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel);
 
     }
 }
