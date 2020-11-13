@@ -25,6 +25,7 @@ namespace ConstructionSite.Facade.Slider
                   .GetAll()
                   .Select(x => new SliderViewModel
                   {
+                      Id = x.Id,
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
                       PathImage = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
@@ -61,7 +62,9 @@ namespace ConstructionSite.Facade.Slider
                    TittleRu = x.TittleRu,
                    ContentAz = x.ContentAz,
                    ContentEn = x.ContentEn,
-                   ContentRu = x.ContentRu
+                   ContentRu = x.ContentRu,
+                   Images=x.SliderImages.Select(x=>x.Image).ToList(),
+                  
                })
                .SingleOrDefault(x => x.Id == id);
             return resultSliderUpdateViewModel;
@@ -90,7 +93,7 @@ namespace ConstructionSite.Facade.Slider
             return _unitOfWork.Commit() > 0;
         }
 
-      
+
 
         public List<data.SliderViewModel> GetForSlider(string _lang)
         {

@@ -1,10 +1,12 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Slider;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.Repository.Interfaces;
 using ConstructionSite.ViwModel.AdminViewModels.Slider;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -12,21 +14,28 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class SliderController : CoreController
     {
+
+        private string _lang;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISliderFacade _sliderFacade;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IUnitOfWork _unitOfWork;
         public SliderController(
                                 IWebHostEnvironment webHostEnvironment,
                                 IUnitOfWork unitOfWork,
-                                ISliderFacade sliderFacade)
+                                ISliderFacade sliderFacade,
+                                IHttpContextAccessor httpContextAccessor)
         {
             _sliderFacade = sliderFacade;
             _webHostEnvironment = webHostEnvironment;
             _unitOfWork = unitOfWork;
+            _httpContextAccessor = httpContextAccessor;
+            _lang = _httpContextAccessor.GetLanguages();
         }
         public IActionResult Index()
         {
-            return View();
+            var result = _sliderFacade.GetAll(_lang);
+            return View(result);
         }
         [HttpGet]
         public IActionResult Add()
@@ -72,11 +81,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
-        public IActionResult Update(int id)
+        public IActionResult Update(int Id)
         {
-            var result = _sliderFacade.GetUpdate(id);
+            var result = _sliderFacade.GetUpdate(Id);
             return View(result);
         }
+        [HttpPost]
         public async Task<IActionResult> Update(SliderUpdateViewModel sliderUpdateViewModel)
         {
             if (sliderUpdateViewModel == null)
