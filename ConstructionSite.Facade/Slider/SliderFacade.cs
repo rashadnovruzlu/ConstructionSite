@@ -28,7 +28,7 @@ namespace ConstructionSite.Facade.Slider
                   {
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      imagePath = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault())
+                      PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault())
 
                   })
                   .ToList();
@@ -125,7 +125,7 @@ namespace ConstructionSite.Facade.Slider
 
                   })
                   .ToList();
-            return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+           // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
     }
 }

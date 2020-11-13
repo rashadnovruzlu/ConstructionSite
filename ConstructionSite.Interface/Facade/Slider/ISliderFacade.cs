@@ -18,7 +18,7 @@ namespace ConstructionSite.Interface.Facade.Slider
         SliderUpdateViewModel GetUpdate(int id);
         Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel);
         bool Delete(int id);
-        Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel);
+        //Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel);
 
     }
 }
