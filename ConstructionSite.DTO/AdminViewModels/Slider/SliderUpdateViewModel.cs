@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ConstructionSite.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,8 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Slider
         public string ContentAz { get; set; }
         public string ContentEn { get; set; }
         public string ContentRu { get; set; }
-
-        public ICollection<IFormFile> file { get; set; }
+        public List<int> ImageID { get; set; }
+        public IList<IFormFile> files { get; set; }
+        public List<Image> Images { get; set; }
     }
 }

@@ -20,11 +20,11 @@ namespace ConstructionSite.Facade.Slider
         {
             _unitOfWork = unitOfWork;
         }
-        public List<data.SliderViewModel> GetAll(string _lang)
+        public List<SliderViewModel> GetAll(string _lang)
         {
             return _unitOfWork.SliderRepostory
                   .GetAll()
-                  .Select(x => new data.SliderViewModel
+                  .Select(x => new SliderViewModel
                   {
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
@@ -102,6 +102,29 @@ namespace ConstructionSite.Facade.Slider
                 ContentRu = sliderUpdateViewModel.ContentRu,
 
             };
+            return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+        }
+        public bool Delete(int id)
+        {
+            var result = _unitOfWork.SliderRepostory.Find(x => x.Id == id);
+            _unitOfWork.SliderRepostory.Delete(result);
+            return _unitOfWork.Commit() > 0;
+        }
+
+      
+
+        public List<data.SliderViewModel> GetForSlider(string _lang)
+        {
+            return _unitOfWork.SliderRepostory
+                  .GetAll()
+                  .Select(x => new data.SliderViewModel
+                  {
+                      Content = x.FindContent(_lang),
+                      Tittle = x.FindTitle(_lang),
+                      imagePath = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
+
+                  })
+                  .ToList();
             return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
     }

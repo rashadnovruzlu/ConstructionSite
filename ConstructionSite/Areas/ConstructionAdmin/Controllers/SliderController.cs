@@ -74,10 +74,81 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         }
         public IActionResult Update(int id)
         {
-            return View();
+            var result = _sliderFacade.GetUpdate(id);
+            return View(result);
         }
-        public IActionResult Delete()
+        public async Task<IActionResult> Update(SliderUpdateViewModel sliderUpdateViewModel)
         {
+            if (sliderUpdateViewModel == null)
+            {
+                ModelState.AddModelError("", "This data not exists");
+                return RedirectToAction("Index");
+            }
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Models are not valid.");
+                return RedirectToAction("Index");
+            }
+            try
+            {
+
+                if (sliderUpdateViewModel.files != null && sliderUpdateViewModel.ImageID != null)
+                {
+                    try
+                    {
+                        for (int i = 0; i < sliderUpdateViewModel.ImageID.Count; i++)
+                        {
+                            var image = _unitOfWork.imageRepository.Find(x => x.Id == sliderUpdateViewModel.ImageID[i]);
+                            await sliderUpdateViewModel.files[i].UpdateAsyc(_webHostEnvironment, image, "Slider", _unitOfWork);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+                else if (sliderUpdateViewModel.files != null)
+                {
+                    try
+                    {
+                        var emptyImage = _unitOfWork.ServiceRepository.Find(x => x.Id == sliderUpdateViewModel.Id);
+
+                        var imagesid = await sliderUpdateViewModel.files.SaveImageCollectionAsync(_webHostEnvironment, "", _unitOfWork);
+                        foreach (var item in imagesid)
+                        {
+                            var resultData = new ServiceImage
+                            {
+                                ServiceId = emptyImage.Id,
+                                ImageId = item
+                            };
+                            await _unitOfWork.ServiceImageRepstory.AddAsync(resultData);
+                        }
+                        await _unitOfWork.CommitAsync();
+                    }
+                    catch
+                    {
+                    }
+                }
+                var resultAbout = await _sliderFacade.Update(sliderUpdateViewModel);
+                if (resultAbout.IsDone)
+                {
+                    await _unitOfWork.CommitAsync();
+
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+            }
+            return View(sliderUpdateViewModel);
+        }
+        public IActionResult Delete(int id)
+        {
+            _sliderFacade.Delete(id);
+            if (_unitOfWork.Commit() > 0)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }
