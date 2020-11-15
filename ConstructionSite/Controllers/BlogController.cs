@@ -58,7 +58,6 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
 
-
             var newsImageResult = _unitOfWork
                  .newsRepository
                  .GetAll()

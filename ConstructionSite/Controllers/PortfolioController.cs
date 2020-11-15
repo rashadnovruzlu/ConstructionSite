@@ -89,10 +89,8 @@ namespace ConstructionSite.Controllers
         [HttpGet]
         public PartialViewResult Project(int id = 0)
         {
-
             if (id == 0)
             {
-
                 var resultr = _unitOfWork.projectRepository.GetAll()
                   .Select(x => new ProjectViewModel
                   {

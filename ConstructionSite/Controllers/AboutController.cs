@@ -47,7 +47,7 @@ namespace ConstructionSite.Controllers
                 ModelState.AddModelError("", _localizationHandle.GetLocalizedHtmlString(RESOURCEKEYS.BadRequest));
             }
             var aboutImageViewResult = _aboutFacade.GetAll(_lang)
-                
+
                 .FirstOrDefault();
             if (aboutImageViewResult == null)
             {

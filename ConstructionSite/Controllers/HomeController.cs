@@ -13,9 +13,9 @@ namespace ConstructionSite.Controllers
             //_httpContextAccessor = httpContextAccessor;
             //_lang = _httpContextAccessor.GetLanguages();
         }
+
         public IActionResult Index()
         {
-
             return View();
         }
 

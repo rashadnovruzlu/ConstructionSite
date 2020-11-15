@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ConstructionSite.Injections;
+﻿using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Slider;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +10,14 @@ namespace ConstructionSite.Controllers
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISliderFacade _sliderFacade;
+
         public SliderController(IHttpContextAccessor httpContextAccessor, ISliderFacade sliderFacade)
         {
             _sliderFacade = sliderFacade;
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.GetLanguages();
         }
+
         public IActionResult Index()
         {
             return View();
