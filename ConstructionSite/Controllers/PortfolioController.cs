@@ -93,16 +93,18 @@ namespace ConstructionSite.Controllers
             if (id == 0)
             {
 
-                var resultr = _unitOfWork.portfolioRepository.GetAll()
+                var resultr = _unitOfWork.projectRepository.GetAll()
                   .Select(x => new ProjectViewModel
                   {
                       Id = x.Id,
                       Content = x.FindName(_lang),
-                      Image = x.PortfolioImages.Select(x => x.Image.Path).FirstOrDefault(),
+                      Image = x.ProjectImages.OrderByDescending(x => x.Id)
+                      .Select(x => x.Image.Path).FirstOrDefault(),
                       Name = x.FindName(_lang)
                   })
                   .OrderByDescending(x => x.Id)
                   .Take(8)
+
                   .ToList();
                 //var projectViewModelResultPartialView = _unitOfWork
                 //    .projectImageRepository
@@ -136,16 +138,20 @@ namespace ConstructionSite.Controllers
             //   .Take(8)
             //   .ToList();
 
-            var result = _unitOfWork.portfolioRepository.GetAll()
+            var result = _unitOfWork.projectRepository.GetAll()
+                .Where(x => x.PortfolioId == id)
                 .Select(x => new ProjectViewModel
                 {
                     Id = x.Id,
                     Content = x.FindName(_lang),
-                    Image = x.PortfolioImages.Select(x => x.Image.Path).FirstOrDefault(),
+                    Image = x.ProjectImages
+                    .OrderByDescending(x => x.Id)
+                    .Select(x => x.Image.Path).FirstOrDefault(),
                     Name = x.FindName(_lang)
                 })
                 .OrderByDescending(x => x.Id)
                 .Take(8)
+
                 .ToList();
             return PartialView(result);
         }
@@ -168,7 +174,7 @@ namespace ConstructionSite.Controllers
                 {
                     Id = x.Id,
                     Content = x.FindName(_lang),
-                    Image = x.PortfolioImages.Select(x => x.Image.Path).FirstOrDefault(),
+                    Image = x.PortfolioImages.OrderByDescending(x => x.Id).Select(x => x.Image.Path).FirstOrDefault(),
                     Name = x.FindName(_lang)
                 })
                 .OrderByDescending(x => x.Id)
