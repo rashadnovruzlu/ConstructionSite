@@ -1,7 +1,4 @@
 ﻿using ConstructionSite.Entity.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConstructionSite.Entity.Models
 {
@@ -10,6 +7,5 @@ namespace ConstructionSite.Entity.Models
         public int Id { get; set; }
         public string ImagePath { get; set; }
         //  public virtual ICollection<SliderImage> SliderImages { get; set; }
-
     }
 }

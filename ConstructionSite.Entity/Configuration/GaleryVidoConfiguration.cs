@@ -14,8 +14,6 @@ namespace ConstructionSite.Entity.Configuration
 
                 .WithMany(x => x.GaleryVidos)
                 .OnDelete(DeleteBehavior.Cascade);
-
-
         }
     }
 }
