@@ -7,7 +7,6 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -146,7 +145,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             try
             {
-
                 if (subServiceUpdateViewModel.files != null && subServiceUpdateViewModel.ImageID != null)
                 {
                     try
@@ -202,18 +200,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Delete(int id)
         {
-
             if (_subServiceFacade.Delete(id))
             {
-
                 return RedirectToAction("Index");
-
             }
             else
             {
                 return RedirectToAction("Index");
             }
-
         }
 
         #endregion DELETE

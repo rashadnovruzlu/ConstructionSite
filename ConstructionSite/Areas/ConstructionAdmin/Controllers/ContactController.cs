@@ -105,7 +105,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 Email = contactAddViewModel.Email
             };
             var addContactResult = await _unitOfWork.ContactRepository
-                  
+
                 .AddAsync(contactAddModelResult);
             _unitOfWork.Commit();
             if (!addContactResult.IsDone)
@@ -139,7 +139,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 .GetById(id)
                 .Mapped<ContactUpdateViewModel>();
             _unitOfWork.Dispose();
-            
+
             if (contantcUpdateResult == null)
             {
                 ModelState.AddModelError("", "Errors occured while editing Contact");

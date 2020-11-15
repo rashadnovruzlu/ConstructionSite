@@ -99,7 +99,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Update(int id)
         {
-
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Models are not valid.");
@@ -128,7 +127,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             try
             {
-
                 if (aboutUpdateViewModel.files != null && aboutUpdateViewModel.ImageID != null)
                 {
                     try
@@ -198,7 +196,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             //}
             if (_aboutFacade.Delete(id))
             {
-
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

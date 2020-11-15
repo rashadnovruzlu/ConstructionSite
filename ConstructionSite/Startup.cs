@@ -53,16 +53,16 @@ namespace ConstructionSite
 
 
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
 
-                app.UseHsts();
-            }
+            //    app.UseHsts();
+            //}
 
 
             //app.SeedRole();

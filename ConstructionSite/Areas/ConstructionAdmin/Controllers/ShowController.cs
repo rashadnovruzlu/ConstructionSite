@@ -29,7 +29,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-           
             var messageAllResult = _unitOfWork.messageRepository.GetAll()
                 .OrderByDescending(x => x.Id)
                 .Select(x => new MesageViewModel

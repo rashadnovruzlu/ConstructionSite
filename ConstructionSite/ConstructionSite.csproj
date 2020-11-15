@@ -54,6 +54,7 @@
     <Folder Include="wwwroot\ConstructionAdmin\assets\jquery-file-upload\server\php\files\thumbnail\" />
     <Folder Include="wwwroot\images\About\" />
     <Folder Include="wwwroot\images\galery\" />
+    <Folder Include="wwwroot\images\blog\" />
     <Folder Include="wwwroot\images\Subservice\" />
     <Folder Include="wwwroot\images\project\" />
     <Folder Include="wwwroot\images\service\" />
