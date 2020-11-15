@@ -14,7 +14,7 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Slider
         public string ContentAz { get; set; }
         public string ContentEn { get; set; }
         public string ContentRu { get; set; }
-
-        public ICollection<IFormFile> file { get; set; }
+        public string ImagePath { get; set; }
+        public IFormFile file { get; set; }
     }
 }

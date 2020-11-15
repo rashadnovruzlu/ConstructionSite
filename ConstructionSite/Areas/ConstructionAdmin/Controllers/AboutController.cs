@@ -191,11 +191,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid.");
                 return RedirectToAction("Index");
             }
-            if (id < 1)
-            {
-                ModelState.AddModelError("", "NULL");
-                return RedirectToAction("Index");
-            }
+            //if (id 1)
+            //{
+            //    ModelState.AddModelError("", "NULL");
+            //    return RedirectToAction("Index");
+            //}
             if (_aboutFacade.Delete(id))
             {
 

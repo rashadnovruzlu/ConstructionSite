@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConstructionSite.Migrations
 {
     [DbContext(typeof(ConstructionDbContext))]
-    [Migration("20201111231911_tests")]
-    partial class tests
+    [Migration("20201114205208_jjj")]
+    partial class jjj
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -791,15 +791,16 @@ namespace ConstructionSite.Migrations
             modelBuilder.Entity("ConstructionSite.Entity.Models.SliderImage", b =>
                 {
                     b.HasOne("ConstructionSite.Entity.Models.Image", "Image")
-                        .WithMany()
+                        .WithMany("SliderImages")
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ConstructionSite.Entity.Models.Sliders", "Sliders")
-                        .WithMany()
+                        .WithMany("SliderImages")
                         .HasForeignKey("SlidersId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction
+                        )
                         .IsRequired();
                 });
 

@@ -9,7 +9,7 @@ namespace ConstructionSite.Entity.Models
     {
         public int Id { get; set; }
         public string ImagePath { get; set; }
-        public virtual ICollection<SliderImage> SliderImages { get; set; }
+        //  public virtual ICollection<SliderImage> SliderImages { get; set; }
 
     }
 }

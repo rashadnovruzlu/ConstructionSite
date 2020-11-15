@@ -29,5 +29,6 @@ namespace ConstructionSite.Entity.Models
         public virtual ICollection<PortfolioImage> PortfolioImages { get; set; }
 
         public virtual ICollection<GaleryFile> GaleryFiles { get; set; }
+        public virtual ICollection<SliderImage> SliderImages { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace ConstructionSite.Facade.Slider
                       Id = x.Id,
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      PathImage = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
+                      PathImage = x.ImagePath
 
                   })
                   .ToList();
@@ -44,6 +44,7 @@ namespace ConstructionSite.Facade.Slider
                 ContentAz = sliderAddViewModel.ContentAz,
                 ContentEn = sliderAddViewModel.ContentEn,
                 ContentRu = sliderAddViewModel.ContentRu,
+                ImagePath = sliderAddViewModel.ImagePath
 
 
             };
@@ -63,8 +64,10 @@ namespace ConstructionSite.Facade.Slider
                    ContentAz = x.ContentAz,
                    ContentEn = x.ContentEn,
                    ContentRu = x.ContentRu,
-                   Images=x.SliderImages.Select(x=>x.Image).ToList(),
-                  
+                   pathImage = x.ImagePath,
+
+
+
                })
                .SingleOrDefault(x => x.Id == id);
             return resultSliderUpdateViewModel;
@@ -89,6 +92,7 @@ namespace ConstructionSite.Facade.Slider
         public bool Delete(int id)
         {
             var result = _unitOfWork.SliderRepostory.Find(x => x.Id == id);
+
             _unitOfWork.SliderRepostory.Delete(result);
             return _unitOfWork.Commit() > 0;
         }
@@ -103,7 +107,7 @@ namespace ConstructionSite.Facade.Slider
                   {
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      imagePath = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
+                      imagePath = x.ImagePath
 
                   })
                   .ToList();

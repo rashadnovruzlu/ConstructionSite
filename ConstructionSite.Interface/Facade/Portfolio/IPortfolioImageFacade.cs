@@ -15,5 +15,6 @@ namespace ConstructionSite.Interface.Facade.Portfolio
         Task<RESULT<PortfolioImage>> Update(PortfolioImageUpdateViewModel portfolioImageUpdateViewModel);
 
         Task<List<PortfolioImageViewModel>> GetAll(string _lang);
+
     }
 }

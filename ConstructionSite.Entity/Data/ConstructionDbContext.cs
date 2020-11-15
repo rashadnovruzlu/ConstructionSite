@@ -8,6 +8,7 @@ namespace ConstructionSite.Entity.Data
     {
         public ConstructionDbContext(DbContextOptions<ConstructionDbContext> options) : base(options)
         {
+           
         }
 
         public virtual DbSet<GaleryVido> GaleryVidos { get; set; }

@@ -46,40 +46,17 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(SliderAddViewModel sliderAddViewModel)
         {
-
-
-            var resultSlider = await _sliderFacade.Add(sliderAddViewModel);
-            var resultImage = await sliderAddViewModel.file.SaveImageCollectionAsync(_webHostEnvironment, "Slider", _unitOfWork);
-            try
+            var resultImagePath = await sliderAddViewModel.file.SaveImageForSlider(_webHostEnvironment, "Slider");
+            if (!string.IsNullOrEmpty(resultImagePath))
             {
-                if (resultSlider.IsDone && resultImage.Count > 0)
+                sliderAddViewModel.ImagePath = resultImagePath;
+                await _sliderFacade.Add(sliderAddViewModel);
+                if (await _unitOfWork.CommitAsync())
                 {
-                    foreach (var item in resultImage)
-                    {
-                        var result = new SliderImage
-                        {
-                            ImageId = item,
-                            SlidersId = resultSlider.Data.Id
-                        };
-                        await _unitOfWork.SliderImageRepstory.AddAsync(result);
-                    }
-                    if (await _unitOfWork.CommitAsync())
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        _unitOfWork.Rollback();
-                        return RedirectToAction("Index");
-                    }
+                    return RedirectToAction("Index");
                 }
             }
-            catch
-            {
-
-
-            }
-            return View();
+            return RedirectToAction("Index");
         }
         public IActionResult Update(int Id)
         {
@@ -89,77 +66,23 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(SliderUpdateViewModel sliderUpdateViewModel)
         {
-            if (sliderUpdateViewModel == null)
-            {
-                ModelState.AddModelError("", "This data not exists");
-                return RedirectToAction("Index");
-            }
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Models are not valid.");
-                return RedirectToAction("Index");
-            }
-            try
-            {
+            var resultImagePath = _unitOfWork.SliderRepostory.Find(x => x.Id == sliderUpdateViewModel.Id).ImagePath;
+            _webHostEnvironment.DeleteSlider("Slider", resultImagePath);
 
-                if (sliderUpdateViewModel.files != null && sliderUpdateViewModel.ImageID != null)
-                {
-                    try
-                    {
-                        for (int i = 0; i < sliderUpdateViewModel.ImageID.Count; i++)
-                        {
-                            var image = _unitOfWork.imageRepository.Find(x => x.Id == sliderUpdateViewModel.ImageID[i]);
-                            await sliderUpdateViewModel.files[i].UpdateAsyc(_webHostEnvironment, image, "Slider", _unitOfWork);
-                        }
-                    }
-                    catch
-                    {
-                    }
-                }
-                else if (sliderUpdateViewModel.files != null)
-                {
-                    try
-                    {
-                        var emptyImage = _unitOfWork.ServiceRepository.Find(x => x.Id == sliderUpdateViewModel.Id);
-
-                        var imagesid = await sliderUpdateViewModel.files.SaveImageCollectionAsync(_webHostEnvironment, "", _unitOfWork);
-                        foreach (var item in imagesid)
-                        {
-                            var resultData = new ServiceImage
-                            {
-                                ServiceId = emptyImage.Id,
-                                ImageId = item
-                            };
-                            await _unitOfWork.ServiceImageRepstory.AddAsync(resultData);
-                        }
-                        await _unitOfWork.CommitAsync();
-                    }
-                    catch
-                    {
-                    }
-                }
-                var resultAbout = await _sliderFacade.Update(sliderUpdateViewModel);
-                if (resultAbout.IsDone)
-                {
-                    await _unitOfWork.CommitAsync();
-
-                    return RedirectToAction("Index");
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-            }
-            return View(sliderUpdateViewModel);
+            await _sliderFacade.Update(sliderUpdateViewModel);
+            return View();
         }
         public IActionResult Delete(int id)
         {
+            var imagePathResult = _unitOfWork.SliderRepostory.Find(x => x.Id == id).ImagePath;
+
             _sliderFacade.Delete(id);
             if (_unitOfWork.Commit() > 0)
             {
+                _webHostEnvironment.DeleteSlider("Slider", imagePathResult);
                 return RedirectToAction("Index");
             }
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
