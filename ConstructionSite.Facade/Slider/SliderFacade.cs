@@ -9,15 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using ConstructionSite.Extensions.Images;
 
 namespace ConstructionSite.Facade.Slider
 {
     public class SliderFacade : ISliderFacade
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SliderFacade(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public SliderFacade(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public List<SliderViewModel> GetAll(string _lang)
         {
@@ -85,6 +89,7 @@ namespace ConstructionSite.Facade.Slider
                 ContentAz = sliderUpdateViewModel.ContentAz,
                 ContentEn = sliderUpdateViewModel.ContentEn,
                 ContentRu = sliderUpdateViewModel.ContentRu,
+                ImagePath = sliderUpdateViewModel.pathImage
 
             };
             return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
@@ -92,7 +97,7 @@ namespace ConstructionSite.Facade.Slider
         public bool Delete(int id)
         {
             var result = _unitOfWork.SliderRepostory.Find(x => x.Id == id);
-
+            _webHostEnvironment.DeleteFormHardDiskSlider("Slider", result.ImagePath);
             _unitOfWork.SliderRepostory.Delete(result);
             return _unitOfWork.Commit() > 0;
         }

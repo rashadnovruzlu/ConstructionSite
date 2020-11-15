@@ -17,6 +17,13 @@ namespace ConstructionSite.Extensions.Core
 
             return result;
         }
+        public static string DeletePathForSlider(IWebHostEnvironment _env, string FileName)
+        {
+            string reFactorPath = FileName.TrimStart('/');
+            string result = Path.Combine(_env.WebRootPath, reFactorPath);
+
+            return result;
+        }
 
         public static string createFilePathSaveDataBase(string subFolder, string FileNameAfterReName, string _IMAGE)
         {

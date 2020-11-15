@@ -35,7 +35,7 @@
                 <hr />
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Slider" asp-action="Update" method="post" enctype="multipart/form-data">
-
+                        <input type="hidden" asp-for="pathImage"  />
                         <input type="hidden" name="Id" value="@Model.Id" />
                         <div class="form-group">
                             <div class="col-lg-11">

@@ -11,7 +11,7 @@ namespace ConstructionSite.Interface.Facade.Slider
 {
     public interface ISliderFacade
     {
-        
+
         List<SliderViewModel> GetAll(string _lang);
         List<data.SliderViewModel> GetForSlider(string _lang);
         Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel);

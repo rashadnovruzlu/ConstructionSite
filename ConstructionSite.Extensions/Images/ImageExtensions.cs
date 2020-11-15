@@ -528,7 +528,7 @@ namespace ConstructionSite.Extensions.Images
             }
             return isResult;
         }
-      
+
         public static bool Delete(IWebHostEnvironment _env, int imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
             Image imageResult = _unitOfWork.imageRepository.GetById(imageId);
@@ -556,6 +556,12 @@ namespace ConstructionSite.Extensions.Images
                 }
             }
             return isResult;
+        }
+        public static void DeleteFormHardDiskSlider(this IWebHostEnvironment _env, string subFolder, string imageName)
+        {
+            var imageDeleteFormHardDisk = Paths.DeletePathForSlider(_env, imageName);
+
+            Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
         }
 
         public static bool Delete(this IWebHostEnvironment _env, Image[] image, string subFolder, IUnitOfWork _unitOfWork)

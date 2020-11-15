@@ -1,9 +1,9 @@
 ﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
+using ConstructionSite.Helpers.Core;
 using ConstructionSite.Injections;
 using ConstructionSite.Interface.Facade.Slider;
 using ConstructionSite.Repository.Abstract;
-using ConstructionSite.Repository.Interfaces;
 using ConstructionSite.ViwModel.AdminViewModels.Slider;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,12 +14,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
     public class SliderController : CoreController
     {
-
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISliderFacade _sliderFacade;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IUnitOfWork _unitOfWork;
+
         public SliderController(
                                 IWebHostEnvironment webHostEnvironment,
                                 IUnitOfWork unitOfWork,
@@ -32,17 +32,19 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.GetLanguages();
         }
+
         public IActionResult Index()
         {
             var result = _sliderFacade.GetAll(_lang);
             return View(result);
         }
+
         [HttpGet]
         public IActionResult Add()
         {
-
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Add(SliderAddViewModel sliderAddViewModel)
         {
@@ -58,31 +60,57 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return RedirectToAction("Index");
         }
+
         public IActionResult Update(int Id)
         {
             var result = _sliderFacade.GetUpdate(Id);
             return View(result);
         }
+
         [HttpPost]
         public async Task<IActionResult> Update(SliderUpdateViewModel sliderUpdateViewModel)
         {
-            var resultImagePath = _unitOfWork.SliderRepostory.Find(x => x.Id == sliderUpdateViewModel.Id).ImagePath;
-            _webHostEnvironment.DeleteSlider("Slider", resultImagePath);
-
-            await _sliderFacade.Update(sliderUpdateViewModel);
-            return View();
+            RESULT<Sliders> resultUpdateData = await UpdateAndDelete(sliderUpdateViewModel);
+            if (resultUpdateData.IsDone)
+            {
+                if (await _unitOfWork.CommitAsync())
+                {
+                    return RedirectToAction("index");
+                }
+            }
+            return RedirectToAction("Index");
         }
+
         public IActionResult Delete(int id)
         {
-            var imagePathResult = _unitOfWork.SliderRepostory.Find(x => x.Id == id).ImagePath;
-
-            _sliderFacade.Delete(id);
-            if (_unitOfWork.Commit() > 0)
+            var resultAfterDelete = _sliderFacade.Delete(id);
+            if (resultAfterDelete)
             {
-                _webHostEnvironment.DeleteSlider("Slider", imagePathResult);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
+
+        #region ::PRIVITE::
+
+        private async Task<RESULT<Sliders>> UpdateAndDelete(SliderUpdateViewModel sliderUpdateViewModel)
+        {
+            if (sliderUpdateViewModel.files != null)
+            {
+                if (!string.IsNullOrEmpty(sliderUpdateViewModel.pathImage))
+                {
+                    _webHostEnvironment.DeleteFormHardDiskSlider("Slider", sliderUpdateViewModel.pathImage);
+                }
+                var result = await sliderUpdateViewModel.files.SaveImageForSlider(_webHostEnvironment, "Slider");
+
+                sliderUpdateViewModel.pathImage = result;
+            }
+
+            await _unitOfWork.CommitAsync();
+            var resultUpdateData = await _sliderFacade.Update(sliderUpdateViewModel);
+            return resultUpdateData;
+        }
+
+        #endregion ::PRIVITE::
     }
 }
