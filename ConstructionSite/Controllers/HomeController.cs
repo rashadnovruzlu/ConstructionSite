@@ -22,8 +22,7 @@ namespace ConstructionSite.Controllers
 
         public IActionResult Index()
         {
-            //   List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel> sliderViewModels = new List<SliderViewModel>();
-            //sliderViewModels = _sliderFacade.GetForSlider(_lang);
+
             ViewBag.sliderViewModels = _sliderFacade.GetAll(_lang);
             return View();
         }
