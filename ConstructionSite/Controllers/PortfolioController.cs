@@ -104,11 +104,11 @@ namespace ConstructionSite.Controllers
                   .Take(8)
 
                   .ToList();
-               
+
                 return PartialView(resultr);
             }
 
-           
+
             var result = _unitOfWork.projectRepository.GetAll()
                 .Where(x => x.PortfolioId == id)
                 .Select(x => new ProjectViewModel
@@ -151,7 +151,7 @@ namespace ConstructionSite.Controllers
                 .OrderByDescending(x => x.Id)
                 .Take(8)
                .ToList();
-               return PartialView(result);
+            return PartialView(result);
         }
 
         #endregion All

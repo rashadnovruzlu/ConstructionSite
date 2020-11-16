@@ -7,6 +7,7 @@ using ConstructionSite.ViwModel.AdminViewModels.Slider;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using data = ConstructionSite.ViwModel.FrontViewModels.Slider;
@@ -17,11 +18,13 @@ namespace ConstructionSite.Facade.Slider
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public SliderFacade(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        private static string PathContent = string.Empty;
+        public SliderFacade(IUnitOfWork unitOfWork,
+                           IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
+            PathContent = _webHostEnvironment.WebRootPath;
         }
 
         public List<SliderViewModel> GetBackAll(string _lang)
@@ -40,7 +43,7 @@ namespace ConstructionSite.Facade.Slider
 
         public List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel> GetAll(string _lang)
         {
-            return _unitOfWork.SliderRepostory
+            var resultSliderViewModel = _unitOfWork.SliderRepostory
                   .GetAll()
                   .Select(x => new ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel
                   {
@@ -50,15 +53,18 @@ namespace ConstructionSite.Facade.Slider
                       imagePath = ConvertToBase64Format(x.ImagePath)
                   })
                   .ToList();
+            return resultSliderViewModel;
         }
 
         #region base64
 
         public static string ConvertToBase64Format(string path)
         {
+            string result = Path.Combine(PathContent, path.TrimStart('/'));
+
             try
             {
-                byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                byte[] imageArray = System.IO.File.ReadAllBytes(result);
                 string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                 return base64ImageRepresentation;
             }
@@ -140,6 +146,11 @@ namespace ConstructionSite.Facade.Slider
                   })
                   .ToList();
             // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+        }
+        private static string Generatepath(IWebHostEnvironment _webHostEnvironment, string PathContent)
+        {
+            var resultPath = Path.Combine(_webHostEnvironment.WebRootPath, PathContent.TrimStart());
+            return resultPath;
         }
     }
 }

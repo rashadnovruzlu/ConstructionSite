@@ -1,5 +1,4 @@
 ﻿@inject SharedLocalizationService Localizer
-@model List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -11,7 +10,7 @@
             <!-- Slide -->
             <!-- End Slide -->
             <!-- Slide -->
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.sliderViewModels)
             {
 
                 <li data-transition="boxfade" data-slotamount="7" data-easein="Expo.easeOut" data-easeout="Expo.easeOut" data-masterspeed="2000" data-thumb="@item.imagePath.ToLower()" data-rotate="0" data-saveperformance="off" data-title="BEST COMPANY">
@@ -230,7 +229,7 @@
         <section id="contact" class="wprt-section">
             <div class="container">
                 <div class="row">
-                    @*@(await Component.InvokeAsync("Message"))*@
+                    @(await Component.InvokeAsync("Message"))
                 </div>
                 <!-- /.row -->
             </div>
