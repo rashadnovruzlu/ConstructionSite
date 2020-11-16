@@ -1,6 +1,4 @@
-﻿using ConstructionSite.DTO.AdminViewModels.Portfolio;
-
-namespace ConstructionSite.DTO.AdminViewModels.Project
+﻿namespace ConstructionSite.DTO.AdminViewModels.Project
 {
     public class ProjectViewModel
     {

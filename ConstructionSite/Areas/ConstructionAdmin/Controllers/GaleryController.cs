@@ -58,8 +58,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
         {
-
-
             if (galeryAddViewModel.viodPath != null | galeryAddViewModel.files != null)
             {
                 try
@@ -81,17 +79,11 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                             var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, galeryAddViewModel.viodPath, "galery", _unitOfWork);
                             if (resultGalery.IsDone && resultImage.Count > 0)
                             {
-
                                 await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);
                                 return RedirectToAction("Index");
                             }
                         }
                     }
-
-
-
-
-
                 }
                 catch
                 {
@@ -103,8 +95,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             return View();
         }
-
-
 
         #endregion ::ADD::
 
@@ -187,7 +177,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            
             var result = await _galeryFacade.Delete(id);
             if (result.IsDone)
             {
@@ -200,7 +189,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         #region ::private::
 
-
         private async Task GaleryFileSaveWithImageAndGalery(RESULT<Galery> resultGalery, List<int> resultImage)
         {
             try
@@ -211,16 +199,13 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         ImageId = item,
                         GaleryId = resultGalery.Data.Id,
-
                     };
                     await _galeryFileFacde.Add(galeryFileAddViewModel);
                 }
                 await _unitOfWork.CommitAsync();
             }
-            catch 
+            catch
             {
-
-               
             }
         }
 

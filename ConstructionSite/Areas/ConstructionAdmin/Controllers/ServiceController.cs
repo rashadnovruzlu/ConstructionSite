@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -104,7 +103,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     }
                     else
                     {
-
                         return View();
                     }
                 }
@@ -154,7 +152,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             try
             {
-
                 if (serviceUpdateViewModel.files != null && serviceUpdateViewModel.ImageID != null)
                 {
                     try
@@ -248,10 +245,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-
-
             }
-
         }
 
         #endregion ::private ::

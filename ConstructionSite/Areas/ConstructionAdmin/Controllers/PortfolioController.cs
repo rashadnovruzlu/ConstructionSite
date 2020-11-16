@@ -103,7 +103,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-
             }
             catch
             {

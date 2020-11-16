@@ -7,7 +7,6 @@ using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -90,7 +89,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var resulBlogAddViewModel = await _subServiceFacade.Add(subServiceAddModel);
-                var resultImage = await subServiceAddModel.file.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                var resultImage = await subServiceAddModel.file.SaveImageCollectionAsync(_env, "Subservice", _unitOfWork);
                 if (resulBlogAddViewModel.IsDone && resultImage.Count > 0)
                 {
                     foreach (var item in resultImage)
@@ -146,7 +145,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             try
             {
-
                 if (subServiceUpdateViewModel.files != null && subServiceUpdateViewModel.ImageID != null)
                 {
                     try
@@ -154,7 +152,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                         for (int i = 0; i < subServiceUpdateViewModel.ImageID.Count; i++)
                         {
                             var image = _unitOfWork.imageRepository.Find(x => x.Id == subServiceUpdateViewModel.ImageID[i]);
-                            await subServiceUpdateViewModel.files[i].UpdateAsyc(_env, image, "service", _unitOfWork);
+                            await subServiceUpdateViewModel.files[i].UpdateAsyc(_env, image, "Subservice", _unitOfWork);
                         }
                     }
                     catch
@@ -167,7 +165,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         var emptyImage = _unitOfWork.SubServiceRepository.Find(x => x.Id == subServiceUpdateViewModel.Id);
 
-                        var imagesid = await subServiceUpdateViewModel.files.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                        var imagesid = await subServiceUpdateViewModel.files.SaveImageCollectionAsync(_env, "Subservice", _unitOfWork);
                         foreach (var item in imagesid)
                         {
                             var resultData = new SubServiceImage
@@ -202,18 +200,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Delete(int id)
         {
-
             if (_subServiceFacade.Delete(id))
             {
-
                 return RedirectToAction("Index");
-
             }
             else
             {
                 return RedirectToAction("Index");
             }
-
         }
 
         #endregion DELETE

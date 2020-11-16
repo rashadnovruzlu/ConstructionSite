@@ -92,7 +92,6 @@ namespace ConstructionSite.Facade.Projects
                 return _env.Delete(imageId, "Project", _unitOfWork);
             }
             return false;
-
         }
     }
 }

@@ -216,7 +216,6 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
-
         }
 
         #endregion DELETE
@@ -258,10 +257,8 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     await _projectImageFacade.Add(projectImageAddViewModel);
                 }
             }
-            catch 
+            catch
             {
-
-                
             }
         }
 

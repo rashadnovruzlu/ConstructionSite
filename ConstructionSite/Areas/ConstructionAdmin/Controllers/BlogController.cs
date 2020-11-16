@@ -139,11 +139,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            if (id < 1)
-            {
-                ModelState.AddModelError("", "This data is not exists");
-                return RedirectToAction("Index");
-            }
+
 
             if (!ModelState.IsValid)
             {
@@ -215,15 +211,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        _unitOfWork.Rollback();
-                    }
+
                 }
             }
             catch
             {
-                throw;
+
             }
             return RedirectToAction("Index");
         }

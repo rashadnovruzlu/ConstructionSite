@@ -227,10 +227,7 @@ namespace ConstructionSite.Repository.Concreate
         public RESULT<T> Delete(T entity)
         {
             RESULT<T> result = new RESULT<T> { IsDone = true };
-            if (entity == null)
-            {
-                throw new ArgumentNullException();
-            }
+
             try
             {
                 _context.Set<T>().Remove(entity);

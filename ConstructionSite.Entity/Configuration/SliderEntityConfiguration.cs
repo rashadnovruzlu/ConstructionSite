@@ -8,7 +8,6 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<Sliders> builder)
         {
-           
             builder.Property(x => x.ImagePath)
                    .HasMaxLength(300);
         }

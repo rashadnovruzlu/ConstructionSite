@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.ViewComponents
 {
-    public class SliderViewComponent:ViewComponent
+    public class SliderViewComponent : ViewComponent
     {
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -25,21 +25,21 @@ namespace ConstructionSite.ViewComponents
             _lang = _httpContextAccessor.GetLanguages();
         }
 
-       
+
 
         public IViewComponentResult Invoke()
         {
-            var result= _unitOfWork.SliderRepostory
+            var result = _unitOfWork.SliderRepostory
                 .GetAll()
                 .Select(x => new SliderViewModel
                 {
                     Content = x.FindContent(_lang),
                     Tittle = x.FindTitle(_lang),
-                    imagePath = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
+                    imagePath = x.ImagePath
 
                 })
                 .ToList();
-          
+
 
             return View(result);
         }

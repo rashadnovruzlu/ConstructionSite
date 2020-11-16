@@ -1,61 +1,83 @@
 ﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Slider;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Slider;
-using data = ConstructionSite.ViwModel.FrontViewModels.Slider;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using data = ConstructionSite.ViwModel.FrontViewModels.Slider;
 
 namespace ConstructionSite.Facade.Slider
 {
     public class SliderFacade : ISliderFacade
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SliderFacade(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private static string PathContent = string.Empty;
+        public SliderFacade(IUnitOfWork unitOfWork,
+                           IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
+            PathContent = _webHostEnvironment.WebRootPath;
         }
-        public List<SliderViewModel> GetAll(string _lang)
+
+        public List<SliderViewModel> GetBackAll(string _lang)
         {
             return _unitOfWork.SliderRepostory
                   .GetAll()
                   .Select(x => new SliderViewModel
                   {
+                      Id = x.Id,
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault())
-
+                      PathImage = x.ImagePath
                   })
                   .ToList();
+        }
+
+        public List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel> GetAll(string _lang)
+        {
+            var resultSliderViewModel = _unitOfWork.SliderRepostory
+                  .GetAll()
+                  .Select(x => new ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel
+                  {
+                      Content = x.FindContent(_lang),
+                      Tittle = x.FindTitle(_lang),
+                      // PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()),
+                      imagePath = ConvertToBase64Format(x.ImagePath)
+                  })
+                  .ToList();
+            return resultSliderViewModel;
         }
 
         #region base64
 
         public static string ConvertToBase64Format(string path)
         {
+            string result = Path.Combine(PathContent, path.TrimStart('/'));
+
             try
             {
-                byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                byte[] imageArray = System.IO.File.ReadAllBytes(result);
                 string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                 return base64ImageRepresentation;
             }
-            catch (Exception e)
+            catch
             {
-                
-                throw;
             }
-          
+            return string.Empty;
         }
 
-        #endregion
+        #endregion base64
+
         public Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel)
         {
-
             var resultSliderAddViewModel = new Sliders
             {
                 TittleAz = sliderAddViewModel.TittleAz,
@@ -64,13 +86,12 @@ namespace ConstructionSite.Facade.Slider
                 ContentAz = sliderAddViewModel.ContentAz,
                 ContentEn = sliderAddViewModel.ContentEn,
                 ContentRu = sliderAddViewModel.ContentRu,
-
-
+                ImagePath = sliderAddViewModel.ImagePath
             };
             var result = _unitOfWork.SliderRepostory.AddAsync(resultSliderAddViewModel);
             return result;
-
         }
+
         public SliderUpdateViewModel GetUpdate(int id)
         {
             var resultSliderUpdateViewModel = _unitOfWork.SliderRepostory.GetAll()
@@ -82,13 +103,13 @@ namespace ConstructionSite.Facade.Slider
                    TittleRu = x.TittleRu,
                    ContentAz = x.ContentAz,
                    ContentEn = x.ContentEn,
-                   ContentRu = x.ContentRu
+                   ContentRu = x.ContentRu,
+                   pathImage = x.ImagePath,
                })
                .SingleOrDefault(x => x.Id == id);
             return resultSliderUpdateViewModel;
-
-
         }
+
         public async Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel)
         {
             var resultsliderUpdateViewModel = new Sliders
@@ -100,18 +121,18 @@ namespace ConstructionSite.Facade.Slider
                 ContentAz = sliderUpdateViewModel.ContentAz,
                 ContentEn = sliderUpdateViewModel.ContentEn,
                 ContentRu = sliderUpdateViewModel.ContentRu,
-
+                ImagePath = sliderUpdateViewModel.pathImage
             };
             return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
+
         public bool Delete(int id)
         {
             var result = _unitOfWork.SliderRepostory.Find(x => x.Id == id);
+            _webHostEnvironment.DeleteFormHardDiskSlider("Slider", result.ImagePath);
             _unitOfWork.SliderRepostory.Delete(result);
             return _unitOfWork.Commit() > 0;
         }
-
-      
 
         public List<data.SliderViewModel> GetForSlider(string _lang)
         {
@@ -121,11 +142,15 @@ namespace ConstructionSite.Facade.Slider
                   {
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      imagePath = x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()
-
+                      imagePath = x.ImagePath
                   })
                   .ToList();
-           // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+            // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+        }
+        private static string Generatepath(IWebHostEnvironment _webHostEnvironment, string PathContent)
+        {
+            var resultPath = Path.Combine(_webHostEnvironment.WebRootPath, PathContent.TrimStart());
+            return resultPath;
         }
     }
 }

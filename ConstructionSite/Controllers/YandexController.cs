@@ -1,8 +1,6 @@
 ﻿using ConstructionSite.ViwModel.AdminViewModels.Mail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Net.Mail;
 
 namespace ConstructionSite.Controllers
 {
@@ -26,10 +24,6 @@ namespace ConstructionSite.Controllers
 
         public IActionResult SendEmail(MailSend email)
         {
-
-
-
-
             return View();
         }
     }

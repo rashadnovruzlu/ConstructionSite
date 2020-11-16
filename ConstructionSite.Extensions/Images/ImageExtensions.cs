@@ -207,6 +207,9 @@ namespace ConstructionSite.Extensions.Images
             return imageResultID;
         }
 
+
+
+
         public async static Task<bool> SaveImageAsync(this IFormFile file, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
             bool IsResult = false;
@@ -237,6 +240,34 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+
+
+        public async static Task<string> SaveImageForSlider(this IFormFile file, IWebHostEnvironment _env, string subFolder)
+        {
+
+            string FilePaths = string.Empty;
+            if (file != null)
+            {
+                string FileNameAfterReName = Helper.reNameFileName(file);
+                string filePath = Paths
+                     .createfilePathSaveHardDisk(_env, subFolder, FileNameAfterReName, _IMAGE);
+
+                bool folderIsCreatedSuccess = Folders.createFolder(_env, subFolder, _IMAGE);
+
+                await using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                FilePaths = Paths.createFilePathSaveDataBase(subFolder, FileNameAfterReName, _IMAGE);
+
+
+
+            }
+
+            return FilePaths;
+        }
+
 
         public async static Task<List<RESULT<Image>>> SaveImageCollectionForAsync(this ICollection<IFormFile> files, IWebHostEnvironment _env, string subFolder, Image image, IUnitOfWork _unitOfWork)
         {
@@ -308,6 +339,9 @@ namespace ConstructionSite.Extensions.Images
             }
             return IsResult;
         }
+
+
+
 
         public async static Task<bool> UpdateAsyc(this IWebHostEnvironment _env, List<IFormFile> file, int[] imageId, string subFolder, IUnitOfWork _unitOfWork)
         {
@@ -522,6 +556,12 @@ namespace ConstructionSite.Extensions.Images
                 }
             }
             return isResult;
+        }
+        public static void DeleteFormHardDiskSlider(this IWebHostEnvironment _env, string subFolder, string imageName)
+        {
+            var imageDeleteFormHardDisk = Paths.DeletePathForSlider(_env, imageName);
+
+            Files.deleteFileFormHardDisk(imageDeleteFormHardDisk);
         }
 
         public static bool Delete(this IWebHostEnvironment _env, Image[] image, string subFolder, IUnitOfWork _unitOfWork)

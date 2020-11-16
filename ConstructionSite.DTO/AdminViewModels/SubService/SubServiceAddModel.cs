@@ -5,7 +5,6 @@ namespace ConstructionSite.DTO.AdminViewModels.SubService
 {
     public class SubServiceAddModel
     {
-
         public string NameAz { get; set; }
 
         public string NameEn { get; set; }

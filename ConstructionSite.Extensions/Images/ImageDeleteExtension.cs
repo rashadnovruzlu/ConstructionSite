@@ -1,4 +1,4 @@
-﻿using ConstructionSite.Entity.Models;
+﻿                                                                                using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Core;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;

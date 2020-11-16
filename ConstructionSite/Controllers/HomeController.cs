@@ -13,17 +13,18 @@ namespace ConstructionSite.Controllers
         private string _lang;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISliderFacade _sliderFacade;
-        public HomeController(ISliderFacade sliderFacade,IHttpContextAccessor httpContextAccessor)
+        public HomeController(ISliderFacade sliderFacade, IHttpContextAccessor httpContextAccessor)
         {
             _sliderFacade = sliderFacade;
             _httpContextAccessor = httpContextAccessor;
             _lang = _httpContextAccessor.GetLanguages();
         }
+
         public IActionResult Index()
         {
-            List<ViwModel.FrontViewModels.Slider.SliderViewModel> sliderViewModels = new List<SliderViewModel>();
-            sliderViewModels = _sliderFacade.GetForSlider(_lang);
-            return View(sliderViewModels);
+
+            ViewBag.sliderViewModels = _sliderFacade.GetAll(_lang);
+            return View();
         }
 
         public IActionResult Soon()

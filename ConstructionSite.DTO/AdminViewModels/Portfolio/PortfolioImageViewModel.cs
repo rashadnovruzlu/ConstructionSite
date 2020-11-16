@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.ViwModel.AdminViewModels.Portfolio
+﻿namespace ConstructionSite.ViwModel.AdminViewModels.Portfolio
 {
     public class PortfolioImageViewModel
     {

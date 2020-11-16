@@ -1,0 +1,113 @@
+﻿@model SliderUpdateViewModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<style>
+    .add-model {
+        background-color: rgb(241,242, 247);
+        padding-left: 7%;
+    }
+
+        .add-model header {
+            height: 30px;
+            margin-top: 15px;
+        }
+
+    .add-body {
+        margin-top: -10px;
+    }
+
+    .about-button:hover {
+        background-color: black !important;
+        border-color: black;
+        color: #fff;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel add-model">
+                <header class="panel-heading">
+                    Service Update
+                </header>
+                <hr />
+                <div class="panel-body add-body">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Slider" asp-action="Update" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="pathImage"  />
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <textarea type="text" asp-for="TittleAz" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <textarea type="text" asp-for="TittleEn" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <textarea type="text" asp-for="TittleRu" rows="15" id="f-name" class="form-control" placeholder="Title RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <textarea type="text" asp-for="ContentAz" rows="15" id="f-name" class="form-control" placeholder="Content RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <textarea type="text" asp-for="ContentEn" rows="15" id="f-name" class="form-control" placeholder="Content RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-11">
+                                <textarea type="text" asp-for="ContentRu" rows="15" id="f-name" class="form-control" placeholder="Content RU"></textarea>
+                            </div>
+                        </div>
+                        <div class="wrapper--preview">
+
+                            @if (string.IsNullOrEmpty(Model.pathImage) == null)
+                            {
+                                <input type="file" asp-for="files" />
+                            }
+                           
+                                <div class="box">
+                                    <div class="js--image-preview">
+                                        <img src="@Model.pathImage" alt="Alternate Text" />
+                                        <input type="hidden" />
+                                    </div>
+                                    <div class="upload-options">
+
+                                        <label>
+
+                                            <input id="@Model.ImageID" type="file" asp-for="files" onclick="cenerateInput(@Model.ImageID);" />
+                                        </label>
+                                    </div>
+                                </div>
+                          
+                        </div>
+
+                        <div class="form-group" style="margin-left: 72%;">
+                            <div class="col-lg-offset-2 col-lg-11">
+                                <button class="btn btn-success about-button" type="submit">Save</button>
+                                <button class="btn btn-default cancel-button" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(".cancel-button").click(function () {
+            window.location.href = "/ConstructionAdmin/Service/Index";
+        })
+    </script>
+}
+

@@ -19,12 +19,9 @@ namespace ConstructionSite.Entity.Configuration
             .Property(x => x.TittleRu)
              .HasMaxLength(250);
 
-
-
             builder
             .Property(x => x.TittleEn)
              .HasMaxLength(250);
-           
 
             builder
                 .Property(x => x.ContentAz)

@@ -8,11 +8,12 @@ namespace ConstructionSite.Entity.Configuration
     {
         public void Configure(EntityTypeBuilder<SliderImage> builder)
         {
-            builder.HasKey(px => new
-            {
-                px.ImageId,
-                px.SlidersId
-            });
+            //builder.HasOne(x => x.Sliders)
+            //    .WithMany(x => x.SliderImages)
+            //    ;
+            builder.HasOne(x => x.Image)
+                 .WithMany(x => x.SliderImages)
+                 ;
         }
     }
 }

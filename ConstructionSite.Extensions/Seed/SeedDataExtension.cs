@@ -1,6 +1,7 @@
 ﻿using ConstructionSite.Entity.Data;
 using ConstructionSite.Entity.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace ConstructionSite.Extensions.Seed
         public static void SeedData(this IApplicationBuilder app)
         {
             var context = app.ApplicationServices.GetRequiredService<ConstructionDbContext>();
-            // context.Database.Migrate();
+            context.Database.Migrate();
 
             if (!context.Contacts.Any())
             {
