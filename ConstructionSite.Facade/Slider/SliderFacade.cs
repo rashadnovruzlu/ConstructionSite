@@ -9,8 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using ConstructionSite.Extensions.Images;
+using System.IO;
 
 namespace ConstructionSite.Facade.Slider
 {
@@ -32,11 +31,31 @@ namespace ConstructionSite.Facade.Slider
                       Id = x.Id,
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      PathImage = x.ImagePath
+                      PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault())
 
                   })
                   .ToList();
         }
+
+        #region base64
+
+        public static string ConvertToBase64Format(string path)
+        {
+            try
+            {
+                byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                return base64ImageRepresentation;
+            }
+            catch (Exception e)
+            {
+                
+                throw;
+            }
+          
+        }
+
+        #endregion
         public Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel)
         {
 
@@ -116,6 +135,7 @@ namespace ConstructionSite.Facade.Slider
 
                   })
                   .ToList();
+           // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
     }
 }
