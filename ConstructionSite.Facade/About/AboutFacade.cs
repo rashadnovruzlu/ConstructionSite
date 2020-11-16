@@ -1,5 +1,4 @@
-﻿using Castle.Core.Internal;
-using ConstructionSite.DTO.AdminViewModels.About;
+﻿using ConstructionSite.DTO.AdminViewModels.About;
 using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Core;
@@ -7,7 +6,6 @@ using ConstructionSite.Interface.Facade.About;
 using ConstructionSite.Repository.Abstract;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

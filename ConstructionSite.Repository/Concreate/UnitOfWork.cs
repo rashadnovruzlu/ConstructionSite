@@ -250,7 +250,6 @@ namespace ConstructionSite.Repository.Concreate
             }
             catch (System.Exception EX)
             {
-
                 // _context.Dispose();
                 return 0;
             }

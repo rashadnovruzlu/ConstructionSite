@@ -1,17 +1,15 @@
 ﻿using ConstructionSite.Entity.Models;
+using ConstructionSite.Extensions.Images;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Slider;
 using ConstructionSite.Repository.Abstract;
 using ConstructionSite.ViwModel.AdminViewModels.Slider;
-using data = ConstructionSite.ViwModel.FrontViewModels.Slider;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using ConstructionSite.Extensions.Images;
+using data = ConstructionSite.ViwModel.FrontViewModels.Slider;
 
 namespace ConstructionSite.Facade.Slider
 {
@@ -19,11 +17,13 @@ namespace ConstructionSite.Facade.Slider
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
         public SliderFacade(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
+
         public List<SliderViewModel> GetBackAll(string _lang)
         {
             return _unitOfWork.SliderRepostory
@@ -34,22 +34,20 @@ namespace ConstructionSite.Facade.Slider
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
                       PathImage = x.ImagePath
-
                   })
                   .ToList();
         }
+
         public List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel> GetAll(string _lang)
         {
             return _unitOfWork.SliderRepostory
                   .GetAll()
                   .Select(x => new ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel
                   {
-
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
                       // PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()),
                       imagePath = ConvertToBase64Format(x.ImagePath)
-
                   })
                   .ToList();
         }
@@ -58,7 +56,6 @@ namespace ConstructionSite.Facade.Slider
 
         public static string ConvertToBase64Format(string path)
         {
-            
             try
             {
                 byte[] imageArray = System.IO.File.ReadAllBytes(path);
@@ -67,17 +64,14 @@ namespace ConstructionSite.Facade.Slider
             }
             catch
             {
-
-
             }
             return string.Empty;
-
         }
 
-        #endregion
+        #endregion base64
+
         public Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel)
         {
-
             var resultSliderAddViewModel = new Sliders
             {
                 TittleAz = sliderAddViewModel.TittleAz,
@@ -87,13 +81,11 @@ namespace ConstructionSite.Facade.Slider
                 ContentEn = sliderAddViewModel.ContentEn,
                 ContentRu = sliderAddViewModel.ContentRu,
                 ImagePath = sliderAddViewModel.ImagePath
-
-
             };
             var result = _unitOfWork.SliderRepostory.AddAsync(resultSliderAddViewModel);
             return result;
-
         }
+
         public SliderUpdateViewModel GetUpdate(int id)
         {
             var resultSliderUpdateViewModel = _unitOfWork.SliderRepostory.GetAll()
@@ -107,15 +99,11 @@ namespace ConstructionSite.Facade.Slider
                    ContentEn = x.ContentEn,
                    ContentRu = x.ContentRu,
                    pathImage = x.ImagePath,
-
-
-
                })
                .SingleOrDefault(x => x.Id == id);
             return resultSliderUpdateViewModel;
-
-
         }
+
         public async Task<RESULT<Sliders>> Update(SliderUpdateViewModel sliderUpdateViewModel)
         {
             var resultsliderUpdateViewModel = new Sliders
@@ -128,10 +116,10 @@ namespace ConstructionSite.Facade.Slider
                 ContentEn = sliderUpdateViewModel.ContentEn,
                 ContentRu = sliderUpdateViewModel.ContentRu,
                 ImagePath = sliderUpdateViewModel.pathImage
-
             };
             return await _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
+
         public bool Delete(int id)
         {
             var result = _unitOfWork.SliderRepostory.Find(x => x.Id == id);
@@ -139,8 +127,6 @@ namespace ConstructionSite.Facade.Slider
             _unitOfWork.SliderRepostory.Delete(result);
             return _unitOfWork.Commit() > 0;
         }
-
-
 
         public List<data.SliderViewModel> GetForSlider(string _lang)
         {
@@ -151,7 +137,6 @@ namespace ConstructionSite.Facade.Slider
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
                       imagePath = x.ImagePath
-
                   })
                   .ToList();
             // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);

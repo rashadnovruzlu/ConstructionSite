@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.ViwModel.AdminViewModels.Slider
+﻿namespace ConstructionSite.ViwModel.AdminViewModels.Slider
 {
     public class SliderViewModel
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConstructionSite.ViwModel.FrontViewModels.Galery
+﻿namespace ConstructionSite.ViwModel.FrontViewModels.Galery
 {
     public class GaleryFileFrontViewModel
     {
@@ -17,7 +13,5 @@ namespace ConstructionSite.ViwModel.FrontViewModels.Galery
         public string VideoPath { get; set; }
 
         public int ImageId { get; set; }
-
-
     }
 }

@@ -43,8 +43,6 @@
 
         #endregion EmailErros
 
-
-
         #region PasswordErros
 
         public const string AnErrorOccurredWhileResettingYourPassword = "AnErrorOccurredWhileResettingYourPassword";

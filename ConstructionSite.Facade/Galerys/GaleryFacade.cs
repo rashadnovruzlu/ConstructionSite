@@ -1,5 +1,4 @@
-﻿using Castle.Core.Internal;
-using ConstructionSite.Entity.Models;
+﻿using ConstructionSite.Entity.Models;
 using ConstructionSite.Extensions.Mapping;
 using ConstructionSite.Helpers.Core;
 using ConstructionSite.Interface.Facade.Galery;
@@ -66,11 +65,9 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryViewModel = new Galery
             {
-
                 TitleAz = "salam",
                 TitleEn = "Salam",
                 TitleRu = "salam",
-
             };
 
             var resultGaleryUpdate = await _unitOfWork.GaleryRepstory.AddAsync(resultGaleryViewModel);
@@ -117,7 +114,6 @@ namespace ConstructionSite.Facade.Galerys
         {
             var resultGaleryUpdateViewModelFind = await _unitOfWork.GaleryRepstory.FindAsync(x => x.Id == galeryUpdateViewModel.Id);
 
-
             return await _unitOfWork.GaleryRepstory.UpdateAsync(resultGaleryUpdateViewModelFind);
         }
 
@@ -133,7 +129,6 @@ namespace ConstructionSite.Facade.Galerys
                     Id = x.Id,
                     VidoPath = x.GaleryVidos.Select(x => x.VidoPath).FirstOrDefault(),
                     Images = x.GaleryFiles.Select(x => x.Image).ToList(),
-
                 })
                 .SingleOrDefault(x => x.Id == id);
             return resultGaleryUpdate;

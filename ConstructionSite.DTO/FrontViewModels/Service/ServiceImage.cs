@@ -1,6 +1,3 @@
-﻿using System.Collections.Generic;
-
-namespace ConstructionSite.DTO.FrontViewModels.Service
+﻿namespace ConstructionSite.DTO.FrontViewModels.Service
 {
-   
 }
