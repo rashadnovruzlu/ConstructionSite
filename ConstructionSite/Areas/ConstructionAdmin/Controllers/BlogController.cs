@@ -211,15 +211,12 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                     {
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        _unitOfWork.Rollback();
-                    }
+
                 }
             }
             catch
             {
-               
+
             }
             return RedirectToAction("Index");
         }
