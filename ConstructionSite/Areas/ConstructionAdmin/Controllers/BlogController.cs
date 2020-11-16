@@ -219,7 +219,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             }
             catch
             {
-                throw;
+               
             }
             return RedirectToAction("Index");
         }
