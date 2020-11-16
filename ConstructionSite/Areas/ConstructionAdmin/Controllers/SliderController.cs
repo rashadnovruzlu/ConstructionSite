@@ -35,7 +35,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         public IActionResult Index()
         {
-            var result = _sliderFacade.GetAll(_lang);
+            var result = _sliderFacade.GetBackAll(_lang);
             return View(result);
         }
 

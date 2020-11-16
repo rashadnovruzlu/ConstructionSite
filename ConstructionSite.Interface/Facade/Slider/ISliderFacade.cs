@@ -12,7 +12,8 @@ namespace ConstructionSite.Interface.Facade.Slider
     public interface ISliderFacade
     {
 
-        List<SliderViewModel> GetAll(string _lang);
+        List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel> GetAll(string _lang);
+        List<SliderViewModel> GetBackAll(string _lang);
         List<data.SliderViewModel> GetForSlider(string _lang);
         Task<RESULT<Sliders>> Add(SliderAddViewModel sliderAddViewModel);
         SliderUpdateViewModel GetUpdate(int id);

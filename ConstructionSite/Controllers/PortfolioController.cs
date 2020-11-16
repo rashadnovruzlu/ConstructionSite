@@ -104,38 +104,11 @@ namespace ConstructionSite.Controllers
                   .Take(8)
 
                   .ToList();
-                //var projectViewModelResultPartialView = _unitOfWork
-                //    .projectImageRepository
-                //    .GetAll()
-                //    .Include(x => x.Project)
-                //    .Include(x => x.Image)
-                //    .Select(x => new ProjectViewModel
-                //    {
-                //        Id = x.Project.Id,
-                //        Name = x.Project.FindName(_lang),
-                //        Image = x.Image.Path
-                //    })
-                //    .Take(8)
-                //      .ToList();
+               
                 return PartialView(resultr);
             }
 
-            //var projectViewModelResult = _unitOfWork
-            //   .projectImageRepository
-            //   .GetAll()
-            //   .Include(x => x.Project)
-            //   .Include(x => x.Image)
-            //   .Where(x => x.Project.PortfolioId == id)
-            //   .Select(x => new ProjectViewModel
-            //   {
-            //       Id = x.Project.Id,
-            //       Name = x.Project.FindName(_lang),
-            //       Image = x.Image.Path
-            //   })
-            //   .OrderByDescending(x=>x.Id)
-            //   .Take(8)
-            //   .ToList();
-
+           
             var result = _unitOfWork.projectRepository.GetAll()
                 .Where(x => x.PortfolioId == id)
                 .Select(x => new ProjectViewModel
@@ -178,20 +151,7 @@ namespace ConstructionSite.Controllers
                 .OrderByDescending(x => x.Id)
                 .Take(8)
                .ToList();
-
-            //var projectViewModelResult = _unitOfWork
-            //    .projectImageRepository
-            //    .GetAll()
-            //    .Include(x => x.Project)
-            //    .Include(x => x.Image)
-            //    .Select(x => new ProjectViewModel
-            //    {
-            //        Id = x.Project.Id,
-            //        Name = x.Project.FindName(_lang),
-            //        Image = x.Image.Path
-            //    })
-            //      .ToList();
-            return PartialView(result);
+               return PartialView(result);
         }
 
         #endregion All

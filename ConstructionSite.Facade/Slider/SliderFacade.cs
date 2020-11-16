@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using ConstructionSite.Extensions.Images;
 
 namespace ConstructionSite.Facade.Slider
 {
@@ -22,7 +24,7 @@ namespace ConstructionSite.Facade.Slider
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
         }
-        public List<SliderViewModel> GetAll(string _lang)
+        public List<SliderViewModel> GetBackAll(string _lang)
         {
             return _unitOfWork.SliderRepostory
                   .GetAll()
@@ -31,7 +33,22 @@ namespace ConstructionSite.Facade.Slider
                       Id = x.Id,
                       Content = x.FindContent(_lang),
                       Tittle = x.FindTitle(_lang),
-                      PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault())
+                      PathImage = x.ImagePath
+
+                  })
+                  .ToList();
+        }
+        public List<ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel> GetAll(string _lang)
+        {
+            return _unitOfWork.SliderRepostory
+                  .GetAll()
+                  .Select(x => new ConstructionSite.ViwModel.FrontViewModels.Slider.SliderViewModel
+                  {
+
+                      Content = x.FindContent(_lang),
+                      Tittle = x.FindTitle(_lang),
+                      // PathImage = ConvertToBase64Format(x.SliderImages.Select(x => x.Image.Path).FirstOrDefault()),
+                      imagePath = ConvertToBase64Format(x.ImagePath)
 
                   })
                   .ToList();
@@ -41,18 +58,20 @@ namespace ConstructionSite.Facade.Slider
 
         public static string ConvertToBase64Format(string path)
         {
+            
             try
             {
                 byte[] imageArray = System.IO.File.ReadAllBytes(path);
                 string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                 return base64ImageRepresentation;
             }
-            catch (Exception e)
+            catch
             {
-                
-                throw;
+
+
             }
-          
+            return string.Empty;
+
         }
 
         #endregion
@@ -135,7 +154,7 @@ namespace ConstructionSite.Facade.Slider
 
                   })
                   .ToList();
-           // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
+            // return  _unitOfWork.SliderRepostory.UpdateAsync(resultsliderUpdateViewModel);
         }
     }
 }
