@@ -1,10 +1,8 @@
-﻿
-function cenerateInput(number) {
-    $(document).ready(function () {
-        $('<input>').attr({
-            type: 'hidden',
-            value: number,
-            name: 'ImageID'
-        }).appendTo('form');
-    });
+﻿function cenerateInput(e) {
+
+    $('<input>').attr({
+        type: 'hidden',
+        value: e,
+        name: 'ImageID'
+    }).appendTo('form');
 }
