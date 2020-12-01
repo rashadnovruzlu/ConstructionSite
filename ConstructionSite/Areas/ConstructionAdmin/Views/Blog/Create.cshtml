@@ -1,28 +1,30 @@
 ﻿@model BlogAddViewModel
+    <style>
+    </style>
 
-<style>
-    .add-model {
-        background-color: rgb(241,242, 247);
-        padding-left: 7%;
-    }
-
-        .add-model header {
-            height: 30px;
-            margin-top: 15px;
+    <style>
+        .add-model {
+            background-color: rgb(241,242, 247);
+            padding-left: 7%;
         }
 
-    .add-body {
-        margin-top: -10px;
-    }
+            .add-model header {
+                height: 30px;
+                margin-top: 15px;
+            }
 
-    .about-button:hover {
-        background-color: black !important;
-        border-color: black;
-        color: #fff;
-    }
-</style>
+        .add-body {
+            margin-top: -10px;
+        }
 
-<div class="container">
+        .about-button:hover {
+            background-color: black !important;
+            border-color: black;
+            color: #fff;
+        }
+    </style>
+
+
     <div class="row">
         <div class="col-lg-12">
             <section class="panel add-model">
@@ -48,26 +50,32 @@
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label class="col-sm-2 col-sm-2 control-label">Content Az</label>
                             <div class="col-lg-11">
                                 <textarea asp-for="ContentAz" rows="15" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentEn" rows="15" class="form-control " id="ccomment" required="" placeholder="Content EN"></textarea>
+                                <textarea asp-for="ContentEn" rows="15" class="form-control " id="ccomment1" required="" placeholder="Content EN"></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment" required="" placeholder="Content RU"></textarea>
+                                <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment2" required="" placeholder="Content RU"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-11">
-                                <input multiple="multiple" type="file" name="file" id="f-name" class="form-control" placeholder="Images" required>
-                            </div>
+                            <div class="col-sm-2 imgUp">
+                                <div id="upload_name" class="imagePreview"></div>
+                                <label class="btn btn-primary">
+                                    Upload<input  class="uploadFile img" asp-for="file" style="width: 0px;height: 0px;overflow: hidden;">
+                                </label>
+                            </div><!-- col-2 -->
+                            <i class="fa fa-plus imgAdd"></i>
                         </div>
-                        <div class="form-group" style="margin-left: 72%;">
+
+                        <div style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
                                 <button class="btn btn-success about-button" type="submit">Save</button>
                                 <button class="btn btn-default cancel-button" type="button">Cancel</button>
@@ -78,12 +86,12 @@
             </section>
         </div>
     </div>
-</div>
 
-@section scripts{
-    <script>
-        $(".cancel-button").click(function () {
-            window.location.href = "/ConstructionAdmin/Blog/Index";
-        })
-    </script>
-}
+
+    @section scripts{
+        <script>
+            $(".cancel-button").click(function () {
+                window.location.href = "/ConstructionAdmin/Blog/Index";
+            })
+        </script>
+    }

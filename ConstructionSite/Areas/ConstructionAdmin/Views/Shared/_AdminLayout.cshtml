@@ -26,6 +26,7 @@
     <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
     <link href="~/Custom/css/updateBox.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         .nav-sidebar {
             margin-top: 7.5em !important;
@@ -44,6 +45,7 @@
             margin-right: 0px !important
         }
     </style>
+    <link rel="stylesheet" href="~/Custom/css/customerImages.css" />
 </head>
 
 <body>
@@ -105,6 +107,8 @@
     <script src="~/ConstructionAdmin/js/easy-pie-chart.js"></script>
     <script src="~/ConstructionAdmin/js/count.js"></script>
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/Custom/js/ImageAddRemoves.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
 
     @RenderSection("scripts", false)
     <script>
@@ -129,5 +133,11 @@
         });
     </script>
     <script src="~/Custom/js/fileCenreated.js" asp-append-version="true"></script>
+    <script>
+        CKEDITOR.replace("ccomment")
+        CKEDITOR.replace("ccomment1")
+        CKEDITOR.replace("ccomment2")
+    </script>
+  
 </body>
 </html>
