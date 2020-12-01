@@ -1,6 +1,4 @@
-﻿//import * as E from "../../assets/js/plugins";
-
-$(".imgAdd").click(function () {
+﻿$(".imgAdd").click(function () {
 
     var x = document.getElementsByClassName("col-sm-2 imgUp").length;
     if (x != 6)

@@ -22,9 +22,20 @@ namespace ConstructionSite.Facade.Projects
             _env = env;
         }
 
-        public async Task<RESULT<Project>> Add(Project project)
+        public async Task<RESULT<Project>> Add(ProjectAddModel projectAddModel)
         {
-            return await _unitOfWork.projectRepository.AddAsync(project);
+            var result = new Project
+            {
+                NameAz = projectAddModel.NameAz,
+                NameEn = projectAddModel.NameEn,
+                NameRu = projectAddModel.NameRu,
+                ContentAz = projectAddModel.ContentAz,
+                ContentEn = projectAddModel.ContentEn,
+                ContentRu = projectAddModel.ContentRu,
+                PortfolioId = projectAddModel.PortfolioId,
+
+            };
+            return await _unitOfWork.projectRepository.AddAsync(result);
         }
 
         public List<ProjectViewModel> GetAll(string _lang)

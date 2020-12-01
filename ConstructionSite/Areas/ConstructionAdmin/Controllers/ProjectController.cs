@@ -85,7 +85,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(Project project, List<IFormFile> file)
+        public async Task<IActionResult> Add(ProjectAddModel projectAddModel)
         {
             if (!ModelState.IsValid)
             {
@@ -93,14 +93,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid");
                 return RedirectToAction("Index");
             }
-            if (file == null)
+            if (projectAddModel.files == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "File is null");
                 return RedirectToAction("Index");
             }
-            var resultProject = await _projectFacade.Add(project);
-            var resultimage = await file.SaveImageCollectionAsync(_env, "project", _unitOfWork);
+            var resultProject = await _projectFacade.Add(projectAddModel);
+            var resultimage = await projectAddModel.files.SaveImageCollectionAsync(_env, "project", _unitOfWork);
 
             return await AllSave(resultProject, resultimage);
         }
