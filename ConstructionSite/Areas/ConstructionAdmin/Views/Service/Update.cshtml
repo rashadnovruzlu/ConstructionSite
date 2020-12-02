@@ -66,7 +66,7 @@
                                 <h5>Content (Az)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea type="text" asp-for="ContentAz" rows="15" id="ccomment" class="form-control" placeholder="Title RU"></textarea>
+                                <input asp-for="ContentAz" id="ccomment" class="form-control" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -74,7 +74,7 @@
                                 <h5>Content (En)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea type="text" asp-for="ContentEn" rows="15" id="ccomment1" class="form-control" placeholder="Title RU"></textarea>
+                                <input asp-for="ContentEn" id="ccomment1" class="form-control" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -82,32 +82,34 @@
                                 <h5>Content (Ru)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea type="text" asp-for="ContentRu" rows="15" id="ccomment2" class="form-control" placeholder="Title RU"></textarea  >
+                                <input asp-for="ContentRu" id="ccomment2" class="form-control" required="">
                             </div>
                         </div>
-                        <div class="wrapper--preview">
+                      
+                            <div class="wrapper--preview">
 
-                            @if (Model.Images == null)
-                            {
-                                <input type="file" asp-for="files" />
-                            }
-                            @foreach (var item in Model.Images)
-                            {
-                                <div class="box">
-                                    <div class="js--image-preview">
-                                        <img src="@item.Path" alt="Alternate Text" />
-                                        <input type="hidden" />
+                                @if (Model.Images == null)
+                                {
+                                    <input type="file" asp-for="files" />
+                                }
+                                @foreach (var item in Model.Images)
+                                {
+                                    <div class="box">
+                                        <div class="js--image-preview">
+                                            <img src="@item.Path" alt="Alternate Text" />
+                                            <input type="hidden" />
+                                        </div>
+                                        <div class="upload-options">
+
+                                            <label>
+
+                                                <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="upload-options">
-
-                                        <label>
-
-                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
-                                        </label>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                                }
+                            </div>
+                        
 
                         <div class="form-group" style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
