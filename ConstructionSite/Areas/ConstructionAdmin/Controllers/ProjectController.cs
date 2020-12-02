@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    //[Authorize(Roles = "Admin")]
-    public class ProjectController : Controller
+
+
+    public class ProjectController : CoreController
     {
         #region Fields
 
@@ -93,14 +93,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                 ModelState.AddModelError("", "Models are not valid");
                 return RedirectToAction("Index");
             }
-            if (projectAddModel.files == null)
+            if (projectAddModel.file == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 ModelState.AddModelError("", "File is null");
                 return RedirectToAction("Index");
             }
             var resultProject = await _projectFacade.Add(projectAddModel);
-            var resultimage = await projectAddModel.files.SaveImageCollectionAsync(_env, "project", _unitOfWork);
+            var resultimage = await projectAddModel.file.SaveImageCollectionAsync(_env, "project", _unitOfWork);
 
             return await AllSave(resultProject, resultimage);
         }

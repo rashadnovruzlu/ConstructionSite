@@ -11,7 +11,7 @@ namespace ConstructionSite.DTO.AdminViewModels.Project
 
         public string NameRu { get; set; }
 
-        public List<IFormFile> files { get; set; }
+        public List<IFormFile> file { get; set; }
         public string ContentAz { get; set; }
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }

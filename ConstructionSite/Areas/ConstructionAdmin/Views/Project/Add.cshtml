@@ -37,7 +37,7 @@
                                 <h5>Title (Az)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <input type="text" asp-for="NameAz" id="f-name" class="form-control" placeholder="Name AZE" required="">
+                                <input  asp-for="NameAz" id="f-name" class="form-control" placeholder="Name AZE" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,7 +45,7 @@
                                 <h5>Title (En)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <input type="text" asp-for="NameEn" id="f-name" class="form-control" placeholder="Name ENG" required="">
+                                <input  asp-for="NameEn" id="f-name" class="form-control" placeholder="Name ENG" required="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -53,7 +53,7 @@
                                 <h5>Title (Ru)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <input type="text" asp-for="NameRu" id="f-name" class="form-control" placeholder="Name RU" required="">
+                                <input  asp-for="NameRu" id="f-name" class="form-control" placeholder="Name RU" required="">
                             </div>
                         </div>
                         <div class="form-group ">
@@ -61,7 +61,8 @@
                                 <h5>Content (Az)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentAz" rows="15" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
+                                
+                                <input asp-for="NameRu" id="ccomment" class="form-control"  required="">
                             </div>
                         </div>
                         <div class="form-group ">
@@ -69,7 +70,7 @@
                                 <h5>Content (En)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentEn" rows="15" class="form-control " id="ccomment1" required="" placeholder="Content ENG"></textarea>
+                                <input asp-for="NameEn" id="ccomment1" class="form-control" required="">
                             </div>
                         </div>
                         <div class="form-group ">
@@ -77,10 +78,13 @@
                                 <h5>Content (Ru)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment2" required="" placeholder="Content RU"></textarea>
+                                <input asp-for="NameRu" id="ccomment2" class="form-control" required="">
                             </div>
                         </div>
                         <div class="form-group">
+                             <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Portfolio</h5>
+                            </label>
                             <div class="col-lg-11">
                                 <select class="form-control m-bot15" asp-for="PortfolioId">
                                     @foreach (PortfolioViewModel item in ViewBag.data)
@@ -94,7 +98,7 @@
                             <div class="col-sm-2 imgUp">
                                 <div id="upload_name" class="imagePreview"></div>
                                 <label class="btn btn-primary">
-                                    Upload<input class="uploadFile img" asp-for="files" style="width: 0px;height: 0px;overflow: hidden;">
+                                    Upload<input class="uploadFile img" asp-for="file" style="width: 0px;height: 0px;overflow: hidden;">
                                 </label>
                             </div><!-- col-2 -->
                             <i class="fa fa-plus imgAdd"></i>

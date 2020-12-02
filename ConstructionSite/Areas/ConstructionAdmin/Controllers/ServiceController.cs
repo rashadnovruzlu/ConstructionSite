@@ -69,14 +69,14 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         #region CREATE
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(ServiceAddViewModel serviceAddViewModel)
+        public async Task<IActionResult> Create(ServiceAddViewModel serviceAddViewModel)
         {
             if (serviceAddViewModel == null)
             {
@@ -93,7 +93,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
             try
             {
                 var serviceResult = await _serviceFacade.Add(serviceAddViewModel);
-                var resultImageIDs = await serviceAddViewModel.FileData.SaveImageCollectionAsync(_env, "service", _unitOfWork);
+                var resultImageIDs = await serviceAddViewModel.file.SaveImageCollectionAsync(_env, "service", _unitOfWork);
                 if (serviceResult.IsDone && resultImageIDs.Count > 0)
                 {
                     await SaveServiceAndImages(serviceResult.Data.Id, resultImageIDs);

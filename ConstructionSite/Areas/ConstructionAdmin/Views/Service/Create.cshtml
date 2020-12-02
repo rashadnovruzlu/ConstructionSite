@@ -1,8 +1,4 @@
-﻿@model ServiceUpdateViewModel
-@{
-    ViewData["Title"] = "Update";
-}
-
+﻿@model ServiceAddViewModel
 <style>
     .add-model {
         background-color: rgb(241,242, 247);
@@ -25,91 +21,74 @@
     }
 </style>
 
-
-    <div class="row">
+ <div class="row">
         <div class="col-lg-12">
             <section class="panel add-model">
                 <header class="panel-heading">
-                    Service Update
+                    Create Service Elements
                 </header>
                 <hr />
                 <div class="panel-body add-body">
-                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Update" method="post" enctype="multipart/form-data">
-
-                        <input type="hidden" name="id" value="@Model.id" />
-                        <div class="form-group ">
+                    <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Service" asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
                             <label class="col-sm-2 col-sm-2 control-label text-00">
                                 <h5>Title (Az)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <input asp-for="NameAz" class="form-control "  placeholder="Name AZE" />
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label class="col-sm-2 col-sm-2 control-label text-00">
-                                <h5>Title (En)</h5>
-                            </label>
-                            <div class="col-lg-11">
-                                <input asp-for="NameEn" class="form-control "  placeholder="Name ENG" />
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label class="col-sm-2 col-sm-2 control-label text-00">
-                                <h5>Title (Ru)</h5>
-                            </label>
-                            <div class="col-lg-11">
-                                <input asp-for="NameRu" class="form-control "  placeholder="Name RU" />
+                                <input type="text" asp-for="NameAz" id="f-name" class="form-control" placeholder="Title AZE" required="">
                             </div>
                         </div>
                         <div class="form-group">
+                             <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Title (En)</h5>
+                            </label>
+                            <div class="col-lg-11">
+                                <input asp-for="NameEn" id="f-name" class="form-control" placeholder="Title ENG" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                             <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Title (Ru)</h5>
+                            </label>
+                            <div class="col-lg-11">
+                                <input asp-for="NameRu" id="f-name" class="form-control" placeholder="Title RU" required="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
                             <label class="col-sm-2 col-sm-2 control-label text-00">
                                 <h5>Content (Az)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea type="text" asp-for="ContentAz" rows="15" id="ccomment" class="form-control" placeholder="Title RU"></textarea>
+                                <textarea asp-for="ContentAz" rows="15" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label class="col-sm-2 col-sm-2 control-label text-00">
                                 <h5>Content (En)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea type="text" asp-for="ContentEn" rows="15" id="ccomment1" class="form-control" placeholder="Title RU"></textarea>
+                                <textarea asp-for="ContentEn" rows="15" class="form-control " id="ccomment1" required="" placeholder="Content EN"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label class="col-sm-2 col-sm-2 control-label text-00">
                                 <h5>Content (Ru)</h5>
                             </label>
                             <div class="col-lg-11">
-                                <textarea type="text" asp-for="ContentRu" rows="15" id="ccomment2" class="form-control" placeholder="Title RU"></textarea  >
+                                <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment2" required="" placeholder="Content RU"></textarea>
                             </div>
                         </div>
-                        <div class="wrapper--preview">
-
-                            @if (Model.Images == null)
-                            {
-                                <input type="file" asp-for="files" />
-                            }
-                            @foreach (var item in Model.Images)
-                            {
-                                <div class="box">
-                                    <div class="js--image-preview">
-                                        <img src="@item.Path" alt="Alternate Text" />
-                                        <input type="hidden" />
-                                    </div>
-                                    <div class="upload-options">
-
-                                        <label>
-
-                                            <input id="@item.Id" type="file" asp-for="files" onclick="cenerateInput(@item.Id);" />
-                                        </label>
-                                    </div>
-                                </div>
-                            }
+                        <div class="form-group">
+                            <div class="col-sm-2 imgUp">
+                                <div id="upload_name" class="imagePreview"></div>
+                                <label class="btn btn-primary">
+                                    Upload<input  class="uploadFile img" asp-for="file" style="width: 0px;height: 0px;overflow: hidden;">
+                                </label>
+                            </div><!-- col-2 -->
+                            <i class="fa fa-plus imgAdd"></i>
                         </div>
 
-                        <div class="form-group" style="margin-left: 72%;">
+                        <div style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
                                 <button class="btn btn-success about-button" type="submit">Save</button>
                                 <button class="btn btn-default cancel-button" type="button">Cancel</button>
