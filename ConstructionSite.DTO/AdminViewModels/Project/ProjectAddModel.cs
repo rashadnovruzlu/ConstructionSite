@@ -1,4 +1,7 @@
-﻿namespace ConstructionSite.DTO.AdminViewModels.Project
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+
+namespace ConstructionSite.DTO.AdminViewModels.Project
 {
     public class ProjectAddModel
     {
@@ -8,6 +11,7 @@
 
         public string NameRu { get; set; }
 
+        public List<IFormFile> file { get; set; }
         public string ContentAz { get; set; }
         public string ContentRu { get; set; }
         public string ContentEn { get; set; }

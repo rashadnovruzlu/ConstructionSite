@@ -16,9 +16,8 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
 {
-    [Area(nameof(ConstructionAdmin))]
-    [Authorize(Roles = ROLESNAME.Admin)]
-    public class BlogController : Controller
+
+    public class BlogController : CoreController
     {
         #region Fields
 

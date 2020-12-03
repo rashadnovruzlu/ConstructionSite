@@ -58,7 +58,7 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(GaleryAddViewModel galeryAddViewModel)
         {
-            if (galeryAddViewModel.viodPath != null | galeryAddViewModel.files != null)
+            if (galeryAddViewModel.viodPath != null | galeryAddViewModel.file != null)
             {
                 try
                 {
@@ -74,9 +74,9 @@ namespace ConstructionSite.Areas.ConstructionAdmin.Controllers
                             };
                             await _unitOfWork.GaleryVidoResptory.AddAsync(galeryVido);
                         }
-                        else if (galeryAddViewModel.files != null)
+                        else if (galeryAddViewModel.file != null)
                         {
-                            var resultImage = await galeryAddViewModel.files.SaveImageCollectionAsync(_env, galeryAddViewModel.viodPath, "galery", _unitOfWork);
+                            var resultImage = await galeryAddViewModel.file.SaveImageCollectionAsync(_env, galeryAddViewModel.viodPath, "galery", _unitOfWork);
                             if (resultGalery.IsDone && resultImage.Count > 0)
                             {
                                 await GaleryFileSaveWithImageAndGalery(resultGalery, resultImage);

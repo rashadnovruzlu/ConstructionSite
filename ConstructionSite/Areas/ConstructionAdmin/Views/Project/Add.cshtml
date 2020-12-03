@@ -22,7 +22,7 @@
     }
 </style>
 
-<div class="container">
+
     <div class="row">
         <div class="col-lg-12">
             <section class="panel add-model">
@@ -33,36 +33,58 @@
                 <div class="panel-body add-body">
                     <form role="form" class="form-horizontal tasi-form" asp-area="ConstructionAdmin" asp-controller="Project" asp-action="Add" method="post" enctype="multipart/form-data">
                         <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Title (Az)</h5>
+                            </label>
                             <div class="col-lg-11">
-                                <input type="text" asp-for="NameAz" id="f-name" class="form-control" placeholder="Name AZE">
+                                <input  asp-for="NameAz" id="f-name" class="form-control" placeholder="Name AZE" required="">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Title (En)</h5>
+                            </label>
                             <div class="col-lg-11">
-                                <input type="text" asp-for="NameEn" id="f-name" class="form-control" placeholder="Name ENG">
+                                <input  asp-for="NameEn" id="f-name" class="form-control" placeholder="Name ENG" required="">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Title (Ru)</h5>
+                            </label>
                             <div class="col-lg-11">
-                                <input type="text" asp-for="NameRu" id="f-name" class="form-control" placeholder="Name RU">
+                                <input  asp-for="NameRu" id="f-name" class="form-control" placeholder="Name RU" required="">
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Content (Az)</h5>
+                            </label>
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentAz" rows="15" class="form-control " id="ccomment" required="" placeholder="Content AZE"></textarea>
+
+                                <textarea asp-for="ContentAz" class="form-control " id="ccomment" required=""></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Content (En)</h5>
+                            </label>
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentEn" rows="15" class="form-control " id="ccomment" required="" placeholder="Content ENG"></textarea>
+                                <textarea asp-for="ContentEn" class="form-control " id="ccomment1" required=""></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
+                            <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Content (Ru)</h5>
+                            </label>
                             <div class="col-lg-11">
-                                <textarea asp-for="ContentRu" rows="15" class="form-control " id="ccomment" required="" placeholder="Content RU"></textarea>
+                                <textarea asp-for="ContentRu" class="form-control " id="ccomment2" required=""></textarea>
                             </div>
                         </div>
                         <div class="form-group">
+                             <label class="col-sm-2 col-sm-2 control-label text-00">
+                                <h5>Portfolio</h5>
+                            </label>
                             <div class="col-lg-11">
                                 <select class="form-control m-bot15" asp-for="PortfolioId">
                                     @foreach (PortfolioViewModel item in ViewBag.data)
@@ -73,9 +95,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-11">
-                                <input type="file" name="file" multiple="multiple" placeholder="Images" id="f-name" class="form-control">
-                            </div>
+                            <div class="col-sm-2 imgUp">
+                                <div id="upload_name" class="imagePreview"></div>
+                                <label class="btn btn-primary">
+                                    Upload<input class="uploadFile img" asp-for="file" style="width: 0px;height: 0px;overflow: hidden;">
+                                </label>
+                            </div><!-- col-2 -->
+                            <i class="fa fa-plus imgAdd"></i>
                         </div>
                         <div class="form-group" style="margin-left: 72%;">
                             <div class="col-lg-offset-2 col-lg-11">
@@ -88,7 +114,7 @@
             </section>
         </div>
     </div>
-</div>
+
 
 @section scripts{
     <script>

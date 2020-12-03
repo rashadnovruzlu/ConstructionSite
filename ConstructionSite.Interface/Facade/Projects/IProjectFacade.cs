@@ -8,7 +8,7 @@ namespace ConstructionSite.Interface.Facade.Projects
 {
     public interface IProjectFacade
     {
-        Task<RESULT<Project>> Add(Project project);
+        Task<RESULT<Project>> Add(ProjectAddModel projectAddModel);
 
         List<ProjectViewModel> GetAll(string _lang);
 
