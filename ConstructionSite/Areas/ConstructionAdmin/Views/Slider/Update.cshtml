@@ -88,7 +88,7 @@
                         </div>
                         <div class="wrapper--preview">
 
-                            @if (string.IsNullOrEmpty(Model.pathImage) == false)
+                            @if (string.IsNullOrEmpty(Model.pathImage) == null)
                             {
                                 <input type="file" asp-for="files" />
                             }

@@ -13,6 +13,6 @@ namespace ConstructionSite.ViwModel.AdminViewModels.Galery
         //public string TitleRu { get; set; }
         public string viodPath { get; set; }
 
-        public ICollection<IFormFile> files { get; set; }
+        public ICollection<IFormFile> file { get; set; }
     }
 }
