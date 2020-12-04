@@ -27,12 +27,12 @@ namespace ConstructionSite.Extensions.Seed
                 ApplicationUser app = new ApplicationUser
                 {
                     Name = "Construction Site",
-                    Email = "nurane@pragmatech.az",
+                    Email = "vn.nurlan@gmail.com",
                     UserName = "Const_Site",
                     PhoneNumber = "88(02) 123456",
                     Address = "1 Beverly Hills, Los Angeles, California, 90210, United States"
                 };
-                IdentityResult identityResult = db.CreateAsync(app, "Nurane_29").GetAwaiter().GetResult();
+                IdentityResult identityResult = db.CreateAsync(app, "Nurlan12345").GetAwaiter().GetResult();
                 if (identityResult.Succeeded)
                 {
                     Task<IdentityResult> res = db.AddToRoleAsync(app, "Admin");
