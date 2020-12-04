@@ -1,5 +1,4 @@
-﻿using ConstructionSite.Areas.ConstructionAdmin.Controllers;
-using ConstructionSite.DTO.AdminViewModels.Account;
+﻿using ConstructionSite.DTO.AdminViewModels.Account;
 using ConstructionSite.Entity.Identity;
 using ConstructionSite.Helpers.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -10,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ConstructionSite.Areas.Admin.Controllers
 {
-    //[Area(nameof(ConstructionAdmin))]
-    //[Authorize(Roles = ROLESNAME.Admin)]
-    public class AccountController : CoreController
+    [Area(nameof(ConstructionAdmin))]
+    [Authorize(Roles = ROLESNAME.Admin)]
+    public class AccountController : Controller
     {
         #region Fields
 

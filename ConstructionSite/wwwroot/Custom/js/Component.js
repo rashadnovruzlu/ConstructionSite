@@ -1,15 +1,15 @@
 ﻿var id = 0;
 $(document).ready(function () {
-
-    $("#grid-container").load(`/Portfolio/Project/${id = 0}`);
+    
+    $("#grid-container").load(`/Portfolio/Project/${id=0}`);
     removeMain();
     fistActive();
-
+    
     $(".All").click(function () {
         removeMain();
         fistActive();
-        $("#grid-container").load(`/Portfolio/Project/${id = 0}`);
-
+        $("#grid-container").load(`/Portfolio/Project/${id=0}`);
+        
     });
     $(".mains").click(function () {
         id = $(this).data("id");
@@ -20,16 +20,16 @@ $(document).ready(function () {
         mainActive(name);
 
         $("#grid-container").load(`/Portfolio/Project/${id}`);
-
+        
     });
-
+   
 });
 
 function fistActive() {
-
+   
     $("#myfist").removeClass("cbp-filter-item All")
         .addClass("cbp-filter-item All cbp-filter-item-active");
-
+    
 }
 function unFistActive() {
     $("#myfist")

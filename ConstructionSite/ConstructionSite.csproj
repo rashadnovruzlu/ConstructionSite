@@ -4,8 +4,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
    
    <EnableMSDeployAppOffline>true</EnableMSDeployAppOffline>
-  
-  
     <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
   <AspNetCoreHostingModel>InProsses</AspNetCoreHostingModel>
   </PropertyGroup>
